@@ -6,5 +6,13 @@ import { db } from "@/database/db"
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: DrizzleAdapter(db),
-  providers: [Google],
+  session: {
+    strategy: "jwt",
+  },
+  providers: [
+    Google({
+      clientId: process.env.AUTH_GOOGLE_ID!,
+      clientSecret: process.env.AUTH_GOOGLE_SECRET!,
+    }),
+  ],
 })

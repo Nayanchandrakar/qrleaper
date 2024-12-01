@@ -1,3 +1,4 @@
+import Link from "next/link"
 import MaskBackground from "@/components/layouts/mask-background"
 
 interface AuthLayoutProps {
@@ -7,13 +8,17 @@ interface AuthLayoutProps {
 const AuthLayout = ({ children }: AuthLayoutProps) => {
   return (
     <div className="size-full">
+      {/* mask background  */}
       <MaskBackground />
       <div className="flex relative min-h-screen justify-center items-center">
-        <img
-          src="/logo.svg"
-          alt="logo"
-          className="absolute w-32 h-fit left-4 top-[-20px] z-10"
-        />
+        {/* logo here  */}
+        <Link href="/">
+          <img
+            src="/logo.svg"
+            alt="logo"
+            className="absolute w-32 h-fit left-4 top-[-20px] z-10"
+          />
+        </Link>
         {children}
       </div>
     </div>

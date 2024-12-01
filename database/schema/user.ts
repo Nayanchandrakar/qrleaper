@@ -9,6 +9,7 @@ import {
 } from "drizzle-orm/pg-core"
 
 import type { AdapterAccountType } from "next-auth/adapters"
+import { lifeCycleDates } from "../utils"
 
 export const users = pgTable("user", {
   id: text("id")
@@ -16,8 +17,10 @@ export const users = pgTable("user", {
     .$defaultFn(() => createId()),
   name: text("name"),
   email: text("email").unique(),
+  passwordHash: text("password"),
   emailVerified: timestamp("emailVerified", { mode: "date" }),
   image: text("image"),
+  ...lifeCycleDates,
 })
 
 export const accounts = pgTable(
