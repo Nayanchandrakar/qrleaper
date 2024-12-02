@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { toast } from "sonner"
 import { signIn } from "next-auth/react"
-import { Loader, Mail } from "lucide-react"
+import { KeyRound, Loader, Mail } from "lucide-react"
 
 import {
   Card,
@@ -76,6 +76,7 @@ const LoginForm = () => {
       }
     }
 
+    setCheckingEmailPassword(true)
     try {
       // Call server action to get account details
       const accountInfo = await checkAccountExists(email)
@@ -91,19 +92,15 @@ const LoginForm = () => {
       // Call server action for signing in
       const response = await signIn(provider, {
         email,
-        redirect: false,
-        callbackUrl: "/dashboard/qr-codes",
         ...(password && { password }),
+        redirect: false,
       })
 
-      if (!response) {
-        return
-      }
-
-      //  @ts-ignore
-      if (!response.ok && response?.error) {
-        //  @ts-ignore
-        const error = response.error
+      if (response?.ok && !response.error && provider === "credentials") {
+        router?.push("/dashboard/qr-codes")
+      } else {
+        const error = response?.error! as string
+        console.log(error, "check", response)
         // @ts-ignore
         if (error && errorCodes[error]) {
           // @ts-ignore
@@ -111,7 +108,6 @@ const LoginForm = () => {
         } else {
           toast.error("An error occurred. Please try again.")
         }
-        return
       }
 
       if (provider === "resend") {
@@ -119,13 +115,11 @@ const LoginForm = () => {
         setEmail("")
         return
       }
-
-      if (provider === "credentials") {
-        router.push(response?.url || "/dashboard/qr-codes")
-      }
     } catch (error) {
       console.error("An error occurred during sign-in:", error)
       toast.error("Server failed. Please try again later.")
+    } finally {
+      setCheckingEmailPassword(false)
     }
   }
 
@@ -168,6 +162,8 @@ const LoginForm = () => {
           >
             {checkingEmailPassword ? (
               <Loader className="animate-spin size-5" />
+            ) : password ? (
+              <KeyRound className="size-5 mr-1" />
             ) : (
               <Mail className="size-5 mr-1" />
             )}
