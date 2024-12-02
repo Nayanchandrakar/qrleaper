@@ -1,7 +1,7 @@
-interface LoginPageProps {}
+import { LoginForm } from "@/components/forms/auth/login/login-form"
 
-const LoginPage = ({}: LoginPageProps) => {
-  return <div>LoginPage</div>
+const LoginPage = () => {
+  return <LoginForm />
 }
 
 export default LoginPage

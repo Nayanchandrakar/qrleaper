@@ -4,7 +4,9 @@ export const throwIfAuthenticated = async ({
   next,
   ctx,
 }: {
+  // eslint-disable-next-line
   next: any
+  // eslint-disable-next-line
   ctx: any
 }) => {
   const session = await auth()

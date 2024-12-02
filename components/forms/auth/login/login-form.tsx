@@ -1,0 +1,215 @@
+"use client"
+
+import Link from "next/link"
+import { toast } from "sonner"
+import { signIn } from "next-auth/react"
+import { Loader, Mail } from "lucide-react"
+
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+import { PasswordInput } from "@/components/ui/password-input"
+import GoogleOauth from "@/components/buttons/google-oauth"
+import { useRouter } from "next/navigation"
+import { emailSchema } from "@/zod/utils"
+import { checkAccountExists } from "@/app/actions/auth/account-exists"
+import { useLoginContext } from "@/hooks/auth/useLoginContext"
+import { errorCodes } from "@/constants/auth/error-codes"
+
+const LoginForm = () => {
+  const router = useRouter()
+
+  const {
+    checkingEmailPassword,
+    email,
+    password,
+    setCheckingEmailPassword,
+    setEmail,
+    setPassword,
+    setShowPasswordField,
+    showPasswordField,
+  } = useLoginContext((state) => ({
+    email: state.email,
+    password: state.password,
+    showPasswordField: state.showPasswordField,
+    checkingEmailPassword: state.checkingEmailPassword,
+    setEmail: state.setEmail,
+    setPassword: state.setPassword,
+    setShowPasswordField: state.setShowPasswordField,
+    setCheckingEmailPassword: state.setCheckingEmailPassword,
+  }))
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    if (!showPasswordField) {
+      const { success } = emailSchema.safeParse({ email })
+
+      if (success) {
+        try {
+          setCheckingEmailPassword(true)
+          // Call server action directly
+          const accountInfo = await checkAccountExists(email)
+          setCheckingEmailPassword(false)
+
+          if (accountInfo?.accountExists && accountInfo?.hasPassword) {
+            setShowPasswordField(true)
+            return
+          }
+
+          if (!accountInfo?.accountExists) {
+            toast.error("No account found with that email address.")
+            return
+          }
+        } catch (error) {
+          console.error("Failed to determine if user has password", error)
+          toast.error("Server failed. Please try again later.")
+          return
+        }
+      }
+    }
+
+    try {
+      // Call server action to get account details
+      const accountInfo = await checkAccountExists(email)
+
+      if (!accountInfo?.accountExists) {
+        toast.error("No account found with that email address.")
+        return
+      }
+
+      const provider =
+        accountInfo?.hasPassword && password ? "credentials" : "resend"
+
+      // Call server action for signing in
+      const response = await signIn(provider, {
+        email,
+        redirect: false,
+        callbackUrl: "/dashboard/qr-codes",
+        ...(password && { password }),
+      })
+
+      if (!response) {
+        return
+      }
+
+      //  @ts-ignore
+      if (!response.ok && response?.error) {
+        //  @ts-ignore
+        const error = response.error
+        // @ts-ignore
+        if (error && errorCodes[error]) {
+          // @ts-ignore
+          toast.error(errorCodes[error])
+        } else {
+          toast.error("An error occurred. Please try again.")
+        }
+        return
+      }
+
+      if (provider === "resend") {
+        toast.success("Email sent - check your inbox!")
+        setEmail("")
+        return
+      }
+
+      if (provider === "credentials") {
+        router.push(response?.url || "/dashboard/qr-codes")
+      }
+    } catch (error) {
+      console.error("An error occurred during sign-in:", error)
+      toast.error("Server failed. Please try again later.")
+    }
+  }
+
+  return (
+    <Card className="sm:rounded-2xl border border-gray-200 w-full max-w-[460px] overflow-hidden">
+      <CardHeader className="text-center p-0">
+        <CardTitle className="text-lg font-semibold border-b py-7 border-gray-200">
+          Sign in to your QR account
+        </CardTitle>
+      </CardHeader>
+      <CardContent className=" bg-gray-50 px-4 pt-8 pb-4 sm:px-16">
+        <form onSubmit={onSubmit} className="space-y-5">
+          <Input
+            disabled={checkingEmailPassword}
+            placeholder="andrew@adson.com"
+            id="email"
+            name="email"
+            autoFocus={!showPasswordField}
+            type="email"
+            autoComplete="email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            size={1}
+          />
+
+          {showPasswordField && (
+            <PasswordInput
+              disabled={checkingEmailPassword}
+              onChange={(e) => setPassword(e?.target?.value)}
+              placeholder="Password (optional)"
+              value={password}
+            />
+          )}
+
+          <Button
+            disabled={checkingEmailPassword}
+            className="w-full"
+            type="submit"
+          >
+            {checkingEmailPassword ? (
+              <Loader className="animate-spin size-5" />
+            ) : (
+              <Mail className="size-5 mr-1" />
+            )}
+            Continue with {password ? "Password" : "Email"}
+          </Button>
+        </form>
+
+        {showPasswordField && (
+          <div className="flex items-center justify-center mt-4">
+            <Link
+              href="/forgot-password"
+              className="text-center text-xs text-gray-500 transition-colors hover:text-black"
+            >
+              Forgot password?
+            </Link>
+          </div>
+        )}
+
+        <div className="py-6 flex flex-shrink items-center justify-center gap-2">
+          <div className="grow basis-0 border-b border-gray-300" />
+          <span className="text-xs font-normal uppercase leading-none text-gray-500">
+            or
+          </span>
+          <div className="grow basis-0 border-b border-gray-300" />
+        </div>
+
+        <GoogleOauth />
+      </CardContent>
+
+      <CardFooter className=" justify-center">
+        <p className="mt-4 text-center text-sm text-gray-500">
+          Don&apos;t have an account?&nbsp;
+          <Link
+            href="/register"
+            className="font-semibold text-gray-500 underline underline-offset-2 transition-colors hover:text-black"
+          >
+            Sign up
+          </Link>
+        </p>
+      </CardFooter>
+    </Card>
+  )
+}
+
+export { LoginForm }

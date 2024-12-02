@@ -32,11 +32,9 @@ import { Button } from "@/components/ui/button"
 import { PasswordInput } from "@/components/ui/password-input"
 import GoogleOauth from "@/components/buttons/google-oauth"
 import { useRegisterContext } from "@/hooks/auth/useRegisterContext"
-import { sendOtpAction } from "@/app/actions/auth/send-otp-action"
+import { sendRegisterOtp } from "@/app/actions/auth/send-register-otp"
 
-interface RegisterFormProps {}
-
-const RegisterForm = ({}: RegisterFormProps) => {
+const RegisterForm = () => {
   const { setName, setEmail, setPassword, setStep } = useRegisterContext(
     (state) => ({
       setStep: state.setStep,
@@ -55,11 +53,12 @@ const RegisterForm = ({}: RegisterFormProps) => {
     },
   })
 
-  const { executeAsync, isExecuting } = useAction(sendOtpAction, {
+  const { executeAsync, isExecuting } = useAction(sendRegisterOtp, {
     onSuccess: () => {
-      setEmail(form.getValues("email"))
-      setPassword(form.getValues("password"))
-      setName(form.getValues("name"))
+      const formValues = form.getValues()
+      setEmail(formValues.email)
+      setPassword(formValues.password)
+      setName(formValues.name)
       setStep("verify")
     },
     onError: ({ error }) => {
@@ -67,7 +66,9 @@ const RegisterForm = ({}: RegisterFormProps) => {
     },
   })
 
-  const onSubmit = (formData: registerFormSchemaType) => executeAsync(formData)
+  const onSubmit = async (formData: registerFormSchemaType) => {
+    await executeAsync(formData)
+  }
 
   return (
     <Card className="sm:rounded-2xl border border-gray-200 w-full max-w-[460px] overflow-hidden">
@@ -131,8 +132,8 @@ const RegisterForm = ({}: RegisterFormProps) => {
               )}
             />
             <Button disabled={isExecuting} className="w-full" type="submit">
-              {true && <Loader className="animate-spin size-5" />}
-              {true ? "Sign Up" : "Submitting.."}
+              {isExecuting && <Loader className="animate-spin size-5" />}
+              {isExecuting ? "Submitting.." : "Sign Up"}
             </Button>
           </form>
         </Form>
@@ -163,4 +164,4 @@ const RegisterForm = ({}: RegisterFormProps) => {
   )
 }
 
-export default RegisterForm
+export { RegisterForm }

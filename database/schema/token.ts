@@ -1,5 +1,6 @@
 import { timestamp, pgTable, text, primaryKey } from "drizzle-orm/pg-core"
 
+// Email verification OTPs
 export const verificationTokens = pgTable(
   "verificationToken",
   {

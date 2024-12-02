@@ -1,6 +1,4 @@
-interface MaskBackgroundProps {}
-
-const MaskBackground = ({}: MaskBackgroundProps) => {
+const MaskBackground = () => {
   return (
     <div className="fixed inset-0 overflow-hidden bg-white transition-opacity duration-300 opacity-60">
       {/* Background gradient with mask */}

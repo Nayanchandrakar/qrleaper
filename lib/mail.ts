@@ -9,14 +9,15 @@ export const sendEmail = async ({
 }: {
   subject: string
   email: string
+  // eslint-disable-next-line
   react: any
 }) => {
   try {
     const { error } = await resend?.emails?.send({
-      from: process?.env?.RESEND_MAIL!,
+      from: process.env.RESEND_MAIL!,
       to: email,
       subject,
-      html: react,
+      react,
     })
 
     if (error) {

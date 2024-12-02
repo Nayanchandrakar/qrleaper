@@ -1,8 +1,6 @@
-import RegisterPageClient from "@/components/pages/auth/register/page-client"
+import { RegisterPageClient } from "@/components/pages/auth/register/page-client"
 
-interface RegisterPageProps {}
-
-const RegisterPage = ({}: RegisterPageProps) => {
+const RegisterPage = () => {
   return <RegisterPageClient />
 }
 
