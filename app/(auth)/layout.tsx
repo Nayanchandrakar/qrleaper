@@ -11,7 +11,7 @@ const AuthLayout = ({ children }: AuthLayoutProps) => {
     <div className="size-full">
       {/* mask background  */}
       <MaskBackground />
-      <div className="flex relative min-h-screen justify-center items-center">
+      <div className="flex relative min-h-screen justify-center items-center ">
         {/* logo here  */}
         <Link href="/">
           <Image
@@ -24,6 +24,11 @@ const AuthLayout = ({ children }: AuthLayoutProps) => {
           />
         </Link>
         {children}
+        <div className="absolute flex w-full flex-col items-center justify-center gap-2 py-10 pb-6 bottom-2">
+          <p className="text-xs text-gray-600">
+            © {new Date().getFullYear()} QR Leaper Inc.
+          </p>
+        </div>
       </div>
     </div>
   )
