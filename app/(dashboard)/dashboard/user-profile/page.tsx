@@ -1,6 +1,9 @@
+import { redirect } from "next/navigation"
+
+import { getUserAccountById } from "@/app/actions/utils"
 import { ProfileNameUpdateForm } from "@/components/forms/user-profile/profile-name-update"
 import { auth } from "@/lib/auth/auth"
-import { redirect } from "next/navigation"
+import { RequestSetPassword } from "@/components/forms/user-profile/request-set-password"
 
 interface UserProfilePageProps {}
 
@@ -9,9 +12,12 @@ const UserProfilePage = async ({}: UserProfilePageProps) => {
 
   if (!session?.user?.id) redirect("/login")
 
+  const accountData = await getUserAccountById(session?.user?.id)
+
   return (
-    <section className="p-8">
+    <section className="p-8 space-y-12">
       <ProfileNameUpdateForm defaultName={session?.user?.name!} />
+      <RequestSetPassword provider={accountData?.provider!} session={session} />
     </section>
   )
 }

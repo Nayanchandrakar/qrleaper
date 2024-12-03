@@ -1,0 +1,49 @@
+"use client"
+
+import { toast } from "sonner"
+import { useAction } from "next-safe-action/hooks"
+
+import { Loader } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { SessionType } from "@/types/type"
+import { setPasswordAction } from "@/app/actions/user-profile/set-password-action"
+
+interface RequestSetPasswordProps {
+  provider: string
+  session: SessionType
+}
+
+export const RequestSetPassword = ({
+  provider,
+  session,
+}: RequestSetPasswordProps) => {
+  const { executeAsync, isExecuting } = useAction(setPasswordAction, {
+    onSuccess() {
+      toast.success(
+        `We've sent you an email to ${session?.user?.email} with instructions to set your password`
+      )
+    },
+    onError({ error }) {
+      toast.error(error.serverError)
+    },
+  })
+
+  return (
+    <div className="rounded-lg border border-gray-200 bg-white">
+      <div className="flex flex-col gap-3 border-b border-gray-200 p-5 sm:p-10">
+        <h2 className="text-xl font-medium">Password</h2>
+        <p className="pb-2 text-sm text-gray-500">
+          Your account is managed by{" "}
+          <span className="uppercase">{provider ?? "other"}</span>. You can set
+          a password to use with your QR Leaper account.
+        </p>
+      </div>
+      <div className="p-5 sm:p-10">
+        <Button onClick={() => executeAsync()} disabled={isExecuting}>
+          {isExecuting && <Loader className="animate-spin size-5 mr-1" />}
+          Create account password
+        </Button>
+      </div>
+    </div>
+  )
+}

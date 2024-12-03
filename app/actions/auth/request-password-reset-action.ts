@@ -42,15 +42,15 @@ export const requestPasswordResetAction = actionClient
         token,
         expires: new Date(Date.now() + PASSWORD_RESET_TOKEN_EXPIRY * 1000),
       }),
-    ])
 
-    await sendEmail({
-      subject: `QR Leaper: Password reset instructions`,
-      email,
-      react: ResetPasswordLink({
-        url: `${process.env.APP_URL}/auth/reset-password/${token}`,
+      sendEmail({
+        subject: `QR Leaper: Password reset instructions`,
+        email,
+        react: ResetPasswordLink({
+          url: `${process.env.APP_URL}/auth/reset-password/${token}`,
+        }),
       }),
-    })
+    ])
 
     return { ok: true }
   })
