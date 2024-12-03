@@ -1,15 +1,15 @@
 "use server"
 
 import { z } from "zod"
-
+import { and, eq, gte } from "drizzle-orm"
 import { flattenValidationErrors } from "next-safe-action"
+
 import { hashPassword } from "@/lib/auth/password"
 import { throwIfAuthenticated } from "@/lib/action/throw-if-authenticated"
 import { actionClient } from "@/lib/action/safe-action"
 import { registerFormSchema } from "@/zod/auth/register-schema"
 import { db } from "@/database/db"
 import { users, verificationTokens } from "@/database/schema"
-import { and, eq, gte } from "drizzle-orm"
 
 const schema = registerFormSchema.extend({
   code: z.string().min(6, "OTP must be 6 characters long."),

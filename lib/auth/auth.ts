@@ -124,19 +124,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return true
     },
     async jwt({ token }) {
-      if (!token.sub) return token
-
-      const [existingUser] = await db
-        .select()
-        .from(users)
-        .where(eq(users.id, token.sub))
-
-      if (!existingUser) return token
-
       return token
     },
 
-    session({ session }) {
+    session({ session, token }) {
+      if (token.sub) {
+        session.user.id = token.sub as string
+      }
       return session
     },
   },
