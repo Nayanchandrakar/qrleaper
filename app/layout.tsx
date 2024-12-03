@@ -1,6 +1,7 @@
 import "@/style/globals.css"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
+import { SessionProvider, SessionProviderProps } from "next-auth/react"
 
 import { Toaster } from "@/components/ui/sonner"
 import { Navbar } from "@/components/navbar/navbar"
@@ -18,13 +19,16 @@ export default async function RootLayout({
   children: React.ReactNode
 }>) {
   const session = await auth()
+
   return (
     <html lang="en">
-      <body className={`${font.className} antialiased`}>
-        <Navbar session={session} />
-        {children}
-        <Toaster />
-      </body>
+      <SessionProvider>
+        <body className={`${font.className} antialiased`}>
+          <Navbar session={session} />
+          {children}
+          <Toaster />
+        </body>
+      </SessionProvider>
     </html>
   )
 }

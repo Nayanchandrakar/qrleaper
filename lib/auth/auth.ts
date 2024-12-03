@@ -123,7 +123,21 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       // Remaining for 2FA authentication
       return true
     },
-    async jwt({ token }) {
+
+    async jwt({ token, trigger }) {
+      // fetch updated user from the database
+      if (trigger === undefined || trigger === "update") {
+        const [user] = await db
+          .select()
+          .from(users)
+          .where(eq(users.id, token?.sub!))
+
+        if (user) {
+          token.name = user.name as string
+          token.email = user.email as string
+        }
+      }
+
       return token
     },
 
