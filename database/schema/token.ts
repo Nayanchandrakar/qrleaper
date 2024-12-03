@@ -14,3 +14,18 @@ export const verificationTokens = pgTable(
     }),
   })
 )
+
+// Password reset tokens
+export const passwordResetToken = pgTable(
+  "passwordResetToken",
+  {
+    identifier: text("identifier").notNull(),
+    token: text("token").notNull(),
+    expires: timestamp("expires", { mode: "date" }).notNull(),
+  },
+  (verificationToken) => ({
+    compositePk: primaryKey({
+      columns: [verificationToken.identifier, verificationToken.token],
+    }),
+  })
+)

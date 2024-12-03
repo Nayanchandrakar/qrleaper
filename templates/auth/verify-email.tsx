@@ -1,3 +1,4 @@
+import { LEAPER_WORKMARK } from "@/constants/main"
 import {
   Body,
   Container,
@@ -21,7 +22,7 @@ export default function VerifyEmail({ code = "123456" }: { code: string }) {
           <Container className="mx-auto my-10 max-w-[500px] rounded border border-solid border-gray-200 px-10 py-5">
             <Section className="mt-8">
               <Img
-                src="/colored-logo.svg"
+                src={LEAPER_WORKMARK}
                 height="40"
                 alt="Dub"
                 className="mx-auto my-0"
