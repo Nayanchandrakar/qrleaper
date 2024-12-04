@@ -27,8 +27,6 @@ const UserProfilePage = async ({}: UserProfilePageProps) => {
           session={session}
         />
       )}
-
-      {/* <UpdateEmailForm />  */}
     </section>
   )
 }
