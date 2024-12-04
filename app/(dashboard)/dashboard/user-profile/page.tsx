@@ -5,6 +5,7 @@ import { ProfileNameUpdateForm } from "@/components/forms/user-profile/profile-n
 import { auth } from "@/lib/auth/auth"
 import { RequestSetPassword } from "@/components/forms/user-profile/request-set-password"
 import { UpdatePasswordForm } from "@/components/forms/user-profile/update-password-form"
+import { EmailChangeComponent } from "@/components/pages/auth/email-change/email-change-component"
 
 interface UserProfilePageProps {}
 
@@ -18,6 +19,11 @@ const UserProfilePage = async ({}: UserProfilePageProps) => {
   return (
     <section className="p-8 space-y-12">
       <ProfileNameUpdateForm defaultName={session?.user?.name!} />
+
+      {!!(
+        userWithAccounData?.provider === null &&
+        userWithAccounData?.passwordHash
+      ) && <EmailChangeComponent />}
 
       {userWithAccounData?.passwordHash ? (
         <UpdatePasswordForm />

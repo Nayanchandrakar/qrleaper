@@ -37,11 +37,11 @@ export const sendRegisterOtp = actionClient
 
     const code = generateOTP()
 
-    await db
-      .delete(verificationTokens)
-      .where(eq(verificationTokens.identifier, email))
-
     await Promise.all([
+      db
+        .delete(verificationTokens)
+        .where(eq(verificationTokens.identifier, email)),
+
       db.insert(verificationTokens).values({
         identifier: email,
         token: code,

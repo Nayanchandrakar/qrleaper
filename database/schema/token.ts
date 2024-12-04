@@ -29,3 +29,18 @@ export const passwordResetToken = pgTable(
     }),
   })
 )
+
+// Email verification OTPs
+export const emailChangeToken = pgTable(
+  "emailChangeToken",
+  {
+    identifier: text("identifier").notNull(),
+    token: text("token").notNull(),
+    expires: timestamp("expires", { mode: "date" }).notNull(),
+  },
+  (verificationToken) => ({
+    compositePk: primaryKey({
+      columns: [verificationToken.identifier, verificationToken.token],
+    }),
+  })
+)

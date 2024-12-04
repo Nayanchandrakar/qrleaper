@@ -2,6 +2,8 @@
 
 import { Loader } from "lucide-react"
 import { toast } from "sonner"
+import { useAction } from "next-safe-action/hooks"
+import { useForm } from "react-hook-form"
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import {
@@ -14,51 +16,54 @@ import {
 } from "@/components/ui/form"
 
 import { Button } from "@/components/ui/button"
-import { useAction } from "next-safe-action/hooks"
-import { updateUserAction } from "@/app/actions/user-profile/update-user-action"
-import { useForm } from "react-hook-form"
-import {
-  resetPasswordSchema,
-  resetPasswordSchemaType,
-} from "@/zod/auth/reset-password-schema"
 import { PasswordInput } from "@/components/ui/password-input"
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card"
-import {
-  updatePasswordSchema,
-  type updatePasswordSchemaType,
-} from "@/zod/auth/update-passwod-schema"
+
 import { updatePasswordAction } from "@/app/actions/user-profile/update-password-action"
+import { Input } from "@/components/ui/input"
+import {
+  emailChangeSchema,
+  emailChangeSchemaType,
+} from "@/zod/auth/email-change-schema"
+import { useEmailChangeContext } from "@/hooks/auth/useEmailChangeContext"
+import { updateEmailAction } from "@/app/actions/user-profile/update-email-action"
 
-interface UpdatePasswordFormFormProps {}
+interface UpdateEmailFormFormProps {}
 
-const UpdatePasswordForm = ({}: UpdatePasswordFormFormProps) => {
-  const form = useForm<updatePasswordSchemaType>({
-    resolver: zodResolver(updatePasswordSchema),
+const UpdateEmailForm = ({}: UpdateEmailFormFormProps) => {
+  const { setNewEmail, setStep } = useEmailChangeContext((state) => ({
+    setNewEmail: state.setNewEmail,
+    setStep: state.setStep,
+  }))
+
+  const form = useForm<emailChangeSchemaType>({
+    resolver: zodResolver(emailChangeSchema),
     defaultValues: {
       currentPassword: "",
-      newPassword: "",
+      newEmail: "",
     },
   })
 
-  const { executeAsync, isExecuting } = useAction(updatePasswordAction, {
+  const { executeAsync, isExecuting } = useAction(updateEmailAction, {
     onSuccess() {
-      toast.success("Successfully updated your name!")
+      const newEmail = form.getValues("newEmail")
+      setNewEmail(newEmail)
+      setStep("verification")
+      toast.success(
+        `We've sent you an verification email to ${newEmail} to change your email account.`
+      )
     },
     onError({ error }) {
       toast.error(error.serverError)
     },
   })
 
-  const onSubmit = (formData: updatePasswordSchemaType) => {
+  const onSubmit = (formData: emailChangeSchemaType) => {
     executeAsync(formData)
   }
 
-  const isDisabled =
-    isExecuting || form.getValues("currentPassword")?.length <= 0
+  const isDisabled = !!(
+    form.getValues("currentPassword")?.length <= 0 || isExecuting
+  )
 
   return (
     <Form {...form}>
@@ -68,9 +73,10 @@ const UpdatePasswordForm = ({}: UpdatePasswordFormFormProps) => {
       >
         <div className="pt-5 px-5 sm:pt-10 sm:px-10">
           <div className="flex flex-col space-y-3 ">
-            <h2 className="text-xl font-medium">Password</h2>
+            <h2 className="text-xl font-medium">Your Email</h2>
             <p className="text-sm text-gray-500">
-              Manage your account password on QR Leaper.
+              This will be the email you use to log in to QR Leaper and receive
+              notifications.
             </p>
           </div>
 
@@ -95,15 +101,15 @@ const UpdatePasswordForm = ({}: UpdatePasswordFormFormProps) => {
             />
             <FormField
               control={form.control}
-              name="newPassword"
+              name="newEmail"
               disabled={isExecuting}
               render={({ field }) => (
                 <FormItem className="max-w-sm w-full">
-                  <FormLabel>New Password</FormLabel>
+                  <FormLabel>New Email</FormLabel>
                   <FormControl>
-                    <PasswordInput
+                    <Input
                       className="bg-white"
-                      placeholder="Confirm Password"
+                      placeholder="Your New Email"
                       {...field}
                     />
                   </FormControl>
@@ -114,17 +120,7 @@ const UpdatePasswordForm = ({}: UpdatePasswordFormFormProps) => {
           </div>
         </div>
 
-        <div className="border-t border-gray-200 flex items-center gap-5 sm:gap-4 sm:flex-row flex-col justify-between bg-gray-50 py-4 px-5 sm:px-10">
-          <HoverCard>
-            <HoverCardTrigger className=" text-gray-500 text-sm border-b border-dashed border-gray-500">
-              Password Requirements.
-            </HoverCardTrigger>
-            <HoverCardContent className="max-w-2xl text-sm font-normal text-gray-500 text-center">
-              Passwords must be at least 8 characters long containing at least
-              one number, one uppercase, and one lowercase letter.
-            </HoverCardContent>
-          </HoverCard>
-
+        <div className="border-t border-gray-200 flex items-center gap-5 sm:gap-4 sm:flex-row flex-col justify-end bg-gray-50 py-4 px-5 sm:px-10">
           <Button
             disabled={isDisabled}
             className="cursor-pointer disabled:cursor-not-allowed"
@@ -138,4 +134,4 @@ const UpdatePasswordForm = ({}: UpdatePasswordFormFormProps) => {
   )
 }
 
-export { UpdatePasswordForm }
+export { UpdateEmailForm }
