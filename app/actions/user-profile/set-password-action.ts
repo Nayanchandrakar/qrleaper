@@ -42,14 +42,14 @@ export const setPasswordAction = authUserActionClient.action(
     if (process.env.NODE_ENV === "development") {
       console.info(
         "Password reset URL:",
-        `http://localhost:3000/auth/reset-password/${token}`
+        `http://localhost:3000/reset-password/${token}`
       )
     } else {
       await sendEmail({
         subject: `QR Leaper: Password reset instructions`,
         email: user?.email!,
         react: ResetPasswordLink({
-          url: `${process.env.APP_URL}/auth/reset-password/${token}`,
+          url: `${process.env.APP_URL}/reset-password/${token}`,
         }),
       })
     }

@@ -17,7 +17,7 @@ export const users = pgTable("user", {
     .$defaultFn(() => createId()),
   name: text("name"),
   email: text("email").unique(),
-  passwordHash: text("password"),
+  passwordHash: text("passwordHash"),
   emailVerified: timestamp("emailVerified", { mode: "date" }),
   image: text("image"),
   ...lifeCycleDates,

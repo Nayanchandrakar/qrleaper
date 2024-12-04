@@ -1,7 +1,7 @@
-import { eq } from "drizzle-orm"
+import { and, eq, gte } from "drizzle-orm"
 
 import { db } from "@/database/db"
-import { users, accounts } from "@/database/schema"
+import { users, accounts, passwordResetToken } from "@/database/schema"
 
 export const getUserById = async (id: string) => {
   try {
@@ -12,14 +12,47 @@ export const getUserById = async (id: string) => {
   }
 }
 
-export const getUserAccountById = async (id: string) => {
+export const getUserByEmail = async (email: string) => {
+  try {
+    const [user] = await db.select().from(users).where(eq(users.email, email))
+    return user
+  } catch (error) {
+    return null
+  }
+}
+
+export const getUserWithAccountByUserId = async (id: string) => {
   try {
     const [userAccount] = await db
-      .select()
-      .from(accounts)
-      .where(eq(accounts.userId, id))
+      .select({
+        id: users.id,
+        provider: accounts.provider,
+        passwordHash: users.passwordHash,
+      })
+      .from(users)
+      .leftJoin(accounts, eq(accounts.userId, id))
 
     return userAccount
+  } catch (error) {
+    return null
+  }
+}
+
+export const isValidToken = async (token: string) => {
+  try {
+    const [userToken] = await db
+      .select({
+        token: passwordResetToken.token,
+      })
+      .from(passwordResetToken)
+      .where(
+        and(
+          eq(passwordResetToken.token, token),
+          gte(passwordResetToken.expires, new Date())
+        )
+      )
+
+    return userToken.token as string
   } catch (error) {
     return null
   }

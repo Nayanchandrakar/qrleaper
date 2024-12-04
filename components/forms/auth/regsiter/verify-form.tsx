@@ -1,9 +1,13 @@
 "use client"
 
+import { useState } from "react"
 import { OTPInput } from "input-otp"
 import { useMediaQuery } from "usehooks-ts"
 import { Loader } from "lucide-react"
 import { signIn } from "next-auth/react"
+import { toast } from "sonner"
+import { useAction } from "next-safe-action/hooks"
+import { useRouter } from "next/navigation"
 
 import {
   Card,
@@ -16,11 +20,7 @@ import {
 
 import { Button } from "@/components/ui/button"
 import { useRegisterContext } from "@/hooks/auth/useRegisterContext"
-import { useState } from "react"
-import { useRouter } from "next/navigation"
 import { cn } from "@/lib/utils"
-import { toast } from "sonner"
-import { useAction } from "next-safe-action/hooks"
 import { createUserAccountAction } from "@/app/actions/auth/create-user-action"
 import { ResendOtpButton } from "./resend-otp-button"
 
@@ -131,7 +131,7 @@ const VerifyForm = () => {
               className="mt-8 w-full disabled:bg-gray-200 border-gray-300"
               type="submit"
               variant="outline"
-              disabled={!code || code.length < 6}
+              disabled={!code || code.length < 6 || isExecuting}
             >
               {(isExecuting || isRedirecting) && (
                 <Loader className="size-5 animate-spin" />
