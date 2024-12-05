@@ -6,6 +6,7 @@ import { auth } from "@/lib/auth/auth"
 import { RequestSetPassword } from "@/components/forms/user-profile/request-set-password"
 import { UpdatePasswordForm } from "@/components/forms/user-profile/update-password-form"
 import { EmailChangeComponent } from "@/components/pages/auth/email-change/email-change-component"
+import { Container } from "@/components/global/container"
 
 interface UserProfilePageProps {}
 
@@ -17,7 +18,7 @@ const UserProfilePage = async ({}: UserProfilePageProps) => {
   const userWithAccounData = await getUserWithAccountByUserId(session?.user?.id)
 
   return (
-    <section className="p-8 space-y-12">
+    <Container className="space-y-12 py-8">
       <ProfileNameUpdateForm defaultName={session?.user?.name!} />
 
       {!!(
@@ -33,7 +34,7 @@ const UserProfilePage = async ({}: UserProfilePageProps) => {
           session={session}
         />
       )}
-    </section>
+    </Container>
   )
 }
 
