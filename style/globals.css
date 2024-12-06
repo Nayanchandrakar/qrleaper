@@ -70,3 +70,16 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+.bg-gradient-brand {
+  @apply bg-gradient-to-r from-[#16A50B] to-[#0E6A1D];
+}
+
+.design-mesh {
+  background-image: radial-gradient(
+      at 35% 59%,
+      hsla(135, 87%, 85%, 0.5) 0px,
+      transparent 50%
+    ),
+    radial-gradient(at 67% 43%, hsla(104, 100%, 82%, 0.5) 0px, transparent 50%);
+}

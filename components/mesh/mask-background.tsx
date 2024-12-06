@@ -1,4 +1,4 @@
-const MaskBackground = () => {
+export const MaskBackground = () => {
   return (
     <div className="fixed inset-0 overflow-hidden bg-white transition-opacity duration-300 opacity-60">
       {/* Background gradient with mask */}
@@ -27,5 +27,3 @@ const MaskBackground = () => {
     </div>
   )
 }
-
-export default MaskBackground

@@ -8,7 +8,7 @@ import { dashboardNavigations } from "@/constants/navigation/dashboard-constants
 
 interface sidebarInterface {}
 
-const Sidebar = ({}: sidebarInterface) => {
+export const Sidebar = ({}: sidebarInterface) => {
   const pathname = usePathname()
 
   const checkRoute = (href: string) => {
@@ -39,5 +39,3 @@ const Sidebar = ({}: sidebarInterface) => {
     </aside>
   )
 }
-
-export default Sidebar

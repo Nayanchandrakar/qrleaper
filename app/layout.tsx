@@ -1,7 +1,7 @@
 import "@/style/globals.css"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
-import { SessionProvider, SessionProviderProps } from "next-auth/react"
+import { SessionProvider } from "next-auth/react"
 
 import { Toaster } from "@/components/ui/sonner"
 import { Navbar } from "@/components/navbar/navbar"

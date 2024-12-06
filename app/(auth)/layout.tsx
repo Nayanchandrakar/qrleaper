@@ -1,6 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
-import MaskBackground from "@/components/layouts/mask-background"
+import { MaskBackground } from "@/components/mesh/mask-background"
 
 interface AuthLayoutProps {
   children: React.ReactNode
@@ -13,7 +13,7 @@ const AuthLayout = ({ children }: AuthLayoutProps) => {
       <MaskBackground />
       <div className="flex relative min-h-screen justify-center items-center ">
         {/* logo here  */}
-        <Link href="/">
+        <Link href="/design">
           <Image
             src="/logo.svg"
             alt="logo"
