@@ -6,6 +6,7 @@ import {
   Instagram,
   Facebook,
   FileText,
+  Youtube,
 } from "lucide-react"
 
 export const topNavigationData = [
@@ -48,7 +49,7 @@ export const topNavigationData = [
   {
     id: 2367346,
     label: "Youtube",
-    Icon: Facebook,
+    Icon: Youtube,
     endpoint: "/design/youtube",
   },
   {

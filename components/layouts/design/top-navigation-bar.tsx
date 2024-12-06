@@ -19,9 +19,9 @@ const TopNavigationBar = ({}: TopNavigationBarProps) => {
   }
 
   return (
-    <div className="p-2 bg-white rounded-lg">
+    <div className="p-3 bg-white rounded-lg">
       <ListComponent
-        className="flex  gap-4 w-full "
+        className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-8 gap-4 w-full "
         data={topNavigationData}
         renderItem={({ Icon, endpoint, id, label }) => (
           <Link
