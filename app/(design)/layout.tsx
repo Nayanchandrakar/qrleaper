@@ -12,7 +12,7 @@ const DesignLayout = ({ children }: DesignLayoutProps) => {
 
       <Container>
         <div className="flex  items-center justify-center flex-col gap-3 my-16 sm:my-20">
-          <h2 className="font-bold  text-3xl text-black text-center">
+          <h2 className="font-bold  text-4xl text-black text-center">
             Generate QR Code with{" "}
             <span className="text-transparent bg-clip-text bg-gradient-brand">
               Super Powers.
