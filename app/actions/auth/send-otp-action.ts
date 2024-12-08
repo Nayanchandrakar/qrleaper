@@ -12,7 +12,7 @@ import { EMAIL_OTP_EXPIRY_IN } from "@/constants/auth"
 import { emailSchema } from "@/zod/utils"
 import { throwIfAuthenticated } from "@/lib/action/throw-if-authenticated"
 import { actionClient } from "@/lib/action/safe-action"
-import { users, verificationTokens } from "@/database/schema"
+import { verificationTokens } from "@/database/schema"
 
 // Send OTP to email to verify account
 export const sendOtpAction = actionClient

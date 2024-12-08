@@ -18,7 +18,6 @@ import {
 import { Button } from "@/components/ui/button"
 import { PasswordInput } from "@/components/ui/password-input"
 
-import { updatePasswordAction } from "@/app/actions/user-profile/update-password-action"
 import { Input } from "@/components/ui/input"
 import {
   emailChangeSchema,
@@ -27,9 +26,7 @@ import {
 import { useEmailChangeContext } from "@/hooks/auth/useEmailChangeContext"
 import { updateEmailAction } from "@/app/actions/user-profile/update-email-action"
 
-interface UpdateEmailFormFormProps {}
-
-const UpdateEmailForm = ({}: UpdateEmailFormFormProps) => {
+const UpdateEmailForm = () => {
   const { setNewEmail, setStep } = useEmailChangeContext((state) => ({
     setNewEmail: state.setNewEmail,
     setStep: state.setStep,

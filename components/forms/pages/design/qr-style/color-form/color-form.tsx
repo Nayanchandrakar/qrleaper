@@ -6,9 +6,7 @@ import ColorCard from "@/components/cards/color-card"
 import { ListComponent } from "@/components/global/list-component"
 import { colorsList } from "@/constants/qr/colors"
 
-interface ColorFormProps {}
-
-export const ColorForm = ({}: ColorFormProps) => {
+export const ColorForm = () => {
   const { getValues, setValue } = useFormContext()
 
   return (

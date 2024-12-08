@@ -6,9 +6,7 @@ import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { dashboardNavigations } from "@/constants/navigation/dashboard-constants"
 
-interface sidebarInterface {}
-
-export const Sidebar = ({}: sidebarInterface) => {
+export const Sidebar = () => {
   const pathname = usePathname()
 
   const checkRoute = (href: string) => {

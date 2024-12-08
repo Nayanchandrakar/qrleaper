@@ -26,19 +26,13 @@ import {
 import { useEmailChangeContext } from "@/hooks/auth/useEmailChangeContext"
 import { verifyEmailChange } from "@/app/actions/user-profile/verify-email-change-action"
 
-interface VerifyEmailChangeFormFormProps {}
-
-export const VerifyEmailChangeForm = ({}: VerifyEmailChangeFormFormProps) => {
-  const { update } = useSession()
-
+export const VerifyEmailChangeForm = () => {
   const { newEmail, setStep } = useEmailChangeContext((state) => ({
     newEmail: state.newEmail,
     setStep: state.setStep,
   }))
 
-  if (!newEmail) {
-    return null
-  }
+  const { update } = useSession()
 
   const form = useForm<verifyEmailChangeSchemaType>({
     resolver: zodResolver(verifyEmailChangeSchema),
@@ -64,6 +58,10 @@ export const VerifyEmailChangeForm = ({}: VerifyEmailChangeFormFormProps) => {
   }
 
   const isDisabled = !!(form.getValues("token")?.length <= 0 || isExecuting)
+
+  if (!newEmail) {
+    return null
+  }
 
   return (
     <Form {...form}>

@@ -7,7 +7,7 @@ export const getUserById = async (id: string) => {
   try {
     const [user] = await db.select().from(users).where(eq(users.id, id))
     return user
-  } catch (error) {
+  } catch {
     return null
   }
 }
@@ -16,7 +16,7 @@ export const getUserByEmail = async (email: string) => {
   try {
     const [user] = await db.select().from(users).where(eq(users.email, email))
     return user
-  } catch (error) {
+  } catch {
     return null
   }
 }
@@ -33,7 +33,7 @@ export const getUserWithAccountByUserId = async (id: string) => {
       .leftJoin(accounts, eq(accounts.userId, id))
 
     return userAccount
-  } catch (error) {
+  } catch {
     return null
   }
 }
@@ -53,7 +53,7 @@ export const isValidToken = async (token: string) => {
       )
 
     return userToken.token as string
-  } catch (error) {
+  } catch {
     return null
   }
 }

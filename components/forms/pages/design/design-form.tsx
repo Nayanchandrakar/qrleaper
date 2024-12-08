@@ -39,7 +39,7 @@ export const DesignForm = () => {
     },
   })
 
-  const onSubmit = (formData: designFormSchemaType) => {}
+  const onSubmit = () => {}
 
   return (
     <FormProvider {...form}>

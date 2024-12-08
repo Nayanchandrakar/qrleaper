@@ -85,7 +85,7 @@ export const QrCode = forwardRef<HTMLDivElement, QrCodeProps>(
         localRef.current.innerHTML = ""
         qrCodeRef.current.append(localRef.current)
       }
-    }, [qrOptions])
+    }, [qrOptions, qrCodeRef])
 
     // Apply border plugin
     useEffect(() => {
@@ -98,7 +98,7 @@ export const QrCode = forwardRef<HTMLDivElement, QrCodeProps>(
           height: qrOptions.height!,
         })
       )
-    }, [extensionOptions, qrOptions.width, qrOptions.height])
+    }, [extensionOptions, qrCodeRef, qrOptions.width, qrOptions.height])
 
     return <div ref={localRef} />
   }

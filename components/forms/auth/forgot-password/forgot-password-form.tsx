@@ -18,9 +18,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { requestPasswordResetAction } from "@/app/actions/auth/request-password-reset-action"
 
-interface ForgotPasswordFormProps {}
-
-const ForgotPasswordForm = ({}: ForgotPasswordFormProps) => {
+const ForgotPasswordForm = () => {
   const router = useRouter()
   const [email, setEmail] = useState("")
 

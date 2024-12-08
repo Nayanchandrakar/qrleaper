@@ -15,12 +15,7 @@ import {
 
 import { Button } from "@/components/ui/button"
 import { useAction } from "next-safe-action/hooks"
-import { updateUserAction } from "@/app/actions/user-profile/update-user-action"
 import { useForm } from "react-hook-form"
-import {
-  resetPasswordSchema,
-  resetPasswordSchemaType,
-} from "@/zod/auth/reset-password-schema"
 import { PasswordInput } from "@/components/ui/password-input"
 import {
   HoverCard,
@@ -33,9 +28,7 @@ import {
 } from "@/zod/auth/update-passwod-schema"
 import { updatePasswordAction } from "@/app/actions/user-profile/update-password-action"
 
-interface UpdatePasswordFormFormProps {}
-
-const UpdatePasswordForm = ({}: UpdatePasswordFormFormProps) => {
+const UpdatePasswordForm = () => {
   const form = useForm<updatePasswordSchemaType>({
     resolver: zodResolver(updatePasswordSchema),
     defaultValues: {

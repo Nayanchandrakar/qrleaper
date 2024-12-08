@@ -7,9 +7,7 @@ import { ListComponent } from "@/components/global/list-component"
 import { topNavigationData } from "@/constants/pages/design/top-navigation"
 import { cn } from "@/lib/utils"
 
-interface TopNavigationBarProps {}
-
-const TopNavigationBar = ({}: TopNavigationBarProps) => {
+const TopNavigationBar = () => {
   const pathname = usePathname()
 
   const currentTab = (endpoint: string) => {

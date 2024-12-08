@@ -1,6 +1,4 @@
-interface HomePageProps {}
-
-const HomePage = ({}: HomePageProps) => {
+const HomePage = () => {
   return <div>HomePage</div>
 }
 

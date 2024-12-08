@@ -4,9 +4,7 @@ import { UpdateEmailForm } from "@/components/forms/user-profile/update-email-fo
 import { VerifyEmailChangeForm } from "@/components/forms/user-profile/verify-email-change-form"
 import { useEmailChangeContext } from "@/hooks/auth/useEmailChangeContext"
 
-interface EmailChangeComponentProps {}
-
-export const EmailChangeComponent = ({}: EmailChangeComponentProps) => {
+export const EmailChangeComponent = () => {
   const step = useEmailChangeContext((state) => state.step)
 
   if (step === "input") return <UpdateEmailForm />

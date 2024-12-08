@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils"
 import { HTMLAttributes } from "react"
 
+/* eslint-disable  @typescript-eslint/no-empty-object-type */
 interface StepLabelProps extends HTMLAttributes<HTMLDivElement> {}
 
 const StepLabel = ({ className, children, ...props }: StepLabelProps) => {

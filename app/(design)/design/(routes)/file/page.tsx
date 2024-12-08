@@ -1,6 +1,4 @@
-interface FilePageProps {}
-
-const FilePage = ({}: FilePageProps) => {
+const FilePage = () => {
   return <div>FilePage</div>
 }
 

@@ -5,8 +5,7 @@ import { useQrStyleContext } from "@/hooks/pages/design/useQrStyleContext"
 import { QrStyleNav } from "@/components/forms/pages/design/qr-style/qr-style-nav"
 import { StepLabel } from "@/components/ui/step-label"
 
-interface QrStyleFormType {}
-export const QrStyleForm = ({}: QrStyleFormType) => {
+export const QrStyleForm = () => {
   const { step } = useQrStyleContext((state) => ({
     step: state.step,
   }))

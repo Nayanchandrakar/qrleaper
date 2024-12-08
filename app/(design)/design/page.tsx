@@ -4,9 +4,7 @@ export const metadata = {
   title: "Create Link based QR Codes",
 }
 
-interface DesignPageProps {}
-
-const DesignPage = ({}: DesignPageProps) => {
+const DesignPage = () => {
   return <DesignForm />
 }
 
