@@ -6,6 +6,7 @@ import { Switch } from "@/components/ui/switch"
 
 export const FrameForm = () => {
   const { getValues, setValue } = useFormContext()
+  const { style } = getValues()
 
   const handleChange = (key: string, value: boolean | string) => {
     setValue(key, value, {
@@ -15,29 +16,25 @@ export const FrameForm = () => {
     })
   }
 
-  const checked = getValues("style.hasFrame")
-  const topText = getValues("style.topInput")
-  const bottomText = getValues("style.bottomInput")
-
   return (
     <div>
       <span className="text-sm flex items-center gap-3 ">
         has a frame ?
         <Switch
-          checked={checked}
+          checked={style.hasFrame}
           onCheckedChange={(value) => handleChange("style.hasFrame", value)}
         />
       </span>
-      {checked && (
-        <div className="flex items-center gap-3 mt-4">
+      {style.hasFrame && (
+        <div className="flex items-center sm:flex-row flex-col gap-3 mt-4">
           <Input
-            value={topText}
+            value={style.topInput}
             onChange={(e) => handleChange("style.topInput", e?.target?.value)}
             placeholder="top text"
             maxLength={30}
           />
           <Input
-            value={bottomText}
+            value={style.bottomInput}
             onChange={(e) =>
               handleChange("style.bottomInput", e?.target?.value)
             }

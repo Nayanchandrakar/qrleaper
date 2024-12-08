@@ -17,13 +17,13 @@ export const QrStyleNav = () => {
   return (
     <ListComponent
       data={qrStyleNavigationData}
-      className="flex items-center gap-2 border-b pb-2"
+      className="flex items-center gap-1 sm:gap-2 border-b pb-2"
       renderItem={({ label, value }) => (
         <button
           type="button"
           onClick={() => setStep(value as stepTypes)}
           className={cn(
-            "py-2 px-4 text-sm font-semibold rounded-lg transition-colors duration-200  cursor-pointer hover:bg-gray-100 text-gray-600",
+            "py-2 px-3 sm:px-4 text-sm font-semibold rounded-lg transition-colors duration-200  cursor-pointer hover:bg-gray-100 text-gray-600",
             value === step && "bg-gray-100"
           )}
         >

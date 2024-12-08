@@ -45,7 +45,7 @@ export const DesignForm = () => {
     <FormProvider {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="grid grid-cols-2 gap-4 "
+        className="grid grid-cols-1 lg:grid-cols-2 gap-8"
       >
         {/* main form  */}
         <div className="space-y-12">

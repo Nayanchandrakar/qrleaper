@@ -12,7 +12,7 @@ const DesignLayout = ({ children }: DesignLayoutProps) => {
 
       <Container>
         <div className="flex  items-center justify-center flex-col gap-3 my-16 sm:my-20">
-          <h2 className="font-bold  text-4xl text-black text-center">
+          <h2 className="font-bold text-3xl sm:text-4xl text-black text-center">
             Generate QR Code with{" "}
             <span className="text-transparent bg-clip-text bg-gradient-brand">
               Super Powers.
@@ -23,9 +23,9 @@ const DesignLayout = ({ children }: DesignLayoutProps) => {
           </p>
         </div>
 
-        <div className="bg-gray-400/10 backdrop-blur-sm p-4 rounded-lg ">
+        <div className="bg-gray-400/10 backdrop-blur-sm p-4 rounded-lg mb-20">
           <TopNavigationBar />
-          <div className="bg-white mt-4 p-4">{children}</div>
+          <div className="bg-white mt-4 p-4 rounded-lg">{children}</div>
         </div>
       </Container>
     </div>
