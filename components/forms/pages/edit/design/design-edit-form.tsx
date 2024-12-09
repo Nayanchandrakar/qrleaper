@@ -1,6 +1,7 @@
 "use client"
 
 import { toast } from "sonner"
+import { useEffect } from "react"
 import { useAction } from "next-safe-action/hooks"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, FormProvider } from "react-hook-form"
@@ -21,19 +22,24 @@ import { appUrl } from "@/constants/config"
 import { Input } from "@/components/ui/input"
 import { StepLabel } from "@/components/ui/step-label"
 import { QrStyleForm } from "@/components/forms/pages/design/qr-style/qr-style-form"
-import { colorsList } from "@/constants/qr/colors"
 import { PreviewQrCard } from "@/components/cards/pages/design/preview-qr-card"
 import { createQrCodeAction } from "@/app/actions/pages/design/create-qr-code-action"
-import { QrControls } from "@/components/forms/pages/design/qr-style/qr-controls"
 import { useQrDataContext } from "@/hooks/qr/useQrDataContext"
+import { QrEditControl } from "./qr-edit-controls"
+import type { editQrLinkType } from "@/types/type"
 
-export const DesignForm = () => {
+interface DesignEditFormProps {
+  qrCode: editQrLinkType
+  endpoint: string
+}
+
+export const DesignEditForm = ({ qrCode, endpoint }: DesignEditFormProps) => {
   const { setData } = useQrDataContext()
 
   const { executeAsync, isExecuting } = useAction(createQrCodeAction, {
     onSuccess: ({ data }) => {
       setData(data?.endpoint!)
-      toast.success("Successfully created a QR Code")
+      toast.success("Successfully updated a QR Code")
     },
     onError: ({ error }) => {
       toast.error(error.serverError)
@@ -42,19 +48,14 @@ export const DesignForm = () => {
 
   const form = useForm<designFormSchemaType>({
     resolver: zodResolver(designFormSchema),
-    defaultValues: {
-      title: "",
-      link: "",
-      style: {
-        bottomInput: "",
-        image: "",
-        topInput: "",
-        color: colorsList[0],
-        hasFrame: false,
-        shape: "square",
-      },
-    },
+    defaultValues: qrCode,
   })
+
+  useEffect(() => {
+    if (endpoint) {
+      setData(endpoint)
+    }
+  }, [endpoint])
 
   return (
     <FormProvider {...form}>
@@ -67,7 +68,7 @@ export const DesignForm = () => {
           <div className="space-y-4">
             <StepLabel className="mt-3">
               <StepLabel.Counter>1</StepLabel.Counter>
-              <StepLabel.Title>Complete the content</StepLabel.Title>
+              <StepLabel.Title>Edit the content</StepLabel.Title>
             </StepLabel>
 
             <FormField
@@ -103,7 +104,12 @@ export const DesignForm = () => {
                 </FormItem>
               )}
             />
-            <QrControls isExecuting={isExecuting} />
+            <QrEditControl
+              isExecuting={isExecuting}
+              isEditable={
+                JSON.stringify(form.getValues()) === JSON.stringify(qrCode)
+              }
+            />
           </div>
           <QrStyleForm />
         </div>

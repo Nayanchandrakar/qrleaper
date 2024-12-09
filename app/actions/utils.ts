@@ -1,7 +1,14 @@
 import { and, eq, gte } from "drizzle-orm"
 
 import { db } from "@/database/db"
-import { users, accounts, passwordResetToken } from "@/database/schema"
+import {
+  users,
+  accounts,
+  passwordResetToken,
+  qrCode,
+  qrCodeStyle,
+} from "@/database/schema"
+import { qrLink } from "@/database/schema/qr-variations"
 
 export const getUserById = async (id: string) => {
   try {
@@ -53,6 +60,37 @@ export const isValidToken = async (token: string) => {
       )
 
     return userToken.token as string
+  } catch {
+    return null
+  }
+}
+
+export const getQrCodeByUserIdAndId = async (userId: string, qrId: string) => {
+  try {
+    const [data] = await db
+      .select()
+      .from(qrCode)
+      .where(and(eq(qrCode.id, qrId), eq(qrCode.userId, userId!)))
+
+    return data
+  } catch (error) {
+    return null
+  }
+}
+
+export const getLinkQrStyleAndDataByQrCodeId = async (id: string) => {
+  try {
+    const data = await db.transaction(async (tx) => {
+      const [[style], [link]] = await Promise.all([
+        tx.select().from(qrCodeStyle).where(eq(qrCodeStyle.qrCodeId, id)),
+        tx.select().from(qrLink).where(eq(qrLink.qrCodeId, id)),
+      ])
+      return {
+        style,
+        link,
+      }
+    })
+    return data
   } catch {
     return null
   }

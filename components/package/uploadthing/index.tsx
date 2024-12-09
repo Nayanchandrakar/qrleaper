@@ -20,7 +20,7 @@ export const Uploadthing = ({
     <div>
       <label
         htmlFor="file-upload"
-        className="flex h-40 p-12 w-full cursor-pointer items-center justify-center rounded-lg bg-gray-50 border border-gray-200 transition-colors duration-200 hover:bg-gray-100 flex-col gap-2"
+        className="flex h-50 p-12 w-full cursor-pointer items-center justify-center rounded-lg bg-gray-50 border border-gray-200 transition-colors duration-200 hover:bg-gray-100 flex-col gap-2"
       >
         <input
           name="file"

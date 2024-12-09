@@ -28,6 +28,7 @@ export const qrCode = pgTable(
         onDelete: "cascade",
       })
       .notNull(),
+    title: text("title").notNull(),
     type: typeEnum("type").notNull(),
     status: statusEnum("status").default("active"),
     endpoint: text("endpoint"),

@@ -3,7 +3,7 @@
  * to not-authenticated users
  * @type {string[]}
  */
-export const publicRoutes = ["/", "/pricing", "/forgot-password"]
+export const publicRoutes = ["/design", "/pricing", "/forgot-password"]
 
 /**
  * These Api Routes are for only authentication purpose

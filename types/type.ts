@@ -14,3 +14,16 @@ export interface QrCodeProps {
   bottomInput?: string
   qrCodeRef: React.MutableRefObject<qrCodeRefType>
 }
+
+export interface editQrLinkType {
+  title: string
+  link: string
+  style: {
+    bottomInput: string
+    image: string
+    topInput: string
+    color: string
+    hasFrame: boolean
+    shape: string
+  }
+}

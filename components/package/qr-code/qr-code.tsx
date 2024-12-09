@@ -46,7 +46,7 @@ export const QrCode = forwardRef<HTMLDivElement, QrCodeProps>(
         },
         cornersSquareOptions: { type: "square" },
         cornersDotOptions: { type: "square" },
-        imageOptions: { crossOrigin: "anonymous", saveAsBlob: true },
+        imageOptions: { crossOrigin: "anonymous", margin: 0, saveAsBlob: true },
         ...(logo && { image: logo }),
       }
     }, [shape, hasFrame, data, color, logo])
@@ -98,7 +98,7 @@ export const QrCode = forwardRef<HTMLDivElement, QrCodeProps>(
           height: qrOptions.height!,
         })
       )
-    }, [extensionOptions, qrCodeRef, qrOptions.width, qrOptions.height])
+    }, [extensionOptions, qrOptions, qrCodeRef])
 
     return <div ref={localRef} />
   }

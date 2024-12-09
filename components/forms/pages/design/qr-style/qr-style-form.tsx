@@ -15,7 +15,7 @@ export const QrStyleForm = () => {
   )?.form!
 
   return (
-    <div className="space-y-4 ">
+    <div className="space-y-4 mt-12">
       <StepLabel>
         <StepLabel.Counter>2</StepLabel.Counter>
         <StepLabel.Title>Customize QR Code</StepLabel.Title>
