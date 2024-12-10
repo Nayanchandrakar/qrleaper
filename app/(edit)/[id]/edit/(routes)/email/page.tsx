@@ -2,15 +2,15 @@ import { redirect } from "next/navigation"
 
 import { auth } from "@/lib/auth/auth"
 import {
-  getMessageQrStyleAndDataByQrCodeId,
+  getEmailQrStyleAndDataByQrCodeId,
   getQrCodeByUserIdAndIdWithType,
 } from "@/app/actions/utils"
-import { MessageEditForm } from "@/components/forms/pages/edit/message/message-edit-form"
 import { getEndpointURL } from "@/utils"
+import { EmailEditForm } from "@/components/forms/pages/edit/email/email-edit-form"
 
 // Site metadata
 export const metadata = {
-  title: "Edit Message based QR Codes",
+  title: "Edit Email based QR Codes",
 }
 
 interface MessageEditPageProps {
@@ -29,31 +29,30 @@ const MessageEditPage = async ({ params }: MessageEditPageProps) => {
   const data = await getQrCodeByUserIdAndIdWithType(
     session.user.id,
     params.id,
-    "message"
+    "email"
   )
 
   if (!data) redirect("/design")
 
-  const qrStyleAndMessageData = await getMessageQrStyleAndDataByQrCodeId(
-    data.id
-  )
+  const qrStyleAndEmailData = await getEmailQrStyleAndDataByQrCodeId(data.id)
 
   const qrCode = {
     title: data.title ?? "",
-    message: qrStyleAndMessageData?.message.message ?? "",
-    phoneNumber: qrStyleAndMessageData?.message.phoneNumber ?? "",
+    message: qrStyleAndEmailData?.email.message ?? "",
+    email: qrStyleAndEmailData?.email.email ?? "",
+    subject: qrStyleAndEmailData?.email.subject ?? "",
     style: {
-      bottomInput: qrStyleAndMessageData?.style.bottomText ?? "",
-      image: qrStyleAndMessageData?.style.logo ?? "",
-      topInput: qrStyleAndMessageData?.style.topText ?? "",
-      color: qrStyleAndMessageData?.style.color ?? "",
-      hasFrame: !!qrStyleAndMessageData?.style.hasFrame,
-      shape: qrStyleAndMessageData?.style.shape ?? "square",
+      bottomInput: qrStyleAndEmailData?.style.bottomText ?? "",
+      image: qrStyleAndEmailData?.style.logo ?? "",
+      topInput: qrStyleAndEmailData?.style.topText ?? "",
+      color: qrStyleAndEmailData?.style.color ?? "",
+      hasFrame: !!qrStyleAndEmailData?.style.hasFrame,
+      shape: qrStyleAndEmailData?.style.shape ?? "square",
     },
   }
 
   return (
-    <MessageEditForm
+    <EmailEditForm
       qrCode={qrCode}
       endpoint={getEndpointURL(data.id)}
       id={data.id!}

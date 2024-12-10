@@ -8,7 +8,13 @@ import {
   qrCode,
   qrCodeStyle,
 } from "@/database/schema"
-import { qrLink, qrMessage } from "@/database/schema/qr-variations"
+import {
+  qrEmail,
+  qrFacebook,
+  qrInstagram,
+  qrLink,
+  qrMessage,
+} from "@/database/schema/qr-variations"
 import type { qrType } from "@/types/db-types"
 
 export const getUserById = async (id: string) => {
@@ -118,6 +124,60 @@ export const getMessageQrStyleAndDataByQrCodeId = async (id: string) => {
       return {
         style,
         message,
+      }
+    })
+    return data
+  } catch {
+    return null
+  }
+}
+
+export const getEmailQrStyleAndDataByQrCodeId = async (id: string) => {
+  try {
+    const data = await db.transaction(async (tx) => {
+      const [[style], [email]] = await Promise.all([
+        tx.select().from(qrCodeStyle).where(eq(qrCodeStyle.qrCodeId, id)),
+        tx.select().from(qrEmail).where(eq(qrEmail.qrCodeId, id)),
+      ])
+      return {
+        style,
+        email,
+      }
+    })
+    return data
+  } catch {
+    return null
+  }
+}
+
+export const getInstagramQrStyleAndDataByQrCodeId = async (id: string) => {
+  try {
+    const data = await db.transaction(async (tx) => {
+      const [[style], [instagram]] = await Promise.all([
+        tx.select().from(qrCodeStyle).where(eq(qrCodeStyle.qrCodeId, id)),
+        tx.select().from(qrInstagram).where(eq(qrInstagram.qrCodeId, id)),
+      ])
+      return {
+        style,
+        instagram,
+      }
+    })
+    return data
+  } catch {
+    return null
+  }
+}
+
+export const getFacebookQrStyleAndDataByQrCodeId = async (id: string) => {
+  try {
+    const data = await db.transaction(async (tx) => {
+      const [[style], [facebook]] = await Promise.all([
+        tx.select().from(qrCodeStyle).where(eq(qrCodeStyle.qrCodeId, id)),
+        tx.select().from(qrFacebook).where(eq(qrFacebook.qrCodeId, id)),
+      ])
+      return {
+        style,
+        facebook,
       }
     })
     return data

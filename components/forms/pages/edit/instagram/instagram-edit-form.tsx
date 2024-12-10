@@ -1,0 +1,127 @@
+"use client"
+
+import { toast } from "sonner"
+import { useEffect } from "react"
+import { useAction } from "next-safe-action/hooks"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm, FormProvider } from "react-hook-form"
+
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+
+import { Input } from "@/components/ui/input"
+import { StepLabel } from "@/components/ui/step-label"
+import { QrStyleForm } from "@/components/forms/pages/design/qr-style/qr-style-form"
+import { PreviewQrCard } from "@/components/cards/pages/design/preview-qr-card"
+import { useQrDataContext } from "@/hooks/qr/useQrDataContext"
+import { QrEditControl } from "@/components/forms/pages/edit/design/qr-edit-controls"
+import type { editQrInstagramType } from "@/types/type"
+import { updateQrCodeLinkAction } from "@/app/actions/pages/edit/design/update-qr-code-link-action"
+import {
+  instagramFormSchema,
+  instagramFormSchemaType,
+} from "@/zod/forms/instagram/instagram-form-schema"
+import { updateQrCodeInstagramAction } from "@/app/actions/pages/edit/instagram/update-qr-code-instagram-action"
+
+interface InstagramEditFormProps {
+  qrCode: editQrInstagramType
+  endpoint: string
+  id: string
+}
+
+export const InstagramEditForm = ({
+  qrCode,
+  endpoint,
+  id,
+}: InstagramEditFormProps) => {
+  const { setData } = useQrDataContext()
+
+  const { executeAsync, isExecuting } = useAction(updateQrCodeInstagramAction, {
+    onSuccess: () => {
+      toast.success("Successfully updated a QR Code")
+    },
+    onError: ({ error }) => {
+      toast.error(error.serverError)
+    },
+  })
+
+  const form = useForm<instagramFormSchemaType>({
+    resolver: zodResolver(instagramFormSchema),
+    defaultValues: qrCode,
+  })
+
+  useEffect(() => {
+    if (endpoint) {
+      setData(endpoint)
+    }
+  }, [endpoint])
+
+  return (
+    <FormProvider {...form}>
+      <form
+        onSubmit={form.handleSubmit((formData: instagramFormSchemaType) =>
+          executeAsync({ ...formData, id })
+        )}
+        className="grid grid-cols-1 lg:grid-cols-2 gap-8"
+      >
+        {/* main form  */}
+        <div>
+          <div className="space-y-4">
+            <StepLabel className="mt-3">
+              <StepLabel.Counter>1</StepLabel.Counter>
+              <StepLabel.Title>Edit the content</StepLabel.Title>
+            </StepLabel>
+
+            <FormField
+              control={form.control}
+              name="title"
+              disabled={isExecuting}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Title</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="text"
+                      placeholder="example:StarBucks"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="instagram"
+              disabled={isExecuting}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Instagram Profile ID</FormLabel>
+                  <FormControl>
+                    <Input type="text" placeholder="@adson" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <QrEditControl
+              isExecuting={isExecuting}
+              isEditable={
+                JSON.stringify(form.getValues()) === JSON.stringify(qrCode)
+              }
+            />
+          </div>
+          <QrStyleForm />
+        </div>
+        <PreviewQrCard />
+      </form>
+    </FormProvider>
+  )
+}

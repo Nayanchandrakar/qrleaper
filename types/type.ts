@@ -30,9 +30,29 @@ export interface editQrLinkType {
   style: responseQrStyleType
 }
 
+export interface editQrInstagramType {
+  title: string
+  instagram: string
+  style: responseQrStyleType
+}
+
+export interface editQrFacebookType {
+  title: string
+  facebookUrl: string
+  style: responseQrStyleType
+}
+
 export interface editQrMessageType {
   title: string
   message?: string
   phoneNumber: string
+  style: responseQrStyleType
+}
+
+export interface editQrEmailType {
+  title: string
+  message?: string
+  email: string
+  subject?: string
   style: responseQrStyleType
 }

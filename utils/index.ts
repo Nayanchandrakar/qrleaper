@@ -13,3 +13,17 @@ export const getMessageDbEndpointURL = (
   }
   return `sms:${phoneNumber}?&body=messagehere`
 }
+
+export const getEmailDbEndpointURL = (
+  email: string,
+  subject?: string,
+  message?: string
+) => {
+  return `mailto:${email}?subject=${encodeURIComponent(
+    subject!
+  )}&body=${encodeURIComponent(message!)}`
+}
+
+export const getInstagramDbEndpointURL = (id: string) => {
+  return `https://www.instagram.com/${id?.substring(1)}`
+}
