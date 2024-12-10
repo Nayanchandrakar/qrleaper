@@ -1,7 +1,6 @@
 "use client"
 
 import { toast } from "sonner"
-import { useEffect } from "react"
 import { useAction } from "next-safe-action/hooks"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, FormProvider } from "react-hook-form"
@@ -15,58 +14,54 @@ import {
 } from "@/components/ui/form"
 
 import {
-  designFormSchema,
-  designFormSchemaType,
-} from "@/zod/forms/design/design-form-schema"
+  messageFormSchema,
+  messageFormSchemaType,
+} from "@/zod/forms/message/message-form-schema"
 import { appUrl } from "@/constants/config"
 import { Input } from "@/components/ui/input"
 import { StepLabel } from "@/components/ui/step-label"
 import { QrStyleForm } from "@/components/forms/pages/design/qr-style/qr-style-form"
+import { colorsList } from "@/constants/qr/colors"
 import { PreviewQrCard } from "@/components/cards/pages/design/preview-qr-card"
+import { QrControls } from "@/components/forms/pages/design/qr-style/qr-controls"
 import { useQrDataContext } from "@/hooks/qr/useQrDataContext"
-import { QrEditControl } from "@/components/forms/pages/edit/design/qr-edit-controls"
-import type { editQrLinkType } from "@/types/type"
-import { updateQrCodeLinkAction } from "@/app/actions/pages/edit/design/update-qr-code-link-action"
+import { createQrCodeMessageAction } from "@/app/actions/pages/design/message/create-message-qr-code-action"
+import { Textarea } from "@/components/ui/textarea"
 
-interface DesignEditFormProps {
-  qrCode: editQrLinkType
-  endpoint: string
-  id: string
-}
-
-export const DesignEditForm = ({
-  qrCode,
-  endpoint,
-  id,
-}: DesignEditFormProps) => {
+export const MessageForm = () => {
   const { setData } = useQrDataContext()
 
-  const { executeAsync, isExecuting } = useAction(updateQrCodeLinkAction, {
-    onSuccess: () => {
-      toast.success("Successfully updated a QR Code")
+  const { executeAsync, isExecuting } = useAction(createQrCodeMessageAction, {
+    onSuccess: ({ data }) => {
+      setData(data?.endpoint!)
+      toast.success("Successfully created a QR Code")
     },
     onError: ({ error }) => {
       toast.error(error.serverError)
     },
   })
 
-  const form = useForm<designFormSchemaType>({
-    resolver: zodResolver(designFormSchema),
-    defaultValues: qrCode,
+  const form = useForm<messageFormSchemaType>({
+    resolver: zodResolver(messageFormSchema),
+    defaultValues: {
+      title: "",
+      message: "",
+      phoneNumber: "",
+      style: {
+        bottomInput: "",
+        image: "",
+        topInput: "",
+        color: colorsList[0],
+        hasFrame: false,
+        shape: "square",
+      },
+    },
   })
-
-  useEffect(() => {
-    if (endpoint) {
-      setData(endpoint)
-    }
-  }, [endpoint])
 
   return (
     <FormProvider {...form}>
       <form
-        onSubmit={form.handleSubmit((formData: designFormSchemaType) =>
-          executeAsync({ ...formData, id })
-        )}
+        onSubmit={form.handleSubmit(executeAsync)}
         className="grid grid-cols-1 lg:grid-cols-2 gap-8"
       >
         {/* main form  */}
@@ -74,7 +69,7 @@ export const DesignEditForm = ({
           <div className="space-y-4">
             <StepLabel className="mt-3">
               <StepLabel.Counter>1</StepLabel.Counter>
-              <StepLabel.Title>Edit the content</StepLabel.Title>
+              <StepLabel.Title>Complete the content</StepLabel.Title>
             </StepLabel>
 
             <FormField
@@ -98,24 +93,43 @@ export const DesignEditForm = ({
 
             <FormField
               control={form.control}
-              name="link"
+              name="phoneNumber"
               disabled={isExecuting}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Link</FormLabel>
+                  <FormLabel>Phone Number</FormLabel>
                   <FormControl>
-                    <Input type="url" placeholder={appUrl} {...field} />
+                    <Input
+                      type="tel"
+                      placeholder="(5555) 5555-5555"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <QrEditControl
-              isExecuting={isExecuting}
-              isEditable={
-                JSON.stringify(form.getValues()) === JSON.stringify(qrCode)
-              }
+
+            <FormField
+              control={form.control}
+              name="message"
+              disabled={isExecuting}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Message</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      placeholder="Enter your text message here (optional)"
+                      {...field}
+                      maxLength={256}
+                      className="h-32"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
+            <QrControls isExecuting={isExecuting} />
           </div>
           <QrStyleForm />
         </div>

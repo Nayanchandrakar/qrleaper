@@ -3,9 +3,10 @@ import { redirect } from "next/navigation"
 import { auth } from "@/lib/auth/auth"
 import {
   getLinkQrStyleAndDataByQrCodeId,
-  getQrCodeByUserIdAndId,
+  getQrCodeByUserIdAndIdWithType,
 } from "@/app/actions/utils"
 import { DesignEditForm } from "@/components/forms/pages/edit/design/design-edit-form"
+import { getEndpointURL } from "@/utils"
 
 // Site metadata
 export const metadata = {
@@ -25,7 +26,11 @@ const DesignEditPage = async ({ params }: DesignEditPageProps) => {
 
   if (!session?.user?.id) redirect("/login")
 
-  const data = await getQrCodeByUserIdAndId(session.user.id, params.id)
+  const data = await getQrCodeByUserIdAndIdWithType(
+    session.user.id,
+    params.id,
+    "link"
+  )
 
   if (!data) redirect("/design")
 
@@ -44,7 +49,13 @@ const DesignEditPage = async ({ params }: DesignEditPageProps) => {
     },
   }
 
-  return <DesignEditForm qrCode={qrCode} endpoint={data.endpoint!} />
+  return (
+    <DesignEditForm
+      qrCode={qrCode}
+      endpoint={getEndpointURL(data.id)}
+      id={data.id!}
+    />
+  )
 }
 
 export default DesignEditPage

@@ -8,7 +8,8 @@ import {
   qrCode,
   qrCodeStyle,
 } from "@/database/schema"
-import { qrLink } from "@/database/schema/qr-variations"
+import { qrLink, qrMessage } from "@/database/schema/qr-variations"
+import type { qrType } from "@/types/db-types"
 
 export const getUserById = async (id: string) => {
   try {
@@ -65,12 +66,23 @@ export const isValidToken = async (token: string) => {
   }
 }
 
-export const getQrCodeByUserIdAndId = async (userId: string, qrId: string) => {
+export const getQrCodeByUserIdAndIdWithType = async (
+  userId: string,
+  qrId: string,
+  type: qrType
+) => {
   try {
     const [data] = await db
       .select()
       .from(qrCode)
-      .where(and(eq(qrCode.id, qrId), eq(qrCode.userId, userId!)))
+      .where(
+        and(
+          eq(qrCode.id, qrId),
+          eq(qrCode.userId, userId!),
+          eq(qrCode.type, type),
+          eq(qrCode.status, "active")
+        )
+      )
 
     return data
   } catch (error) {
@@ -88,6 +100,24 @@ export const getLinkQrStyleAndDataByQrCodeId = async (id: string) => {
       return {
         style,
         link,
+      }
+    })
+    return data
+  } catch {
+    return null
+  }
+}
+
+export const getMessageQrStyleAndDataByQrCodeId = async (id: string) => {
+  try {
+    const data = await db.transaction(async (tx) => {
+      const [[style], [message]] = await Promise.all([
+        tx.select().from(qrCodeStyle).where(eq(qrCodeStyle.qrCodeId, id)),
+        tx.select().from(qrMessage).where(eq(qrMessage.qrCodeId, id)),
+      ])
+      return {
+        style,
+        message,
       }
     })
     return data

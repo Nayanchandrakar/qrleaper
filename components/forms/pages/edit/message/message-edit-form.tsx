@@ -14,34 +14,34 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 
-import {
-  designFormSchema,
-  designFormSchemaType,
-} from "@/zod/forms/design/design-form-schema"
-import { appUrl } from "@/constants/config"
 import { Input } from "@/components/ui/input"
 import { StepLabel } from "@/components/ui/step-label"
+import { useQrDataContext } from "@/hooks/qr/useQrDataContext"
 import { QrStyleForm } from "@/components/forms/pages/design/qr-style/qr-style-form"
 import { PreviewQrCard } from "@/components/cards/pages/design/preview-qr-card"
-import { useQrDataContext } from "@/hooks/qr/useQrDataContext"
 import { QrEditControl } from "@/components/forms/pages/edit/design/qr-edit-controls"
-import type { editQrLinkType } from "@/types/type"
-import { updateQrCodeLinkAction } from "@/app/actions/pages/edit/design/update-qr-code-link-action"
+import { updateQrCodeMessageAction } from "@/app/actions/pages/edit/message/update-message-qr-code-action"
+import type { editQrMessageType } from "@/types/type"
+import { Textarea } from "@/components/ui/textarea"
+import {
+  messageFormSchema,
+  messageFormSchemaType,
+} from "@/zod/forms/message/message-form-schema"
 
-interface DesignEditFormProps {
-  qrCode: editQrLinkType
+interface MessageEditFormProps {
+  qrCode: editQrMessageType
   endpoint: string
   id: string
 }
 
-export const DesignEditForm = ({
+export const MessageEditForm = ({
   qrCode,
   endpoint,
   id,
-}: DesignEditFormProps) => {
+}: MessageEditFormProps) => {
   const { setData } = useQrDataContext()
 
-  const { executeAsync, isExecuting } = useAction(updateQrCodeLinkAction, {
+  const { executeAsync, isExecuting } = useAction(updateQrCodeMessageAction, {
     onSuccess: () => {
       toast.success("Successfully updated a QR Code")
     },
@@ -50,8 +50,8 @@ export const DesignEditForm = ({
     },
   })
 
-  const form = useForm<designFormSchemaType>({
-    resolver: zodResolver(designFormSchema),
+  const form = useForm<messageFormSchemaType>({
+    resolver: zodResolver(messageFormSchema),
     defaultValues: qrCode,
   })
 
@@ -64,7 +64,7 @@ export const DesignEditForm = ({
   return (
     <FormProvider {...form}>
       <form
-        onSubmit={form.handleSubmit((formData: designFormSchemaType) =>
+        onSubmit={form.handleSubmit((formData: messageFormSchemaType) =>
           executeAsync({ ...formData, id })
         )}
         className="grid grid-cols-1 lg:grid-cols-2 gap-8"
@@ -98,13 +98,37 @@ export const DesignEditForm = ({
 
             <FormField
               control={form.control}
-              name="link"
+              name="phoneNumber"
               disabled={isExecuting}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Link</FormLabel>
+                  <FormLabel>Phone Number</FormLabel>
                   <FormControl>
-                    <Input type="url" placeholder={appUrl} {...field} />
+                    <Input
+                      type="tel"
+                      placeholder="(5555) 5555-5555"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="message"
+              disabled={isExecuting}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Message</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      placeholder="Enter your text message here (optional)"
+                      {...field}
+                      maxLength={256}
+                      className="h-32"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

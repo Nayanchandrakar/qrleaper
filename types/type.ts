@@ -15,15 +15,24 @@ export interface QrCodeProps {
   qrCodeRef: React.MutableRefObject<qrCodeRefType>
 }
 
+type responseQrStyleType = {
+  bottomInput: string
+  image: string
+  topInput: string
+  color: string
+  hasFrame: boolean
+  shape: string
+}
+
 export interface editQrLinkType {
   title: string
   link: string
-  style: {
-    bottomInput: string
-    image: string
-    topInput: string
-    color: string
-    hasFrame: boolean
-    shape: string
-  }
+  style: responseQrStyleType
+}
+
+export interface editQrMessageType {
+  title: string
+  message?: string
+  phoneNumber: string
+  style: responseQrStyleType
 }

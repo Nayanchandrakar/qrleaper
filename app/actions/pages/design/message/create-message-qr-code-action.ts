@@ -3,19 +3,19 @@
 import { flattenValidationErrors } from "next-safe-action"
 
 import { authUserActionClient } from "@/lib/action/safe-action"
-import { designFormSchema } from "@/zod/forms/design/design-form-schema"
 import { db } from "@/database/db"
 import { qrCode, qrCodeStyle } from "@/database/schema"
-import { qrLink } from "@/database/schema/qr-variations"
-import { getEndpointURL } from "@/utils"
+import { qrMessage } from "@/database/schema/qr-variations"
+import { getEndpointURL, getMessageDbEndpointURL } from "@/utils"
+import { messageFormSchema } from "@/zod/forms/message/message-form-schema"
 
-export const createQrCodeAction = authUserActionClient
-  .schema(designFormSchema, {
+export const createQrCodeMessageAction = authUserActionClient
+  .schema(messageFormSchema, {
     handleValidationErrorsShape: async (ve) =>
       flattenValidationErrors(ve).fieldErrors,
   })
   .action(async ({ parsedInput, ctx }) => {
-    const { link, style, title } = parsedInput
+    const { phoneNumber, message, style, title } = parsedInput
     const { user } = ctx
 
     const qrCodeData = await db.transaction(async (tx) => {
@@ -24,16 +24,17 @@ export const createQrCodeAction = authUserActionClient
         .insert(qrCode)
         .values({
           title,
-          type: "link",
+          type: "message",
           userId: user.id!,
-          endpoint: link,
+          endpoint: getMessageDbEndpointURL(phoneNumber, message),
         })
         .returning()
 
       await Promise.all([
         // create a desired form data
-        tx.insert(qrLink).values({
-          link,
+        tx.insert(qrMessage).values({
+          message,
+          phoneNumber,
           qrCodeId: data.id,
         }),
 
