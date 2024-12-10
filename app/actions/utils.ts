@@ -11,9 +11,11 @@ import {
 import {
   qrEmail,
   qrFacebook,
+  qrGoogleDoc,
   qrInstagram,
   qrLink,
   qrMessage,
+  qrYoutube,
 } from "@/database/schema/qr-variations"
 import type { qrType } from "@/types/db-types"
 
@@ -178,6 +180,42 @@ export const getFacebookQrStyleAndDataByQrCodeId = async (id: string) => {
       return {
         style,
         facebook,
+      }
+    })
+    return data
+  } catch {
+    return null
+  }
+}
+
+export const getYoutubeQrStyleAndDataByQrCodeId = async (id: string) => {
+  try {
+    const data = await db.transaction(async (tx) => {
+      const [[style], [youtube]] = await Promise.all([
+        tx.select().from(qrCodeStyle).where(eq(qrCodeStyle.qrCodeId, id)),
+        tx.select().from(qrYoutube).where(eq(qrYoutube.qrCodeId, id)),
+      ])
+      return {
+        style,
+        youtube,
+      }
+    })
+    return data
+  } catch {
+    return null
+  }
+}
+
+export const getGoogleDocsQrStyleAndDataByQrCodeId = async (id: string) => {
+  try {
+    const data = await db.transaction(async (tx) => {
+      const [[style], [googleDocs]] = await Promise.all([
+        tx.select().from(qrCodeStyle).where(eq(qrCodeStyle.qrCodeId, id)),
+        tx.select().from(qrGoogleDoc).where(eq(qrGoogleDoc.qrCodeId, id)),
+      ])
+      return {
+        style,
+        googleDocs,
       }
     })
     return data

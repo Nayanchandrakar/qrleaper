@@ -30,6 +30,17 @@ export interface editQrLinkType {
   style: responseQrStyleType
 }
 
+export interface editQrGoogleDocsType {
+  title: string
+  googleDocUrl: string
+  style: responseQrStyleType
+}
+export interface editQrYoutubeType {
+  title: string
+  youtubeUrl: string
+  style: responseQrStyleType
+}
+
 export interface editQrInstagramType {
   title: string
   instagram: string
