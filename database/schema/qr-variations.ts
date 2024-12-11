@@ -15,6 +15,18 @@ export const qrLink = pgTable("qr_code_link", {
   link: text("link").notNull(),
 })
 
+export const qrFile = pgTable("qr_code_file", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => createId()),
+  qrCodeId: text("qr_code_id")
+    .references(() => qrCode.id, {
+      onDelete: "cascade",
+    })
+    .notNull(),
+  fileId: text("file_id").notNull(),
+})
+
 export const qrMessage = pgTable("qr_message", {
   id: text("id")
     .primaryKey()

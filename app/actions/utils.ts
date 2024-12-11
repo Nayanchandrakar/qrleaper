@@ -11,6 +11,7 @@ import {
 import {
   qrEmail,
   qrFacebook,
+  qrFile,
   qrGoogleDoc,
   qrInstagram,
   qrLink,
@@ -216,6 +217,24 @@ export const getGoogleDocsQrStyleAndDataByQrCodeId = async (id: string) => {
       return {
         style,
         googleDocs,
+      }
+    })
+    return data
+  } catch {
+    return null
+  }
+}
+
+export const getFileQrStyleAndDataByQrCodeId = async (id: string) => {
+  try {
+    const data = await db.transaction(async (tx) => {
+      const [[style], [file]] = await Promise.all([
+        tx.select().from(qrCodeStyle).where(eq(qrCodeStyle.qrCodeId, id)),
+        tx.select().from(qrFile).where(eq(qrFile.qrCodeId, id)),
+      ])
+      return {
+        style,
+        file,
       }
     })
     return data

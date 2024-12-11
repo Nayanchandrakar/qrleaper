@@ -30,6 +30,12 @@ export interface editQrLinkType {
   style: responseQrStyleType
 }
 
+export interface editQrFileType {
+  title: string
+  fileName: string
+  style: responseQrStyleType
+}
+
 export interface editQrGoogleDocsType {
   title: string
   googleDocUrl: string

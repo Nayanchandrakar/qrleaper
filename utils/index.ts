@@ -27,3 +27,7 @@ export const getEmailDbEndpointURL = (
 export const getInstagramDbEndpointURL = (id: string) => {
   return `https://www.instagram.com/${id?.substring(1)}`
 }
+
+export const getFileDbEndpointURL = (fileName: string) => {
+  return `${process.env.APP_URL}/api/view?fileName=${fileName}&download=true`
+}
