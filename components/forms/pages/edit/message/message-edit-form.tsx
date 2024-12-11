@@ -59,7 +59,7 @@ export const MessageEditForm = ({
     if (endpoint) {
       setData(endpoint)
     }
-  }, [endpoint])
+  }, [endpoint, setData])
 
   return (
     <FormProvider {...form}>

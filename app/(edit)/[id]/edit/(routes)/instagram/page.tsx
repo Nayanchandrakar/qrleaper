@@ -3,10 +3,8 @@ import { redirect } from "next/navigation"
 import { auth } from "@/lib/auth/auth"
 import {
   getInstagramQrStyleAndDataByQrCodeId,
-  getLinkQrStyleAndDataByQrCodeId,
   getQrCodeByUserIdAndIdWithType,
 } from "@/app/actions/utils"
-import { DesignEditForm } from "@/components/forms/pages/edit/design/design-edit-form"
 import { getEndpointURL } from "@/utils"
 import { InstagramEditForm } from "@/components/forms/pages/edit/instagram/instagram-edit-form"
 

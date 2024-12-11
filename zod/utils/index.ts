@@ -22,6 +22,10 @@ export const qrTitleSchema = z.object({
   title: z.string().min(3).max(20),
 })
 
+export const idSchema = z.object({
+  id: z.string().min(2).max(100),
+})
+
 export const qrStyleSchema = z.object({
   color: z.string().min(1).max(20).default(colorsList[0]),
   bottomInput: z.string().max(30).optional(),

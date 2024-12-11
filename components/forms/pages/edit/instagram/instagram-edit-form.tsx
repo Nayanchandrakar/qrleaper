@@ -21,7 +21,6 @@ import { PreviewQrCard } from "@/components/cards/pages/design/preview-qr-card"
 import { useQrDataContext } from "@/hooks/qr/useQrDataContext"
 import { QrEditControl } from "@/components/forms/pages/edit/design/qr-edit-controls"
 import type { editQrInstagramType } from "@/types/type"
-import { updateQrCodeLinkAction } from "@/app/actions/pages/edit/design/update-qr-code-link-action"
 import {
   instagramFormSchema,
   instagramFormSchemaType,
@@ -59,7 +58,7 @@ export const InstagramEditForm = ({
     if (endpoint) {
       setData(endpoint)
     }
-  }, [endpoint])
+  }, [endpoint, setData])
 
   return (
     <FormProvider {...form}>

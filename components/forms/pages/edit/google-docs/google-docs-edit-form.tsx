@@ -61,7 +61,7 @@ export const GoogleDocsEditForm = ({
     if (endpoint) {
       setData(endpoint)
     }
-  }, [endpoint])
+  }, [endpoint, setData])
 
   return (
     <FormProvider {...form}>

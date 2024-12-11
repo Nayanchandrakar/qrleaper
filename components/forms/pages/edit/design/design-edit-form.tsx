@@ -59,7 +59,7 @@ export const DesignEditForm = ({
     if (endpoint) {
       setData(endpoint)
     }
-  }, [endpoint])
+  }, [endpoint, setData])
 
   return (
     <FormProvider {...form}>

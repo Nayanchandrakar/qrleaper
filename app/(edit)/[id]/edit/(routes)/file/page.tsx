@@ -3,10 +3,8 @@ import { redirect } from "next/navigation"
 import { auth } from "@/lib/auth/auth"
 import {
   getFileQrStyleAndDataByQrCodeId,
-  getLinkQrStyleAndDataByQrCodeId,
   getQrCodeByUserIdAndIdWithType,
 } from "@/app/actions/utils"
-import { DesignEditForm } from "@/components/forms/pages/edit/design/design-edit-form"
 import { getEndpointURL } from "@/utils"
 import { FileEditForm } from "@/components/forms/pages/edit/file/file-edit-form"
 

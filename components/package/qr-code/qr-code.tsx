@@ -3,12 +3,16 @@
 import { useEffect, useMemo, useRef, forwardRef } from "react"
 import QRCodeStyling, { type Options } from "qr-code-styling"
 
-import { colorsList } from "@/constants/qr/colors"
-import { createBorder } from "@/components/package/qr-code/qr-border-styling"
+import { cn } from "@/lib/utils"
 import { appUrl } from "@/constants/config"
 import type { QrCodeProps } from "@/types/type"
+import { colorsList } from "@/constants/qr/colors"
+import { createBorder } from "@/components/package/qr-code/qr-border-styling"
 
-export const QrCode = forwardRef<HTMLDivElement, QrCodeProps>(
+export const QrCode = forwardRef<
+  HTMLDivElement,
+  QrCodeProps & { className?: string }
+>(
   ({
     shape = "square",
     bottomInput,
@@ -18,6 +22,7 @@ export const QrCode = forwardRef<HTMLDivElement, QrCodeProps>(
     logo,
     topInput,
     qrCodeRef,
+    className,
   }) => {
     const localRef = useRef<HTMLDivElement>(null)
 
@@ -100,7 +105,7 @@ export const QrCode = forwardRef<HTMLDivElement, QrCodeProps>(
       )
     }, [extensionOptions, qrOptions, qrCodeRef])
 
-    return <div ref={localRef} />
+    return <div className={cn(className)} ref={localRef} />
   }
 )
 

@@ -94,7 +94,7 @@ export const getQrCodeByUserIdAndIdWithType = async (
       )
 
     return data
-  } catch (error) {
+  } catch {
     return null
   }
 }

@@ -17,7 +17,6 @@ import {
   messageFormSchema,
   messageFormSchemaType,
 } from "@/zod/forms/message/message-form-schema"
-import { appUrl } from "@/constants/config"
 import { Input } from "@/components/ui/input"
 import { StepLabel } from "@/components/ui/step-label"
 import { QrStyleForm } from "@/components/forms/pages/design/qr-style/qr-style-form"

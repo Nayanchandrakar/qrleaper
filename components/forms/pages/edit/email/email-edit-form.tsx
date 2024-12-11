@@ -55,7 +55,7 @@ export const EmailEditForm = ({ qrCode, endpoint, id }: EmailEditFormProps) => {
     if (endpoint) {
       setData(endpoint)
     }
-  }, [endpoint])
+  }, [endpoint, setData])
 
   return (
     <FormProvider {...form}>

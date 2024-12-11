@@ -1,5 +1,6 @@
 import type { Session } from "next-auth"
 import type QRCodeStyling from "qr-code-styling"
+import type { qrCodeStyleType, qrCodeType, qrScanCountType } from "./db-types"
 
 export type SessionType = Session | null
 export type qrCodeRefType = QRCodeStyling | null
@@ -72,4 +73,10 @@ export interface editQrEmailType {
   email: string
   subject?: string
   style: responseQrStyleType
+}
+
+export interface qrCardType {
+  qr_code: qrCodeType
+  qr_code_style: qrCodeStyleType | null
+  qr_scan_count: qrScanCountType | null
 }

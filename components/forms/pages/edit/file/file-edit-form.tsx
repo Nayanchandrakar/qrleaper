@@ -54,7 +54,7 @@ export const FileEditForm = ({ qrCode, endpoint, id }: FileEditFormProps) => {
     if (endpoint) {
       setData(endpoint)
     }
-  }, [endpoint])
+  }, [endpoint, setData])
 
   return (
     <FormProvider {...form}>
