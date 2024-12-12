@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation"
 import { auth } from "@/lib/auth/auth"
 import { Sidebar } from "@/components/sidebars/dashboard-sidebar/sidebar"
+import { ShowQrCodePopup } from "@/components/popups/pages/dashboard/qr-codes/show-qr-code-popup/show-qr-code-popup"
 
 interface DashboardLayoutProps {
   children: React.ReactNode
@@ -18,7 +19,10 @@ const DashboardLayout = async ({ children }: DashboardLayoutProps) => {
       </div>
 
       {/* Pages div  */}
-      <div className="size-full md:ml-64">{children}</div>
+      <div className="size-full md:ml-64">
+        {children}
+        <ShowQrCodePopup />
+      </div>
     </div>
   )
 }

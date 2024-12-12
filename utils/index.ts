@@ -1,7 +1,15 @@
 import "server-only"
+import type { qrType } from "@/types/db-types"
 
 export const getEndpointURL = (id: string) => {
   return `${process.env.APP_URL}/link?id=${id}`
+}
+
+export const getEditURL = (type: qrType, id: string) => {
+  return `${process.env.APP_URL}/${id}/edit/${type === "link" ? "" : type}`
+}
+export const getAnalyticsURL = (id: string) => {
+  return `${process.env.APP_URL}/dashboard/analytics/${id}`
 }
 
 export const getMessageDbEndpointURL = (

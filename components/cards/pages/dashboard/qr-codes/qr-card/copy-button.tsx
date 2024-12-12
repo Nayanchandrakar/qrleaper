@@ -7,15 +7,15 @@ import { Copy } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 interface CopyButtonProps {
-  data: string
+  endpoint: string
   title: string
 }
 
-export const CopyButton = ({ data, title }: CopyButtonProps) => {
+export const CopyButton = ({ endpoint, title }: CopyButtonProps) => {
   const handleCopy = useCallback(() => {
-    window.navigator.clipboard.writeText(data)
+    window.navigator.clipboard.writeText(endpoint)
     toast.success("Succefully Copied URL")
-  }, [data])
+  }, [endpoint])
 
   return (
     <div className="flex items-center gap-2 justify-between">

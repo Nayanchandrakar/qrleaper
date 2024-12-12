@@ -7,6 +7,7 @@ import {
   passwordResetToken,
   qrCode,
   qrCodeStyle,
+  qrScanCount,
 } from "@/database/schema"
 import {
   qrEmail,
@@ -18,7 +19,29 @@ import {
   qrMessage,
   qrYoutube,
 } from "@/database/schema/qr-variations"
-import type { qrType } from "@/types/db-types"
+import type { qrCodeType, qrType } from "@/types/db-types"
+
+export const getQrCodeByUserIdAndStatusType = async (
+  userId: string,
+  qrId: string,
+  status: qrCodeType["status"]
+) => {
+  try {
+    const [data] = await db
+      .select()
+      .from(qrCode)
+      .where(
+        and(
+          eq(qrCode.userId, userId),
+          eq(qrCode.id, qrId),
+          eq(qrCode.status, status!)
+        )
+      )
+    return data
+  } catch {
+    return null
+  }
+}
 
 export const getUserById = async (id: string) => {
   try {
@@ -237,6 +260,18 @@ export const getFileQrStyleAndDataByQrCodeId = async (id: string) => {
         file,
       }
     })
+    return data
+  } catch {
+    return null
+  }
+}
+
+export const getQrScanCountById = async (id: string) => {
+  try {
+    const [data] = await db
+      .select()
+      .from(qrScanCount)
+      .where(eq(qrScanCount.qrCodeId, id))
     return data
   } catch {
     return null

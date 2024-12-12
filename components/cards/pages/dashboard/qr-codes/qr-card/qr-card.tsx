@@ -16,7 +16,7 @@ import { clicksFormatter } from "@/lib/utils"
 import { CopyButton } from "./copy-button"
 import { QrStatusBadge } from "./qr-status-badge"
 import { MiniButton } from "@/components/buttons/mini-button"
-import Link from "next/link"
+import { CardFooterButton } from "./card-footer-buttonts"
 
 interface QrCardProps {
   data: qrCardType
@@ -25,15 +25,12 @@ interface QrCardProps {
 export const QrCard = ({ data }: QrCardProps) => {
   return (
     <Card>
-      <QrCodePreview
-        styleData={data.qr_code_style!}
-        data={getEndpointURL(data.qr_code.id)}
-        id={data.qr_code.id}
-      />
+      <QrCodePreview endpoint={getEndpointURL(data.qr_code.id)} data={data} />
+
       <CardHeader className="px-3 pt-4 space-y-3">
         <CopyButton
           title={data?.qr_code.title!}
-          data={getEndpointURL(data.qr_code.id)}
+          endpoint={getEndpointURL(data.qr_code.id)}
         />
 
         <div className="flex items-center gap-2 justify-between">
@@ -46,11 +43,7 @@ export const QrCard = ({ data }: QrCardProps) => {
           <QrStatusBadge status={data?.qr_code?.status!} />
         </div>
       </CardHeader>
-      <CardFooter className="px-3 pb-4 flex items-center gap-3">
-        <MiniButton className="w-full bg-gradient-brand">
-          Edit QR Code
-        </MiniButton>
-      </CardFooter>
+      <CardFooterButton qrCode={data?.qr_code!} />
     </Card>
   )
 }
