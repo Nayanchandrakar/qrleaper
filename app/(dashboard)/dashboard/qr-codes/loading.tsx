@@ -3,9 +3,7 @@ import { ListComponent } from "@/components/global/list-component"
 import { HeadingShortner } from "@/components/global/heading-shortner"
 import { QrCardSkeleton } from "@/components/skeletons/pages/dashboard/qr-codes/qr-card-skeleton"
 
-interface QrCodeLoadingPageProps {}
-
-const QrCodeLoadingPage = ({}: QrCodeLoadingPageProps) => {
+const QrCodeLoadingPage = () => {
   return (
     <Container className="my-8">
       <HeadingShortner>
@@ -17,7 +15,7 @@ const QrCodeLoadingPage = ({}: QrCodeLoadingPageProps) => {
 
       <ListComponent
         data={Array.from({ length: 10 })}
-        renderItem={() => <QrCardSkeleton />}
+        renderItem={(data) => <QrCardSkeleton key={data as number} />}
         className="mt-12 grid grid-cols-1 gap-3 sm:grid-cols-2 min-[880px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
       />
     </Container>

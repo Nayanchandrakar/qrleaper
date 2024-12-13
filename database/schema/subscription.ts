@@ -1,11 +1,10 @@
 import { createId } from "@paralleldrive/cuid2"
-import { InferSelectModel } from "drizzle-orm"
 import { pgTable, text, integer, timestamp } from "drizzle-orm/pg-core"
 
 import { users } from "@/database/schema/user"
 import { lifeCycleDates } from "@/database/utils"
 
-export const subscriptionTable = pgTable("subscription", {
+export const subscription = pgTable("subscription", {
   id: text("id")
     .primaryKey()
     .$defaultFn(() => createId()),
@@ -24,6 +23,3 @@ export const subscriptionTable = pgTable("subscription", {
   }).notNull(),
   ...lifeCycleDates,
 })
-
-// ALL TYPE EXPORT HERE
-export type subscriptionTableType = InferSelectModel<typeof subscriptionTable>

@@ -1,5 +1,6 @@
 "use server"
 
+import { revalidatePath } from "next/cache"
 import { flattenValidationErrors } from "next-safe-action"
 
 import { authUserActionClient } from "@/lib/action/safe-action"
@@ -53,6 +54,8 @@ export const createQrCodeEmailAction = authUserActionClient
 
       return data
     })
+
+    revalidatePath("/dashboard/qr-codes")
 
     return { endpoint: getEndpointURL(qrCodeData.id) as string }
   })

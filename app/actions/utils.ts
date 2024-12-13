@@ -8,6 +8,8 @@ import {
   qrCode,
   qrCodeStyle,
   qrScanCount,
+  subscription,
+  qrAnalytics,
 } from "@/database/schema"
 import {
   qrEmail,
@@ -20,6 +22,7 @@ import {
   qrYoutube,
 } from "@/database/schema/qr-variations"
 import type { qrCodeType, qrType } from "@/types/db-types"
+import { increment } from "@/database/utils"
 
 export const getQrCodeByUserIdAndStatusType = async (
   userId: string,
@@ -273,6 +276,76 @@ export const getQrScanCountById = async (id: string) => {
       .from(qrScanCount)
       .where(eq(qrScanCount.qrCodeId, id))
     return data
+  } catch {
+    return null
+  }
+}
+
+export const getSubscriptionByUserId = async (userId: string) => {
+  try {
+    const [data] = await db
+      ?.select()
+      .from(subscription)
+      .where(eq(subscription.userId, userId))
+    return data
+  } catch {
+    return null
+  }
+}
+
+export const getQrCodeById = async (id: string) => {
+  try {
+    const [data] = await db.select().from(qrCode).where(eq(qrCode.id, id))
+    return data
+  } catch {
+    return null
+  }
+}
+
+export const getQrAnalyticsByQrCodeIdAndDeviceId = async (
+  qrId: string,
+  deviceId: string
+) => {
+  try {
+    const [data] = await db
+      .select({ id: qrAnalytics.id })
+      .from(qrAnalytics)
+      .where(
+        and(eq(qrAnalytics.qrCodeId, qrId), eq(qrAnalytics.deviceId, deviceId))
+      )
+
+    return data
+  } catch {
+    return null
+  }
+}
+
+export const incrementQrAnalyticsCountById = async (id: string) => {
+  try {
+    await db
+      .update(qrAnalytics)
+      .set({
+        count: increment(qrAnalytics.count, 1),
+      })
+      .where(eq(qrAnalytics.id, id))
+  } catch {
+    return null
+  }
+}
+
+export const incrmentQrScanCountByQrCodeId = async (qrCodeId: string) => {
+  try {
+    await db
+      .insert(qrScanCount)
+      .values({
+        qrCodeId,
+      })
+      .onConflictDoUpdate({
+        target: qrScanCount.qrCodeId,
+        set: {
+          count: increment(qrScanCount.count, 1),
+        },
+      })
   } catch {
     return null
   }

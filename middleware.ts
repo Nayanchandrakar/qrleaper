@@ -1,20 +1,31 @@
-import { auth } from "@/lib/auth/auth"
 import { NextResponse } from "next/server"
+
 import {
   apiAuthPrefix,
   authRoutes,
   DEFAULT_LOGIN_REDIRECT,
   publicRoutes,
-} from "./routes"
+  linkMiddlewareRoute,
+} from "@/routes"
+import { auth } from "@/lib/auth/auth"
+import { linkMiddleware } from "@/middlewares/link-middleware"
 
 export default auth(async function middleware(req) {
   const { nextUrl } = req
   const { pathname } = nextUrl
 
+  const isLinkMiddlewareRoute = pathname
+    .split("?")?.[0]
+    ?.startsWith(linkMiddlewareRoute)
+
   const isLoggedIn = !!req.auth
   const isAuthPrefixUrl = pathname.startsWith(apiAuthPrefix)
   const isAuthRoute = authRoutes?.includes(pathname)
   const isPublicRoute = publicRoutes?.includes(pathname)
+
+  if (isLinkMiddlewareRoute) {
+    return linkMiddleware(req)
+  }
 
   if (isAuthPrefixUrl) return
 

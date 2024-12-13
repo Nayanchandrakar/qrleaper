@@ -8,6 +8,7 @@ import { qrCode, qrCodeStyle } from "@/database/schema"
 import { qrYoutube } from "@/database/schema/qr-variations"
 import { getEndpointURL } from "@/utils"
 import { youtubeFormSchema } from "@/zod/forms/youtube/youtube-form-schema"
+import { revalidatePath } from "next/cache"
 
 export const createQrCodeYoutubeAction = authUserActionClient
   .schema(youtubeFormSchema, {
@@ -51,6 +52,8 @@ export const createQrCodeYoutubeAction = authUserActionClient
 
       return data
     })
+
+    revalidatePath("/dashboard/qr-codes")
 
     return { endpoint: getEndpointURL(qrCodeData.id) as string }
   })

@@ -3,7 +3,13 @@
  * to not-authenticated users
  * @type {string[]}
  */
-export const publicRoutes = ["/design", "/pricing", "/forgot-password"]
+export const publicRoutes = [
+  "/design",
+  "/expired",
+  "/pricing",
+  "/link",
+  "/forgot-password",
+]
 
 /**
  * These Api Routes are for only authentication purpose
@@ -18,5 +24,12 @@ export const authRoutes = ["/login", "/register"]
  * @type {string}
  */
 export const apiAuthPrefix = "/api/auth"
+
+/**
+ * This route is accessible to use link middleware freely
+ * without blocking the main tracking endpoint of link middleware
+ * @type {string}
+ */
+export const linkMiddlewareRoute = "/link"
 
 export const DEFAULT_LOGIN_REDIRECT = "/dashboard/qr-codes"
