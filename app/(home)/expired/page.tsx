@@ -5,6 +5,10 @@ import { cn } from "@/lib/utils"
 import { Icons } from "@/components/shared/icons"
 import { buttonVariants } from "@/components/ui/button"
 
+export const metadata = {
+  title: "QR Code is being Expired",
+}
+
 const ExpiredPage = () => {
   return (
     <section className="relative flex h-[calc(100vh_-_62px)] w-full items-center justify-center">
