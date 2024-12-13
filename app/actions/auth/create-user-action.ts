@@ -4,12 +4,14 @@ import { z } from "zod"
 import { and, eq, gte } from "drizzle-orm"
 import { flattenValidationErrors } from "next-safe-action"
 
-import { hashPassword } from "@/lib/auth/password"
-import { throwIfAuthenticated } from "@/lib/action/throw-if-authenticated"
-import { actionClient } from "@/lib/action/safe-action"
-import { registerFormSchema } from "@/zod/auth/register-schema"
 import { db } from "@/database/db"
+import { hashPassword } from "@/lib/auth/password"
+import { getUserByEmail } from "@/app/actions/utils"
+import { actionClient } from "@/lib/action/safe-action"
 import { users, verificationTokens } from "@/database/schema"
+import { registerFormSchema } from "@/zod/auth/register-schema"
+import { createSubscription } from "@/app/actions/subscription/utils"
+import { throwIfAuthenticated } from "@/lib/action/throw-if-authenticated"
 
 const schema = registerFormSchema.extend({
   code: z.string().min(6, "OTP must be 6 characters long."),
@@ -49,15 +51,21 @@ export const createUserAccountAction = actionClient
         )
       )
 
-    const [user] = await db.select().from(users).where(eq(users.email, email))
+    const user = await getUserByEmail(email)
 
     if (!user) {
-      await db.insert(users).values({
-        name,
-        email,
-        passwordHash: await hashPassword(password),
-        emailVerified: new Date(),
-      })
+      const [data] = await db
+        .insert(users)
+        .values({
+          name,
+          email,
+          passwordHash: await hashPassword(password),
+          emailVerified: new Date(),
+        })
+        .returning()
+
+      // create a free tier subscritpion for new user
+      await createSubscription(data.id)
     }
 
     return { ok: true }

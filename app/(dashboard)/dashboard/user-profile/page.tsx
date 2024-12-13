@@ -8,6 +8,10 @@ import { UpdatePasswordForm } from "@/components/forms/user-profile/update-passw
 import { EmailChangeComponent } from "@/components/pages/auth/email-change/email-change-component"
 import { Container } from "@/components/global/container"
 
+export const metadata = {
+  title: "Your QR Leaper Profile",
+}
+
 const UserProfilePage = async () => {
   const session = await auth()
 

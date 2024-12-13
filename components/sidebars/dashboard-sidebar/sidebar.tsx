@@ -4,9 +4,15 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 
 import { cn } from "@/lib/utils"
+import type { subscritpionTableType } from "@/types/db-types"
 import { dashboardNavigations } from "@/constants/navigation/dashboard-constants"
+import { SubscriptionUsageBar } from "@/components/sidebars/dashboard-sidebar/subscription-usage-bar"
 
-export const Sidebar = () => {
+interface SidebarProps {
+  subscription: subscritpionTableType
+}
+
+export const Sidebar = ({ subscription }: SidebarProps) => {
   const pathname = usePathname()
 
   const checkRoute = (href: string) => {
@@ -33,7 +39,7 @@ export const Sidebar = () => {
           </Link>
         ))}
       </div>
-      {/* <UsageStatComponent data={data} /> */}
+      <SubscriptionUsageBar subscription={subscription} />
     </aside>
   )
 }

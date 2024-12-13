@@ -27,6 +27,67 @@ CREATE TABLE IF NOT EXISTS "qr_scan_count" (
 	"updatedAt" timestamp DEFAULT now()
 );
 --> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "account" (
+	"userId" text NOT NULL,
+	"type" text NOT NULL,
+	"provider" text NOT NULL,
+	"providerAccountId" text NOT NULL,
+	"refresh_token" text,
+	"access_token" text,
+	"expires_at" integer,
+	"token_type" text,
+	"scope" text,
+	"id_token" text,
+	"session_state" text,
+	CONSTRAINT "account_provider_providerAccountId_pk" PRIMARY KEY("provider","providerAccountId")
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "authenticator" (
+	"credentialID" text NOT NULL,
+	"userId" text NOT NULL,
+	"providerAccountId" text NOT NULL,
+	"credentialPublicKey" text NOT NULL,
+	"counter" integer NOT NULL,
+	"credentialDeviceType" text NOT NULL,
+	"credentialBackedUp" boolean NOT NULL,
+	"transports" text,
+	CONSTRAINT "authenticator_userId_credentialID_pk" PRIMARY KEY("userId","credentialID"),
+	CONSTRAINT "authenticator_credentialID_unique" UNIQUE("credentialID")
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "user" (
+	"id" text PRIMARY KEY NOT NULL,
+	"name" text,
+	"email" text,
+	"passwordHash" text,
+	"emailVerified" timestamp,
+	"image" text,
+	"createdAt" timestamp DEFAULT now() NOT NULL,
+	"updatedAt" timestamp DEFAULT now(),
+	CONSTRAINT "user_email_unique" UNIQUE("email")
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "emailChangeToken" (
+	"identifier" text NOT NULL,
+	"token" text NOT NULL,
+	"expires" timestamp NOT NULL,
+	CONSTRAINT "emailChangeToken_identifier_token_pk" PRIMARY KEY("identifier","token")
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "passwordResetToken" (
+	"identifier" text NOT NULL,
+	"token" text NOT NULL,
+	"expires" timestamp NOT NULL,
+	CONSTRAINT "passwordResetToken_identifier_token_pk" PRIMARY KEY("identifier","token")
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "verificationToken" (
+	"identifier" text NOT NULL,
+	"token" text NOT NULL,
+	"expires" timestamp NOT NULL,
+	CONSTRAINT "verificationToken_identifier_token_pk" PRIMARY KEY("identifier","token")
+);
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "qr_code" (
 	"id" text PRIMARY KEY NOT NULL,
 	"user_id" text NOT NULL,
@@ -49,6 +110,21 @@ CREATE TABLE IF NOT EXISTS "qr_code_style" (
 	"bottom_text" text
 );
 --> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "subscription" (
+	"id" text PRIMARY KEY NOT NULL,
+	"user_id" text NOT NULL,
+	"count" integer DEFAULT 0,
+	"stripe_customer_id" text,
+	"stripe_subscription_id" text,
+	"stripe_price_id" text,
+	"stripe_current_period_end" timestamp NOT NULL,
+	"createdAt" timestamp DEFAULT now() NOT NULL,
+	"updatedAt" timestamp DEFAULT now(),
+	CONSTRAINT "subscription_user_id_unique" UNIQUE("user_id"),
+	CONSTRAINT "subscription_stripe_customer_id_unique" UNIQUE("stripe_customer_id"),
+	CONSTRAINT "subscription_stripe_subscription_id_unique" UNIQUE("stripe_subscription_id")
+);
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "qr_email" (
 	"id" text PRIMARY KEY NOT NULL,
 	"qr_code_id" text NOT NULL,
@@ -61,6 +137,12 @@ CREATE TABLE IF NOT EXISTS "qr_facebook" (
 	"id" text PRIMARY KEY NOT NULL,
 	"qr_code_id" text NOT NULL,
 	"facebook_url" text NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "qr_code_file" (
+	"id" text PRIMARY KEY NOT NULL,
+	"qr_code_id" text NOT NULL,
+	"file_id" text NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "qr_google_doc" (
@@ -94,21 +176,6 @@ CREATE TABLE IF NOT EXISTS "qr_youtube" (
 	"youtube_url" text NOT NULL
 );
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "subscription" (
-	"id" text PRIMARY KEY NOT NULL,
-	"user_id" text NOT NULL,
-	"count" integer DEFAULT 0,
-	"stripe_customer_id" text,
-	"stripe_subscription_id" text,
-	"stripe_price_id" text,
-	"stripe_current_period_end" timestamp NOT NULL,
-	"createdAt" timestamp DEFAULT now() NOT NULL,
-	"updatedAt" timestamp DEFAULT now(),
-	CONSTRAINT "subscription_user_id_unique" UNIQUE("user_id"),
-	CONSTRAINT "subscription_stripe_customer_id_unique" UNIQUE("stripe_customer_id"),
-	CONSTRAINT "subscription_stripe_subscription_id_unique" UNIQUE("stripe_subscription_id")
-);
---> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "qr_analytics" ADD CONSTRAINT "qr_analytics_qr_code_id_qr_code_id_fk" FOREIGN KEY ("qr_code_id") REFERENCES "public"."qr_code"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
@@ -117,6 +184,18 @@ END $$;
 --> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "qr_scan_count" ADD CONSTRAINT "qr_scan_count_qr_code_id_qr_code_id_fk" FOREIGN KEY ("qr_code_id") REFERENCES "public"."qr_code"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "account" ADD CONSTRAINT "account_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "authenticator" ADD CONSTRAINT "authenticator_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -134,6 +213,12 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
+ ALTER TABLE "subscription" ADD CONSTRAINT "subscription_user_id_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
  ALTER TABLE "qr_email" ADD CONSTRAINT "qr_email_qr_code_id_qr_code_id_fk" FOREIGN KEY ("qr_code_id") REFERENCES "public"."qr_code"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
@@ -141,6 +226,12 @@ END $$;
 --> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "qr_facebook" ADD CONSTRAINT "qr_facebook_qr_code_id_qr_code_id_fk" FOREIGN KEY ("qr_code_id") REFERENCES "public"."qr_code"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "qr_code_file" ADD CONSTRAINT "qr_code_file_qr_code_id_qr_code_id_fk" FOREIGN KEY ("qr_code_id") REFERENCES "public"."qr_code"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -171,12 +262,6 @@ END $$;
 --> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "qr_youtube" ADD CONSTRAINT "qr_youtube_qr_code_id_qr_code_id_fk" FOREIGN KEY ("qr_code_id") REFERENCES "public"."qr_code"("id") ON DELETE cascade ON UPDATE no action;
-EXCEPTION
- WHEN duplicate_object THEN null;
-END $$;
---> statement-breakpoint
-DO $$ BEGIN
- ALTER TABLE "subscription" ADD CONSTRAINT "subscription_user_id_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;

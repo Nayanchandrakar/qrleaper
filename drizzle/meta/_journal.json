@@ -5,43 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1733079390336,
-      "tag": "0000_dear_jack_power",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1733207080985,
-      "tag": "0001_keen_yellow_claw",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1733297270991,
-      "tag": "0002_eminent_ultimatum",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1733307759220,
-      "tag": "0003_rich_manta",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1733740640099,
-      "tag": "0004_cloudy_aaron_stack",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "7",
-      "when": 1733901741364,
-      "tag": "0005_fast_meltdown",
+      "when": 1734095983398,
+      "tag": "0000_sturdy_mister_sinister",
       "breakpoints": true
     }
   ]
