@@ -17,6 +17,7 @@ import {
   isSubscriptionExpiredEdge,
 } from "@/app/actions/helpers/edge-helpers/get-identity-hash"
 import { createAnalyticsRecord } from "@/app/actions/helpers/middleware/link/create-analytics-record"
+import QrCodeLimitReached from "@/templates/notifications/qr-limit-react-template"
 
 export const linkMiddleware = async (req: NextRequest) => {
   const nextUrl = req.nextUrl
@@ -57,7 +58,9 @@ export const linkMiddleware = async (req: NextRequest) => {
 
       await sendEmail({
         email: user?.email!,
-        react: () => "",
+        react: QrCodeLimitReached({
+          url: `${process.env.APP_URL}/pricing`,
+        }),
         subject: "🚀 Your QR Code Has Hit Its Limit – Reactivate Now!",
       })
 

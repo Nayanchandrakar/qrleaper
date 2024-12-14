@@ -21,14 +21,15 @@ export default auth(async function middleware(req) {
 
   const isLoggedIn = !!req.auth
   const isAuthPrefixUrl = pathname.startsWith(apiAuthPrefix)
+  const isStripePrefixUrl = pathname.startsWith(apiStripePrefix)
   const isAuthRoute = authRoutes?.includes(pathname)
   const isPublicRoute = publicRoutes?.includes(pathname)
+
+  if (isAuthPrefixUrl || isStripePrefixUrl) return
 
   if (isLinkMiddlewareRoute) {
     return linkMiddleware(req)
   }
-
-  if (isAuthPrefixUrl || apiStripePrefix) return
 
   if (isAuthRoute) {
     if (isLoggedIn) {

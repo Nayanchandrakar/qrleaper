@@ -1,9 +1,11 @@
-import { db } from "@/database/db"
-import { subscription, users } from "@/database/schema"
-import { sendEmail } from "@/lib/mail"
 import dayjs from "dayjs"
 import { eq, sql } from "drizzle-orm"
 import { NextRequest } from "next/server"
+
+import { db } from "@/database/db"
+import { sendEmail } from "@/lib/mail"
+import { subscription, users } from "@/database/schema"
+import QrCodeExpirationNotice from "@/templates/notifications/qr-code-expiry-email-template"
 
 export const dynamic = "force-dynamic"
 
@@ -43,7 +45,10 @@ export async function GET(req: NextRequest) {
         await sendEmail({
           subject: "🚨 Your QR Code Has Expired – Here's How to Reactivate It!",
           email: email!,
-          react: () => "",
+          react: QrCodeExpirationNotice({
+            expirationDate,
+            url: `${process.env.APP_URL}/pricing`,
+          }),
         })
 
         console.log(`Email sent to ${email}`)

@@ -28,7 +28,7 @@ export default function LoginLink({
             <Section className="mt-8">
               <Img
                 src={LEAPER_WORKMARK}
-                height="40"
+                height="200"
                 alt="QR leaper"
                 className="mx-auto my-0"
               />

@@ -2,10 +2,10 @@
 
 import Link from "next/link"
 
+import { SessionType } from "@/types/type"
 import { MiniButton } from "@/components/buttons/mini-button"
 import { LinkButton } from "@/components/buttons/link-button"
 import { UserButton } from "@/components/navbar/user-button"
-import { SessionType } from "@/types/type"
 
 interface NavigationMenuProps {
   session: SessionType
@@ -21,10 +21,16 @@ const NavigationMenu = ({ session }: NavigationMenuProps) => {
         <UserButton session={session!} />
       ) : (
         <>
-          <LinkButton href="/login">Login</LinkButton>
+          <LinkButton className="sm:inline-block hidden" href="/login">
+            Login
+          </LinkButton>
 
-          <Link href="/register">
+          <Link className="sm:inline-block hidden" href="/register">
             <MiniButton>Sign Up</MiniButton>
+          </Link>
+
+          <Link className="sm:hidden inline-block " href="/login">
+            <MiniButton>Login</MiniButton>
           </Link>
         </>
       )}

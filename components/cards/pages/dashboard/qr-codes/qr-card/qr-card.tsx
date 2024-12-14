@@ -1,13 +1,6 @@
-import { ChartColumnStacked, MousePointerClick } from "lucide-react"
+import { MousePointerClick } from "lucide-react"
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+import { Card, CardHeader } from "@/components/ui/card"
 import { getEndpointURL } from "@/utils"
 import type { qrCardType } from "@/types/type"
 import { QrCodePreview } from "@/components/cards/pages/dashboard/qr-codes/qr-card/qr-code-preview"
@@ -15,7 +8,6 @@ import { Badge } from "@/components/ui/badge"
 import { clicksFormatter } from "@/lib/utils"
 import { CopyButton } from "./copy-button"
 import { QrStatusBadge } from "./qr-status-badge"
-import { MiniButton } from "@/components/buttons/mini-button"
 import { CardFooterButton } from "./card-footer-buttonts"
 
 interface QrCardProps {
@@ -36,8 +28,7 @@ export const QrCard = ({ data }: QrCardProps) => {
         <div className="flex items-center gap-2 justify-between">
           <Badge variant="clicks">
             <MousePointerClick className="size-4 mr-1" />
-            {clicksFormatter(data?.qr_scan_count?.count!, { full: true })}{" "}
-            clicks
+            {clicksFormatter(data?.qr_scan_count?.count!)} clicks
           </Badge>
 
           <QrStatusBadge status={data?.qr_code?.status!} />

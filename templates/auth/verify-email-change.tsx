@@ -27,7 +27,7 @@ export default function VerifyEmailChange({
             <Section className="mt-8">
               <Img
                 src={LEAPER_WORKMARK}
-                height="40"
+                height="200"
                 alt="Dub"
                 className="mx-auto my-0"
               />

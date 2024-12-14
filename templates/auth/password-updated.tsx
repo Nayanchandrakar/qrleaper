@@ -27,7 +27,7 @@ export default function PasswordUpdated({
             <Section className="mt-8">
               <Img
                 src={LEAPER_WORKMARK}
-                height="40"
+                height="200"
                 alt="Leaper"
                 className="mx-auto my-0"
               />

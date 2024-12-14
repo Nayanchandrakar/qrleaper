@@ -23,7 +23,7 @@ export default function VerifyEmail({ code = "123456" }: { code: string }) {
             <Section className="mt-8">
               <Img
                 src={LEAPER_WORKMARK}
-                height="40"
+                height="200"
                 alt="Dub"
                 className="mx-auto my-0"
               />

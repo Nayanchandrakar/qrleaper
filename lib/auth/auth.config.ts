@@ -9,7 +9,7 @@ import { users } from "@/database/schema"
 import { validatePassword } from "./password"
 import LoginLink from "@/templates/auth/login-link"
 import { db } from "@/database/db"
-import { getUserByEmail, getUserById } from "@/app/actions/utils"
+import { getUserById } from "@/app/actions/utils"
 import { createSubscription } from "@/app/actions/helpers/subscription/utils"
 
 export default {
@@ -25,7 +25,7 @@ export default {
         } else {
           sendEmail({
             email: identifier,
-            subject: `Your ${process.env.NEXT_PUBLIC_APP_NAME} Login Link`,
+            subject: `Your QR Leaper Login Link`,
             react: LoginLink({ url }),
           })
         }
@@ -83,8 +83,8 @@ export default {
     }),
   ],
   pages: {
-    signIn: "/login",
     signOut: "/design",
+    signIn: "/login",
   },
 
   events: {
