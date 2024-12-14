@@ -9,12 +9,15 @@ import { qrCode, qrCodeStyle } from "@/database/schema"
 import { qrFacebook } from "@/database/schema/qr-variations"
 import { getEndpointURL } from "@/utils"
 import { facebookFormSchema } from "@/zod/forms/facebook/facebook-form-schema"
+import { throwSubscriptionError } from "@/lib/action/throw-subscription-error"
+import { incrementQrSubscriptionCountByUserId } from "@/app/actions/helpers/subscription/utils"
 
 export const createQrCodeFacebookAction = authUserActionClient
   .schema(facebookFormSchema, {
     handleValidationErrorsShape: async (ve) =>
       flattenValidationErrors(ve).fieldErrors,
   })
+  .use(throwSubscriptionError)
   .action(async ({ parsedInput, ctx }) => {
     const { facebookUrl, style, title } = parsedInput
     const { user } = ctx
@@ -50,6 +53,7 @@ export const createQrCodeFacebookAction = authUserActionClient
         }),
       ])
 
+      incrementQrSubscriptionCountByUserId(ctx.user.id!)
       return data
     })
 

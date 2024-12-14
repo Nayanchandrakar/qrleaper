@@ -9,12 +9,15 @@ import { qrCode, qrCodeStyle } from "@/database/schema"
 import { qrMessage } from "@/database/schema/qr-variations"
 import { getEndpointURL, getMessageDbEndpointURL } from "@/utils"
 import { messageFormSchema } from "@/zod/forms/message/message-form-schema"
+import { throwSubscriptionError } from "@/lib/action/throw-subscription-error"
+import { incrementQrSubscriptionCountByUserId } from "@/app/actions/helpers/subscription/utils"
 
 export const createQrCodeMessageAction = authUserActionClient
   .schema(messageFormSchema, {
     handleValidationErrorsShape: async (ve) =>
       flattenValidationErrors(ve).fieldErrors,
   })
+  .use(throwSubscriptionError)
   .action(async ({ parsedInput, ctx }) => {
     const { phoneNumber, message, style, title } = parsedInput
     const { user } = ctx
@@ -51,6 +54,7 @@ export const createQrCodeMessageAction = authUserActionClient
         }),
       ])
 
+      incrementQrSubscriptionCountByUserId(ctx.user.id!)
       return data
     })
 

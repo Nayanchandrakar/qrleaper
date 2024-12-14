@@ -9,12 +9,15 @@ import { qrCode, qrCodeStyle } from "@/database/schema"
 import { qrGoogleDoc } from "@/database/schema/qr-variations"
 import { getEndpointURL } from "@/utils"
 import { googleDocsFormSchema } from "@/zod/forms/google-docs/google-docs-form-schema"
+import { throwSubscriptionError } from "@/lib/action/throw-subscription-error"
+import { incrementQrSubscriptionCountByUserId } from "@/app/actions/helpers/subscription/utils"
 
 export const createQrCodeGoogleDocsAction = authUserActionClient
   .schema(googleDocsFormSchema, {
     handleValidationErrorsShape: async (ve) =>
       flattenValidationErrors(ve).fieldErrors,
   })
+  .use(throwSubscriptionError)
   .action(async ({ parsedInput, ctx }) => {
     const { googleDocUrl, style, title } = parsedInput
     const { user } = ctx
@@ -50,6 +53,7 @@ export const createQrCodeGoogleDocsAction = authUserActionClient
         }),
       ])
 
+      incrementQrSubscriptionCountByUserId(ctx.user.id!)
       return data
     })
 

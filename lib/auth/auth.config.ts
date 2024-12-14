@@ -9,6 +9,8 @@ import { users } from "@/database/schema"
 import { validatePassword } from "./password"
 import LoginLink from "@/templates/auth/login-link"
 import { db } from "@/database/db"
+import { getUserByEmail, getUserById } from "@/app/actions/utils"
+import { createSubscription } from "@/app/actions/helpers/subscription/utils"
 
 export default {
   providers: [
@@ -82,7 +84,7 @@ export default {
   ],
   pages: {
     signIn: "/login",
-    signOut: "/",
+    signOut: "/design",
   },
 
   events: {
@@ -94,16 +96,20 @@ export default {
         })
         .where(eq(users.id, user.id!))
     },
+
+    async signIn({ user, isNewUser, account }) {
+      // create a subscription for the new user only
+      if (user.id && account?.provider === "google" && isNewUser) {
+        await createSubscription(user.id!)
+      }
+    },
   },
 
   callbacks: {
     async signIn({ user, account }) {
       if (account?.provider !== "credentials") return true
 
-      const [isExist] = await db
-        .select()
-        .from(users)
-        .where(eq(users.id, user.id!))
+      const isExist = await getUserById(user.id!)
 
       if (
         !isExist ||
@@ -114,7 +120,6 @@ export default {
         return false
       }
 
-      // Remaining for 2FA authentication
       return true
     },
 

@@ -9,12 +9,15 @@ import { qrCode, qrCodeStyle } from "@/database/schema"
 import { qrFile } from "@/database/schema/qr-variations"
 import { getEndpointURL, getFileDbEndpointURL } from "@/utils"
 import { fileFormSchema } from "@/zod/forms/file/file-form-schema"
+import { throwSubscriptionError } from "@/lib/action/throw-subscription-error"
+import { incrementQrSubscriptionCountByUserId } from "@/app/actions/helpers/subscription/utils"
 
 export const createFileQrCodeAction = authUserActionClient
   .schema(fileFormSchema, {
     handleValidationErrorsShape: async (ve) =>
       flattenValidationErrors(ve).fieldErrors,
   })
+  .use(throwSubscriptionError)
   .action(async ({ parsedInput, ctx }) => {
     const { fileName, style, title } = parsedInput
     const { user } = ctx
@@ -50,6 +53,7 @@ export const createFileQrCodeAction = authUserActionClient
         }),
       ])
 
+      incrementQrSubscriptionCountByUserId(ctx.user.id!)
       return data
     })
 

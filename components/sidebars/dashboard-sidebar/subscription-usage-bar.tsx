@@ -27,7 +27,7 @@ export const SubscriptionUsageBar = ({
   })
 
   return (
-    <div className="flex flex-col rounded-lg bg-zinc-100 p-4">
+    <div className="flex flex-col rounded-lg bg-gray-50 p-4 border border-gray-200">
       <div className="mb-2.5 flex items-center justify-between gap-2 text-xs font-medium text-neutral-600">
         <span>Usage</span>
         <span>
@@ -49,9 +49,9 @@ export const SubscriptionUsageBar = ({
           className="bg-gradient-brand mt-4"
         >
           {isExecuting ? (
-            <Loader className="mr-2 size-4 animate-spin" />
+            <Loader className="size-5 animate-spin" />
           ) : (
-            <Sparkles className="ml-2 size-4 fill-white" />
+            <Sparkles className="size-5 fill-white" />
           )}
           Upgrade to pro
         </Button>

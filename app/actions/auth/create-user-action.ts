@@ -10,7 +10,7 @@ import { getUserByEmail } from "@/app/actions/utils"
 import { actionClient } from "@/lib/action/safe-action"
 import { users, verificationTokens } from "@/database/schema"
 import { registerFormSchema } from "@/zod/auth/register-schema"
-import { createSubscription } from "@/app/actions/subscription/utils"
+import { createSubscription } from "@/app/actions/helpers/subscription/utils"
 import { throwIfAuthenticated } from "@/lib/action/throw-if-authenticated"
 
 const schema = registerFormSchema.extend({

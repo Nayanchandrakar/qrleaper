@@ -9,12 +9,15 @@ import { qrCode, qrCodeStyle } from "@/database/schema"
 import { qrInstagram } from "@/database/schema/qr-variations"
 import { getEndpointURL, getInstagramDbEndpointURL } from "@/utils"
 import { instagramFormSchema } from "@/zod/forms/instagram/instagram-form-schema"
+import { throwSubscriptionError } from "@/lib/action/throw-subscription-error"
+import { incrementQrSubscriptionCountByUserId } from "@/app/actions/helpers/subscription/utils"
 
 export const createQrCodeInstagramAction = authUserActionClient
   .schema(instagramFormSchema, {
     handleValidationErrorsShape: async (ve) =>
       flattenValidationErrors(ve).fieldErrors,
   })
+  .use(throwSubscriptionError)
   .action(async ({ parsedInput, ctx }) => {
     const { instagram, style, title } = parsedInput
     const { user } = ctx
@@ -50,6 +53,7 @@ export const createQrCodeInstagramAction = authUserActionClient
         }),
       ])
 
+      incrementQrSubscriptionCountByUserId(ctx.user.id!)
       return data
     })
 

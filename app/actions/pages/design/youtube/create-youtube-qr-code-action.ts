@@ -1,5 +1,6 @@
 "use server"
 
+import { revalidatePath } from "next/cache"
 import { flattenValidationErrors } from "next-safe-action"
 
 import { authUserActionClient } from "@/lib/action/safe-action"
@@ -8,13 +9,15 @@ import { qrCode, qrCodeStyle } from "@/database/schema"
 import { qrYoutube } from "@/database/schema/qr-variations"
 import { getEndpointURL } from "@/utils"
 import { youtubeFormSchema } from "@/zod/forms/youtube/youtube-form-schema"
-import { revalidatePath } from "next/cache"
+import { incrementQrSubscriptionCountByUserId } from "@/app/actions/helpers/subscription/utils"
+import { throwSubscriptionError } from "@/lib/action/throw-subscription-error"
 
 export const createQrCodeYoutubeAction = authUserActionClient
   .schema(youtubeFormSchema, {
     handleValidationErrorsShape: async (ve) =>
       flattenValidationErrors(ve).fieldErrors,
   })
+  .use(throwSubscriptionError)
   .action(async ({ parsedInput, ctx }) => {
     const { youtubeUrl, style, title } = parsedInput
     const { user } = ctx
@@ -50,6 +53,7 @@ export const createQrCodeYoutubeAction = authUserActionClient
         }),
       ])
 
+      incrementQrSubscriptionCountByUserId(ctx.user.id!)
       return data
     })
 

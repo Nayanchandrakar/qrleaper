@@ -1,0 +1,48 @@
+"use client"
+
+import { useFormContext } from "react-hook-form"
+import { HexColorInput, HexColorPicker } from "react-colorful"
+import { TooltipComponent } from "@/components/ui/tooltip-content"
+
+export const ColorInput = () => {
+  const { getValues, setValue } = useFormContext()
+
+  const color = getValues("style.color")
+
+  const onColorChange = (value: string) => {
+    setValue("style.color", value, {
+      shouldDirty: true,
+      shouldTouch: true,
+      shouldValidate: true,
+    })
+  }
+
+  return (
+    <div className="relative flex h-9 w-32 shrink-0 rounded-md shadow-sm">
+      <TooltipComponent
+        content={
+          <div className="flex max-w-xs flex-col items-center space-y-3 p-5 text-center">
+            <HexColorPicker color={color} onChange={onColorChange} />
+          </div>
+        }
+      >
+        <div
+          className="h-full w-12 rounded-l-md border"
+          style={{
+            backgroundColor: color,
+            borderColor: color,
+          }}
+        />
+      </TooltipComponent>
+      <HexColorInput
+        id="color"
+        name="color"
+        color={color}
+        onChange={onColorChange}
+        prefixed
+        style={{ borderColor: color }}
+        className="block w-full rounded-r-md border-2 border-l-0 pl-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-black sm:text-sm"
+      />
+    </div>
+  )
+}

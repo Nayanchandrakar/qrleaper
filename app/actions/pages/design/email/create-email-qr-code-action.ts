@@ -9,12 +9,15 @@ import { qrCode, qrCodeStyle } from "@/database/schema"
 import { qrEmail } from "@/database/schema/qr-variations"
 import { getEmailDbEndpointURL, getEndpointURL } from "@/utils"
 import { emailFormSchema } from "@/zod/forms/email/email-form-schema"
+import { throwSubscriptionError } from "@/lib/action/throw-subscription-error"
+import { incrementQrSubscriptionCountByUserId } from "@/app/actions/helpers/subscription/utils"
 
 export const createQrCodeEmailAction = authUserActionClient
   .schema(emailFormSchema, {
     handleValidationErrorsShape: async (ve) =>
       flattenValidationErrors(ve).fieldErrors,
   })
+  .use(throwSubscriptionError)
   .action(async ({ parsedInput, ctx }) => {
     const { email, subject, message, style, title } = parsedInput
     const { user } = ctx
@@ -52,6 +55,7 @@ export const createQrCodeEmailAction = authUserActionClient
         }),
       ])
 
+      incrementQrSubscriptionCountByUserId(ctx.user.id!)
       return data
     })
 

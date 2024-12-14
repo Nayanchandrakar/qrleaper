@@ -37,33 +37,33 @@ export const linkMiddleware = async (req: NextRequest) => {
   }
 
   // fetch user from database subscription
-  // const subscription = await getSubscriptionByUserId(qrCode?.userId!)
+  const subscription = await getSubscriptionByUserId(qrCode?.userId!)
 
   // check for subscription expiry here
-  // if (!isSubscriptionExpiredEdge(subscription?.stripeCurrentPeriodEnd!)) {
-  //   return redirectTo(nextUrl, "/expired")
-  // }
+  if (!isSubscriptionExpiredEdge(subscription?.stripeCurrentPeriodEnd!)) {
+    return redirectTo(nextUrl, "/expired")
+  }
 
   // check for free tier users only
-  // if (
-  //   !subscription?.stripeCustomerId &&
-  //   !subscription?.stripePriceId &&
-  //   !subscription?.stripeSubscriptionId
-  // ) {
-  //   const qrScanCount = await getQrScanCountById(qrCode?.id!)
+  if (
+    !subscription?.stripeCustomerId &&
+    !subscription?.stripePriceId &&
+    !subscription?.stripeSubscriptionId
+  ) {
+    const qrScanCount = await getQrScanCountById(qrCode?.id!)
 
-  //   if (qrScanCount?.count! + 1 >= 500) {
-  //     const user = await getUserById(qrCode?.userId!)
+    if (qrScanCount?.count! + 1 >= 500) {
+      const user = await getUserById(qrCode?.userId!)
 
-  //     await sendEmail({
-  //       email: user?.email!,
-  //       react: () => "",
-  //       subject: "🚀 Your QR Code Has Hit Its Limit – Reactivate Now!",
-  //     })
+      await sendEmail({
+        email: user?.email!,
+        react: () => "",
+        subject: "🚀 Your QR Code Has Hit Its Limit – Reactivate Now!",
+      })
 
-  //     return redirectTo(nextUrl, "/expired")
-  //   }
-  // }
+      return redirectTo(nextUrl, "/expired")
+    }
+  }
 
   try {
     const deviceId = await getIdentityHash(req)
