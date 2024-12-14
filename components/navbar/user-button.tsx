@@ -55,7 +55,7 @@ export const UserButton = ({ session }: { session: Session }) => {
         <DropdownMenuItem
           className="cursor-pointer"
           onClick={async () => {
-            await signOut({ redirectTo: "/" })
+            await signOut({ redirectTo: "/design" })
           }}
         >
           <LogOut className="mr-2 size-4" />

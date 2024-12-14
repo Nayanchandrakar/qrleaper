@@ -1,9 +1,10 @@
 import dayjs from "dayjs"
-import { eq } from "drizzle-orm"
+import { eq, sql } from "drizzle-orm"
 
 import { db } from "@/database/db"
-import { subscription } from "@/database/schema"
+import { qrCode, subscription } from "@/database/schema"
 import { decrement, increment } from "@/database/utils"
+import { subscriptionPlan } from "@/app/actions/helpers"
 
 export const createSubscription = async (userId: string) => {
   try {
@@ -43,4 +44,26 @@ export const decrementQrSubscriptionCountByUserId = async (userId: string) => {
   } catch {
     return null
   }
+}
+
+export const updateQrCodeStatusWithSubscriptionChange = async (
+  userId: string,
+  stripePriceId: string
+) => {
+  const plan = subscriptionPlan(stripePriceId)
+
+  await db
+    .update(qrCode)
+    .set({
+      status: sql`CASE 
+      WHEN "id" IN (
+        SELECT "id" FROM "qr_code"
+        WHERE "user_id" = ${userId}
+        ORDER BY "createdAt" DESC
+        LIMIT ${plan.limit}
+      ) THEN 'active'::status
+      ELSE 'inactive'::status
+    END`,
+    })
+    .where(eq(qrCode.userId, userId))
 }

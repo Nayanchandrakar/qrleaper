@@ -5,7 +5,7 @@ export const userNavigationLinks = [
     id: 345256,
     Icon: BadgePlus,
     label: "Create QR",
-    href: "/",
+    href: "/design",
   },
   {
     id: 34524,

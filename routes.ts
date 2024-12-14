@@ -26,6 +26,13 @@ export const authRoutes = ["/login", "/register"]
 export const apiAuthPrefix = "/api/auth"
 
 /**
+ * This route is accessible to use api freely
+ * without blocking the main subscription functionality endpoint of stripe
+ * @type {string}
+ */
+export const apiStripePrefix = "/api/webhooks"
+
+/**
  * This route is accessible to use link middleware freely
  * without blocking the main tracking endpoint of link middleware
  * @type {string}

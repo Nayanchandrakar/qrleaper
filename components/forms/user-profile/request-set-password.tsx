@@ -2,10 +2,10 @@
 
 import { toast } from "sonner"
 import { useAction } from "next-safe-action/hooks"
-
 import { Loader } from "lucide-react"
+
 import { Button } from "@/components/ui/button"
-import { SessionType } from "@/types/type"
+import type { SessionType } from "@/types/type"
 import { setPasswordAction } from "@/app/actions/user-profile/set-password-action"
 
 interface RequestSetPasswordProps {
@@ -38,7 +38,7 @@ export const RequestSetPassword = ({
           a password to use with your QR Leaper account.
         </p>
       </div>
-      <div className="p-5 sm:p-10">
+      <div className="p-5">
         <Button onClick={() => executeAsync()} disabled={isExecuting}>
           {isExecuting && <Loader className="animate-spin size-5 mr-1" />}
           Create account password

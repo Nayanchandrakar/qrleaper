@@ -6,6 +6,7 @@ import {
   DEFAULT_LOGIN_REDIRECT,
   publicRoutes,
   linkMiddlewareRoute,
+  apiStripePrefix,
 } from "@/routes"
 import { auth } from "@/lib/auth/auth"
 import { linkMiddleware } from "@/middlewares/link-middleware"
@@ -27,7 +28,7 @@ export default auth(async function middleware(req) {
     return linkMiddleware(req)
   }
 
-  if (isAuthPrefixUrl) return
+  if (isAuthPrefixUrl || apiStripePrefix) return
 
   if (isAuthRoute) {
     if (isLoggedIn) {

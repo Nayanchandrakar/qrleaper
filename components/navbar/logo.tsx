@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils"
 
 export const NavbarLogo = ({ className }: { className?: string }) => {
   return (
-    <Link className={cn(className)} href="/">
+    <Link className={cn(className)} href="/design">
       <Image
         width={1000}
         height={1000}
