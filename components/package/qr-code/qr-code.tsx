@@ -25,6 +25,7 @@ export const QrCode = forwardRef<
       qrCodeRef,
       className,
     },
+    /* eslint-disable  @typescript-eslint/no-unused-vars */
     ref
   ) => {
     const localRef = useRef<HTMLDivElement>(null)
