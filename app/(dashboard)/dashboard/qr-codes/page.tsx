@@ -35,7 +35,7 @@ const QrCodePage = async ({ searchParams }: QrCodePageProps) => {
   )
 
   return (
-    <Container className="my-8">
+    <Container className="my-8 overflow-hidden">
       <HeadingShortner>
         <HeadingShortner.Title>Your QR Code's</HeadingShortner.Title>
         <HeadingShortner.Description>

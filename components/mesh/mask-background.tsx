@@ -7,10 +7,10 @@ export const MaskBackground = () => {
           className="absolute inset-0 saturate-150"
           style={{
             backgroundImage:
-              "conic-gradient(from -45deg at 50% -10%, rgb(58, 139, 253) 0deg, rgb(255, 0, 0) 172.98deg, rgb(133, 90, 252) 215.14deg, rgb(255, 123, 0) 257.32deg, rgb(58, 139, 253) 360deg)",
+              "conic-gradient(from -45deg at 50% -10%, rgb(34, 197, 94) 0deg, rgb(16, 185, 129) 120deg, rgb(132, 204, 22) 180deg, rgb(34, 197, 94) 360deg)",
           }}
         ></div>
-        <div className="absolute inset-0 backdrop-blur-[100px]"></div>
+        <div className="absolute inset-0 backdrop-blur-[100px]" />
       </div>
 
       {/* Overlay with gradient and blur */}
@@ -19,10 +19,10 @@ export const MaskBackground = () => {
           className="absolute inset-0 saturate-150"
           style={{
             backgroundImage:
-              "conic-gradient(from -45deg at 50% -10%, rgb(58, 139, 253) 0deg, rgb(255, 0, 0) 172.98deg, rgb(133, 90, 252) 215.14deg, rgb(255, 123, 0) 257.32deg, rgb(58, 139, 253) 360deg)",
+              "conic-gradient(from -45deg at 50% -10%, rgb(34, 197, 94) 0deg, rgb(16, 185, 129) 120deg, rgb(132, 204, 22) 180deg, rgb(34, 197, 94) 360deg)",
           }}
-        ></div>
-        <div className="absolute inset-0 backdrop-blur-[100px]"></div>
+        />
+        <div className="absolute inset-0 backdrop-blur-[100px]" />
       </div>
     </div>
   )

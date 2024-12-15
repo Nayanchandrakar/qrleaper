@@ -3,6 +3,7 @@
 import { authUserActionClient } from "@/lib/action/safe-action"
 import { updateFile, uploadFile } from "@/app/actions/file/utils"
 import { fileUploadFormSchema } from "@/zod/forms/file/file-form-schema"
+import { throwSubscriptionError } from "@/lib/action/throw-subscription-error"
 
 export const fileUploadAction = authUserActionClient
   .use(async ({ next, clientInput }) => {
@@ -24,6 +25,7 @@ export const fileUploadAction = authUserActionClient
       ctx: data,
     })
   })
+  .use(throwSubscriptionError)
   .action(async ({ ctx }) => {
     const { file, fileName } = ctx
     let response
