@@ -28,7 +28,7 @@ export const openCustomerPortal = authUserActionClient
 
         redirectUrl = stripeSession.url as string
       }
-    } catch (error) {
+    } catch {
       throw new Error("Failed to generate user stripe session")
     }
 

@@ -19,6 +19,7 @@ export async function POST(req: Request) {
       signature,
       process?.env?.STRIPE_WEBHOOK_SECRET! as string
     )
+    /* eslint-disable  @typescript-eslint/no-explicit-any */
   } catch (error: any) {
     return new Response(`Webhook Error: ${error.message}`, { status: 400 })
   }

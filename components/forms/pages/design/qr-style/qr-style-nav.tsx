@@ -18,8 +18,9 @@ export const QrStyleNav = () => {
     <ListComponent
       data={qrStyleNavigationData}
       className="flex items-center gap-1 sm:gap-2 border-b pb-2"
-      renderItem={({ label, value }) => (
+      renderItem={({ label, value, id }) => (
         <button
+          key={id}
           type="button"
           onClick={() => setStep(value as stepTypes)}
           className={cn(

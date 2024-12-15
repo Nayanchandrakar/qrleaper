@@ -42,6 +42,7 @@ interface AnalyticsReportInterface {
 
 // Group the data by date and sum the counts
 const groupDataByDate = (data: qrAnayticsType[]) => {
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
   const groupedData = new Map<string, any>()
 
   data.forEach((device) => {
@@ -62,7 +63,7 @@ const groupDataByDate = (data: qrAnayticsType[]) => {
 
   return Array.from(groupedData.values())
 }
-
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 const calculateTotals = (data: any[]) => {
   const totals = { desktop: 0, mobile: 0, other: 0 }
 

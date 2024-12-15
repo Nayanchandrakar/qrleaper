@@ -34,7 +34,7 @@ export const AnalyticsReport: React.FC<AnalyticsReportProps> = ({ id }) => {
 
   useEffect(() => {
     executeAsync({ fromDate: dateRange?.from!, toDate: dateRange?.to!, id })
-  }, [id, dateRange])
+  }, [id, dateRange, executeAsync])
 
   return (
     <section className="space-y-12">

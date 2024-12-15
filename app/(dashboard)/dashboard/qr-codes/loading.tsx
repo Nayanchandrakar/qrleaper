@@ -7,7 +7,7 @@ const QrCodeLoadingPage = () => {
   return (
     <Container className="my-8">
       <HeadingShortner>
-        <HeadingShortner.Title>Your QR Code's</HeadingShortner.Title>
+        <HeadingShortner.Title>Your QR Code&lsquo;s</HeadingShortner.Title>
         <HeadingShortner.Description>
           Easily share your beautifully crafted QR codes.
         </HeadingShortner.Description>

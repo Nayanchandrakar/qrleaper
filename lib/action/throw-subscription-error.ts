@@ -11,7 +11,7 @@ export const throwSubscriptionError = async ({
   ctx: {
     user: User
   }
-  next: <NC extends object = {}>(
+  next: <NC extends object>(
     opts?:
       | {
           ctx?: NC | undefined

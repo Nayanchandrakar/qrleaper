@@ -13,7 +13,7 @@ export const createSubscription = async (userId: string) => {
       count: 0,
       stripeCurrentPeriodEnd: dayjs()?.add(1, "month").toDate(),
     })
-  } catch (error) {
+  } catch {
     return null
   }
 }

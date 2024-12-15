@@ -26,9 +26,7 @@ import { QrCode } from "@/components/package/qr-code/qr-code"
 import { downloadOptionData } from "@/constants/qr/download-options"
 import { usePreviewQrCode } from "@/hooks/pages/dashboard/qr-codes/usePreviewQr"
 
-interface ShowQrCodePopupProps {}
-
-export const ShowQrCodePopup = ({}: ShowQrCodePopupProps) => {
+export const ShowQrCodePopup = () => {
   const qrCodeRef = useRef<qrCodeRefType>(null)
   const { isOpen, setIsOpen, data } = usePreviewQrCode()
 

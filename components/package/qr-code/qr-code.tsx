@@ -13,17 +13,20 @@ export const QrCode = forwardRef<
   HTMLDivElement,
   QrCodeProps & { className?: string }
 >(
-  ({
-    shape = "square",
-    bottomInput,
-    color = colorsList[0],
-    data = appUrl,
-    hasFrame = false,
-    logo,
-    topInput,
-    qrCodeRef,
-    className,
-  }) => {
+  (
+    {
+      shape = "square",
+      bottomInput,
+      color = colorsList[0],
+      data = appUrl,
+      hasFrame = false,
+      logo,
+      topInput,
+      qrCodeRef,
+      className,
+    },
+    ref
+  ) => {
     const localRef = useRef<HTMLDivElement>(null)
 
     const qrOptions = useMemo<Options>(() => {
