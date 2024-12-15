@@ -1,5 +1,4 @@
-import { NextRequest, NextResponse } from "next/server"
-import type { NextURL } from "next/dist/server/web/next-url"
+import { NextRequest } from "next/server"
 
 import { sendEmail } from "@/lib/mail"
 import { redirectTo } from "@/middlewares/utils"
@@ -16,8 +15,8 @@ import {
   getIdentityHash,
   isSubscriptionExpiredEdge,
 } from "@/app/actions/helpers/edge-helpers/get-identity-hash"
+import { QrCodeLimitReached } from "@/templates/notifications/qr-limit-react-template"
 import { createAnalyticsRecord } from "@/app/actions/helpers/middleware/link/create-analytics-record"
-import QrCodeLimitReached from "@/templates/notifications/qr-limit-react-template"
 
 export const linkMiddleware = async (req: NextRequest) => {
   const nextUrl = req.nextUrl
@@ -52,8 +51,9 @@ export const linkMiddleware = async (req: NextRequest) => {
     !subscription?.stripeSubscriptionId
   ) {
     const qrScanCount = await getQrScanCountById(qrCode?.id!)
+    const count = qrScanCount?.count! + 1
 
-    if (qrScanCount?.count! + 1 >= 500) {
+    if (count === 500) {
       const user = await getUserById(qrCode?.userId!)
 
       await sendEmail({
@@ -63,7 +63,7 @@ export const linkMiddleware = async (req: NextRequest) => {
         }),
         subject: "🚀 Your QR Code Has Hit Its Limit – Reactivate Now!",
       })
-
+    } else if (count > 500) {
       return redirectTo(nextUrl, "/expired")
     }
   }

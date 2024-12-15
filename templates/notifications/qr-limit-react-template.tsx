@@ -14,7 +14,7 @@ import {
 } from "@react-email/components"
 import { formatDateToLocal } from "@/utils/date-formats"
 
-export default function QrCodeLimitReached({ url }: { url: string }) {
+export function QrCodeLimitReached({ url }: { url: string }) {
   return (
     <Html>
       <Head />
