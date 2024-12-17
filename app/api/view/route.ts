@@ -1,7 +1,5 @@
 import { getFile } from "@/app/actions/file/getFile"
 
-export const dynamic = "force-dynamic"
-
 export async function GET(req: Request) {
   try {
     const url = new URL(req.url)
@@ -23,7 +21,13 @@ export async function GET(req: Request) {
       return new Response(error, { status, headers })
     }
 
-    return new Response(stream, { status, headers })
+    return new Response(stream, {
+      status,
+      headers: {
+        ...headers,
+        "Cache-Control": "public, max-age=3600, immutable",
+      },
+    })
   } catch (error) {
     console.error(error)
     return new Response(JSON.stringify({ error: "Internal server error" }), {
