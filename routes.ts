@@ -9,6 +9,7 @@ export const publicRoutes = [
   "/pricing",
   "/link",
   "/forgot-password",
+  "/api/view",
 ]
 
 /**

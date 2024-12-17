@@ -26,7 +26,7 @@ const QrCodePage = async ({ searchParams }: QrCodePageProps) => {
   if (!session?.user?.id) redirect("/login")
 
   const page = parseInt(searchParams.page || "1")
-  const pageSize = parseInt(searchParams.pageSize || "10")
+  const pageSize = parseInt(searchParams.pageSize || "20")
 
   const { count, data } = await getQrCodesWithStyleAndTotalQrCount(
     session.user.id,
