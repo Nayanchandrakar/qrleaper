@@ -23,7 +23,9 @@ export default auth(async function middleware(req) {
   const isAuthPrefixUrl = pathname.startsWith(apiAuthPrefix)
   const isStripePrefixUrl = pathname.startsWith(apiStripePrefix)
   const isAuthRoute = authRoutes?.includes(pathname)
-  const isPublicRoute = publicRoutes?.includes(pathname)
+  const isPublicRoute = publicRoutes?.some(
+    (route) => pathname === route || pathname.startsWith(`${route}/`)
+  )
 
   if (isAuthPrefixUrl || isStripePrefixUrl) return
 

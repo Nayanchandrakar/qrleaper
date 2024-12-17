@@ -19,7 +19,7 @@ export const FrameForm = () => {
   return (
     <div>
       <span className="text-sm flex items-center gap-3 ">
-        has a frame ?
+        Enable frame
         <Switch
           checked={style.hasFrame}
           onCheckedChange={(value) => handleChange("style.hasFrame", value)}
