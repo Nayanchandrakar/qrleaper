@@ -4,7 +4,6 @@ import { useRef } from "react"
 
 import { DeleteQrCodeButton } from "./delete-qr-code-button"
 import { QrCode } from "@/components/package/qr-code/qr-code"
-import { ShowQrCodePopupButton } from "./show-qr-code-popup-button"
 import type { qrCardType, QrCodeProps, qrCodeRefType } from "@/types/type"
 
 interface QrCodePreviewType {
@@ -30,7 +29,6 @@ export const QrCodePreview = ({ endpoint, data }: QrCodePreviewType) => {
       />
 
       <DeleteQrCodeButton id={data.qr_code.id} />
-      <ShowQrCodePopupButton data={data} />
     </div>
   )
 }

@@ -15,15 +15,15 @@ export const ShowQrCodePopupButton = ({ data }: ShowQrCodePopupButtonProps) => {
 
   return (
     <Button
-      className="absolute top-4 right-16 transition duration-200 opacity-0 group-hover:opacity-100"
-      variant="outline"
+      className="bg-gray-100 hover:bg-gray-100/60 "
+      variant="ghost"
       size="icon"
       onClick={() => {
         setData(data)
         setIsOpen(true)
       }}
     >
-      <Expand className="size-4" />
+      <Expand className="size-4 text-gray-500" />
     </Button>
   )
 }
