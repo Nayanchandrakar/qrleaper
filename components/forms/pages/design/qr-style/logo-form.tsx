@@ -59,9 +59,10 @@ export const LogoForm = () => {
   return (
     <Uploadthing
       accept="image/*"
+      htmlFor="logo-form"
+      onChange={onChange}
       fileName={style.image}
       isExecuting={isExecuting}
-      onChange={onChange}
       footerText={`A high-quality PNG is recommended. Supports PNG, JPG , SVG up to
         ${sizeInMegabytes} MB.`}
     />

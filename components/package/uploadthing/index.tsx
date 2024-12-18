@@ -7,6 +7,7 @@ interface UploadthingProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   footerText: string
   accept: string
+  htmlFor: string
 }
 
 export const Uploadthing = ({
@@ -15,16 +16,17 @@ export const Uploadthing = ({
   isExecuting,
   onChange,
   accept,
+  htmlFor,
 }: UploadthingProps) => {
   return (
     <div>
       <label
-        htmlFor="file-upload"
+        htmlFor={htmlFor}
         className="flex h-50 p-12 w-full cursor-pointer items-center justify-center rounded-lg bg-gray-50 border border-gray-200 transition-colors duration-200 hover:bg-gray-100 flex-col gap-2"
       >
         <input
           name="file"
-          id="file-upload"
+          id={htmlFor}
           type="file"
           hidden
           accept={accept}

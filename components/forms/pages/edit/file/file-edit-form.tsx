@@ -26,6 +26,7 @@ import {
   fileFormSchema,
   fileFormSchemaType,
 } from "@/zod/forms/file/file-form-schema"
+import { updateQrCodeFileChangeAction } from "@/app/actions/pages/edit/file/update-file-change-action"
 
 interface FileEditFormProps {
   qrCode: editQrFileType
@@ -36,14 +37,20 @@ interface FileEditFormProps {
 export const FileEditForm = ({ qrCode, endpoint, id }: FileEditFormProps) => {
   const { setData } = useQrDataContext()
 
-  const { executeAsync, isExecuting } = useAction(updateQrCodeFileAction, {
-    onSuccess: () => {
-      toast.success("Successfully updated a QR Code")
-    },
-    onError: ({ error }) => {
-      toast.error(error.serverError)
-    },
-  })
+  const { executeAsync, isExecuting: isSubmitting } = useAction(
+    updateQrCodeFileAction,
+    {
+      onSuccess: () => {
+        toast.success("Successfully updated a QR Code")
+      },
+      onError: ({ error }) => {
+        toast.error(error.serverError)
+      },
+    }
+  )
+
+  const { executeAsync: executeFileChangeAsync, isExecuting: isUpdating } =
+    useAction(updateQrCodeFileChangeAction)
 
   const form = useForm<fileFormSchemaType>({
     resolver: zodResolver(fileFormSchema),
@@ -55,6 +62,8 @@ export const FileEditForm = ({ qrCode, endpoint, id }: FileEditFormProps) => {
       setData(endpoint)
     }
   }, [endpoint, setData])
+
+  const isExecuting = isSubmitting || isUpdating
 
   return (
     <FormProvider {...form}>
@@ -91,7 +100,9 @@ export const FileEditForm = ({ qrCode, endpoint, id }: FileEditFormProps) => {
               )}
             />
 
-            <FileUploadForm />
+            <FileUploadForm
+              onSuccess={(fileName) => executeFileChangeAsync({ id, fileName })}
+            />
 
             <QrEditControl
               isExecuting={isExecuting}

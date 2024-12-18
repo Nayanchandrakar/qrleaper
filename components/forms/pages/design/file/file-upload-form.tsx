@@ -10,12 +10,16 @@ import { fileUploadAction } from "@/app/actions/pages/design/file/file-upload-ac
 import { max_file_upload_size } from "@/constants/qr/file"
 import { fileUploadFormSchema } from "@/zod/forms/file/file-form-schema"
 
-export const FileUploadForm = () => {
+interface FileUploadFormProps {
+  onSuccess?: (fileName: string) => void
+}
+
+export const FileUploadForm = ({ onSuccess }: FileUploadFormProps) => {
   const { getValues, setValue, formState } = useFormContext()
   const isThereAnyFileRelatedError = formState?.errors.fileId
   const fileName = getValues("fileName")
 
-  // Show a toast message to user if there is any error fileName field
+  // Show a toast message to user if there is any error in fileName field
   useEffect(() => {
     if (isThereAnyFileRelatedError) {
       toast.error(isThereAnyFileRelatedError.message as string)
@@ -30,6 +34,7 @@ export const FileUploadForm = () => {
         shouldTouch: true,
         shouldValidate: true,
       })
+      onSuccess?.(data?.file!)
       toast.success("Succefully file uploaded!")
     },
     onError: ({ error }) => {
@@ -69,10 +74,11 @@ export const FileUploadForm = () => {
 
   return (
     <Uploadthing
-      accept="audio/*,video/*,image/*,pdf/*"
+      htmlFor="file-upload"
       fileName={fileName}
-      isExecuting={isExecuting}
       onChange={onChange}
+      isExecuting={isExecuting}
+      accept="audio/*,video/*,image/*,pdf/*"
       footerText={`Upload a PDF, image, video, or audio file from your device. Max size:
         ${max_file_upload_size / 1024 / 1024} MB.`}
     />
