@@ -350,3 +350,28 @@ export const incrmentQrScanCountByQrCodeId = async (qrCodeId: string) => {
     return null
   }
 }
+
+export const getQrCodeWithStyleByUserIdAndId = async (
+  userId: string,
+  id: string
+) => {
+  try {
+    const [data] = await db
+      .select()
+      .from(qrCode)
+      .innerJoin(qrCodeStyle, eq(qrCode.id, qrCodeStyle.qrCodeId))
+      .where(and(eq(qrCode.userId, userId), eq(qrCode.id, id)))
+    return data
+  } catch {
+    return null
+  }
+}
+
+export const getQrFileByQrCodeId = async (id: string) => {
+  try {
+    const [data] = await db.select().from(qrFile).where(eq(qrFile.qrCodeId, id))
+    return data
+  } catch {
+    return null
+  }
+}

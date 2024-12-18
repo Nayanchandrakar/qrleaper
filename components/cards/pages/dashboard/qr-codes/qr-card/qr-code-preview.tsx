@@ -5,6 +5,7 @@ import { useRef } from "react"
 import { DeleteQrCodeButton } from "./delete-qr-code-button"
 import { QrCode } from "@/components/package/qr-code/qr-code"
 import type { qrCardType, QrCodeProps, qrCodeRefType } from "@/types/type"
+import { getFilePath } from "@/utils/client"
 
 interface QrCodePreviewType {
   endpoint: string
@@ -18,16 +19,16 @@ export const QrCodePreview = ({ endpoint, data }: QrCodePreviewType) => {
   return (
     <div className="bg-gray-100 flex items-center justify-center h-44 w-full group relative ">
       <QrCode
+        data={endpoint}
         qrCodeRef={qrCodeRef}
-        {...styleData}
-        shape={styleData?.shape! as QrCodeProps["shape"]}
+        className="scale-[0.5]"
+        color={styleData?.color}
+        hasFrame={styleData?.hasFrame}
         topInput={styleData?.topText!}
         bottomInput={styleData?.bottomText!}
-        logo={styleData?.logo!}
-        className="scale-[0.5]"
-        data={endpoint}
+        shape={styleData?.shape! as QrCodeProps["shape"]}
+        {...(styleData?.logo! && { logo: getFilePath(styleData?.logo!) })}
       />
-
       <DeleteQrCodeButton id={data.qr_code.id} />
     </div>
   )
