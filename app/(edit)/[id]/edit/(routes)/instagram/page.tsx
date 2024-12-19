@@ -37,6 +37,7 @@ const InstagramEditPage = async ({ params }: InstagramEditPageProps) => {
   const qrStyleAndLinkData = await getInstagramQrStyleAndDataByQrCodeId(data.id)
 
   const qrCode = {
+    id: data.id,
     title: data.title ?? "",
     instagram: qrStyleAndLinkData?.instagram.instagramId ?? "",
     style: {
@@ -50,11 +51,7 @@ const InstagramEditPage = async ({ params }: InstagramEditPageProps) => {
   }
 
   return (
-    <InstagramEditForm
-      qrCode={qrCode}
-      endpoint={getEndpointURL(data.id)}
-      id={data.id!}
-    />
+    <InstagramEditForm qrCode={qrCode} endpoint={getEndpointURL(data.id)} />
   )
 }
 

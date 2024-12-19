@@ -22,21 +22,19 @@ import { useQrDataContext } from "@/hooks/qr/useQrDataContext"
 import { QrEditControl } from "@/components/forms/pages/edit/design/qr-edit-controls"
 import type { editQrInstagramType } from "@/types/type"
 import {
-  instagramFormSchema,
-  instagramFormSchemaType,
-} from "@/zod/forms/instagram/instagram-form-schema"
+  instagramEditFormSchema,
+  type instagramEditFormSchemaType,
+} from "@/zod/pages/edit/instagram/instagram-edit-form-schema"
 import { updateQrCodeInstagramAction } from "@/app/actions/pages/edit/instagram/update-qr-code-instagram-action"
 
 interface InstagramEditFormProps {
   qrCode: editQrInstagramType
   endpoint: string
-  id: string
 }
 
 export const InstagramEditForm = ({
   qrCode,
   endpoint,
-  id,
 }: InstagramEditFormProps) => {
   const { setData } = useQrDataContext()
 
@@ -49,8 +47,8 @@ export const InstagramEditForm = ({
     },
   })
 
-  const form = useForm<instagramFormSchemaType>({
-    resolver: zodResolver(instagramFormSchema),
+  const form = useForm<instagramEditFormSchemaType>({
+    resolver: zodResolver(instagramEditFormSchema),
     defaultValues: qrCode,
   })
 
@@ -63,8 +61,8 @@ export const InstagramEditForm = ({
   return (
     <FormProvider {...form}>
       <form
-        onSubmit={form.handleSubmit((formData: instagramFormSchemaType) =>
-          executeAsync({ ...formData, id })
+        onSubmit={form.handleSubmit((formData: instagramEditFormSchemaType) =>
+          executeAsync(formData)
         )}
         className="grid grid-cols-1 lg:grid-cols-2 gap-8"
       >
