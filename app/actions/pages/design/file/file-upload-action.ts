@@ -1,7 +1,13 @@
 "use server"
+import { eq } from "drizzle-orm"
 
+import { db } from "@/database/db"
+import { qrCode } from "@/database/schema"
+import { getFileDbEndpointURL } from "@/utils"
+import { qrFile } from "@/database/schema/qr-variations"
 import { authUserActionClient } from "@/lib/action/safe-action"
 import { updateFile, uploadFile } from "@/app/actions/file/utils"
+import { getQrCodeByUserIdAndIdWithType } from "@/app/actions/utils"
 import { fileUploadFormSchema } from "@/zod/forms/file/file-form-schema"
 import { throwSubscriptionError } from "@/lib/action/throw-subscription-error"
 
@@ -9,15 +15,12 @@ export const fileUploadAction = authUserActionClient
   .use(async ({ next, clientInput }) => {
     const formData = clientInput as FormData
 
-    const file = formData.get("file")
-    const fileName = formData.get("fileName")
+    // Create an object from FormData entries
+    const formValues = Object.fromEntries(formData.entries())
 
-    const { data, error } = fileUploadFormSchema.safeParse({
-      file,
-      fileName,
-    })
+    const { data, success } = fileUploadFormSchema.safeParse(formValues)
 
-    if (error) {
+    if (!success) {
       throw new Error("Invalid file provided")
     }
 
@@ -27,15 +30,38 @@ export const fileUploadAction = authUserActionClient
   })
   .use(throwSubscriptionError)
   .action(async ({ ctx }) => {
-    const { file, fileName } = ctx
+    let data
     let response
 
+    const { file, fileName, id } = ctx
+
+    if (id) {
+      data = await getQrCodeByUserIdAndIdWithType(ctx.user.id!, id, "file")
+      // throw an error if no qr code found
+      if (!data) throw new Error("No QR Code found with this Id!")
+    }
+
     if (fileName) {
-      // update operation
       response = await updateFile(fileName, file)
     } else {
-      // create operation
       response = await uploadFile(file)
+    }
+
+    if (response && data) {
+      await db.transaction(async (tx) => {
+        Promise.all([
+          // update a desired form data
+          tx
+            .update(qrCode)
+            .set({ endpoint: getFileDbEndpointURL(response.newFileName) })
+            .where(eq(qrCode.id, data.id)),
+
+          tx
+            .update(qrFile)
+            .set({ fileId: response.newFileName })
+            .where(eq(qrFile.qrCodeId, data.id)),
+        ])
+      })
     }
 
     return { file: response.newFileName }

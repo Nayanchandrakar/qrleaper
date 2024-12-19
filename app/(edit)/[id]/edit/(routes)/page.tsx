@@ -1,12 +1,12 @@
 import { redirect } from "next/navigation"
 
 import { auth } from "@/lib/auth/auth"
+import { getEndpointURL } from "@/utils"
 import {
   getLinkQrStyleAndDataByQrCodeId,
   getQrCodeByUserIdAndIdWithType,
 } from "@/app/actions/utils"
 import { DesignEditForm } from "@/components/forms/pages/edit/design/design-edit-form"
-import { getEndpointURL } from "@/utils"
 
 // Site metadata
 export const metadata = {
@@ -37,6 +37,7 @@ const DesignEditPage = async ({ params }: DesignEditPageProps) => {
   const qrStyleAndLinkData = await getLinkQrStyleAndDataByQrCodeId(data.id)
 
   const qrCode = {
+    id: data.id,
     title: data.title ?? "",
     link: qrStyleAndLinkData?.link.link ?? "",
     style: {
@@ -49,13 +50,7 @@ const DesignEditPage = async ({ params }: DesignEditPageProps) => {
     },
   }
 
-  return (
-    <DesignEditForm
-      qrCode={qrCode}
-      endpoint={getEndpointURL(data.id)}
-      id={data.id!}
-    />
-  )
+  return <DesignEditForm qrCode={qrCode} endpoint={getEndpointURL(data.id)} />
 }
 
 export default DesignEditPage

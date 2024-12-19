@@ -1,10 +1,11 @@
 import { z } from "zod"
 
-import { qrStyleSchema, qrTitleSchema } from "@/zod/utils"
+import { idSchema, qrStyleSchema, qrTitleSchema } from "@/zod/utils"
 import { max_file_upload_size } from "@/constants/qr/file"
 
 export const fileUploadFormSchema = z.object({
   fileName: z.string().min(2).optional().nullable(),
+  id: idSchema.shape.id.optional().nullable(),
   file: z
     .custom<File>((value) => value instanceof File, { message: "Invalid file" })
     .refine((file) => file.size <= max_file_upload_size, {

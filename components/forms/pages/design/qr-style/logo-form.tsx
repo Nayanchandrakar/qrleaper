@@ -6,13 +6,13 @@ import { useAction } from "next-safe-action/hooks"
 import { useFormContext } from "react-hook-form"
 
 import { max_logo_upload_size } from "@/constants/qr/file"
+import { Uploadthing } from "@/components/package/uploadthing"
 import { logoFileFormSchema } from "@/zod/forms/design/logo-form-schema"
 import { imageUploadAction } from "@/app/actions/pages/design/image-upload-action"
-import { Uploadthing } from "@/components/package/uploadthing"
 
 export const LogoForm = () => {
   const { getValues, setValue } = useFormContext()
-  const { style } = getValues()
+  const { style, id } = getValues()
 
   const sizeInMegabytes = useMemo(() => max_logo_upload_size / 1024 / 1024, [])
 
@@ -33,24 +33,28 @@ export const LogoForm = () => {
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
 
-    const file = e.target.files?.[0]
+    const file = e?.target.files?.[0]
     if (!file) return
 
-    const { error, data } = logoFileFormSchema.safeParse({
+    // Validate file and additional data
+    const parsedResult = logoFileFormSchema.safeParse({
       file,
       ...(style.image && { image: style.image }),
+      ...(id && { qrCodeId: id }),
     })
 
-    if (error) {
-      error?.errors?.forEach((err) => {
-        toast.error(err.message)
-      })
+    if (!parsedResult.success) {
+      parsedResult.error.errors.forEach((err) => toast.error(err.message))
       return
     }
 
+    const { data } = parsedResult
+
+    // Prepare form data
     const formData = new FormData()
     formData.append("file", data.file)
     if (style.image) formData.append("image", data.image as string)
+    if (id) formData.append("id", id)
 
     /* eslint-disable  @typescript-eslint/no-explicit-any */
     executeAsync(formData as any)

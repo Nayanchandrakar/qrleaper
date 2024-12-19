@@ -23,37 +23,29 @@ import type { editQrFileType } from "@/types/type"
 import { FileUploadForm } from "@/components/forms/pages/design/file/file-upload-form"
 import { updateQrCodeFileAction } from "@/app/actions/pages/edit/file/update-qr-code-file-action"
 import {
-  fileFormSchema,
-  fileFormSchemaType,
-} from "@/zod/forms/file/file-form-schema"
-import { updateQrCodeFileChangeAction } from "@/app/actions/pages/edit/file/update-file-change-action"
+  fileEditFormSchema,
+  type fileEditFormSchemaType,
+} from "@/zod/pages/edit/file/file-edit-form-schema"
 
 interface FileEditFormProps {
   qrCode: editQrFileType
   endpoint: string
-  id: string
 }
 
-export const FileEditForm = ({ qrCode, endpoint, id }: FileEditFormProps) => {
+export const FileEditForm = ({ qrCode, endpoint }: FileEditFormProps) => {
   const { setData } = useQrDataContext()
 
-  const { executeAsync, isExecuting: isSubmitting } = useAction(
-    updateQrCodeFileAction,
-    {
-      onSuccess: () => {
-        toast.success("Successfully updated a QR Code")
-      },
-      onError: ({ error }) => {
-        toast.error(error.serverError)
-      },
-    }
-  )
+  const { executeAsync, isExecuting } = useAction(updateQrCodeFileAction, {
+    onSuccess: () => {
+      toast.success("Successfully updated a QR Code")
+    },
+    onError: ({ error }) => {
+      toast.error(error.serverError)
+    },
+  })
 
-  const { executeAsync: executeFileChangeAsync, isExecuting: isUpdating } =
-    useAction(updateQrCodeFileChangeAction)
-
-  const form = useForm<fileFormSchemaType>({
-    resolver: zodResolver(fileFormSchema),
+  const form = useForm<fileEditFormSchemaType>({
+    resolver: zodResolver(fileEditFormSchema),
     defaultValues: qrCode,
   })
 
@@ -63,13 +55,11 @@ export const FileEditForm = ({ qrCode, endpoint, id }: FileEditFormProps) => {
     }
   }, [endpoint, setData])
 
-  const isExecuting = isSubmitting || isUpdating
-
   return (
     <FormProvider {...form}>
       <form
-        onSubmit={form.handleSubmit((formData: fileFormSchemaType) =>
-          executeAsync({ ...formData, id })
+        onSubmit={form.handleSubmit((formData: fileEditFormSchemaType) =>
+          executeAsync(formData)
         )}
         className="grid grid-cols-1 lg:grid-cols-2 gap-8"
       >
@@ -100,9 +90,7 @@ export const FileEditForm = ({ qrCode, endpoint, id }: FileEditFormProps) => {
               )}
             />
 
-            <FileUploadForm
-              onSuccess={(fileName) => executeFileChangeAsync({ id, fileName })}
-            />
+            <FileUploadForm />
 
             <QrEditControl
               isExecuting={isExecuting}

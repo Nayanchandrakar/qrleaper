@@ -5,19 +5,16 @@ import { useEffect } from "react"
 import { useFormContext } from "react-hook-form"
 import { useAction } from "next-safe-action/hooks"
 
-import { Uploadthing } from "@/components/package/uploadthing"
-import { fileUploadAction } from "@/app/actions/pages/design/file/file-upload-action"
 import { max_file_upload_size } from "@/constants/qr/file"
+import { Uploadthing } from "@/components/package/uploadthing"
 import { fileUploadFormSchema } from "@/zod/forms/file/file-form-schema"
+import { fileUploadAction } from "@/app/actions/pages/design/file/file-upload-action"
 
-interface FileUploadFormProps {
-  onSuccess?: (fileName: string) => void
-}
-
-export const FileUploadForm = ({ onSuccess }: FileUploadFormProps) => {
+export const FileUploadForm = () => {
   const { getValues, setValue, formState } = useFormContext()
+
+  const { id, fileName } = getValues()
   const isThereAnyFileRelatedError = formState?.errors.fileId
-  const fileName = getValues("fileName")
 
   // Show a toast message to user if there is any error in fileName field
   useEffect(() => {
@@ -34,7 +31,6 @@ export const FileUploadForm = ({ onSuccess }: FileUploadFormProps) => {
         shouldTouch: true,
         shouldValidate: true,
       })
-      onSuccess?.(data?.file!)
       toast.success("Succefully file uploaded!")
     },
     onError: ({ error }) => {
@@ -52,6 +48,7 @@ export const FileUploadForm = ({ onSuccess }: FileUploadFormProps) => {
     const { error, data } = fileUploadFormSchema.safeParse({
       file,
       ...(fileName && { fileName }),
+      ...(id && { id }),
     })
 
     if (error) {
@@ -64,9 +61,8 @@ export const FileUploadForm = ({ onSuccess }: FileUploadFormProps) => {
     const formData = new FormData()
     formData.append("file", data.file)
 
-    if (fileName) {
-      formData.append("fileName", data.fileName as string)
-    }
+    if (fileName) formData.append("fileName", data.fileName as string)
+    if (id) formData.append("id", id)
 
     /* eslint-disable  @typescript-eslint/no-explicit-any */
     executeAsync(formData as any)

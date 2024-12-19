@@ -39,6 +39,7 @@ const MessageEditPage = async ({ params }: MessageEditPageProps) => {
   )
 
   const qrCode = {
+    id: data.id,
     title: data.title ?? "",
     message: qrStyleAndMessageData?.message.message ?? "",
     phoneNumber: qrStyleAndMessageData?.message.phoneNumber ?? "",
@@ -52,13 +53,7 @@ const MessageEditPage = async ({ params }: MessageEditPageProps) => {
     },
   }
 
-  return (
-    <MessageEditForm
-      qrCode={qrCode}
-      endpoint={getEndpointURL(data.id)}
-      id={data.id!}
-    />
-  )
+  return <MessageEditForm qrCode={qrCode} endpoint={getEndpointURL(data.id)} />
 }
 
 export default MessageEditPage

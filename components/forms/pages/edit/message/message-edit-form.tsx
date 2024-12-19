@@ -24,21 +24,16 @@ import { updateQrCodeMessageAction } from "@/app/actions/pages/edit/message/upda
 import type { editQrMessageType } from "@/types/type"
 import { Textarea } from "@/components/ui/textarea"
 import {
-  messageFormSchema,
-  messageFormSchemaType,
-} from "@/zod/forms/message/message-form-schema"
+  messageEditFormSchema,
+  type messageEditFormSchemaType,
+} from "@/zod/pages/edit/message/message-edit-form-schema"
 
 interface MessageEditFormProps {
   qrCode: editQrMessageType
   endpoint: string
-  id: string
 }
 
-export const MessageEditForm = ({
-  qrCode,
-  endpoint,
-  id,
-}: MessageEditFormProps) => {
+export const MessageEditForm = ({ qrCode, endpoint }: MessageEditFormProps) => {
   const { setData } = useQrDataContext()
 
   const { executeAsync, isExecuting } = useAction(updateQrCodeMessageAction, {
@@ -50,8 +45,8 @@ export const MessageEditForm = ({
     },
   })
 
-  const form = useForm<messageFormSchemaType>({
-    resolver: zodResolver(messageFormSchema),
+  const form = useForm<messageEditFormSchemaType>({
+    resolver: zodResolver(messageEditFormSchema),
     defaultValues: qrCode,
   })
 
@@ -64,8 +59,8 @@ export const MessageEditForm = ({
   return (
     <FormProvider {...form}>
       <form
-        onSubmit={form.handleSubmit((formData: messageFormSchemaType) =>
-          executeAsync({ ...formData, id })
+        onSubmit={form.handleSubmit((formData: messageEditFormSchemaType) =>
+          executeAsync(formData)
         )}
         className="grid grid-cols-1 lg:grid-cols-2 gap-8"
       >

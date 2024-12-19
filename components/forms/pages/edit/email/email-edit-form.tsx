@@ -23,18 +23,17 @@ import { QrEditControl } from "@/components/forms/pages/edit/design/qr-edit-cont
 import type { editQrEmailType } from "@/types/type"
 import { Textarea } from "@/components/ui/textarea"
 import {
-  emailFormSchema,
-  type emailFormSchemaType,
-} from "@/zod/forms/email/email-form-schema"
+  emailEditFormSchema,
+  type emailEditFormSchemaType,
+} from "@/zod/pages/edit/email/email-edit-form-schema"
 import { updateQrCodeEmailAction } from "@/app/actions/pages/edit/email/update-email-qr-code-action"
 
 interface EmailEditFormProps {
   qrCode: editQrEmailType
   endpoint: string
-  id: string
 }
 
-export const EmailEditForm = ({ qrCode, endpoint, id }: EmailEditFormProps) => {
+export const EmailEditForm = ({ qrCode, endpoint }: EmailEditFormProps) => {
   const { setData } = useQrDataContext()
 
   const { executeAsync, isExecuting } = useAction(updateQrCodeEmailAction, {
@@ -46,8 +45,8 @@ export const EmailEditForm = ({ qrCode, endpoint, id }: EmailEditFormProps) => {
     },
   })
 
-  const form = useForm<emailFormSchemaType>({
-    resolver: zodResolver(emailFormSchema),
+  const form = useForm<emailEditFormSchemaType>({
+    resolver: zodResolver(emailEditFormSchema),
     defaultValues: qrCode,
   })
 
@@ -60,8 +59,8 @@ export const EmailEditForm = ({ qrCode, endpoint, id }: EmailEditFormProps) => {
   return (
     <FormProvider {...form}>
       <form
-        onSubmit={form.handleSubmit((formData: emailFormSchemaType) =>
-          executeAsync({ ...formData, id })
+        onSubmit={form.handleSubmit((formData: emailEditFormSchemaType) =>
+          executeAsync(formData)
         )}
         className="grid grid-cols-1 lg:grid-cols-2 gap-8"
       >

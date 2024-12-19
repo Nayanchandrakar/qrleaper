@@ -37,6 +37,7 @@ const MessageEditPage = async ({ params }: MessageEditPageProps) => {
   const qrStyleAndEmailData = await getEmailQrStyleAndDataByQrCodeId(data.id)
 
   const qrCode = {
+    id: data.id,
     title: data.title ?? "",
     message: qrStyleAndEmailData?.email.message ?? "",
     email: qrStyleAndEmailData?.email.email ?? "",
@@ -51,13 +52,7 @@ const MessageEditPage = async ({ params }: MessageEditPageProps) => {
     },
   }
 
-  return (
-    <EmailEditForm
-      qrCode={qrCode}
-      endpoint={getEndpointURL(data.id)}
-      id={data.id!}
-    />
-  )
+  return <EmailEditForm qrCode={qrCode} endpoint={getEndpointURL(data.id)} />
 }
 
 export default MessageEditPage

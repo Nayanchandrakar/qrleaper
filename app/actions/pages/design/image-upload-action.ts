@@ -1,19 +1,23 @@
 "use server"
 
 import { authUserActionClient } from "@/lib/action/safe-action"
-import { logoFileFormSchema } from "@/zod/forms/design/logo-form-schema"
 import { updateFile, uploadFile } from "@/app/actions/file/utils"
+import {
+  getQrCodeWithStyleByUserIdAndId,
+  updateQrCodeStylelogoById,
+} from "@/app/actions/utils"
+import { logoFileFormSchema } from "@/zod/forms/design/logo-form-schema"
 
 export const imageUploadAction = authUserActionClient
   .use(async ({ next, clientInput }) => {
     const formData = clientInput as FormData
 
-    const file = formData.get("file")
-    const image = formData.get("image")
+    // Create an object from FormData entries
+    const formValues = Object.fromEntries(formData.entries())
 
-    const { data, error } = logoFileFormSchema.safeParse({ file, image })
+    const { data, success } = logoFileFormSchema.safeParse(formValues)
 
-    if (error) {
+    if (!success) {
       throw new Error("Invalid file provided")
     }
 
@@ -22,15 +26,28 @@ export const imageUploadAction = authUserActionClient
     })
   })
   .action(async ({ ctx }) => {
-    const { file, image } = ctx
+    let data
     let response
+    const { file, image, id } = ctx
+
+    if (id) {
+      data = await getQrCodeWithStyleByUserIdAndId(ctx.user.id!, id)
+
+      // throw an error if no qr code found
+      if (!data) throw new Error("No QR Code found with this Id!")
+    }
 
     if (image) {
-      // update operation
       response = await updateFile(image, file)
     } else {
-      // create operation
       response = await uploadFile(file)
+    }
+
+    if (response && data) {
+      await updateQrCodeStylelogoById(
+        data.qr_code_style.id,
+        response.newFileName
+      )
     }
 
     return { image: response.newFileName }

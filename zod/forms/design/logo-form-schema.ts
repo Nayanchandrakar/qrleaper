@@ -1,8 +1,10 @@
 import { z } from "zod"
+import { idSchema } from "@/zod/utils"
 import { max_logo_upload_size } from "@/constants/qr/file"
 
 export const logoFileFormSchema = z.object({
   image: z.string().min(2).optional().nullable(),
+  id: idSchema.shape.id.optional().nullable(),
   file: z
     .custom<File>((value) => value instanceof File, { message: "Invalid file" })
     .refine(

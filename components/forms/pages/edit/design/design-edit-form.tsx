@@ -14,10 +14,6 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 
-import {
-  designFormSchema,
-  designFormSchemaType,
-} from "@/zod/forms/design/design-form-schema"
 import { appUrl } from "@/constants/config"
 import { Input } from "@/components/ui/input"
 import { StepLabel } from "@/components/ui/step-label"
@@ -27,18 +23,17 @@ import { useQrDataContext } from "@/hooks/qr/useQrDataContext"
 import { QrEditControl } from "@/components/forms/pages/edit/design/qr-edit-controls"
 import type { editQrLinkType } from "@/types/type"
 import { updateQrCodeLinkAction } from "@/app/actions/pages/edit/design/update-qr-code-link-action"
+import {
+  editDesignFormSchema,
+  type editDesignFormSchemaType,
+} from "@/zod/pages/edit/design/edit-design-form-schema"
 
 interface DesignEditFormProps {
   qrCode: editQrLinkType
   endpoint: string
-  id: string
 }
 
-export const DesignEditForm = ({
-  qrCode,
-  endpoint,
-  id,
-}: DesignEditFormProps) => {
+export const DesignEditForm = ({ qrCode, endpoint }: DesignEditFormProps) => {
   const { setData } = useQrDataContext()
 
   const { executeAsync, isExecuting } = useAction(updateQrCodeLinkAction, {
@@ -50,8 +45,8 @@ export const DesignEditForm = ({
     },
   })
 
-  const form = useForm<designFormSchemaType>({
-    resolver: zodResolver(designFormSchema),
+  const form = useForm<editDesignFormSchemaType>({
+    resolver: zodResolver(editDesignFormSchema),
     defaultValues: qrCode,
   })
 
@@ -64,8 +59,8 @@ export const DesignEditForm = ({
   return (
     <FormProvider {...form}>
       <form
-        onSubmit={form.handleSubmit((formData: designFormSchemaType) =>
-          executeAsync({ ...formData, id })
+        onSubmit={form.handleSubmit((formData: editDesignFormSchemaType) =>
+          executeAsync(formData)
         )}
         className="grid grid-cols-1 lg:grid-cols-2 gap-8"
       >

@@ -37,6 +37,7 @@ const FileEditPage = async ({ params }: FileEditPageProps) => {
   const qrStyleAndFileData = await getFileQrStyleAndDataByQrCodeId(data.id)
 
   const qrCode = {
+    id: data.id,
     title: data.title ?? "",
     fileName: qrStyleAndFileData?.file.fileId ?? "",
     style: {
@@ -49,13 +50,7 @@ const FileEditPage = async ({ params }: FileEditPageProps) => {
     },
   }
 
-  return (
-    <FileEditForm
-      qrCode={qrCode}
-      endpoint={getEndpointURL(data.id)}
-      id={data.id!}
-    />
-  )
+  return <FileEditForm qrCode={qrCode} endpoint={getEndpointURL(data.id)} />
 }
 
 export default FileEditPage

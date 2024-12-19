@@ -375,3 +375,16 @@ export const getQrFileByQrCodeId = async (id: string) => {
     return null
   }
 }
+
+export const updateQrCodeStylelogoById = async (id: string, logo: string) => {
+  try {
+    await db
+      .update(qrCodeStyle)
+      .set({
+        logo,
+      })
+      .where(eq(qrCodeStyle.id, id))
+  } catch {
+    return null
+  }
+}
