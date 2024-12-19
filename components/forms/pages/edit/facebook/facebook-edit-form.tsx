@@ -22,21 +22,19 @@ import { useQrDataContext } from "@/hooks/qr/useQrDataContext"
 import { QrEditControl } from "@/components/forms/pages/edit/design/qr-edit-controls"
 import type { editQrFacebookType } from "@/types/type"
 import {
-  facebookFormSchema,
-  facebookFormSchemaType,
-} from "@/zod/forms/facebook/facebook-form-schema"
+  facebookEditFormSchema,
+  type facebookEditFormSchemaType,
+} from "@/zod/pages/edit/facebook/facebook-edit-form-schema"
 import { updateQrCodeFacebookAction } from "@/app/actions/pages/edit/facebook/update-qr-code-facebook-action"
 
 interface FacebookEditFormProps {
   qrCode: editQrFacebookType
   endpoint: string
-  id: string
 }
 
 export const FacebookEditForm = ({
   qrCode,
   endpoint,
-  id,
 }: FacebookEditFormProps) => {
   const { setData } = useQrDataContext()
 
@@ -49,8 +47,8 @@ export const FacebookEditForm = ({
     },
   })
 
-  const form = useForm<facebookFormSchemaType>({
-    resolver: zodResolver(facebookFormSchema),
+  const form = useForm<facebookEditFormSchemaType>({
+    resolver: zodResolver(facebookEditFormSchema),
     defaultValues: qrCode,
   })
 
@@ -63,8 +61,8 @@ export const FacebookEditForm = ({
   return (
     <FormProvider {...form}>
       <form
-        onSubmit={form.handleSubmit((formData: facebookFormSchemaType) =>
-          executeAsync({ ...formData, id })
+        onSubmit={form.handleSubmit((formData: facebookEditFormSchemaType) =>
+          executeAsync(formData)
         )}
         className="grid grid-cols-1 lg:grid-cols-2 gap-8"
       >

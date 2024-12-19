@@ -39,6 +39,7 @@ const FacebookEditPage = async ({ params }: FacebookEditPageProps) => {
   )
 
   const qrCode = {
+    id: data.id,
     title: data.title ?? "",
     facebookUrl: qrStyleAndFacebookData?.facebook.facebookUrl ?? "",
     style: {
@@ -51,13 +52,7 @@ const FacebookEditPage = async ({ params }: FacebookEditPageProps) => {
     },
   }
 
-  return (
-    <FacebookEditForm
-      qrCode={qrCode}
-      endpoint={getEndpointURL(data.id)}
-      id={data.id!}
-    />
-  )
+  return <FacebookEditForm qrCode={qrCode} endpoint={getEndpointURL(data.id)} />
 }
 
 export default FacebookEditPage
