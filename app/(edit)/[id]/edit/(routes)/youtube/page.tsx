@@ -5,8 +5,8 @@ import {
   getQrCodeByUserIdAndIdWithType,
   getYoutubeQrStyleAndDataByQrCodeId,
 } from "@/app/actions/utils"
-import { DesignEditForm } from "@/components/forms/pages/edit/design/design-edit-form"
 import { getEndpointURL } from "@/utils"
+import { YoutubeEditForm } from "@/components/forms/pages/edit/youtube/youtube-edit-form"
 
 // Site metadata
 export const metadata = {
@@ -39,8 +39,9 @@ const YoutubeEditPage = async ({ params }: YoutubeEditPageProps) => {
   )
 
   const qrCode = {
+    id: data.id,
     title: data.title ?? "",
-    link: qrStyleAndYoutubeData?.youtube.youtubeUrl ?? "",
+    youtubeUrl: qrStyleAndYoutubeData?.youtube.youtubeUrl ?? "",
     style: {
       bottomInput: qrStyleAndYoutubeData?.style.bottomText ?? "",
       image: qrStyleAndYoutubeData?.style.logo ?? "",
@@ -51,13 +52,7 @@ const YoutubeEditPage = async ({ params }: YoutubeEditPageProps) => {
     },
   }
 
-  return (
-    <DesignEditForm
-      qrCode={qrCode}
-      endpoint={getEndpointURL(data.id)}
-      id={data.id!}
-    />
-  )
+  return <YoutubeEditForm qrCode={qrCode} endpoint={getEndpointURL(data.id)} />
 }
 
 export default YoutubeEditPage

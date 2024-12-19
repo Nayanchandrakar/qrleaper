@@ -21,23 +21,19 @@ import { PreviewQrCard } from "@/components/cards/pages/design/preview-qr-card"
 import { useQrDataContext } from "@/hooks/qr/useQrDataContext"
 import { QrEditControl } from "@/components/forms/pages/edit/design/qr-edit-controls"
 import type { editQrYoutubeType } from "@/types/type"
-import {
-  youtubeFormSchema,
-  youtubeFormSchemaType,
-} from "@/zod/forms/youtube/youtube-form-schema"
+
 import { updateQrCodeYoutubeAction } from "@/app/actions/pages/edit/youtube/update-youtube-qr-code-action"
+import {
+  youtubeEditFormSchema,
+  type youtubeEditFormSchemaType,
+} from "@/zod/pages/edit/youtube/youtube-edit-form-schema"
 
 interface YoutubeEditFormProps {
   qrCode: editQrYoutubeType
   endpoint: string
-  id: string
 }
 
-export const YoutubeEditForm = ({
-  qrCode,
-  endpoint,
-  id,
-}: YoutubeEditFormProps) => {
+export const YoutubeEditForm = ({ qrCode, endpoint }: YoutubeEditFormProps) => {
   const { setData } = useQrDataContext()
 
   const { executeAsync, isExecuting } = useAction(updateQrCodeYoutubeAction, {
@@ -49,8 +45,8 @@ export const YoutubeEditForm = ({
     },
   })
 
-  const form = useForm<youtubeFormSchemaType>({
-    resolver: zodResolver(youtubeFormSchema),
+  const form = useForm<youtubeEditFormSchemaType>({
+    resolver: zodResolver(youtubeEditFormSchema),
     defaultValues: qrCode,
   })
 
@@ -63,8 +59,8 @@ export const YoutubeEditForm = ({
   return (
     <FormProvider {...form}>
       <form
-        onSubmit={form.handleSubmit((formData: youtubeFormSchemaType) =>
-          executeAsync({ ...formData, id })
+        onSubmit={form.handleSubmit((formData: youtubeEditFormSchemaType) =>
+          executeAsync(formData)
         )}
         className="grid grid-cols-1 lg:grid-cols-2 gap-8"
       >
