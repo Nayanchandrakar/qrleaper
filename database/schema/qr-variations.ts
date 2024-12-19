@@ -1,7 +1,8 @@
 import { createId } from "@paralleldrive/cuid2"
-import { pgTable, text } from "drizzle-orm/pg-core"
+import { integer, pgTable, text } from "drizzle-orm/pg-core"
 
 import { qrCode } from "@/database/schema/qr-code"
+import { int } from "drizzle-orm/mysql-core"
 
 export const qrLink = pgTable("qr_code_link", {
   id: text("id")
@@ -100,4 +101,57 @@ export const qrGoogleDoc = pgTable("qr_google_doc", {
     })
     .notNull(),
   googleDocUrl: text("google_doc_url").notNull(),
+})
+
+export const qrVirtualCard = pgTable("qr_virtual_card", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => createId()),
+  qrCodeId: text("qr_code_id")
+    .references(() => qrCode.id, {
+      onDelete: "cascade",
+    })
+    .notNull(),
+
+  profileImage: text("profile_image").notNull(),
+  images: text("images").array(),
+
+  firstName: text("first_name").notNull(),
+  lastName: text("last_name").notNull(),
+  middleName: text("middle_name"),
+  prefix: text("prefix"),
+  suffix: text("suffix"),
+  mobileNumber: text("mobile_number"),
+
+  work: text("work"),
+  home: text("home"),
+  whatsapp: text("whatsapp"),
+  fax: text("fax"),
+
+  personal: text("personal"),
+  email_work: text("email_work"),
+
+  home_street: text("home_street"),
+  home_city: text("home_city"),
+  home_state: text("home_state"),
+  home_zip: integer("home_zip"),
+  home_country: text("home_country"),
+
+  work_street: text("work_street"),
+  work_city: text("work_city"),
+  work_state: text("work_state"),
+  work_zip: integer("work_zip"),
+  work_country: text("work_country"),
+  website: text("website"),
+
+  organization: text("organization"),
+  job_title: text("job_title"),
+  department: text("department"),
+
+  linkedin: text("linkedin"),
+  twitter: text("twitter"),
+  instagram: text("instagram"),
+  facebook: text("facebook"),
+
+  info: text("info"),
 })
