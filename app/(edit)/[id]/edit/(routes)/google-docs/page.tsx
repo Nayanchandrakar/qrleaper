@@ -39,6 +39,7 @@ const DesignEditPage = async ({ params }: DesignEditPageProps) => {
   )
 
   const qrCode = {
+    id: data.id,
     title: data.title ?? "",
     googleDocUrl: qrStyleAndGoogleDocsData?.googleDocs.googleDocUrl ?? "",
     style: {
@@ -52,11 +53,7 @@ const DesignEditPage = async ({ params }: DesignEditPageProps) => {
   }
 
   return (
-    <GoogleDocsEditForm
-      qrCode={qrCode}
-      endpoint={getEndpointURL(data.id)}
-      id={data.id!}
-    />
+    <GoogleDocsEditForm qrCode={qrCode} endpoint={getEndpointURL(data.id)} />
   )
 }
 

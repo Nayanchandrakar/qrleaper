@@ -59,9 +59,7 @@ export const YoutubeEditForm = ({ qrCode, endpoint }: YoutubeEditFormProps) => {
   return (
     <FormProvider {...form}>
       <form
-        onSubmit={form.handleSubmit((formData: youtubeEditFormSchemaType) =>
-          executeAsync(formData)
-        )}
+        onSubmit={form.handleSubmit(executeAsync)}
         className="grid grid-cols-1 lg:grid-cols-2 gap-8"
       >
         {/* main form  */}

@@ -61,9 +61,7 @@ export const InstagramEditForm = ({
   return (
     <FormProvider {...form}>
       <form
-        onSubmit={form.handleSubmit((formData: instagramEditFormSchemaType) =>
-          executeAsync(formData)
-        )}
+        onSubmit={form.handleSubmit(executeAsync)}
         className="grid grid-cols-1 lg:grid-cols-2 gap-8"
       >
         {/* main form  */}

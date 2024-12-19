@@ -22,21 +22,19 @@ import { useQrDataContext } from "@/hooks/qr/useQrDataContext"
 import { QrEditControl } from "@/components/forms/pages/edit/design/qr-edit-controls"
 import type { editQrGoogleDocsType } from "@/types/type"
 import {
-  googleDocsFormSchema,
-  googleDocsFormSchemaType,
-} from "@/zod/forms/google-docs/google-docs-form-schema"
+  googleDocsEditFormSchema,
+  type googleDocsEditFormSchemaType,
+} from "@/zod/pages/edit/google-docs/google-docs-edit-form-schema"
 import { updateQrCodeGoogleDocsAction } from "@/app/actions/pages/edit/google-docs/update-qr-code-google-docs-action"
 
 interface GoogleDocsEditFormProps {
   qrCode: editQrGoogleDocsType
   endpoint: string
-  id: string
 }
 
 export const GoogleDocsEditForm = ({
   qrCode,
   endpoint,
-  id,
 }: GoogleDocsEditFormProps) => {
   const { setData } = useQrDataContext()
 
@@ -52,8 +50,8 @@ export const GoogleDocsEditForm = ({
     }
   )
 
-  const form = useForm<googleDocsFormSchemaType>({
-    resolver: zodResolver(googleDocsFormSchema),
+  const form = useForm<googleDocsEditFormSchemaType>({
+    resolver: zodResolver(googleDocsEditFormSchema),
     defaultValues: qrCode,
   })
 
@@ -66,9 +64,7 @@ export const GoogleDocsEditForm = ({
   return (
     <FormProvider {...form}>
       <form
-        onSubmit={form.handleSubmit((formData: googleDocsFormSchemaType) =>
-          executeAsync({ ...formData, id })
-        )}
+        onSubmit={form.handleSubmit(executeAsync)}
         className="grid grid-cols-1 lg:grid-cols-2 gap-8"
       >
         {/* main form  */}
