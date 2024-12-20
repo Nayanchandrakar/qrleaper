@@ -1,6 +1,7 @@
 import { z } from "zod"
-import { regexPatterns } from "@/constants/regex/patterns"
+
 import { colorsList } from "@/constants/qr/colors"
+import { regexPatterns } from "@/constants/regex/patterns"
 
 export const emailSchema = z.object({
   email: z.string().email({

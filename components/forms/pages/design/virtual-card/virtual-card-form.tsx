@@ -5,47 +5,33 @@ import { useAction } from "next-safe-action/hooks"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, FormProvider } from "react-hook-form"
 
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
-
-import {
-  messageFormSchema,
-  messageFormSchemaType,
-} from "@/zod/forms/message/message-form-schema"
-import { Input } from "@/components/ui/input"
-import { StepLabel } from "@/components/ui/step-label"
-import { QrStyleForm } from "@/components/forms/pages/design/qr-style/qr-style-form"
 import { colorsList } from "@/constants/qr/colors"
+import {
+  virtualCardFormSchema,
+  type virtualCardFormSchemaType,
+} from "@/zod/forms/vcard/virtual-card-form-schema"
+import { useQrDataContext } from "@/hooks/qr/useQrDataContext"
 import { PreviewQrCard } from "@/components/cards/pages/design/preview-qr-card"
 import { QrControls } from "@/components/forms/pages/design/qr-style/qr-controls"
-import { useQrDataContext } from "@/hooks/qr/useQrDataContext"
-import { createQrCodeMessageAction } from "@/app/actions/pages/design/message/create-message-qr-code-action"
-import { Textarea } from "@/components/ui/textarea"
+import { QrStyleForm } from "@/components/forms/pages/design/qr-style/qr-style-form"
+import { createVcardQrCodeAction } from "@/app/actions/pages/design/vcard/create-vcard-qr-code-action"
+import { VirtualCardNameForm } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/vcard-name-form"
+import { VirtualCardAddressForm } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/vcard-addres-form"
+import { VcardImageUploadForm } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/vcard-image-upload-form"
+import { VcardProfileImageUploadForm } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/vcard-profile-image"
+import { VirtualCardJobDetailsForm } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/vcard-job-details-form"
+import { VirtualCardWorkAddressForm } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/vcard-work-addres-form"
+import { VirtualCardPlatformDetialsForm } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/virtual-card-platform-details-form"
 
 export const VirtualCardForm = () => {
   const { setData } = useQrDataContext()
 
-  const { executeAsync, isExecuting } = useAction(createQrCodeMessageAction, {
-    onSuccess: ({ data }) => {
-      setData(data?.endpoint!)
-      toast.success("Successfully created a QR Code")
-    },
-    onError: ({ error }) => {
-      toast.error(error.serverError)
-    },
-  })
-
-  const form = useForm<messageFormSchemaType>({
-    resolver: zodResolver(messageFormSchema),
+  const form = useForm<virtualCardFormSchemaType>({
+    resolver: zodResolver(virtualCardFormSchema),
     defaultValues: {
       title: "",
-      message: "",
-      phoneNumber: "",
+      firstName: "",
+      lastName: "",
       style: {
         bottomInput: "",
         image: "",
@@ -57,81 +43,50 @@ export const VirtualCardForm = () => {
     },
   })
 
+  const { executeAsync, isExecuting } = useAction(createVcardQrCodeAction, {
+    onSuccess: ({ data }) => {
+      setData(data?.endpoint!)
+      toast.success("Successfully created a QR Code")
+    },
+    onError: ({ error }) => {
+      toast.error(error.serverError)
+    },
+  })
+
+  const onSubmit = (data: virtualCardFormSchemaType) => {
+    const formData = new FormData()
+    const { profileImage, images, ...remaining } = data
+
+    formData.append("profileImage", profileImage)
+
+    if (images?.length) {
+      images.forEach((image) => formData.append("images", image))
+    }
+
+    // @ts-ignore
+    executeAsync({ formData, ...remaining })
+  }
+
   return (
     <FormProvider {...form}>
       <form
-        onSubmit={form.handleSubmit(executeAsync)}
+        onSubmit={form.handleSubmit(onSubmit)}
         className="grid grid-cols-1 lg:grid-cols-2 gap-8"
       >
-        {/* main form  */}
         <div>
-          <div className="space-y-4">
-            <StepLabel className="mt-3">
-              <StepLabel.Counter>1</StepLabel.Counter>
-              <StepLabel.Title>Complete the content</StepLabel.Title>
-            </StepLabel>
-
-            <FormField
-              control={form.control}
-              name="title"
-              disabled={isExecuting}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Title</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="text"
-                      placeholder="example:StarBucks"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="phoneNumber"
-              disabled={isExecuting}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Phone Number</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="tel"
-                      placeholder="(5555) 5555-5555"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="message"
-              disabled={isExecuting}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Message</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      placeholder="Enter your text message here (optional)"
-                      {...field}
-                      maxLength={256}
-                      className="h-32"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+          <div className="space-y-7">
+            <VcardProfileImageUploadForm isExecuting={isExecuting} />
+            <VirtualCardNameForm isExecuting={isExecuting} />
+            <VirtualCardAddressForm isExecuting={isExecuting} />
+            <VirtualCardWorkAddressForm isExecuting={isExecuting} />
+            <VirtualCardJobDetailsForm isExecuting={isExecuting} />
+            <VirtualCardPlatformDetialsForm isExecuting={isExecuting} />
+            <VcardImageUploadForm isExecuting={isExecuting} />
             <QrControls isExecuting={isExecuting} />
           </div>
           <QrStyleForm />
         </div>
+
         <PreviewQrCard />
       </form>
     </FormProvider>

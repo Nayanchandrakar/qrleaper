@@ -15,6 +15,20 @@
       "when": 1734538496445,
       "tag": "0001_furry_grey_gargoyle",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1734666605910,
+      "tag": "0002_medical_rockslide",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1734667964984,
+      "tag": "0003_famous_tarantula",
+      "breakpoints": true
     }
   ]
 }

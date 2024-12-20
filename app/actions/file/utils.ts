@@ -1,6 +1,7 @@
 import axios from "axios"
-import { getPreSignedUrl } from "./getPreSignedUrl"
+
 import { deleteFile } from "./deleteFile"
+import { getPreSignedUrl } from "./getPreSignedUrl"
 
 export const uploadFile = async (file: File) => {
   const { newFileName, url } = await getPreSignedUrl(file.name, file.type)
@@ -15,4 +16,12 @@ export const updateFile = async (fileKey: string, file: File) => {
   await deleteFile(fileKey)
   const response = await uploadFile(file)
   return response
+}
+
+export const uploadBulkFiles = async (files: File[]): Promise<string[]> => {
+  const uploadPromises = files.map((file) =>
+    uploadFile(file).then((res) => res?.newFileName || null)
+  )
+  const results = await Promise.all(uploadPromises)
+  return results.filter((name): name is string => name !== null)
 }

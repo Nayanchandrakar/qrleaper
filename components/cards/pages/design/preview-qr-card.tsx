@@ -36,7 +36,7 @@ export const PreviewQrCard = () => {
   )
 
   return (
-    <div className="flex items-center justify-center flex-col gap-4 bg-gray-100 py-8 rounded-lg">
+    <div className="flex items-center justify-center flex-col gap-4 bg-gray-100 py-8 rounded-lg max-h-[50rem]">
       <StepLabel>
         <StepLabel.Counter>3</StepLabel.Counter>
         <StepLabel.Title>Download Your QR</StepLabel.Title>

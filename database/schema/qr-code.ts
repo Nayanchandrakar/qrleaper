@@ -14,6 +14,7 @@ export const typeEnum = pgEnum("type", [
   "facebook",
   "youtube",
   "googleDoc",
+  "vcard",
 ])
 
 // qr code main table

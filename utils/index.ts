@@ -41,6 +41,10 @@ export const getFileDbEndpointURL = (fileName: string) => {
   return `${process.env.APP_URL}/api/view?fileName=${fileName}&download=true`
 }
 
+export const getVcardDbEndpointURL = (id: string) => {
+  return `${process.env.APP_URL}/vcard/${id}`
+}
+
 export function absoluteUrl(path: string) {
   return `${process.env.NEXT_PUBLIC_APP_URL}${path}`
 }

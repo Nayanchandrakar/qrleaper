@@ -25,7 +25,7 @@ const DesignLayout = ({ children }: DesignLayoutProps) => {
 
         <div className="bg-gray-400/10 backdrop-blur-sm p-4 rounded-lg mb-20">
           <TopNavigationBar />
-          <div className="bg-white mt-4 p-6 rounded-lg">{children}</div>
+          <div className="bg-white mt-4 p-4 sm:p-6 rounded-lg">{children}</div>
         </div>
       </Container>
     </div>

@@ -121,8 +121,8 @@ export const qrVirtualCard = pgTable("qr_virtual_card", {
   middleName: text("middle_name"),
   prefix: text("prefix"),
   suffix: text("suffix"),
-  mobileNumber: text("mobile_number"),
 
+  mobileNumber: text("mobile_number"),
   work: text("work"),
   home: text("home"),
   whatsapp: text("whatsapp"),
@@ -134,13 +134,13 @@ export const qrVirtualCard = pgTable("qr_virtual_card", {
   home_street: text("home_street"),
   home_city: text("home_city"),
   home_state: text("home_state"),
-  home_zip: integer("home_zip"),
+  home_zip: text("home_zip"),
   home_country: text("home_country"),
 
   work_street: text("work_street"),
   work_city: text("work_city"),
   work_state: text("work_state"),
-  work_zip: integer("work_zip"),
+  work_zip: text("work_zip"),
   work_country: text("work_country"),
   website: text("website"),
 
