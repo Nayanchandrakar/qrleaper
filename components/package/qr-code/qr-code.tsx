@@ -39,7 +39,7 @@ export const QrCode = forwardRef<
         qrOptions: {
           typeNumber: 0,
           mode: "Byte",
-          errorCorrectionLevel: "Q",
+          errorCorrectionLevel: "M",
         },
         margin: hasFrame
           ? shape === "square"
