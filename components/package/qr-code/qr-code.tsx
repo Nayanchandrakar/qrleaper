@@ -36,6 +36,11 @@ export const QrCode = forwardRef<
         type: "svg",
         width: 250,
         height: 250,
+        qrOptions: {
+          typeNumber: 0,
+          mode: "Byte",
+          errorCorrectionLevel: "Q",
+        },
         margin: hasFrame
           ? shape === "square"
             ? 35
