@@ -44,7 +44,7 @@ export const createVcardQrCodeAction = authUserActionClient
 
     const { title, style, ...remainingInput } = parsedInput
 
-    const qrCodeData = await db.transaction(async (tx) => {
+    const qrCodeId = await db.transaction(async (tx) => {
       const [qrCodeRecord] = await tx
         .insert(qrCode)
         .values({
@@ -52,20 +52,17 @@ export const createVcardQrCodeAction = authUserActionClient
           type: "vcard",
           userId: user.id!,
         })
-        .returning()
+        .returning({ id: qrCode.id })
 
       const qrCodeId = qrCodeRecord.id
 
-      const [[vcardData]] = await Promise.all([
-        tx
-          .insert(qrVirtualCard)
-          .values({
-            ...remainingInput,
-            images: imageLinks,
-            profileImage: profileImageResponse.newFileName,
-            qrCodeId,
-          })
-          .returning({ id: qrVirtualCard.id }),
+      await Promise.all([
+        tx.insert(qrVirtualCard).values({
+          ...remainingInput,
+          images: imageLinks,
+          profileImage: profileImageResponse.newFileName,
+          qrCodeId,
+        }),
 
         tx.insert(qrCodeStyle).values({
           qrCodeId,
@@ -80,17 +77,14 @@ export const createVcardQrCodeAction = authUserActionClient
 
       incrementQrSubscriptionCountByUserId(user.id!)
 
-      return {
-        qrCodeId,
-        vcardId: vcardData.id,
-      }
+      return qrCodeId
     })
 
     await db.update(qrCode).set({
-      endpoint: getVcardDbEndpointURL(qrCodeData.vcardId),
+      endpoint: getVcardDbEndpointURL(qrCodeId),
     })
 
     revalidatePath("/dashboard/qr-codes")
 
-    return { endpoint: getEndpointURL(qrCodeData.qrCodeId) as string }
+    return { endpoint: getEndpointURL(qrCodeId) as string }
   })

@@ -113,45 +113,58 @@ export const qrVirtualCard = pgTable("qr_virtual_card", {
     })
     .notNull(),
 
+  // Profile Image
   profileImage: text("profile_image").notNull(),
+
+  // Gallery Images
   images: text("images").array(),
 
+  // Name Components
   firstName: text("first_name").notNull(),
   lastName: text("last_name").notNull(),
   middleName: text("middle_name"),
   prefix: text("prefix"),
   suffix: text("suffix"),
 
+  // Phone Numbers
   mobileNumber: text("mobile_number"),
-  work: text("work"),
-  home: text("home"),
-  whatsapp: text("whatsapp"),
-  fax: text("fax"),
+  workNumber: text("work_number"),
+  homeNumber: text("home_number"),
+  whatsappNumber: text("whatsapp_number"),
+  faxNumber: text("fax_number"),
 
-  personal: text("personal"),
-  email_work: text("email_work"),
+  // Email addresses
+  personalEmail: text("personal_email"),
+  workEmail: text("work_email"),
 
-  home_street: text("home_street"),
-  home_city: text("home_city"),
-  home_state: text("home_state"),
-  home_zip: text("home_zip"),
-  home_country: text("home_country"),
+  // Home Addresses
+  homeStreet: text("home_street"),
+  homeCity: text("home_city"),
+  homeState: text("home_state"),
+  homeZip: text("home_zip"),
+  homeCountry: text("home_country"),
 
-  work_street: text("work_street"),
-  work_city: text("work_city"),
-  work_state: text("work_state"),
-  work_zip: text("work_zip"),
-  work_country: text("work_country"),
+  // Work Addresses
+  workStreet: text("work_street"),
+  workCity: text("work_city"),
+  workState: text("work_state"),
+  workZip: text("work_zip"),
+  workCountry: text("work_country"),
+
+  // Website
   website: text("website"),
 
-  organization: text("organization"),
-  job_title: text("job_title"),
+  // Professional Information
+  company: text("company"),
+  jobTitle: text("job_title"),
   department: text("department"),
 
+  // Social accounts
   linkedin: text("linkedin"),
   twitter: text("twitter"),
   instagram: text("instagram"),
   facebook: text("facebook"),
 
-  info: text("info"),
+  // Additional Information
+  note: text("additional_information"),
 })

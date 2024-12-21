@@ -12,31 +12,31 @@ import {
 import { Input } from "@/components/ui/input"
 import { VCardLabelCard } from "@/components/cards/pages/design/vcard/vcard-label-card"
 
-interface VirtualCardAddressFormProps {
+interface SocialMediaProfileSectionProps {
   isExecuting: boolean
 }
 
-export const VirtualCardAddressForm = ({
+export const SocialMediaProfileSection = ({
   isExecuting,
-}: VirtualCardAddressFormProps) => {
+}: SocialMediaProfileSectionProps) => {
   const form = useFormContext()
 
   return (
     <div className="space-y-6">
-      <VCardLabelCard>Home Address</VCardLabelCard>
+      <VCardLabelCard>Social Media Profiles</VCardLabelCard>
 
       <div className="flex items-center sm:flex-row flex-col gap-4 sm:gap-3 ">
         <FormField
           control={form.control}
-          name="home_street"
+          name="linkedin"
           disabled={isExecuting}
           render={({ field }) => (
             <FormItem className="w-full">
-              <FormLabel>Street Name</FormLabel>
+              <FormLabel>Linkedin</FormLabel>
               <FormControl>
                 <Input
-                  type="text"
-                  placeholder="Street Name (optional)"
+                  type="url"
+                  placeholder="Your Linkedin Url (optional)"
                   {...field}
                 />
               </FormControl>
@@ -44,17 +44,18 @@ export const VirtualCardAddressForm = ({
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
-          name="home_city"
+          name="twitter"
           disabled={isExecuting}
           render={({ field }) => (
             <FormItem className="w-full">
-              <FormLabel>City Name</FormLabel>
+              <FormLabel>Twitter (x.com)</FormLabel>
               <FormControl>
                 <Input
-                  type="text"
-                  placeholder="Your City Name (optional)"
+                  type="url"
+                  placeholder="Your Twitter Url (optional)"
                   {...field}
                 />
               </FormControl>
@@ -67,15 +68,15 @@ export const VirtualCardAddressForm = ({
       <div className="flex items-center sm:flex-row flex-col gap-4 sm:gap-3 ">
         <FormField
           control={form.control}
-          name="home_state"
+          name="instagram"
           disabled={isExecuting}
           render={({ field }) => (
             <FormItem className="w-full">
-              <FormLabel>State Name</FormLabel>
+              <FormLabel>Instagram</FormLabel>
               <FormControl>
                 <Input
-                  type="text"
-                  placeholder="Your State Name (optional)"
+                  type="url"
+                  placeholder="Your Instagram Url (optional)"
                   {...field}
                 />
               </FormControl>
@@ -85,36 +86,15 @@ export const VirtualCardAddressForm = ({
         />
         <FormField
           control={form.control}
-          name="home_zip"
+          name="facebook"
           disabled={isExecuting}
           render={({ field }) => (
             <FormItem className="w-full">
-              <FormLabel>Zip Code</FormLabel>
+              <FormLabel>Facebook</FormLabel>
               <FormControl>
                 <Input
-                  type="text"
-                  placeholder="Your Zip Code (optional)"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-      </div>
-
-      <div>
-        <FormField
-          control={form.control}
-          name="home_country"
-          disabled={isExecuting}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Country Name</FormLabel>
-              <FormControl>
-                <Input
-                  type="text"
-                  placeholder="Your Country Name (optional)"
+                  type="url"
+                  placeholder="Your Facebook Url (optional)"
                   {...field}
                 />
               </FormControl>

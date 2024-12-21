@@ -11,33 +11,32 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { VCardLabelCard } from "@/components/cards/pages/design/vcard/vcard-label-card"
-import { Textarea } from "@/components/ui/textarea"
 
-interface VirtualCardPlatformDetialsFormProps {
+interface WorkAddressSectionProps {
   isExecuting: boolean
 }
 
-export const VirtualCardPlatformDetialsForm = ({
+export const WorkAddressSection = ({
   isExecuting,
-}: VirtualCardPlatformDetialsFormProps) => {
+}: WorkAddressSectionProps) => {
   const form = useFormContext()
 
   return (
     <div className="space-y-6">
-      <VCardLabelCard>Social Platforms</VCardLabelCard>
+      <VCardLabelCard>Work Address</VCardLabelCard>
 
       <div className="flex items-center sm:flex-row flex-col gap-4 sm:gap-3 ">
         <FormField
           control={form.control}
-          name="linkedin"
+          name="workStreet"
           disabled={isExecuting}
           render={({ field }) => (
             <FormItem className="w-full">
-              <FormLabel>Linkedin</FormLabel>
+              <FormLabel>Street Name</FormLabel>
               <FormControl>
                 <Input
-                  type="url"
-                  placeholder="Your Linkedin Url (optional)"
+                  type="text"
+                  placeholder="Street Name (optional)"
                   {...field}
                 />
               </FormControl>
@@ -47,15 +46,15 @@ export const VirtualCardPlatformDetialsForm = ({
         />
         <FormField
           control={form.control}
-          name="twitter"
+          name="workCity"
           disabled={isExecuting}
           render={({ field }) => (
             <FormItem className="w-full">
-              <FormLabel>Twitter (x.com)</FormLabel>
+              <FormLabel>City Name</FormLabel>
               <FormControl>
                 <Input
-                  type="url"
-                  placeholder="Your Twitter Url (optional)"
+                  type="text"
+                  placeholder="Your City Name (optional)"
                   {...field}
                 />
               </FormControl>
@@ -68,15 +67,15 @@ export const VirtualCardPlatformDetialsForm = ({
       <div className="flex items-center sm:flex-row flex-col gap-4 sm:gap-3 ">
         <FormField
           control={form.control}
-          name="instagram"
+          name="workState"
           disabled={isExecuting}
           render={({ field }) => (
             <FormItem className="w-full">
-              <FormLabel>Instagram</FormLabel>
+              <FormLabel>State Name</FormLabel>
               <FormControl>
                 <Input
-                  type="url"
-                  placeholder="Your Instagram Url (optional)"
+                  type="text"
+                  placeholder="Your State Name (optional)"
                   {...field}
                 />
               </FormControl>
@@ -86,15 +85,15 @@ export const VirtualCardPlatformDetialsForm = ({
         />
         <FormField
           control={form.control}
-          name="facebook"
+          name="workZip"
           disabled={isExecuting}
           render={({ field }) => (
             <FormItem className="w-full">
-              <FormLabel>Facebook</FormLabel>
+              <FormLabel>Zip Code</FormLabel>
               <FormControl>
                 <Input
-                  type="url"
-                  placeholder="Your Facebook Url (optional)"
+                  type="text"
+                  placeholder="Your Zip Code (optional)"
                   {...field}
                 />
               </FormControl>
@@ -104,19 +103,19 @@ export const VirtualCardPlatformDetialsForm = ({
         />
       </div>
 
-      <div className="flex w-full">
+      <div>
         <FormField
           control={form.control}
-          name="info"
+          name="workCountry"
           disabled={isExecuting}
           render={({ field }) => (
-            <FormItem className="w-full">
-              <FormLabel>Additional Information</FormLabel>
+            <FormItem>
+              <FormLabel>Country Name</FormLabel>
               <FormControl>
-                <Textarea
-                  placeholder="Any Additional Information (optional)"
+                <Input
+                  type="text"
+                  placeholder="Your Country Name (optional)"
                   {...field}
-                  rows={6}
                 />
               </FormControl>
               <FormMessage />

@@ -19,6 +19,7 @@ import {
   qrInstagram,
   qrLink,
   qrMessage,
+  qrVirtualCard,
   qrYoutube,
 } from "@/database/schema/qr-variations"
 import type { qrCodeType, qrType } from "@/types/db-types"
@@ -384,6 +385,18 @@ export const updateQrCodeStylelogoById = async (id: string, logo: string) => {
         logo,
       })
       .where(eq(qrCodeStyle.id, id))
+  } catch {
+    return null
+  }
+}
+
+export const getVCardQrCodeByqrCodeId = async (id: string) => {
+  try {
+    const [vCardData] = await db
+      .select()
+      .from(qrVirtualCard)
+      .where(eq(qrVirtualCard.qrCodeId, id))
+    return vCardData
   } catch {
     return null
   }

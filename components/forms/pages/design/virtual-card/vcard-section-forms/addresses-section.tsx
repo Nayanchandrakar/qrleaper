@@ -12,31 +12,29 @@ import {
 import { Input } from "@/components/ui/input"
 import { VCardLabelCard } from "@/components/cards/pages/design/vcard/vcard-label-card"
 
-interface VirtualCardJobDetailsFormProps {
+interface AddressSectionProps {
   isExecuting: boolean
 }
 
-export const VirtualCardJobDetailsForm = ({
-  isExecuting,
-}: VirtualCardJobDetailsFormProps) => {
+export const AddressSection = ({ isExecuting }: AddressSectionProps) => {
   const form = useFormContext()
 
   return (
     <div className="space-y-6">
-      <VCardLabelCard>Organization Details</VCardLabelCard>
+      <VCardLabelCard>Home Address</VCardLabelCard>
 
       <div className="flex items-center sm:flex-row flex-col gap-4 sm:gap-3 ">
         <FormField
           control={form.control}
-          name="website"
+          name="homeStreet"
           disabled={isExecuting}
           render={({ field }) => (
             <FormItem className="w-full">
-              <FormLabel>Website Link</FormLabel>
+              <FormLabel>Street Name</FormLabel>
               <FormControl>
                 <Input
-                  type="url"
-                  placeholder="Your Website Link (optional)"
+                  type="text"
+                  placeholder="Street Name (optional)"
                   {...field}
                 />
               </FormControl>
@@ -46,15 +44,15 @@ export const VirtualCardJobDetailsForm = ({
         />
         <FormField
           control={form.control}
-          name="organization"
+          name="homeCity"
           disabled={isExecuting}
           render={({ field }) => (
             <FormItem className="w-full">
-              <FormLabel>Organization</FormLabel>
+              <FormLabel>City Name</FormLabel>
               <FormControl>
                 <Input
                   type="text"
-                  placeholder="Your Organization Name (optional)"
+                  placeholder="Your City Name (optional)"
                   {...field}
                 />
               </FormControl>
@@ -67,15 +65,15 @@ export const VirtualCardJobDetailsForm = ({
       <div className="flex items-center sm:flex-row flex-col gap-4 sm:gap-3 ">
         <FormField
           control={form.control}
-          name="job_title"
+          name="homeState"
           disabled={isExecuting}
           render={({ field }) => (
             <FormItem className="w-full">
-              <FormLabel>Your Job Title</FormLabel>
+              <FormLabel>State Name</FormLabel>
               <FormControl>
                 <Input
                   type="text"
-                  placeholder="Your Job Title (optional)"
+                  placeholder="Your State Name (optional)"
                   {...field}
                 />
               </FormControl>
@@ -85,15 +83,36 @@ export const VirtualCardJobDetailsForm = ({
         />
         <FormField
           control={form.control}
-          name="department"
+          name="homeZip"
           disabled={isExecuting}
           render={({ field }) => (
             <FormItem className="w-full">
-              <FormLabel>Department Name</FormLabel>
+              <FormLabel>Zip Code</FormLabel>
               <FormControl>
                 <Input
                   type="text"
-                  placeholder="Your Department Name (optional)"
+                  placeholder="Your Zip Code (optional)"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </div>
+
+      <div>
+        <FormField
+          control={form.control}
+          name="homeCountry"
+          disabled={isExecuting}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Country Name</FormLabel>
+              <FormControl>
+                <Input
+                  type="text"
+                  placeholder="Your Country Name (optional)"
                   {...field}
                 />
               </FormControl>

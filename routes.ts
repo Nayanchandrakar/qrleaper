@@ -10,6 +10,7 @@ export const publicRoutes = [
   "/link",
   "/forgot-password",
   "/api/view",
+  "/vcard",
 ]
 
 /**

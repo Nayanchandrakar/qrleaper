@@ -29,6 +29,13 @@
       "when": 1734667964984,
       "tag": "0003_famous_tarantula",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1734777492590,
+      "tag": "0004_petite_power_man",
+      "breakpoints": true
     }
   ]
 }

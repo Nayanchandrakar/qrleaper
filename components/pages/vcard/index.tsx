@@ -1,0 +1,187 @@
+"use client"
+
+import Image from "next/image"
+import { Facebook, Instagram, Linkedin, Mail, Phone } from "lucide-react"
+
+import { Button } from "@/components/ui/button"
+import { Icons } from "@/components/shared/icons"
+import type { qrCodevCardType } from "@/types/db-types"
+import { formatAddress, getFilePath } from "@/utils/client"
+import { VcardInfo } from "@/components/pages/vcard/vcard-info"
+import { SocialIcon } from "@/components/pages/vcard/social-icon"
+import { ListComponent } from "@/components/global/list-component"
+import { ProfileAvatar } from "@/components/pages/vcard/profile-avatar"
+import { TextComponent } from "@/components/pages/vcard/text-component"
+
+interface ShowVcardComponentProps {
+  vCard: qrCodevCardType
+}
+
+export const RenderVcardComponent = ({ vCard }: ShowVcardComponentProps) => {
+  return (
+    <section className="flex flex-col items-center justify-center">
+      <div className="flex items-center justify-center flex-col gap-3">
+        <ProfileAvatar {...vCard} />
+
+        <Button size="lg" className="bg-gradient-brand mt-2">
+          Add to Contacts
+        </Button>
+
+        <div className="flex items-center gap-4 mt-4">
+          {vCard.mobileNumber && (
+            <SocialIcon>
+              <SocialIcon.Icon href={`tel:${vCard.mobileNumber}`}>
+                <Phone className="size-6 text-white" />
+              </SocialIcon.Icon>
+            </SocialIcon>
+          )}
+          {/* FIX */}
+          {vCard.workEmail && (
+            <SocialIcon>
+              <SocialIcon.Icon href={`mailto:${vCard.workEmail}`}>
+                <Mail className="size-6 text-white" />
+              </SocialIcon.Icon>
+            </SocialIcon>
+          )}
+
+          {vCard.whatsappNumber && (
+            <SocialIcon>
+              <SocialIcon.Icon href={`https://wa.me/${vCard.whatsappNumber}`}>
+                <Icons.whatsapp className="size-6 text-white" />
+              </SocialIcon.Icon>
+            </SocialIcon>
+          )}
+        </div>
+      </div>
+
+      <div className="rounded-lg border border-gray-100 bg-white p-8 mt-12 w-full max-w-lg space-y-8">
+        <VcardInfo>
+          <VcardInfo.Title>Contact Info</VcardInfo.Title>
+          {[
+            { text: "Mobile", value: vCard.mobileNumber },
+            { text: "Work Phone", value: vCard.workNumber },
+            { text: "Home Phone", value: vCard.homeNumber },
+            { text: "WhatsApp", value: vCard.whatsappNumber },
+            { text: "Fax", value: vCard.faxNumber },
+            { text: "Personal Email", value: vCard.personalEmail },
+            { text: "Work Email", value: vCard.workEmail },
+          ]?.map(({ text, value }) => (
+            <TextComponent key={text} text={text} value={value} />
+          ))}
+        </VcardInfo>
+
+        <VcardInfo>
+          <VcardInfo.Title>Addresses</VcardInfo.Title>
+          <TextComponent
+            text="Home"
+            value={formatAddress(
+              vCard.homeStreet,
+              vCard.homeCity,
+              vCard.homeState,
+              vCard.homeZip,
+              vCard.homeCountry
+            )}
+          />
+          <TextComponent
+            text="Work"
+            value={formatAddress(
+              vCard.workStreet,
+              vCard.workCity,
+              vCard.workState,
+              vCard.workZip,
+              vCard.workCountry
+            )}
+          />
+        </VcardInfo>
+
+        <VcardInfo>
+          <VcardInfo.Title>Website URL</VcardInfo.Title>
+          {vCard.website && (
+            <TextComponent.Link text="Link" link={vCard.website} />
+          )}
+        </VcardInfo>
+
+        <VcardInfo>
+          <VcardInfo.Title>Professional Information</VcardInfo.Title>
+          {[
+            { text: "Company", value: vCard.company },
+            { text: "Job Title", value: vCard.jobTitle },
+            { text: "Department", value: vCard.department },
+          ].map(({ text, value }) => (
+            <TextComponent key={text} text={text} value={value} />
+          ))}
+        </VcardInfo>
+
+        <VcardInfo>
+          <VcardInfo.Title>Additional Information</VcardInfo.Title>
+          {vCard.note && <TextComponent text="Notes" value={vCard.note} />}
+        </VcardInfo>
+
+        <VcardInfo>
+          <VcardInfo.Title>Gallery</VcardInfo.Title>
+          {vCard.images && (
+            <ListComponent
+              data={vCard.images}
+              className="flex flex-col gap-6 mt-5"
+              renderItem={(data) => (
+                <Image
+                  key={data}
+                  src={getFilePath(data)}
+                  alt="Gallery Image"
+                  width={1000}
+                  height={1000}
+                  className="rounded-lg"
+                />
+              )}
+            />
+          )}
+        </VcardInfo>
+
+        <VcardInfo>
+          <VcardInfo.Title>Social Media</VcardInfo.Title>
+          <div className="flex flex-col gap-7 mt-5">
+            {vCard.linkedin && (
+              <SocialIcon>
+                <SocialIcon.Icon href={vCard.linkedin}>
+                  <Linkedin className="size-6 text-white" />
+                </SocialIcon.Icon>
+
+                <VcardInfo.SubDescription>Linkedin</VcardInfo.SubDescription>
+              </SocialIcon>
+            )}
+
+            {vCard.instagram && (
+              <SocialIcon>
+                <SocialIcon.Icon href={vCard.instagram}>
+                  <Instagram className="size-6 text-white" />
+                </SocialIcon.Icon>
+
+                <VcardInfo.SubDescription>Instagram</VcardInfo.SubDescription>
+              </SocialIcon>
+            )}
+
+            {vCard.twitter && (
+              <SocialIcon>
+                <SocialIcon.Icon href={vCard.twitter}>
+                  <Icons.XCom className="size-5 fill-white" />
+                </SocialIcon.Icon>
+
+                <VcardInfo.SubDescription>X(Twitter)</VcardInfo.SubDescription>
+              </SocialIcon>
+            )}
+
+            {vCard.facebook && (
+              <SocialIcon>
+                <SocialIcon.Icon href={vCard.facebook}>
+                  <Facebook className="size-5 text-white" />
+                </SocialIcon.Icon>
+
+                <VcardInfo.SubDescription>Facebook</VcardInfo.SubDescription>
+              </SocialIcon>
+            )}
+          </div>
+        </VcardInfo>
+      </div>
+    </section>
+  )
+}

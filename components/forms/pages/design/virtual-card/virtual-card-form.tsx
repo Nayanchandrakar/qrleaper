@@ -11,17 +11,21 @@ import {
   type virtualCardFormSchemaType,
 } from "@/zod/forms/vcard/virtual-card-form-schema"
 import { useQrDataContext } from "@/hooks/qr/useQrDataContext"
+import { PhoneNumberSection } from "./vcard-section-forms/phone-number-section"
 import { PreviewQrCard } from "@/components/cards/pages/design/preview-qr-card"
+import { WorkAddressSection } from "./vcard-section-forms/work-adddress-section"
+import { EmailAddressSection } from "./vcard-section-forms/email-address-section"
 import { QrControls } from "@/components/forms/pages/design/qr-style/qr-controls"
 import { QrStyleForm } from "@/components/forms/pages/design/qr-style/qr-style-form"
+import { AdditionalInformationSection } from "./vcard-section-forms/additional-information-section"
 import { createVcardQrCodeAction } from "@/app/actions/pages/design/vcard/create-vcard-qr-code-action"
-import { VirtualCardNameForm } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/vcard-name-form"
-import { VirtualCardAddressForm } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/vcard-addres-form"
+import { AddressSection } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/addresses-section"
 import { VcardImageUploadForm } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/vcard-image-upload-form"
 import { VcardProfileImageUploadForm } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/vcard-profile-image"
-import { VirtualCardJobDetailsForm } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/vcard-job-details-form"
-import { VirtualCardWorkAddressForm } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/vcard-work-addres-form"
-import { VirtualCardPlatformDetialsForm } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/virtual-card-platform-details-form"
+import { QrCodeInfoWithNameSection } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/qr-code-info-with-name-section"
+import { ProfessionalInformationSection } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/professional-information-section"
+import { SocialMediaProfileSection } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/social-media-profile-section"
+import { WebsiteSection } from "./vcard-section-forms/website-url-section"
 
 export const VirtualCardForm = () => {
   const { setData } = useQrDataContext()
@@ -76,11 +80,15 @@ export const VirtualCardForm = () => {
         <div>
           <div className="space-y-7">
             <VcardProfileImageUploadForm isExecuting={isExecuting} />
-            <VirtualCardNameForm isExecuting={isExecuting} />
-            <VirtualCardAddressForm isExecuting={isExecuting} />
-            <VirtualCardWorkAddressForm isExecuting={isExecuting} />
-            <VirtualCardJobDetailsForm isExecuting={isExecuting} />
-            <VirtualCardPlatformDetialsForm isExecuting={isExecuting} />
+            <QrCodeInfoWithNameSection isExecuting={isExecuting} />
+            <PhoneNumberSection isExecuting={isExecuting} />
+            <EmailAddressSection isExecuting={isExecuting} />
+            <AddressSection isExecuting={isExecuting} />
+            <WorkAddressSection isExecuting={isExecuting} />
+            <WebsiteSection isExecuting={isExecuting} />
+            <ProfessionalInformationSection isExecuting={isExecuting} />
+            <SocialMediaProfileSection isExecuting={isExecuting} />
+            <AdditionalInformationSection isExecuting={isExecuting} />
             <VcardImageUploadForm isExecuting={isExecuting} />
             <QrControls isExecuting={isExecuting} />
           </div>
