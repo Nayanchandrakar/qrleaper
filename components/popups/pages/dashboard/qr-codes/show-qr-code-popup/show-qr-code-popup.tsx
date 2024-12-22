@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 import type { qrCodeRefType } from "@/types/type"
-import { getEndpointURLClient } from "@/utils/client"
+import { getEndpointURLClient, getFilePath } from "@/utils/client"
 import { ShimmerDots } from "@/components/ui/shimmer-dots"
 import { QrCode } from "@/components/package/qr-code/qr-code"
 import { downloadOptionData } from "@/constants/qr/download-options"
@@ -85,7 +85,7 @@ export const ShowQrCodePopup = () => {
               bottomInput={data?.qr_code_style?.bottomText!}
               data={getEndpointURLClient(data?.qr_code?.id!)}
               shape={data?.qr_code_style?.shape! as ShapeType}
-              logo={data?.qr_code_style?.logo!}
+              logo={getFilePath(data?.qr_code_style?.logo!)}
               className="scale-[0.7]"
             />
             <ShimmerDots className="pointer-events-none z-10 opacity-30 [mask-image:radial-gradient(40%_80%,transparent_50%,black)]" />
