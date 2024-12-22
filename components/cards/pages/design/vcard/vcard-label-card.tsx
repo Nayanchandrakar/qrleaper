@@ -15,7 +15,7 @@ export const VCardLabelCard = ({
   return (
     <h3
       className={cn(
-        "flex items-start p-3 px-4 rounded-md bg-black text-sm font-semibold text-white",
+        "flex items-start p-3 px-4 rounded-md bg-gray-100 text-sm font-semibold text-gray-500",
         className
       )}
       {...props}

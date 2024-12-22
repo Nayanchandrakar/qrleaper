@@ -6,6 +6,7 @@ import {
   getVcardQrStyleAndDataByQrCodeId,
 } from "@/app/actions/utils"
 import { getEndpointURL } from "@/utils"
+import type { editQrVcardType } from "@/types/type"
 import { VcardEditForm } from "@/components/forms/pages/edit/vcard/vcard-edit-form"
 
 // Site metadata
@@ -36,12 +37,17 @@ const VcardEditPage = async ({ params }: VcardEditPageProps) => {
 
   const qrStyleAndVcardData = await getVcardQrStyleAndDataByQrCodeId(data.id)
 
+  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
   const { images, id, qrCodeId, ...remaining } = qrStyleAndVcardData.vcard
+
+  const formatRemaining = Object.fromEntries(
+    Object.entries(remaining)?.map(([key, value]) => [key, value ?? ""])
+  )
 
   const qrCode = {
     id: data.id,
     title: data.title ?? "",
-    ...remaining,
+    ...formatRemaining,
     style: {
       bottomInput: qrStyleAndVcardData?.style.bottomText ?? "",
       image: qrStyleAndVcardData?.style.logo ?? "",
@@ -52,7 +58,12 @@ const VcardEditPage = async ({ params }: VcardEditPageProps) => {
     },
   }
 
-  return <VcardEditForm qrCode={qrCode} endpoint={getEndpointURL(data.id)} />
+  return (
+    <VcardEditForm
+      qrCode={qrCode as editQrVcardType}
+      endpoint={getEndpointURL(data.id)}
+    />
+  )
 }
 
 export default VcardEditPage

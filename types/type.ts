@@ -87,51 +87,51 @@ export interface editQrVcardType {
   title: string
   firstName: string
   lastName: string
-  middleName?: string | null
-  prefix?: string | null
-  suffix?: string | null
+  middleName?: string
+  prefix: string
+  suffix: string
 
   // Phone Numbers
-  mobileNumber?: string | null
-  workNumber?: string | null
-  homeNumber?: string | null
-  whatsappNumber?: string | null
-  faxNumber?: string | null
+  mobileNumber: string
+  workNumber: string
+  homeNumber: string
+  whatsappNumber: string
+  faxNumber: string
 
   // Email addresses
-  personalEmail?: string | null
-  workEmail?: string | null
+  personalEmail: string
+  workEmail: string
 
   // Home Addresses
-  homeStreet?: string | null
-  homeCity?: string | null
-  homeState?: string | null
-  homeZip?: string | null
-  homeCountry?: string | null
+  homeStreet: string
+  homeCity: string
+  homeState: string
+  homeZip: string
+  homeCountry: string
 
   // Work Addresses
-  workStreet?: string | null
-  workCity?: string | null
-  workState?: string | null
-  workZip?: string | null
-  workCountry?: string | null
+  workStreet: string
+  workCity: string
+  workState: string
+  workZip: string
+  workCountry: string
 
   // Website
-  website?: string | null
+  website: string
 
   // Professional Information
-  company?: string | null
-  jobTitle?: string | null
-  department?: string | null
+  company: string
+  jobTitle: string
+  department: string
 
   // Social accounts
-  linkedin?: string | null
-  twitter?: string | null
-  instagram?: string | null
-  facebook?: string | null
+  linkedin: string
+  twitter: string
+  instagram: string
+  facebook: string
 
   // Additional Information
-  note?: string | null
+  note: string
 
   style: responseQrStyleType
 }

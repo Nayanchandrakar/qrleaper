@@ -15,7 +15,6 @@ import {
   type vCardEditFormSchemaType,
 } from "@/zod/pages/edit/vcard/vcard-edit-form-schema"
 import { editQrVcardType } from "@/types/type"
-import { updateQrCodeMessageAction } from "@/app/actions/pages/edit/message/update-message-qr-code-action"
 import { QrCodeInfoWithNameSection } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/qr-code-info-with-name-section"
 import { PhoneNumberSection } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/phone-number-section"
 import { EmailAddressSection } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/email-address-section"
