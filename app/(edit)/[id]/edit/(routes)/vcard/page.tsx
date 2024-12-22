@@ -1,17 +1,17 @@
 import { redirect } from "next/navigation"
 
 import { auth } from "@/lib/auth/auth"
+import { getEndpointURL } from "@/utils"
+import type { editQrVcardType } from "@/types/type"
 import {
   getQrCodeByUserIdAndIdWithType,
   getVcardQrStyleAndDataByQrCodeId,
 } from "@/app/actions/utils"
-import { getEndpointURL } from "@/utils"
-import type { editQrVcardType } from "@/types/type"
 import { VcardEditForm } from "@/components/forms/pages/edit/vcard/vcard-edit-form"
 
 // Site metadata
 export const metadata = {
-  title: "Edit Message based QR Codes",
+  title: "Edit Profile based QR Codes",
 }
 
 interface VcardEditPageProps {
@@ -37,7 +37,6 @@ const VcardEditPage = async ({ params }: VcardEditPageProps) => {
 
   const qrStyleAndVcardData = await getVcardQrStyleAndDataByQrCodeId(data.id)
 
-  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
   const { images, id, qrCodeId, ...remaining } = qrStyleAndVcardData.vcard
 
   const formatRemaining = Object.fromEntries(
