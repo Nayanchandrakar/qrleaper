@@ -52,7 +52,7 @@ export default auth(async function middleware(req) {
       !subscription ||
       isSubscriptionExpiredEdge(subscription.stripeCurrentPeriodEnd)
     ) {
-      return NextResponse.redirect(new URL("/pricing", nextUrl))
+      return NextResponse.redirect(new URL("/expired", nextUrl))
     }
 
     return
