@@ -24,6 +24,7 @@ import { WebsiteSection } from "@/components/forms/pages/design/virtual-card/vca
 import { ProfessionalInformationSection } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/professional-information-section"
 import { SocialMediaProfileSection } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/social-media-profile-section"
 import { AdditionalInformationSection } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/additional-information-section"
+import { VcardProfileImageUploadForm } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/vcard-profile-image"
 import { updateQrCodeVcardAction } from "@/app/actions/pages/edit/vcard/update-qr-code-vcard-action"
 
 interface VcardEditFormProps {
@@ -48,6 +49,21 @@ export const VcardEditForm = ({ qrCode, endpoint }: VcardEditFormProps) => {
     defaultValues: qrCode as vCardEditFormSchemaType,
   })
 
+  const onSubmit = (data: vCardEditFormSchemaType) => {
+    const formData = new FormData()
+
+    const { profileImage, ...remaining } = data
+
+    if (typeof profileImage === "object")
+      formData.append("profileImage", profileImage)
+
+    if (typeof profileImage === "string")
+      formData.append("profileImage", profileImage)
+
+    // @ts-ignore
+    executeAsync({ formData, ...remaining })
+  }
+
   useEffect(() => {
     if (endpoint) {
       setData(endpoint)
@@ -57,12 +73,12 @@ export const VcardEditForm = ({ qrCode, endpoint }: VcardEditFormProps) => {
   return (
     <FormProvider {...form}>
       <form
-        onSubmit={form.handleSubmit(executeAsync)}
+        onSubmit={form.handleSubmit(onSubmit)}
         className="grid grid-cols-1 lg:grid-cols-2 gap-8"
       >
         <div>
           <div className="space-y-7">
-            {/* <VcardProfileImageUploadForm isExecuting={isExecuting} /> */}
+            <VcardProfileImageUploadForm isExecuting={isExecuting} />
             <QrCodeInfoWithNameSection isExecuting={isExecuting} />
             <PhoneNumberSection isExecuting={isExecuting} />
             <EmailAddressSection isExecuting={isExecuting} />

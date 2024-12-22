@@ -9,3 +9,13 @@ export const getEndpointURLClient = (id: string) => {
 export const formatAddress = (...texts: (string | null | undefined)[]) => {
   return texts.filter(Boolean).join(", ")
 }
+
+export const getProfileImage = (image: File | string) => {
+  if (!image) return ""
+
+  if (typeof image === "string") {
+    return getFilePath(image)
+  } else {
+    return URL?.createObjectURL(image)
+  }
+}

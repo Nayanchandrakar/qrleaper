@@ -13,8 +13,10 @@ export const uploadFile = async (file: File) => {
 }
 
 export const updateFile = async (fileKey: string, file: File) => {
-  await deleteFile(fileKey)
-  const response = await uploadFile(file)
+  const [, response] = await Promise.all([
+    deleteFile(fileKey),
+    uploadFile(file),
+  ])
   return response
 }
 
