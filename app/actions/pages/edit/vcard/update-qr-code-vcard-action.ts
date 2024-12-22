@@ -1,34 +1,27 @@
 "use server"
 
-import { z } from "zod"
 import { eq } from "drizzle-orm"
 import { flattenValidationErrors } from "next-safe-action"
 
 import { db } from "@/database/db"
 import { qrCode, qrCodeStyle } from "@/database/schema"
-import { qrInstagram } from "@/database/schema/qr-variations"
+import { qrVirtualCard } from "@/database/schema/qr-variations"
 import { authUserActionClient } from "@/lib/action/safe-action"
 import { getQrCodeByUserIdAndIdWithType } from "@/app/actions/utils"
-import { instagramFormSchema } from "@/zod/forms/instagram/instagram-form-schema"
-import { getInstagramDbEndpointURL } from "@/utils"
 import { throwSubscriptionEditError } from "@/lib/action/throw-subscription-error"
+import { vCardEditFormSchema } from "@/zod/pages/edit/vcard/vcard-edit-form-schema"
 
-export const updateQrCodeInstagramAction = authUserActionClient
-  .schema(
-    instagramFormSchema.extend({
-      id: z.string().min(10),
-    }),
-    {
-      handleValidationErrorsShape: async (ve) =>
-        flattenValidationErrors(ve).fieldErrors,
-    }
-  )
+export const updateQrCodeVcardAction = authUserActionClient
+  .schema(vCardEditFormSchema, {
+    handleValidationErrorsShape: async (ve) =>
+      flattenValidationErrors(ve).fieldErrors,
+  })
   .use(throwSubscriptionEditError)
   .action(async ({ parsedInput, ctx }) => {
-    const { instagram, style, title, id } = parsedInput
+    const { id, title, style, ...remainingInput } = parsedInput
     const { user } = ctx
 
-    const data = await getQrCodeByUserIdAndIdWithType(user.id!, id, "instagram")
+    const data = await getQrCodeByUserIdAndIdWithType(user.id!, id, "vcard")
 
     if (!data) {
       throw new Error("No QR Code found to update with this id")
@@ -37,15 +30,12 @@ export const updateQrCodeInstagramAction = authUserActionClient
     await db.transaction(async (tx) => {
       Promise.all([
         // update a desired form data
-        tx
-          .update(qrCode)
-          .set({ title, endpoint: getInstagramDbEndpointURL(instagram) })
-          .where(eq(qrCode.id, id)),
+        tx.update(qrCode).set({ title }).where(eq(qrCode.id, id)),
 
         tx
-          .update(qrInstagram)
-          .set({ instagramId: instagram })
-          .where(eq(qrInstagram.qrCodeId, id)),
+          .update(qrVirtualCard)
+          .set(remainingInput)
+          .where(eq(qrVirtualCard.qrCodeId, id)),
 
         // update qr code styling data with qrCode id
         tx

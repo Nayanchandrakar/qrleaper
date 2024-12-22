@@ -11,6 +11,7 @@ import { authUserActionClient } from "@/lib/action/safe-action"
 import { getQrCodeByUserIdAndIdWithType } from "@/app/actions/utils"
 import { getEmailDbEndpointURL } from "@/utils"
 import { emailFormSchema } from "@/zod/forms/email/email-form-schema"
+import { throwSubscriptionEditError } from "@/lib/action/throw-subscription-error"
 
 export const updateQrCodeEmailAction = authUserActionClient
   .schema(
@@ -22,6 +23,7 @@ export const updateQrCodeEmailAction = authUserActionClient
         flattenValidationErrors(ve).fieldErrors,
     }
   )
+  .use(throwSubscriptionEditError)
   .action(async ({ parsedInput, ctx }) => {
     const { email, subject, message, style, title, id } = parsedInput
     const { user } = ctx

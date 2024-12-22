@@ -11,6 +11,7 @@ import { authUserActionClient } from "@/lib/action/safe-action"
 import { getQrCodeByUserIdAndIdWithType } from "@/app/actions/utils"
 import { fileFormSchema } from "@/zod/forms/file/file-form-schema"
 import { getFileDbEndpointURL } from "@/utils"
+import { throwSubscriptionEditError } from "@/lib/action/throw-subscription-error"
 
 export const updateQrCodeFileAction = authUserActionClient
   .schema(
@@ -22,6 +23,7 @@ export const updateQrCodeFileAction = authUserActionClient
         flattenValidationErrors(ve).fieldErrors,
     }
   )
+  .use(throwSubscriptionEditError)
   .action(async ({ parsedInput, ctx }) => {
     const { fileName, style, title, id } = parsedInput
     const { user } = ctx

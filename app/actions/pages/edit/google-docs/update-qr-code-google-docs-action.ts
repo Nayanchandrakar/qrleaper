@@ -10,6 +10,7 @@ import { qrGoogleDoc } from "@/database/schema/qr-variations"
 import { authUserActionClient } from "@/lib/action/safe-action"
 import { getQrCodeByUserIdAndIdWithType } from "@/app/actions/utils"
 import { googleDocsFormSchema } from "@/zod/forms/google-docs/google-docs-form-schema"
+import { throwSubscriptionEditError } from "@/lib/action/throw-subscription-error"
 
 export const updateQrCodeGoogleDocsAction = authUserActionClient
   .schema(
@@ -21,6 +22,7 @@ export const updateQrCodeGoogleDocsAction = authUserActionClient
         flattenValidationErrors(ve).fieldErrors,
     }
   )
+  .use(throwSubscriptionEditError)
   .action(async ({ parsedInput, ctx }) => {
     const { googleDocUrl, style, title, id } = parsedInput
     const { user } = ctx

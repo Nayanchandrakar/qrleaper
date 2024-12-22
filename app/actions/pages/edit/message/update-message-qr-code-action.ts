@@ -5,12 +5,13 @@ import { eq } from "drizzle-orm"
 import { flattenValidationErrors } from "next-safe-action"
 
 import { db } from "@/database/db"
+import { getMessageDbEndpointURL } from "@/utils"
 import { qrCode, qrCodeStyle } from "@/database/schema"
 import { qrMessage } from "@/database/schema/qr-variations"
 import { authUserActionClient } from "@/lib/action/safe-action"
 import { getQrCodeByUserIdAndIdWithType } from "@/app/actions/utils"
 import { messageFormSchema } from "@/zod/forms/message/message-form-schema"
-import { getMessageDbEndpointURL } from "@/utils"
+import { throwSubscriptionEditError } from "@/lib/action/throw-subscription-error"
 
 export const updateQrCodeMessageAction = authUserActionClient
   .schema(
@@ -22,6 +23,7 @@ export const updateQrCodeMessageAction = authUserActionClient
         flattenValidationErrors(ve).fieldErrors,
     }
   )
+  .use(throwSubscriptionEditError)
   .action(async ({ parsedInput, ctx }) => {
     const { phoneNumber, message, style, title, id } = parsedInput
     const { user } = ctx

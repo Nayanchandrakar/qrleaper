@@ -27,54 +27,79 @@ export const virtualCardFormSchema = z.object({
   // Name Components
   firstName: z.string().min(1, { message: "First name is required" }).max(20),
   lastName: z.string().min(1, { message: "Last name is required" }).max(20),
-  middleName: z.string().max(10).optional(),
-  prefix: z.string().max(7).optional(),
-  suffix: z.string().max(7).optional(),
+  middleName: z.string().max(10).optional().or(z.literal("")),
+  prefix: z.string().max(10).optional().or(z.literal("")),
+  suffix: z.string().max(10).optional().or(z.literal("")),
 
   // Phone Numbers
-  mobileNumber: z.string().optional(),
-  workNumber: z.string().max(40).optional(),
-  homeNumber: z.string().max(80).optional(),
-  whatsappNumber: z.string().max(15).optional(),
-  faxNumber: z.string().max(15).optional(),
+  mobileNumber: z.string().optional().or(z.literal("")),
+  workNumber: z.string().max(40).optional().or(z.literal("")),
+  homeNumber: z.string().max(80).optional().or(z.literal("")),
+  whatsappNumber: z.string().max(15).optional().or(z.literal("")),
+  faxNumber: z.string().max(15).optional().or(z.literal("")),
 
   // Email addresses
   personalEmail: z
     .string()
     .email({ message: "Invalid personal email" })
-    .optional(),
-  workEmail: z.string().email({ message: "Invalid work email" }).optional(),
+    .optional()
+    .or(z.literal("")),
+  workEmail: z
+    .string()
+    .email({ message: "Invalid work email" })
+    .optional()
+    .or(z.literal("")),
 
   // Home Addresses
-  homeStreet: z.string().max(30).optional(),
+  homeStreet: z.string().max(30).optional().or(z.literal("")),
   homeCity: z.string().max(30).optional(),
-  homeState: z.string().max(40).optional(),
-  homeZip: z.string().optional(),
-  homeCountry: z.string().max(40).optional(),
+  homeState: z.string().max(40).optional().or(z.literal("")),
+  homeZip: z.string().optional().or(z.literal("")),
+  homeCountry: z.string().max(40).optional().or(z.literal("")),
 
   // Work Addresses
-  workStreet: z.string().max(30).optional(),
-  workCity: z.string().max(30).optional(),
-  workState: z.string().max(40).optional(),
-  workZip: z.string().optional(),
-  workCountry: z.string().max(40).optional(),
+  workStreet: z.string().max(30).optional().or(z.literal("")),
+  workCity: z.string().max(30).optional().or(z.literal("")),
+  workState: z.string().max(40).optional().or(z.literal("")),
+  workZip: z.string().optional().or(z.literal("")),
+  workCountry: z.string().max(40).optional().or(z.literal("")),
 
   // Website
-  website: z.string().url({ message: "Invalid URL" }).optional(),
+  website: z
+    .string(z.literal(""))
+    .url({ message: "Invalid URL" })
+    .optional()
+    .or(z.literal("")),
 
   // Professional Information
-  company: z.string().max(50).optional(),
-  jobTitle: z.string().max(40).optional(),
-  department: z.string().max(50).optional(),
+  company: z.string().max(50).optional().or(z.literal("")),
+  jobTitle: z.string().max(40).optional().or(z.literal("")),
+  department: z.string().max(50).optional().or(z.literal("")),
 
   // Social accounts
-  linkedin: z.string().url({ message: "Invalid LinkedIn URL" }).optional(),
-  twitter: z.string().url({ message: "Invalid Twitter URL" }).optional(),
-  instagram: z.string().url({ message: "Invalid Instagram URL" }).optional(),
-  facebook: z.string().url({ message: "Invalid Facebook URL" }).optional(),
+  linkedin: z
+    .string()
+    .url({ message: "Invalid LinkedIn URL" })
+    .optional()
+    .or(z.literal("")),
+  twitter: z
+    .string()
+    .url({ message: "Invalid Twitter URL" })
+    .optional()
+    .or(z.literal("")),
+  instagram: z
+    .string()
+    .url({ message: "Invalid Instagram URL" })
+    .optional()
+    .or(z.literal("")),
+  facebook: z
+    .string()
+    .url({ message: "Invalid Facebook URL" })
+    .optional()
+    .or(z.literal("")),
 
   // Additional Information
-  note: z.string().max(200).optional(),
+  note: z.string().max(200).optional().or(z.literal("")),
 
   // QR Code Style
   style: qrStyleSchema,

@@ -10,6 +10,7 @@ import { qrLink, qrYoutube } from "@/database/schema/qr-variations"
 import { authUserActionClient } from "@/lib/action/safe-action"
 import { getQrCodeByUserIdAndIdWithType } from "@/app/actions/utils"
 import { youtubeFormSchema } from "@/zod/forms/youtube/youtube-form-schema"
+import { throwSubscriptionEditError } from "@/lib/action/throw-subscription-error"
 
 export const updateQrCodeYoutubeAction = authUserActionClient
   .schema(
@@ -21,6 +22,7 @@ export const updateQrCodeYoutubeAction = authUserActionClient
         flattenValidationErrors(ve).fieldErrors,
     }
   )
+  .use(throwSubscriptionEditError)
   .action(async ({ parsedInput, ctx }) => {
     const { youtubeUrl, style, title, id } = parsedInput
     const { user } = ctx

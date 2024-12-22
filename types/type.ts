@@ -80,3 +80,58 @@ export interface qrCardType {
   qr_code_style: qrCodeStyleType | null
   qr_scan_count: qrScanCountType | null
 }
+
+export interface editQrVcardType {
+  id: string
+  profileImage: string
+  title: string
+  firstName: string
+  lastName: string
+  middleName?: string | null
+  prefix?: string | null
+  suffix?: string | null
+
+  // Phone Numbers
+  mobileNumber?: string | null
+  workNumber?: string | null
+  homeNumber?: string | null
+  whatsappNumber?: string | null
+  faxNumber?: string | null
+
+  // Email addresses
+  personalEmail?: string | null
+  workEmail?: string | null
+
+  // Home Addresses
+  homeStreet?: string | null
+  homeCity?: string | null
+  homeState?: string | null
+  homeZip?: string | null
+  homeCountry?: string | null
+
+  // Work Addresses
+  workStreet?: string | null
+  workCity?: string | null
+  workState?: string | null
+  workZip?: string | null
+  workCountry?: string | null
+
+  // Website
+  website?: string | null
+
+  // Professional Information
+  company?: string | null
+  jobTitle?: string | null
+  department?: string | null
+
+  // Social accounts
+  linkedin?: string | null
+  twitter?: string | null
+  instagram?: string | null
+  facebook?: string | null
+
+  // Additional Information
+  note?: string | null
+
+  style: responseQrStyleType
+}

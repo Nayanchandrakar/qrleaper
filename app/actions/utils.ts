@@ -270,6 +270,20 @@ export const getFileQrStyleAndDataByQrCodeId = async (id: string) => {
   }
 }
 
+export const getVcardQrStyleAndDataByQrCodeId = async (id: string) => {
+  const data = await db.transaction(async (tx) => {
+    const [[style], [vcard]] = await Promise.all([
+      tx.select().from(qrCodeStyle).where(eq(qrCodeStyle.qrCodeId, id)),
+      tx.select().from(qrVirtualCard).where(eq(qrVirtualCard.qrCodeId, id)),
+    ])
+    return {
+      style,
+      vcard,
+    }
+  })
+  return data
+}
+
 export const getQrScanCountById = async (id: string) => {
   try {
     const [data] = await db

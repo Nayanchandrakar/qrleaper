@@ -10,6 +10,7 @@ import { qrFacebook } from "@/database/schema/qr-variations"
 import { authUserActionClient } from "@/lib/action/safe-action"
 import { getQrCodeByUserIdAndIdWithType } from "@/app/actions/utils"
 import { facebookFormSchema } from "@/zod/forms/facebook/facebook-form-schema"
+import { throwSubscriptionEditError } from "@/lib/action/throw-subscription-error"
 
 export const updateQrCodeFacebookAction = authUserActionClient
   .schema(
@@ -21,6 +22,7 @@ export const updateQrCodeFacebookAction = authUserActionClient
         flattenValidationErrors(ve).fieldErrors,
     }
   )
+  .use(throwSubscriptionEditError)
   .action(async ({ parsedInput, ctx }) => {
     const { facebookUrl, style, title, id } = parsedInput
     const { user } = ctx
