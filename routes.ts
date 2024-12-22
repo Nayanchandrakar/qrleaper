@@ -1,9 +1,5 @@
-/**
- * An array of public routes that is accessible
- * to not-authenticated users
- * @type {string[]}
- */
-export const publicRoutes = [
+export const authRoutes = ["/login", "/register"]
+const publicRoutes = [
   "/design",
   "/expired",
   "/pricing",
@@ -13,32 +9,9 @@ export const publicRoutes = [
   "/vcard",
 ]
 
-/**
- * These Api Routes are for only authentication purpose
- * A non-authenticated user can acces it without any problem
- * @type {string[]}
- */
-export const authRoutes = ["/login", "/register"]
-
-/**
- * This route is accessible to use api freely
- * without blocking the main authentication endpoint of auth JS
- * @type {string}
- */
-export const apiAuthPrefix = "/api/auth"
-
-/**
- * This route is accessible to use api freely
- * without blocking the main subscription functionality endpoint of stripe
- * @type {string}
- */
-export const apiStripePrefix = "/api/webhooks"
-
-/**
- * This route is accessible to use link middleware freely
- * without blocking the main tracking endpoint of link middleware
- * @type {string}
- */
-export const linkMiddlewareRoute = "/link"
-
-export const DEFAULT_LOGIN_REDIRECT = "/dashboard/qr-codes"
+export const editRouteRegex = new RegExp(`^/edit($|/)`)
+export const apiAuthPrefixRegex = new RegExp(`^/api/auth`)
+export const linkMiddlewareRouteRegex = new RegExp(`^/link`)
+export const apiStripePrefixRegex = new RegExp(`^/api/webhooks`)
+export const authRouteRegex = new RegExp(`^(${authRoutes.join("|")})$`)
+export const publicRouteRegex = new RegExp(`^(${publicRoutes.join("|")})($|/)`)
