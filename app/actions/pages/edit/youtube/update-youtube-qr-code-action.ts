@@ -11,6 +11,7 @@ import { authUserActionClient } from "@/lib/action/safe-action"
 import { getQrCodeByUserIdAndIdWithType } from "@/app/actions/utils"
 import { youtubeFormSchema } from "@/zod/forms/youtube/youtube-form-schema"
 import { throwSubscriptionEditError } from "@/lib/action/throw-subscription-error"
+import { throwQrCodeNotFoundError } from "@/lib/action/throw-qr-code-error"
 
 export const updateQrCodeYoutubeAction = authUserActionClient
   .schema(
@@ -23,15 +24,11 @@ export const updateQrCodeYoutubeAction = authUserActionClient
     }
   )
   .use(throwSubscriptionEditError)
-  .action(async ({ parsedInput, ctx }) => {
+  .use(async (client) =>
+    throwQrCodeNotFoundError({ ...client, type: "youtube" })
+  )
+  .action(async ({ parsedInput }) => {
     const { youtubeUrl, style, title, id } = parsedInput
-    const { user } = ctx
-
-    const data = await getQrCodeByUserIdAndIdWithType(user.id!, id, "youtube")
-
-    if (!data) {
-      throw new Error("No QR Code found to update with this id")
-    }
 
     await db.transaction(async (tx) => {
       Promise.all([

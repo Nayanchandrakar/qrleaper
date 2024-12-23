@@ -8,9 +8,9 @@ import { db } from "@/database/db"
 import { qrCode, qrCodeStyle } from "@/database/schema"
 import { qrGoogleDoc } from "@/database/schema/qr-variations"
 import { authUserActionClient } from "@/lib/action/safe-action"
-import { getQrCodeByUserIdAndIdWithType } from "@/app/actions/utils"
 import { googleDocsFormSchema } from "@/zod/forms/google-docs/google-docs-form-schema"
 import { throwSubscriptionEditError } from "@/lib/action/throw-subscription-error"
+import { throwQrCodeNotFoundError } from "@/lib/action/throw-qr-code-error"
 
 export const updateQrCodeGoogleDocsAction = authUserActionClient
   .schema(
@@ -23,15 +23,11 @@ export const updateQrCodeGoogleDocsAction = authUserActionClient
     }
   )
   .use(throwSubscriptionEditError)
-  .action(async ({ parsedInput, ctx }) => {
+  .use(async (client) =>
+    throwQrCodeNotFoundError({ ...client, type: "googleDoc" })
+  )
+  .action(async ({ parsedInput }) => {
     const { googleDocUrl, style, title, id } = parsedInput
-    const { user } = ctx
-
-    const data = await getQrCodeByUserIdAndIdWithType(user.id!, id, "googleDoc")
-
-    if (!data) {
-      throw new Error("No QR Code found to update with this id")
-    }
 
     await db.transaction(async (tx) => {
       Promise.all([

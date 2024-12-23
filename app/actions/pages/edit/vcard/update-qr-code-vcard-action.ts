@@ -16,6 +16,7 @@ import {
 } from "@/app/actions/utils"
 import { throwSubscriptionEditError } from "@/lib/action/throw-subscription-error"
 import { vCardEditFormSchema } from "@/zod/pages/edit/vcard/vcard-edit-form-schema"
+import { throwQrCodeNotFoundError } from "@/lib/action/throw-qr-code-error"
 
 export const updateQrCodeVcardAction = authUserActionClient
   .use(async ({ next, clientInput }) => {
@@ -36,24 +37,14 @@ export const updateQrCodeVcardAction = authUserActionClient
     })
   })
   .use(throwSubscriptionEditError)
+  .use(async (client) => throwQrCodeNotFoundError({ ...client, type: "vcard" }))
   .action(async ({ ctx }) => {
+    const { data, parsedInput } = ctx
+
     const { id, title, style, images, profileImage, ...otherFields } =
-      ctx.parsedInput
-    const { user } = ctx
+      parsedInput
 
-    // Fetch QR code and associated virtual card
-    const qrCodeData = await getQrCodeByUserIdAndIdWithType(
-      user.id!,
-      id,
-      "vcard"
-    )
-    if (!qrCodeData) {
-      throw new Error("No QR Code found to update with this ID")
-    }
-
-    const vCardData = await getVcardWithProfileImageAndImageByQrCodeId(
-      qrCodeData.id
-    )
+    const vCardData = await getVcardWithProfileImageAndImageByQrCodeId(data.id)
 
     // Initialize variables for tracking changes
     let updatedProfileImage = vCardData.profileImage
