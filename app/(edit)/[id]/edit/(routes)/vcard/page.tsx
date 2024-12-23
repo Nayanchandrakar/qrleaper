@@ -37,7 +37,7 @@ const VcardEditPage = async ({ params }: VcardEditPageProps) => {
 
   const qrStyleAndVcardData = await getVcardQrStyleAndDataByQrCodeId(data.id)
 
-  const { images, id, qrCodeId, ...remaining } = qrStyleAndVcardData.vcard
+  const { id, qrCodeId, ...remaining } = qrStyleAndVcardData.vcard
 
   const formatRemaining = Object.fromEntries(
     Object.entries(remaining)?.map(([key, value]) => [key, value ?? ""])

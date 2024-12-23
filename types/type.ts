@@ -82,8 +82,10 @@ export interface qrCardType {
 }
 
 export interface editQrVcardType {
-  id: string
   profileImage: File | string
+  images: File[] | string[]
+
+  id: string
   title: string
   firstName: string
   lastName: string

@@ -19,3 +19,13 @@ export const getProfileImage = (image: File | string) => {
     return URL?.createObjectURL(image)
   }
 }
+
+export const getFileName = (fileString: File | string) => {
+  if (!fileString) return ""
+
+  if (typeof fileString === "string") {
+    return fileString
+  } else {
+    return fileString.name
+  }
+}

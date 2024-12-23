@@ -26,6 +26,7 @@ import { SocialMediaProfileSection } from "@/components/forms/pages/design/virtu
 import { AdditionalInformationSection } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/additional-information-section"
 import { VcardProfileImageUploadForm } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/vcard-profile-image"
 import { updateQrCodeVcardAction } from "@/app/actions/pages/edit/vcard/update-qr-code-vcard-action"
+import { VcardImageUploadForm } from "../../design/virtual-card/vcard-section-forms/vcard-image-upload-form"
 
 interface VcardEditFormProps {
   qrCode: editQrVcardType
@@ -52,13 +53,19 @@ export const VcardEditForm = ({ qrCode, endpoint }: VcardEditFormProps) => {
   const onSubmit = (data: vCardEditFormSchemaType) => {
     const formData = new FormData()
 
-    const { profileImage, ...remaining } = data
+    const { profileImage, images, ...remaining } = data
 
-    if (typeof profileImage === "object")
+    if (typeof profileImage === "string" || typeof profileImage === "object") {
       formData.append("profileImage", profileImage)
+    }
 
-    if (typeof profileImage === "string")
-      formData.append("profileImage", profileImage)
+    if (Array.isArray(images)) {
+      images.forEach((image) => {
+        if (typeof image === "string" || typeof image === "object") {
+          formData.append("images", image)
+        }
+      })
+    }
 
     // @ts-ignore
     executeAsync({ formData, ...remaining })
@@ -88,7 +95,7 @@ export const VcardEditForm = ({ qrCode, endpoint }: VcardEditFormProps) => {
             <ProfessionalInformationSection isExecuting={isExecuting} />
             <SocialMediaProfileSection isExecuting={isExecuting} />
             <AdditionalInformationSection isExecuting={isExecuting} />
-            {/* <VcardImageUploadForm isExecuting={isExecuting} /> */}
+            <VcardImageUploadForm isExecuting={isExecuting} />
             <QrEditControl
               isExecuting={isExecuting}
               isEditable={

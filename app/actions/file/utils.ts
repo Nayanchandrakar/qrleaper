@@ -27,3 +27,7 @@ export const uploadBulkFiles = async (files: File[]): Promise<string[]> => {
   const results = await Promise.all(uploadPromises)
   return results.filter((name): name is string => name !== null)
 }
+
+export const deleteBulkFiles = async (filekeys: string[]) => {
+  await Promise.all(filekeys.map((key) => deleteFile(key)))
+}

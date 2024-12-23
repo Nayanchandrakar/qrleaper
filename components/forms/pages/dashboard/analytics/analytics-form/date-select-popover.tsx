@@ -56,6 +56,7 @@ export const DateSelectPopover = ({ isExecuting }: DateSelectPopoverProps) => {
       <Popover>
         <PopoverTrigger disabled={isExecuting} ref={buttonRef} asChild>
           <Button
+            key="button-key"
             variant="outline"
             className={cn(
               "flex items-center justify-start text-left font-normal",

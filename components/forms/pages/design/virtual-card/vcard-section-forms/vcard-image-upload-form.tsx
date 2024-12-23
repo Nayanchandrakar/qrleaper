@@ -16,6 +16,7 @@ import { ListComponent } from "@/components/global/list-component"
 import { VCardLabelCard } from "@/components/cards/pages/design/vcard/vcard-label-card"
 import { ImageActionCard } from "@/components/cards/pages/design/vcard/image-action-card"
 import { toast } from "sonner"
+import { getFileName, getProfileImage } from "@/utils/client"
 
 interface VcardImageUploadFormType {
   isExecuting: boolean
@@ -26,7 +27,7 @@ export const VcardImageUploadForm = ({
 }: VcardImageUploadFormType) => {
   const { setValue, getValues, formState, control } = useFormContext()
 
-  const images = getValues("images") as File[]
+  const images = getValues("images") as (File | string)[]
   const imageRelatedErrors = formState?.errors.images
   const isFileExceptLimitExceed = !!(images?.length >= 4)
 
@@ -39,9 +40,18 @@ export const VcardImageUploadForm = ({
     }
   }
 
-  const onDelete = (newFile: File) => {
-    const updatedFiles = images?.filter((file) => file.name !== newFile.name)
-    setValue("images", updatedFiles, setValueConfig)
+  const onDelete = (newFile: File | string) => {
+    const previousFiles = images.filter((file) => {
+      if (typeof file === "object" && typeof newFile === "object") {
+        return file.name !== newFile.name
+      }
+      if (typeof file === "string" && typeof newFile === "string") {
+        return file !== newFile
+      }
+      return true
+    })
+
+    setValue("images", previousFiles, setValueConfig)
   }
 
   useEffect(() => {
@@ -61,11 +71,12 @@ export const VcardImageUploadForm = ({
       <ListComponent
         data={images}
         className="flex flex-col gap-3"
-        renderItem={(file) => (
+        renderItem={(file, index) => (
           <ImageActionCard
-            fileName={file.name}
-            isDeleting={isExecuting}
-            src={URL.createObjectURL(file) || ""}
+            key={index + 2}
+            disabled={isExecuting}
+            fileName={getFileName(file)}
+            src={getProfileImage(file)}
             onDelete={() => onDelete(file)}
           />
         )}

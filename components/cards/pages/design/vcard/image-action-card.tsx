@@ -1,21 +1,21 @@
 "use client"
 
 import Image from "next/image"
-import { Loader, Trash } from "lucide-react"
+import { Trash } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 
 interface ImageActionCardProps {
   fileName?: string
   src: string
-  isDeleting?: boolean
+  disabled?: boolean
   onDelete: () => void
 }
 
 export const ImageActionCard = ({
   src,
   fileName,
-  isDeleting = false,
+  disabled = false,
   onDelete,
 }: ImageActionCardProps) => {
   return (
@@ -37,16 +37,13 @@ export const ImageActionCard = ({
 
       <Button
         size="icon"
+        type="button"
         onClick={onDelete}
-        disabled={isDeleting}
+        disabled={disabled}
         variant="destructive"
-        className="absolute  top-4 right-4 opacity-0 group-hover:opacity-100 transition duration-200"
+        className="absolute  top-4 right-4 opacity-0 group-hover:opacity-100 transition duration-200 disabled:opacity-50"
       >
-        {isDeleting ? (
-          <Loader className="size-4 animate-spin" />
-        ) : (
-          <Trash className="size-4" />
-        )}
+        <Trash className="size-4" />
       </Button>
     </div>
   )

@@ -32,8 +32,6 @@ export const VcardProfileImageUploadForm = ({
     }
   }
 
-  console.log(typeof imageSrc === "string")
-
   return (
     <div className="flex items-start w-full">
       <FormField

@@ -44,7 +44,7 @@ export const UserButton = ({ session }: { session: Session }) => {
         <DropdownMenuGroup>
           {userNavigationLinks?.map(({ id, Icon, href, label }) => (
             <DropdownMenuItem className="cursor-pointer" key={id} asChild>
-              <Link href={href}>
+              <Link key={label} href={href}>
                 <Icon className="mr-2 size-4" />
                 <span>{label}</span>
               </Link>

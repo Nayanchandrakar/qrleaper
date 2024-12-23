@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils"
 
 interface ListComponentProps<T> {
   data: T[]
-  renderItem: (item: T) => React.ReactNode
+  renderItem: (item: T, index: number) => React.ReactNode
   className?: string
 }
 
@@ -12,7 +12,9 @@ const ListComponent = <T,>({
   className,
 }: ListComponentProps<T>) => {
   return (
-    <div className={cn(className)}>{data?.map((item) => renderItem(item))}</div>
+    <div className={cn(className)}>
+      {data?.map((item, index) => renderItem(item, index))}
+    </div>
   )
 }
 
