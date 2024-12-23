@@ -5,12 +5,12 @@ const nextConfig = {
       {
         source: "/",
         destination: "/design",
-        permanent: true, // Set to true if this is a permanent redirect (301), otherwise false (temporary redirect, 307).
+        permanent: true,
       },
     ]
   },
   images: {
-    domains: ["localhost"],
+    domains: ["localhost", "qr-leaper-eews.vercel.app"],
   },
 }
 

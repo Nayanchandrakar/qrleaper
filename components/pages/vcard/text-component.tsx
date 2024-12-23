@@ -37,10 +37,12 @@ TextComponent.Link = ({
         <VcardInfo.GridWrap>
           <VcardInfo.SubTitle>{text}</VcardInfo.SubTitle>
 
-          <Link href={link} className="w-fit" target="_blank">
-            <VcardInfo.SubDescription className="text-green-600">
-              {link}
-            </VcardInfo.SubDescription>
+          <Link
+            href={link}
+            className="w-fit text-sm font-medium  text-green-600 break-all"
+            target="_blank"
+          >
+            {link}
           </Link>
         </VcardInfo.GridWrap>
       )}

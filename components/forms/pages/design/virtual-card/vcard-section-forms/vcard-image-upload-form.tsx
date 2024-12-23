@@ -1,5 +1,6 @@
 "use client"
 
+import { toast } from "sonner"
 import { useEffect } from "react"
 import { CloudUpload } from "lucide-react"
 import { useFormContext } from "react-hook-form"
@@ -15,7 +16,6 @@ import { setValueConfig } from "@/constants/react-hook"
 import { ListComponent } from "@/components/global/list-component"
 import { VCardLabelCard } from "@/components/cards/pages/design/vcard/vcard-label-card"
 import { ImageActionCard } from "@/components/cards/pages/design/vcard/image-action-card"
-import { toast } from "sonner"
 import { getFileName, getProfileImage } from "@/utils/client"
 
 interface VcardImageUploadFormType {
@@ -70,7 +70,7 @@ export const VcardImageUploadForm = ({
 
       <ListComponent
         data={images}
-        className="flex flex-col gap-3"
+        className="grid grid-cols-1 sm:grid-cols-2 gap-3"
         renderItem={(file, index) => (
           <ImageActionCard
             key={index + 2}
