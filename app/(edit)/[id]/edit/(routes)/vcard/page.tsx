@@ -37,6 +37,7 @@ const VcardEditPage = async ({ params }: VcardEditPageProps) => {
 
   const qrStyleAndVcardData = await getVcardQrStyleAndDataByQrCodeId(data.id)
 
+  /* eslint-disable-next-line  @typescript-eslint/no-unused-vars */
   const { id, qrCodeId, ...remaining } = qrStyleAndVcardData.vcard
 
   const formatRemaining = Object.fromEntries(
