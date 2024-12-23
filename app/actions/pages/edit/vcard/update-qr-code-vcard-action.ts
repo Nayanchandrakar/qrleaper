@@ -10,10 +10,7 @@ import {
 import { qrCode, qrCodeStyle } from "@/database/schema"
 import { qrVirtualCard } from "@/database/schema/qr-variations"
 import { authUserActionClient } from "@/lib/action/safe-action"
-import {
-  getQrCodeByUserIdAndIdWithType,
-  getVcardWithProfileImageAndImageByQrCodeId,
-} from "@/app/actions/utils"
+import { getVcardWithProfileImageAndImageByQrCodeId } from "@/app/actions/utils"
 import { throwSubscriptionEditError } from "@/lib/action/throw-subscription-error"
 import { vCardEditFormSchema } from "@/zod/pages/edit/vcard/vcard-edit-form-schema"
 import { throwQrCodeNotFoundError } from "@/lib/action/throw-qr-code-error"

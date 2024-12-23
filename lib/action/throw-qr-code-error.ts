@@ -20,6 +20,8 @@ export const throwQrCodeNotFoundError = async ({
         }
       | undefined
   ) => Promise<MiddlewareResult<string, NC>>
+
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
   clientInput: any
   type: qrType
 }) => {
