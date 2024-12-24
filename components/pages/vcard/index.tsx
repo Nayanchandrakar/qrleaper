@@ -160,7 +160,7 @@ export const RenderVcardComponent = ({ vCard }: ShowVcardComponentProps) => {
           </VcardInfo>
         )}
 
-        {vCard?.images?.length && (
+        {vCard?.images?.length! > 0 && (
           <VcardInfo>
             <VcardInfo.Title>Gallery</VcardInfo.Title>
             {vCard.images && (
@@ -174,6 +174,7 @@ export const RenderVcardComponent = ({ vCard }: ShowVcardComponentProps) => {
                     alt="Gallery Image"
                     width={1000}
                     height={1000}
+                    sizes="100vw"
                     className="rounded-lg"
                   />
                 )}
