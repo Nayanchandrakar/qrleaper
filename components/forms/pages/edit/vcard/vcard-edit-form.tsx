@@ -15,18 +15,18 @@ import {
   type vCardEditFormSchemaType,
 } from "@/zod/pages/edit/vcard/vcard-edit-form-schema"
 import { editQrVcardType } from "@/types/type"
+import { updateQrCodeVcardAction } from "@/app/actions/pages/edit/vcard/update-qr-code-vcard-action"
+import { AddressSection } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/addresses-section"
 import { QrCodeInfoWithNameSection } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/qr-code-info-with-name-section"
 import { PhoneNumberSection } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/phone-number-section"
 import { EmailAddressSection } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/email-address-section"
-import { AddressSection } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/addresses-section"
 import { WorkAddressSection } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/work-adddress-section"
 import { WebsiteSection } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/website-url-section"
 import { ProfessionalInformationSection } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/professional-information-section"
 import { SocialMediaProfileSection } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/social-media-profile-section"
 import { AdditionalInformationSection } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/additional-information-section"
 import { VcardProfileImageUploadForm } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/vcard-profile-image"
-import { updateQrCodeVcardAction } from "@/app/actions/pages/edit/vcard/update-qr-code-vcard-action"
-import { VcardImageUploadForm } from "../../design/virtual-card/vcard-section-forms/vcard-image-upload-form"
+import { VcardImageUploadForm } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/vcard-image-upload-form"
 
 interface VcardEditFormProps {
   qrCode: editQrVcardType
@@ -106,7 +106,7 @@ export const VcardEditForm = ({ qrCode, endpoint }: VcardEditFormProps) => {
           <QrStyleForm />
         </div>
 
-        <PreviewQrCard />
+        <PreviewQrCard className="sm:sticky sm:top-0" />
       </form>
     </FormProvider>
   )

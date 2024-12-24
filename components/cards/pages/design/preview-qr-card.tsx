@@ -2,7 +2,7 @@
 
 import { toast } from "sonner"
 import { ChevronDown, Image as LucideImage } from "lucide-react"
-import { useCallback, useRef } from "react"
+import { AllHTMLAttributes, useCallback, useRef } from "react"
 import { useFormContext } from "react-hook-form"
 import type { FileExtension } from "qr-code-styling"
 
@@ -13,6 +13,7 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu"
 
+import { cn } from "@/lib/utils"
 import type { qrCodeRefType } from "@/types/type"
 import { QrCode } from "@/components/package/qr-code/qr-code"
 import { StepLabel } from "@/components/ui/step-label"
@@ -20,7 +21,9 @@ import { useQrDataContext } from "@/hooks/qr/useQrDataContext"
 import { getFilePath } from "@/utils/client"
 import { downloadOptionData } from "@/constants/qr/download-options"
 
-export const PreviewQrCard = () => {
+interface PreviewQrCardProps extends AllHTMLAttributes<HTMLDivElement> {}
+
+export const PreviewQrCard = ({ className, ...props }: PreviewQrCardProps) => {
   const qrCodeRef = useRef<qrCodeRefType>(null)
   const { getValues } = useFormContext()
   const { data } = useQrDataContext()
@@ -36,7 +39,13 @@ export const PreviewQrCard = () => {
   )
 
   return (
-    <div className="flex items-center justify-center flex-col gap-4 bg-gray-100 py-8 rounded-lg max-h-[50rem]">
+    <div
+      className={cn(
+        "flex items-center justify-center flex-col gap-4 bg-gray-100 py-8 rounded-lg max-h-[50rem]",
+        className
+      )}
+      {...props}
+    >
       <StepLabel>
         <StepLabel.Counter>3</StepLabel.Counter>
         <StepLabel.Title>Download Your QR</StepLabel.Title>
