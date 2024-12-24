@@ -29,3 +29,6 @@ export const getFileName = (fileString: File | string) => {
     return fileString.name
   }
 }
+
+export const shouldRenderVcardInfo = (fields: (string | undefined | null)[]) =>
+  fields.some(Boolean)
