@@ -7,6 +7,11 @@ const nextConfig = {
         destination: "/design",
         permanent: true,
       },
+      {
+        source: "/dashboard",
+        destination: "/dashboard/qr-codes",
+        permanent: true,
+      },
     ]
   },
   images: {

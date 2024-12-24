@@ -18,7 +18,15 @@ const NavigationMenu = ({ session }: NavigationMenuProps) => {
     <div className="flex items-center gap-4">
       <LinkButton href="/pricing">Pricing</LinkButton>
       {isAuthenticated ? (
-        <UserButton session={session!} />
+        <>
+          <LinkButton
+            className="sm:inline-block hidden"
+            href="/dashboard/qr-codes"
+          >
+            Dashboard
+          </LinkButton>
+          <UserButton session={session!} />
+        </>
       ) : (
         <>
           <LinkButton className="sm:inline-block hidden" href="/login">
