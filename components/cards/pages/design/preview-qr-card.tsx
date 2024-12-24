@@ -21,6 +21,7 @@ import { useQrDataContext } from "@/hooks/qr/useQrDataContext"
 import { getFilePath } from "@/utils/client"
 import { downloadOptionData } from "@/constants/qr/download-options"
 
+/* eslint-disable-next-line  @typescript-eslint/no-empty-object-type */
 interface PreviewQrCardProps extends AllHTMLAttributes<HTMLDivElement> {}
 
 export const PreviewQrCard = ({ className, ...props }: PreviewQrCardProps) => {

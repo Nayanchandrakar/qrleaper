@@ -3,7 +3,6 @@
 import Image from "next/image"
 import { Facebook, Instagram, Linkedin, Mail, Phone } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
 import { Icons } from "@/components/shared/icons"
 import type { qrCodevCardType } from "@/types/db-types"
 import {
@@ -16,21 +15,23 @@ import { SocialIcon } from "@/components/pages/vcard/social-icon"
 import { ListComponent } from "@/components/global/list-component"
 import { ProfileAvatar } from "@/components/pages/vcard/profile-avatar"
 import { TextComponent } from "@/components/pages/vcard/text-component"
+import { AddToContactButton } from "@/components/buttons/pages/vcard/add-to-contact-button"
 
 interface ShowVcardComponentProps {
   vCard: qrCodevCardType
+  endpoint: string
 }
 
-export const RenderVcardComponent = ({ vCard }: ShowVcardComponentProps) => {
+export const RenderVcardComponent = ({
+  vCard,
+  endpoint,
+}: ShowVcardComponentProps) => {
   return (
     <section className="flex flex-col items-center justify-center">
       <div className="flex items-center justify-center flex-col gap-3">
         <ProfileAvatar {...vCard} />
 
-        <Button size="lg" className="bg-gradient-brand mt-2">
-          Add to Contacts
-        </Button>
-
+        <AddToContactButton data={vCard!} endpoint={endpoint} />
         {shouldRenderVcardInfo([
           vCard.mobileNumber,
           vCard.workEmail,

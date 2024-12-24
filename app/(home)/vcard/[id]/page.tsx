@@ -3,6 +3,10 @@ import { redirect } from "next/navigation"
 import { getQrCodeById, getVCardQrCodeByqrCodeId } from "@/app/actions/utils"
 import { RenderVcardComponent } from "@/components/pages/vcard"
 
+export const metadata = {
+  title: "QR Leapers User Profile Page",
+}
+
 interface ShowVcardPageProps {
   params: {
     id: string
@@ -24,7 +28,7 @@ const ShowVcardPage = async ({ params }: ShowVcardPageProps) => {
     <section className="size-full relative">
       <div className="design-mesh fixed size-full z-[-1]" />
       <div className="max-w-4xl mx-auto my-20">
-        <RenderVcardComponent vCard={vCard!} />
+        <RenderVcardComponent vCard={vCard!} endpoint={qrCode.endpoint!} />
       </div>
     </section>
   )
