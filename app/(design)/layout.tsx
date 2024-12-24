@@ -1,4 +1,5 @@
 import { Container } from "@/components/global/container"
+import { NewQrCodeGrid } from "@/components/layouts/design/new-qr-codes-grid/new-qr-codes-grid"
 import { TopNavigationBar } from "@/components/layouts/design/top-navigation-bar"
 
 interface DesignLayoutProps {
@@ -23,10 +24,11 @@ const DesignLayout = ({ children }: DesignLayoutProps) => {
           </p>
         </div>
 
-        <div className="bg-gray-400/10 backdrop-blur-sm p-4 rounded-lg mb-20">
+        <div className="bg-gray-400/10 backdrop-blur-sm p-4 rounded-lg mb-28">
           <TopNavigationBar />
           <div className="bg-white mt-4 p-4 sm:p-6 rounded-lg">{children}</div>
         </div>
+        <NewQrCodeGrid />
       </Container>
     </div>
   )

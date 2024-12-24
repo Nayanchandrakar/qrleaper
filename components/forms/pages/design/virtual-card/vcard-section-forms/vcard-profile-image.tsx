@@ -43,7 +43,10 @@ export const VcardProfileImageUploadForm = ({
           <FormItem className="flex items-center justify-center flex-col">
             <FormLabel className="w-fit flex items-center justify-center flex-col gap-2">
               <Avatar className="size-20 relative group cursor-pointer">
-                <AvatarImage src={getProfileImage(imageSrc)} />
+                <AvatarImage
+                  className="object-cover"
+                  src={getProfileImage(imageSrc)}
+                />
                 <span className="w-full h-7 bg-black/20 backdrop-blur-sm absolute -bottom-[5rem] flex item-center justify-center group-hover:bottom-0 transition-all duration-200">
                   <Camera className="text-white size-4 mt-1" />
                 </span>

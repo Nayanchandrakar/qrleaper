@@ -25,7 +25,7 @@ export const ProfileAvatar = ({
   return (
     <>
       <Avatar className="size-24">
-        <AvatarImage src={getFilePath(profileImage)} />
+        <AvatarImage className="object-cover" src={getFilePath(profileImage)} />
         <AvatarFallback>
           <Loader className="size-5 animate-spin" />
         </AvatarFallback>
