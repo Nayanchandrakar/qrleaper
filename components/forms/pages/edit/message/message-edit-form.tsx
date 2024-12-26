@@ -76,7 +76,7 @@ export const MessageEditForm = ({ qrCode, endpoint }: MessageEditFormProps) => {
               disabled={isExecuting}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Title</FormLabel>
+                  <FormLabel>QR title</FormLabel>
                   <FormControl>
                     <Input
                       type="text"

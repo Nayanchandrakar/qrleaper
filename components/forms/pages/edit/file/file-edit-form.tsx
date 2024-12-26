@@ -75,7 +75,7 @@ export const FileEditForm = ({ qrCode, endpoint }: FileEditFormProps) => {
               disabled={isExecuting}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Title</FormLabel>
+                  <FormLabel>QR title</FormLabel>
                   <FormControl>
                     <Input
                       type="text"
