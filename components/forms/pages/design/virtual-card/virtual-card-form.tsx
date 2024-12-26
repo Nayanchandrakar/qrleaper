@@ -95,7 +95,7 @@ export const VirtualCardForm = () => {
           <QrStyleForm />
         </div>
 
-        <PreviewQrCard className="sm:sticky sm:top-0" />
+        <PreviewQrCard />
       </form>
     </FormProvider>
   )
