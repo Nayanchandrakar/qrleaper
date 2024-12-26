@@ -128,15 +128,6 @@ export const RenderVcardComponent = ({
           </VcardInfo>
         )}
 
-        {vCard.website && (
-          <VcardInfo>
-            <VcardInfo.Title>Website URL</VcardInfo.Title>
-            {vCard.website && (
-              <TextComponent.Link text="Link" link={vCard.website} />
-            )}
-          </VcardInfo>
-        )}
-
         {shouldRenderVcardInfo([
           vCard.company,
           vCard.jobTitle,
@@ -180,6 +171,15 @@ export const RenderVcardComponent = ({
                   />
                 )}
               />
+            )}
+          </VcardInfo>
+        )}
+
+        {vCard.website && (
+          <VcardInfo>
+            <VcardInfo.Title>Website URL</VcardInfo.Title>
+            {vCard.website && (
+              <TextComponent.Link text="Link" link={vCard.website} />
             )}
           </VcardInfo>
         )}
