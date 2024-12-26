@@ -1,6 +1,7 @@
 "use client"
 
 import { toast } from "sonner"
+import { useRouter } from "next/navigation"
 import { useAction } from "next-safe-action/hooks"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, FormProvider } from "react-hook-form"
@@ -27,12 +28,14 @@ import {
 import { createQrCodeInstagramAction } from "@/app/actions/pages/design/instagram/create-instagram-qr-code-action"
 
 export const InstagramForm = () => {
+  const router = useRouter()
   const { setData } = useQrDataContext()
 
   const { executeAsync, isExecuting } = useAction(createQrCodeInstagramAction, {
     onSuccess: ({ data }) => {
       setData(data?.endpoint!)
       toast.success("Successfully created a QR Code")
+      router.push("/dashboard/qr-codes")
     },
     onError: ({ error }) => {
       toast.error(error.serverError)

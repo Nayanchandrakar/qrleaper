@@ -1,6 +1,7 @@
 "use client"
 
 import { toast } from "sonner"
+import { useRouter } from "next/navigation"
 import { useAction } from "next-safe-action/hooks"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, FormProvider } from "react-hook-form"
@@ -28,6 +29,7 @@ import { createFileQrCodeAction } from "@/app/actions/pages/design/file/create-f
 import { FileUploadForm } from "@/components/forms/pages/design/file/file-upload-form"
 
 export const FileForm = () => {
+  const router = useRouter()
   const { setData } = useQrDataContext()
 
   const form = useForm<fileFormSchemaType>({
@@ -51,6 +53,7 @@ export const FileForm = () => {
     onSuccess: ({ data }) => {
       setData(data?.endpoint!)
       toast.success("Successfully created a QR Code")
+      router.push("/dashboard/qr-codes")
     },
     onError: ({ error }) => {
       toast.error(error.serverError)

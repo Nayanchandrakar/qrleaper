@@ -1,6 +1,7 @@
 "use client"
 
 import { toast } from "sonner"
+import { useRouter } from "next/navigation"
 import { useAction } from "next-safe-action/hooks"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, FormProvider } from "react-hook-form"
@@ -28,6 +29,7 @@ import { SocialMediaProfileSection } from "@/components/forms/pages/design/virtu
 import { WebsiteSection } from "./vcard-section-forms/website-url-section"
 
 export const VirtualCardForm = () => {
+  const router = useRouter()
   const { setData } = useQrDataContext()
 
   const form = useForm<virtualCardFormSchemaType>({
@@ -51,6 +53,7 @@ export const VirtualCardForm = () => {
     onSuccess: ({ data }) => {
       setData(data?.endpoint!)
       toast.success("Successfully created a QR Code")
+      router.push("/dashboard/qr-codes")
     },
     onError: ({ error }) => {
       toast.error(error.serverError)

@@ -1,6 +1,7 @@
 "use client"
 
 import { toast } from "sonner"
+import { useRouter } from "next/navigation"
 import { useAction } from "next-safe-action/hooks"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, FormProvider } from "react-hook-form"
@@ -28,12 +29,14 @@ import { QrControls } from "@/components/forms/pages/design/qr-style/qr-controls
 import { useQrDataContext } from "@/hooks/qr/useQrDataContext"
 
 export const DesignForm = () => {
+  const router = useRouter()
   const { setData } = useQrDataContext()
 
   const { executeAsync, isExecuting } = useAction(createQrCodeAction, {
     onSuccess: ({ data }) => {
       setData(data?.endpoint!)
       toast.success("Successfully created a QR Code")
+      router.push("/dashboard/qr-codes")
     },
     onError: ({ error }) => {
       toast.error(error.serverError)
