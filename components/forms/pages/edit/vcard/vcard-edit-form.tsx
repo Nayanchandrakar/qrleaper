@@ -106,7 +106,7 @@ export const VcardEditForm = ({ qrCode, endpoint }: VcardEditFormProps) => {
           <QrStyleForm />
         </div>
 
-        <PreviewQrCard className="sm:sticky sm:top-0" />
+        <PreviewQrCard />
       </form>
     </FormProvider>
   )

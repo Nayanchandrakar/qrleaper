@@ -28,7 +28,7 @@ export const VcardImageUploadForm = ({
   const { setValue, getValues, formState, control } = useFormContext()
 
   const images = getValues("images") as (File | string)[]
-  const imageRelatedErrors = formState?.errors.images
+  const formErrors = formState?.errors
   const isFileExceptLimitExceed = !!(images?.length >= 4)
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,14 +55,20 @@ export const VcardImageUploadForm = ({
   }
 
   useEffect(() => {
-    if (imageRelatedErrors) {
-      // @ts-ignore
-      imageRelatedErrors?.forEach((error: unknown) => {
-        // @ts-ignore
-        toast.error(error.message)
-      })
-    }
-  }, [imageRelatedErrors])
+    if (!formErrors) return
+
+    Object?.keys(formErrors)?.forEach((key) => {
+      const errors = formErrors[key]
+
+      if (key === "images" && Array.isArray(errors)) {
+        errors.forEach((error) => {
+          toast.error(error?.message)
+        })
+      } else if (errors?.message) {
+        toast.error(errors.message as string)
+      }
+    })
+  }, [formErrors])
 
   return (
     <div className="space-y-3">
