@@ -10,13 +10,13 @@ interface ProfileAvatarProps {
   prefix: string | null
   suffix: string | null
   middleName: string | null
-  department: string | null
+  jobTitle: string | null
 }
 
 export const ProfileAvatar = ({
   firstName,
   lastName,
-  department,
+  jobTitle,
   middleName,
   prefix,
   suffix,
@@ -36,7 +36,7 @@ export const ProfileAvatar = ({
           <br />
           {suffix}
         </h3>
-        <p className="font-medium text-sm text-green-700">{department}</p>
+        <p className="font-medium text-sm text-green-700">{jobTitle}</p>
       </div>
     </>
   )
