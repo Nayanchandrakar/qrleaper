@@ -1,5 +1,5 @@
 CREATE TYPE "public"."status" AS ENUM('active', 'inactive');--> statement-breakpoint
-CREATE TYPE "public"."type" AS ENUM('link', 'file', 'message', 'email', 'instagram', 'facebook', 'youtube', 'googleDoc');--> statement-breakpoint
+CREATE TYPE "public"."type" AS ENUM('link', 'file', 'message', 'email', 'instagram', 'facebook', 'youtube', 'googleDoc', 'vcard');--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "qr_analytics" (
 	"id" text PRIMARY KEY NOT NULL,
 	"qr_code_id" text NOT NULL,
@@ -170,6 +170,46 @@ CREATE TABLE IF NOT EXISTS "qr_message" (
 	"message" text
 );
 --> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "qr_virtual_card" (
+	"id" text PRIMARY KEY NOT NULL,
+	"qr_code_id" text NOT NULL,
+	"user_name" text NOT NULL,
+	"profile_image" text NOT NULL,
+	"images" text[],
+	"first_name" text NOT NULL,
+	"last_name" text NOT NULL,
+	"middle_name" text,
+	"prefix" text,
+	"suffix" text,
+	"mobile_number" text,
+	"work_number" text,
+	"home_number" text,
+	"whatsapp_number" text,
+	"fax_number" text,
+	"personal_email" text,
+	"work_email" text,
+	"home_street" text,
+	"home_city" text,
+	"home_state" text,
+	"home_zip" text,
+	"home_country" text,
+	"work_street" text,
+	"work_city" text,
+	"work_state" text,
+	"work_zip" text,
+	"work_country" text,
+	"website" text,
+	"company" text,
+	"job_title" text,
+	"department" text,
+	"linkedin" text,
+	"twitter" text,
+	"instagram" text,
+	"facebook" text,
+	"additional_information" text,
+	CONSTRAINT "qr_virtual_card_user_name_unique" UNIQUE("user_name")
+);
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "qr_youtube" (
 	"id" text PRIMARY KEY NOT NULL,
 	"qr_code_id" text NOT NULL,
@@ -261,6 +301,12 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
+ ALTER TABLE "qr_virtual_card" ADD CONSTRAINT "qr_virtual_card_qr_code_id_qr_code_id_fk" FOREIGN KEY ("qr_code_id") REFERENCES "public"."qr_code"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
  ALTER TABLE "qr_youtube" ADD CONSTRAINT "qr_youtube_qr_code_id_qr_code_id_fk" FOREIGN KEY ("qr_code_id") REFERENCES "public"."qr_code"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
@@ -270,4 +316,14 @@ CREATE INDEX IF NOT EXISTS "deviceId_Idx" ON "qr_analytics" USING btree ("device
 CREATE INDEX IF NOT EXISTS "qrCode_Idx" ON "qr_analytics" USING btree ("qr_code_id");--> statement-breakpoint
 CREATE UNIQUE INDEX IF NOT EXISTS "qrCode_unique_Idx" ON "qr_scan_count" USING btree ("qr_code_id");--> statement-breakpoint
 CREATE INDEX IF NOT EXISTS "userid_qrcode_idx" ON "qr_code" USING btree ("user_id");--> statement-breakpoint
-CREATE INDEX IF NOT EXISTS "qr_code_style_idx" ON "qr_code_style" USING btree ("qr_code_id");
+CREATE INDEX IF NOT EXISTS "qr_code_style_idx" ON "qr_code_style" USING btree ("qr_code_id");--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "qr_email_qrcode_idx" ON "qr_email" USING btree ("qr_code_id");--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "qr_facebook_qrcode_idx" ON "qr_facebook" USING btree ("qr_code_id");--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "qr_file_qrcode_idx" ON "qr_code_file" USING btree ("qr_code_id");--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "qr_google_doc_qrcode_idx" ON "qr_google_doc" USING btree ("qr_code_id");--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "qr_instagram_qrcode_idx" ON "qr_instagram" USING btree ("qr_code_id");--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "qr_link_qrcode_idx" ON "qr_code_link" USING btree ("qr_code_id");--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "qr_message_qrcode_idx" ON "qr_message" USING btree ("qr_code_id");--> statement-breakpoint
+CREATE UNIQUE INDEX IF NOT EXISTS "qr_vcard_unique_idx" ON "qr_virtual_card" USING btree ("user_name");--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "qr_vcard_qrcode_idx" ON "qr_virtual_card" USING btree ("qr_code_id");--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "qr_youtube_qrcode_idx" ON "qr_youtube" USING btree ("qr_code_id");

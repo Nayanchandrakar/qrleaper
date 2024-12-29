@@ -1,1 +1,0 @@
-ALTER TYPE "public"."type" ADD VALUE 'vcard';
