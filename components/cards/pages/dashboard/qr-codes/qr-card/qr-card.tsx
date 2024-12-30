@@ -16,7 +16,7 @@ interface QrCardProps {
 
 export const QrCard = ({ data }: QrCardProps) => {
   return (
-    <Card>
+    <Card className="overflow-hidden">
       <QrCodePreview endpoint={getEndpointURL(data.qr_code.id)} data={data} />
 
       <CardHeader className="px-3 pt-4 space-y-3">

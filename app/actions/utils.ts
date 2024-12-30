@@ -435,5 +435,22 @@ export const isUserNameAvailable = async (userName: string) => {
     .select({ userName: qrVirtualCard.userName })
     .from(qrVirtualCard)
     .where(eq(qrVirtualCard.userName, userName))
+    .limit(1)
+
   return result?.userName
+}
+
+export const getVCardByUserName = async (userName: string) => {
+  try {
+    const [result] = await db
+      .select({
+        qrCodeId: qrVirtualCard.qrCodeId,
+      })
+      .from(qrVirtualCard)
+      .where(eq(qrVirtualCard.userName, userName))
+
+    return result
+  } catch (error) {
+    return null
+  }
 }

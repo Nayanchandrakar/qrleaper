@@ -7,10 +7,12 @@ import {
   apiAuthPrefixRegex,
   apiStripePrefixRegex,
   linkMiddlewareRouteRegex,
+  vcardProfileRouteRegex,
 } from "@/routes"
 import { auth } from "@/lib/auth/auth"
-import { linkMiddleware } from "@/middlewares/link-middleware"
 import { getSubscriptionByUserId } from "@/app/actions/utils"
+import { linkMiddleware } from "@/middlewares/link-middleware"
+import { vCardLinkMiddleware } from "@/middlewares/vcard-link-redirect"
 import { isSubscriptionExpiredEdge } from "@/app/actions/helpers/edge-helpers/get-identity-hash"
 
 export default auth(async function middleware(req) {
@@ -28,6 +30,11 @@ export default auth(async function middleware(req) {
   // Handle link middleware
   if (linkMiddlewareRouteRegex.test(pathname)) {
     return linkMiddleware(req)
+  }
+
+  // Handle vcard profile middleware
+  if (vcardProfileRouteRegex.test(pathname)) {
+    return vCardLinkMiddleware(req)
   }
 
   const isLoggedIn = !!req.auth
