@@ -20,7 +20,10 @@ export const passwordSchema = z.object({
 })
 
 export const qrTitleSchema = z.object({
-  title: z.string().min(3).max(20),
+  title: z
+    .string()
+    .min(3, { message: "The QR title must be at least 3 characters long." })
+    .max(20),
 })
 
 export const idSchema = z.object({

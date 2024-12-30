@@ -66,7 +66,7 @@ export const VcardProfileImageUploadForm = ({
               />
             </FormControl>
             <FormDescription>Profile Image</FormDescription>
-            <FormMessage />
+            <FormMessage className="text-center" />
           </FormItem>
         )}
       />

@@ -6,7 +6,7 @@ export const createFileSchema = (
 ) => {
   return z
     .custom<File>((value) => value instanceof File, {
-      message: "No File Provided",
+      message: "Please upload a profile image before proceeding.",
     })
     .refine((file) => acceptedTypes?.includes(file.type), {
       message: `File must be one of the following types: ${acceptedTypes.join(
