@@ -450,7 +450,7 @@ export const getVCardByUserName = async (userName: string) => {
       .where(eq(qrVirtualCard.userName, userName))
 
     return result
-  } catch (error) {
+  } catch {
     return null
   }
 }

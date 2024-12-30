@@ -78,7 +78,7 @@ export const UserNameInput = ({
 
   useEffect(() => {
     if (debouncedValue) executeAsync({ userName: debouncedValue })
-  }, [debouncedValue])
+  }, [debouncedValue, executeAsync])
 
   return (
     <FormField
