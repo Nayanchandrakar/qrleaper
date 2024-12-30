@@ -15,10 +15,12 @@ import { UserNameInput } from "@/components/forms/pages/design/virtual-card/vcar
 
 interface QrCodeInfoWithNameSectionProps {
   isExecuting: boolean
+  isEditForm?: boolean
 }
 
 export const QrCodeInfoWithNameSection = ({
   isExecuting,
+  isEditForm = false,
 }: QrCodeInfoWithNameSectionProps) => {
   const form = useFormContext()
 
@@ -112,7 +114,7 @@ export const QrCodeInfoWithNameSection = ({
       </div>
 
       <div className="flex items-center sm:flex-row flex-col gap-4 sm:gap-3 ">
-        <UserNameInput isExecuting={isExecuting} />
+        <UserNameInput isEditForm={isEditForm} isExecuting={isExecuting} />
 
         <FormField
           control={form.control}

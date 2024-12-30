@@ -137,3 +137,8 @@ export interface editQrVcardType {
 
   style: responseQrStyleType
 }
+
+export interface userNameInputType {
+  result: string
+  currentUserName: string
+}

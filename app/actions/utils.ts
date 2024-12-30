@@ -429,3 +429,11 @@ export const getVcardWithProfileImageAndImageByQrCodeId = async (
 
   return vCardFile
 }
+
+export const isUserNameAvailable = async (userName: string) => {
+  const [result] = await db
+    .select({ userName: qrVirtualCard.userName })
+    .from(qrVirtualCard)
+    .where(eq(qrVirtualCard.userName, userName))
+  return result?.userName
+}

@@ -86,7 +86,7 @@ export const VcardEditForm = ({ qrCode, endpoint }: VcardEditFormProps) => {
         <div>
           <div className="space-y-7">
             <VcardProfileImageUploadForm isExecuting={isExecuting} />
-            <QrCodeInfoWithNameSection isExecuting={isExecuting} />
+            <QrCodeInfoWithNameSection isExecuting={isExecuting} isEditForm />
             <PhoneNumberSection isExecuting={isExecuting} />
             <EmailAddressSection isExecuting={isExecuting} />
             <AddressSection isExecuting={isExecuting} />

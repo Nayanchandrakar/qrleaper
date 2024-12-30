@@ -10,6 +10,7 @@ import { throwSubscriptionError } from "@/lib/action/throw-subscription-error"
 import { incrementQrSubscriptionCountByUserId } from "@/app/actions/helpers/subscription/utils"
 import { virtualCardFormSchema } from "@/zod/forms/vcard/virtual-card-form-schema"
 import { uploadBulkFiles, uploadFile } from "@/app/actions/file/utils"
+import { throwUserNameError } from "@/lib/action/throw-user-name-error"
 
 export const createVcardQrCodeAction = authUserActionClient
   .use(async ({ next, clientInput }) => {
@@ -29,6 +30,7 @@ export const createVcardQrCodeAction = authUserActionClient
     })
   })
   .use(throwSubscriptionError)
+  .use(async ({ next, ctx }) => throwUserNameError({ next, ctx }))
   .action(async ({ ctx }) => {
     const { parsedInput, user } = ctx
 

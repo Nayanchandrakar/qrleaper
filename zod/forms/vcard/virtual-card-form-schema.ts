@@ -25,6 +25,7 @@ export const virtualCardFormSchema = z.object({
     .optional(),
 
   // Name Components
+  userName: z.string().min(3).max(32),
   firstName: z.string().min(1, { message: "First name is required" }).max(20),
   lastName: z.string().min(1, { message: "Last name is required" }).max(20),
   middleName: z.string().max(10).optional().or(z.literal("")),

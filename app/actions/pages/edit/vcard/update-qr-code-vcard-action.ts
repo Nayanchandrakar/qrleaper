@@ -14,6 +14,7 @@ import { getVcardWithProfileImageAndImageByQrCodeId } from "@/app/actions/utils"
 import { throwSubscriptionEditError } from "@/lib/action/throw-subscription-error"
 import { vCardEditFormSchema } from "@/zod/pages/edit/vcard/vcard-edit-form-schema"
 import { throwQrCodeNotFoundError } from "@/lib/action/throw-qr-code-error"
+import { throwUserNameError } from "@/lib/action/throw-user-name-error"
 
 export const updateQrCodeVcardAction = authUserActionClient
   .use(async ({ next, clientInput }) => {
@@ -35,6 +36,9 @@ export const updateQrCodeVcardAction = authUserActionClient
   })
   .use(throwSubscriptionEditError)
   .use(async (client) => throwQrCodeNotFoundError({ ...client, type: "vcard" }))
+  .use(async ({ next, ctx }) =>
+    throwUserNameError({ next, ctx, isEditAction: true })
+  )
   .action(async ({ ctx }) => {
     const { data, parsedInput } = ctx
 
