@@ -6,6 +6,10 @@ export const getEndpointURL = (id: string) => {
   return `${process.env.APP_URL}/link?id=${id}`
 }
 
+export const getvCardCopyEndpointURL = (userName: string) => {
+  return `${process.env.APP_URL}/vcard/profile/${userName}`
+}
+
 export const getEditURL = (type: qrType, id: string) => {
   return `${process.env.APP_URL}/${id}/edit/${type === "link" ? "" : type}`
 }
