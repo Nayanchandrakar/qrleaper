@@ -18,7 +18,7 @@ export const ColorInput = () => {
   }
 
   return (
-    <div className="relative flex h-9 w-32 shrink-0 rounded-md shadow-sm">
+    <div className="relative flex h-9 w-full sm:max-w-40 flex-shrink-0 rounded-md shadow-sm">
       <TooltipComponent
         content={
           <div className="flex max-w-xs flex-col items-center space-y-3 p-5 text-center">
