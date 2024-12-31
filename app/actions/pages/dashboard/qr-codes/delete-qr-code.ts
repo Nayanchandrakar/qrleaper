@@ -10,7 +10,6 @@ import { qrCode } from "@/database/schema"
 import type { qrType } from "@/types/db-types"
 import { authUserActionClient } from "@/lib/action/safe-action"
 import { decrementQrSubscriptionCountByUserId } from "@/app/actions/helpers/subscription/utils"
-import { deleteBulkFiles } from "@/app/actions/file/utils"
 import { deleteFile } from "@/app/actions/file/deleteFile"
 import {
   getQrCodeWithStyleByUserIdAndId,
@@ -64,7 +63,11 @@ const handleFileDeletion = async (
 
     if (files) {
       const sourceUrl = [files.profileImage, ...(files.images || [])]
-      if (sourceUrl.length > 0) promises.push(deleteBulkFiles(sourceUrl))
+      if (sourceUrl.length > 0) {
+        sourceUrl.forEach((src) => {
+          promises.push(deleteFile(src))
+        })
+      }
     }
   }
 }
