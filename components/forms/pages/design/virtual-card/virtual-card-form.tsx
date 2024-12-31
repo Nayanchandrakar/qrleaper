@@ -1,6 +1,7 @@
 "use client"
 
 import { toast } from "sonner"
+import { FormEvent } from "react"
 import { useRouter } from "next/navigation"
 import { useAction } from "next-safe-action/hooks"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -49,6 +50,8 @@ export const VirtualCardForm = () => {
     },
   })
 
+  const userNameError = form.getFieldState("userName")?.error
+
   const { executeAsync, isExecuting } = useAction(createVcardQrCodeAction, {
     onSuccess: ({ data }) => {
       setData(data?.endpoint!)
@@ -60,24 +63,34 @@ export const VirtualCardForm = () => {
     },
   })
 
-  const onSubmit = (data: virtualCardFormSchemaType) => {
-    const formData = new FormData()
-    const { profileImage, images, ...remaining } = data
+  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    event.stopPropagation()
 
-    formData.append("profileImage", profileImage)
-
-    if (images?.length) {
-      images.forEach((image) => formData.append("images", image))
+    if (userNameError) {
+      toast.error(userNameError.message)
+      return
     }
 
-    // @ts-ignore
-    executeAsync({ formData, ...remaining })
+    form.handleSubmit((data) => {
+      const formData = new FormData()
+      const { profileImage, images, ...remaining } = data
+
+      formData.append("profileImage", profileImage)
+
+      if (images?.length) {
+        images.forEach((image) => formData.append("images", image))
+      }
+
+      // @ts-ignore
+      executeAsync({ formData, ...remaining })
+    })(event)
   }
 
   return (
     <FormProvider {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={onSubmit}
         className="grid grid-cols-1 lg:grid-cols-2 gap-8"
       >
         <div>

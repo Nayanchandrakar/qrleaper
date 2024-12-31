@@ -7,4 +7,5 @@ export const regexPatterns = {
   phoneRegex: /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/,
   passwordRegex:
     /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
+  specialCharacters: /^[a-zA-Z0-9_]+$/,
 }

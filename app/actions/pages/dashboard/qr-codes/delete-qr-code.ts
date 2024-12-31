@@ -8,9 +8,9 @@ import { db } from "@/database/db"
 import { idSchema } from "@/zod/utils"
 import { qrCode } from "@/database/schema"
 import type { qrType } from "@/types/db-types"
+import { deleteFile } from "@/app/actions/file/deleteFile"
 import { authUserActionClient } from "@/lib/action/safe-action"
 import { decrementQrSubscriptionCountByUserId } from "@/app/actions/helpers/subscription/utils"
-import { deleteFile } from "@/app/actions/file/deleteFile"
 import {
   getQrCodeWithStyleByUserIdAndId,
   getQrFileByQrCodeId,

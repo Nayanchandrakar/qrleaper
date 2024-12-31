@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { VCardLabelCard } from "@/components/cards/pages/design/vcard/vcard-label-card"
-import { UserNameInput } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/username-input"
+import { UserNameInputWithSuffix } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/username-input"
 
 interface QrCodeInfoWithNameSectionProps {
   isExecuting: boolean
@@ -113,28 +113,10 @@ export const QrCodeInfoWithNameSection = ({
         />
       </div>
 
-      <div className="flex items-center sm:flex-row flex-col gap-4 sm:gap-3 ">
-        <UserNameInput isEditForm={isEditForm} isExecuting={isExecuting} />
-
-        <FormField
-          control={form.control}
-          name="suffix"
-          disabled={isExecuting}
-          render={({ field }) => (
-            <FormItem className="w-full">
-              <FormLabel>Suffix</FormLabel>
-              <FormControl>
-                <Input
-                  type="text"
-                  placeholder="Your Suffix (optional)"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-      </div>
+      <UserNameInputWithSuffix
+        isEditForm={isEditForm}
+        isExecuting={isExecuting}
+      />
     </div>
   )
 }

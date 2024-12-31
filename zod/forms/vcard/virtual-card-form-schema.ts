@@ -7,6 +7,7 @@ import {
 
 import { createFileSchema } from "@/zod/utils/file-utils"
 import { qrStyleSchema, qrTitleSchema } from "@/zod/utils"
+import { regexPatterns } from "@/constants/regex/patterns"
 import { profile_image_type } from "@/constants/qr/file-type"
 
 export const virtualCardFormSchema = z.object({
@@ -25,7 +26,13 @@ export const virtualCardFormSchema = z.object({
     .optional(),
 
   // Name Components
-  userName: z.string().min(3).max(32),
+  userName: z
+    .string()
+    .min(3)
+    .max(32)
+    .refine((str) => {
+      return regexPatterns.specialCharacters.test(str)
+    }, "Username must not contain any special characters"),
   firstName: z
     .string()
     .min(1, { message: "Please enter your first name to continue." })

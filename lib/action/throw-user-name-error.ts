@@ -23,7 +23,7 @@ export const throwUserNameError = async ({
 
   // If true thent throw an error
   if (inUse) {
-    throw new Error("User Already In Use.")
+    throw new Error("Username is already in use.")
   }
 
   // else return next function

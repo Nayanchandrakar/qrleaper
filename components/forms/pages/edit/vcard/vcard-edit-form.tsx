@@ -1,7 +1,7 @@
 "use client"
 
 import { toast } from "sonner"
-import { useEffect } from "react"
+import { FormEvent, useEffect } from "react"
 import { useAction } from "next-safe-action/hooks"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, FormProvider } from "react-hook-form"
@@ -50,25 +50,40 @@ export const VcardEditForm = ({ qrCode, endpoint }: VcardEditFormProps) => {
     defaultValues: qrCode as vCardEditFormSchemaType,
   })
 
-  const onSubmit = (data: vCardEditFormSchemaType) => {
-    const formData = new FormData()
+  const userNameError = form.getFieldState("userName")?.error
 
-    const { profileImage, images, ...remaining } = data
+  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    event.stopPropagation()
 
-    if (typeof profileImage === "string" || typeof profileImage === "object") {
-      formData.append("profileImage", profileImage)
+    if (userNameError) {
+      toast.error(userNameError.message)
+      return
     }
 
-    if (Array.isArray(images)) {
-      images.forEach((image) => {
-        if (typeof image === "string" || typeof image === "object") {
-          formData.append("images", image)
-        }
-      })
-    }
+    form.handleSubmit((data) => {
+      const formData = new FormData()
 
-    // @ts-ignore
-    executeAsync({ formData, ...remaining })
+      const { profileImage, images, ...remaining } = data
+
+      if (
+        typeof profileImage === "string" ||
+        typeof profileImage === "object"
+      ) {
+        formData.append("profileImage", profileImage)
+      }
+
+      if (Array.isArray(images)) {
+        images.forEach((image) => {
+          if (typeof image === "string" || typeof image === "object") {
+            formData.append("images", image)
+          }
+        })
+      }
+
+      // @ts-ignore
+      executeAsync({ formData, ...remaining })
+    })(event)
   }
 
   useEffect(() => {
@@ -80,7 +95,7 @@ export const VcardEditForm = ({ qrCode, endpoint }: VcardEditFormProps) => {
   return (
     <FormProvider {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={onSubmit}
         className="grid grid-cols-1 lg:grid-cols-2 gap-8"
       >
         <div>
