@@ -87,11 +87,11 @@ export const UserNameInput = ({
       disabled={isExecuting}
       render={({ field }) => (
         <FormItem className="w-full">
-          <FormLabel>User Name</FormLabel>
+          <FormLabel>Username</FormLabel>
           <FormControl>
             <Input
               type="text"
-              placeholder="Your Unique User Name"
+              placeholder="Your Unique username"
               {...field}
               onChange={(e) => {
                 field.onChange(e)

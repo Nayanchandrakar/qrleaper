@@ -17,9 +17,7 @@ export async function deleteFile(fileKey: string) {
       })
     )
     console.log("Deleted Succefully", fileKey)
-    return true
   } catch (error) {
     console.error("Error deleting file from S3:", error)
-    return false
   }
 }

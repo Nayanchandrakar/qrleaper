@@ -29,5 +29,6 @@ export const uploadBulkFiles = async (files: File[]): Promise<string[]> => {
 }
 
 export const deleteBulkFiles = async (filekeys: string[]) => {
+  if (filekeys.length > 0) return
   await Promise.all(filekeys.map((key) => deleteFile(key)))
 }

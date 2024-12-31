@@ -469,3 +469,19 @@ export const getVCardUserNameByQrCodeId = async (id: string) => {
     return null
   }
 }
+
+export const getVCardFileDataByQrCodeId = async (id: string) => {
+  try {
+    const [result] = await db
+      .select({
+        images: qrVirtualCard.images,
+        profileImage: qrVirtualCard.profileImage,
+      })
+      .from(qrVirtualCard)
+      .where(eq(qrVirtualCard.qrCodeId, id))
+
+    return result
+  } catch {
+    return null
+  }
+}
