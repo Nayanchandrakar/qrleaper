@@ -27,6 +27,7 @@ import {
   type emailFormSchemaType,
 } from "@/zod/forms/email/email-form-schema"
 import { createQrCodeEmailAction } from "@/app/actions/pages/design/email/create-email-qr-code-action"
+import { useEmailFormPersist } from "@/hooks/forms/design/useEmailFormPersist"
 
 export const EmailForm = () => {
   const router = useRouter()
@@ -35,6 +36,7 @@ export const EmailForm = () => {
   const { executeAsync, isExecuting } = useAction(createQrCodeEmailAction, {
     onSuccess: ({ data }) => {
       setData(data?.endpoint!)
+      form.reset()
       toast.success("Successfully created a QR Code")
       router.push("/dashboard/qr-codes")
     },
@@ -60,6 +62,8 @@ export const EmailForm = () => {
       },
     },
   })
+
+  useEmailFormPersist(form)
 
   return (
     <FormProvider {...form}>

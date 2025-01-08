@@ -26,6 +26,7 @@ import {
   facebookFormSchemaType,
 } from "@/zod/forms/facebook/facebook-form-schema"
 import { createQrCodeFacebookAction } from "@/app/actions/pages/design/facebook/create-facebook-qr-code-action"
+import { useFacebookPersist } from "@/hooks/forms/design/useFacebookPersist"
 
 export const FacebookForm = () => {
   const router = useRouter()
@@ -34,6 +35,7 @@ export const FacebookForm = () => {
   const { executeAsync, isExecuting } = useAction(createQrCodeFacebookAction, {
     onSuccess: ({ data }) => {
       setData(data?.endpoint!)
+      form.reset()
       toast.success("Successfully created a QR Code")
       router.push("/dashboard/qr-codes")
     },
@@ -57,6 +59,8 @@ export const FacebookForm = () => {
       },
     },
   })
+
+  useFacebookPersist(form)
 
   return (
     <FormProvider {...form}>

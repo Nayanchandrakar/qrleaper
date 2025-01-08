@@ -26,6 +26,7 @@ import {
   youtubeFormSchemaType,
 } from "@/zod/forms/youtube/youtube-form-schema"
 import { createQrCodeYoutubeAction } from "@/app/actions/pages/design/youtube/create-youtube-qr-code-action"
+import { useYoutubeFormPersist } from "@/hooks/forms/design/useYoutubeFormPersist"
 
 export const YoutubeForm = () => {
   const router = useRouter()
@@ -34,6 +35,7 @@ export const YoutubeForm = () => {
   const { executeAsync, isExecuting } = useAction(createQrCodeYoutubeAction, {
     onSuccess: ({ data }) => {
       setData(data?.endpoint!)
+      form.reset()
       toast.success("Successfully created a QR Code")
       router.push("/dashboard/qr-codes")
     },
@@ -57,6 +59,8 @@ export const YoutubeForm = () => {
       },
     },
   })
+
+  useYoutubeFormPersist(form)
 
   return (
     <FormProvider {...form}>

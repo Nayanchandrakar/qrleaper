@@ -26,6 +26,7 @@ import {
   googleDocsFormSchemaType,
 } from "@/zod/forms/google-docs/google-docs-form-schema"
 import { createQrCodeGoogleDocsAction } from "@/app/actions/pages/design/google-docs/create-google-docs-qr-code-action"
+import { useGoogleDocPersist } from "@/hooks/forms/design/useGoogleDocPersist"
 
 export const GoogleDocsForm = () => {
   const router = useRouter()
@@ -36,6 +37,7 @@ export const GoogleDocsForm = () => {
     {
       onSuccess: ({ data }) => {
         setData(data?.endpoint!)
+        form.reset()
         toast.success("Successfully created a QR Code")
         router.push("/dashboard/qr-codes")
       },
@@ -60,6 +62,8 @@ export const GoogleDocsForm = () => {
       },
     },
   })
+
+  useGoogleDocPersist(form)
 
   return (
     <FormProvider {...form}>

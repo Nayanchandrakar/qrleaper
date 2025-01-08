@@ -26,6 +26,7 @@ import {
   instagramFormSchemaType,
 } from "@/zod/forms/instagram/instagram-form-schema"
 import { createQrCodeInstagramAction } from "@/app/actions/pages/design/instagram/create-instagram-qr-code-action"
+import { useInstagramPersist } from "@/hooks/forms/design/useInstagramPersist"
 
 export const InstagramForm = () => {
   const router = useRouter()
@@ -34,6 +35,7 @@ export const InstagramForm = () => {
   const { executeAsync, isExecuting } = useAction(createQrCodeInstagramAction, {
     onSuccess: ({ data }) => {
       setData(data?.endpoint!)
+      form.reset()
       toast.success("Successfully created a QR Code")
       router.push("/dashboard/qr-codes")
     },
@@ -57,6 +59,8 @@ export const InstagramForm = () => {
       },
     },
   })
+
+  useInstagramPersist(form)
 
   return (
     <FormProvider {...form}>
