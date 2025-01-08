@@ -27,6 +27,7 @@ import {
 } from "@/zod/forms/file/file-form-schema"
 import { createFileQrCodeAction } from "@/app/actions/pages/design/file/create-file-qr-code-action"
 import { FileUploadForm } from "@/components/forms/pages/design/file/file-upload-form"
+import { useFileFormPersist } from "@/hooks/forms/design/useFileFormPersist"
 
 export const FileForm = () => {
   const router = useRouter()
@@ -52,6 +53,7 @@ export const FileForm = () => {
   const { executeAsync, isExecuting } = useAction(createFileQrCodeAction, {
     onSuccess: ({ data }) => {
       setData(data?.endpoint!)
+      form.reset()
       toast.success("Successfully created a QR Code")
       router.push("/dashboard/qr-codes")
     },
@@ -59,6 +61,8 @@ export const FileForm = () => {
       toast.error(error.serverError)
     },
   })
+
+  useFileFormPersist(form)
 
   return (
     <FormProvider {...form}>

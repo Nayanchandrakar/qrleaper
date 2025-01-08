@@ -5,10 +5,10 @@ import useFormPersist from "react-hook-form-persist"
 
 import { formType } from "@/types/type"
 
-export const useDesignFormPersist = (form: formType) => {
+export const useFileFormPersist = (form: formType) => {
   const isClient = useIsClient()
 
-  useFormPersist("design-form", {
+  useFormPersist("file-form", {
     watch: isClient ? form.watch : () => {},
     setValue: isClient ? form.setValue : () => {},
     storage: isClient ? window.localStorage : undefined,
