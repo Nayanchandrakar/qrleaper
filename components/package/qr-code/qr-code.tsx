@@ -60,7 +60,13 @@ export const QrCode = forwardRef<
         },
         cornersSquareOptions: { type: "square" },
         cornersDotOptions: { type: "square" },
-        imageOptions: { crossOrigin: "anonymous", margin: 0, saveAsBlob: true },
+        imageOptions: {
+          crossOrigin: "anonymous",
+          margin: 0,
+          hideBackgroundDots: false,
+          imageSize: 0.6,
+          saveAsBlob: true,
+        },
         ...(logo && { image: logo }),
       }
     }, [shape, hasFrame, data, color, logo])

@@ -9,7 +9,7 @@ import { Input, type InputProps } from "@/components/ui/input"
 
 const PasswordInput = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, ...props }, ref) => {
-    const [showPassword, setShowPassword] = React.useState(false)
+    const [showPassword, setShowPassword] = React.useState(true)
 
     return (
       <div className="relative">
