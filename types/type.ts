@@ -1,5 +1,6 @@
 import type { Session } from "next-auth"
 import type QRCodeStyling from "qr-code-styling"
+import type { UseFormReturn } from "react-hook-form"
 import type { qrCodeStyleType, qrCodeType, qrScanCountType } from "./db-types"
 
 export type SessionType = Session | null
@@ -142,3 +143,5 @@ export interface userNameInputType {
   result: string
   currentUserName: string
 }
+
+export type formType = UseFormReturn<any, any, undefined>

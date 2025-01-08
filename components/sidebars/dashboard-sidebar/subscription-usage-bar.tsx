@@ -1,12 +1,10 @@
-import { toast } from "sonner"
-import { Loader, Sparkles } from "lucide-react"
+import Link from "next/link"
+import { Sparkles } from "lucide-react"
 import { Progress } from "@/components/ui/progress"
 
 import { subscriptionPlan } from "@/app/actions/helpers"
 import type { subscritpionTableType } from "@/types/db-types"
-import { usageStatData } from "@/constants/pages/pricing/usage"
 import { Button } from "@/components/ui/button"
-import Link from "next/link"
 
 interface SubscriptionUsageBarProps {
   subscription: subscritpionTableType

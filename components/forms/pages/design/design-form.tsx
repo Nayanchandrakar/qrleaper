@@ -27,21 +27,11 @@ import { PreviewQrCard } from "@/components/cards/pages/design/preview-qr-card"
 import { createQrCodeAction } from "@/app/actions/pages/design/create-qr-code-action"
 import { QrControls } from "@/components/forms/pages/design/qr-style/qr-controls"
 import { useQrDataContext } from "@/hooks/qr/useQrDataContext"
+import { useDesignFormPersist } from "@/hooks/forms/design/useDesignFormPersist"
 
 export const DesignForm = () => {
   const router = useRouter()
   const { setData } = useQrDataContext()
-
-  const { executeAsync, isExecuting } = useAction(createQrCodeAction, {
-    onSuccess: ({ data }) => {
-      setData(data?.endpoint!)
-      toast.success("Successfully created a QR Code")
-      router.push("/dashboard/qr-codes")
-    },
-    onError: ({ error }) => {
-      toast.error(error.serverError)
-    },
-  })
 
   const form = useForm<designFormSchemaType>({
     resolver: zodResolver(designFormSchema),
@@ -58,6 +48,21 @@ export const DesignForm = () => {
       },
     },
   })
+
+  const { executeAsync, isExecuting } = useAction(createQrCodeAction, {
+    onSuccess: ({ data }) => {
+      setData(data?.endpoint!)
+      form.reset()
+      toast.success("Successfully created a QR Code")
+      router.push("/dashboard/qr-codes")
+    },
+    onError: ({ error }) => {
+      toast.error(error.serverError)
+    },
+  })
+
+  // For Persisting the form data in localStorage
+  useDesignFormPersist(form)
 
   return (
     <FormProvider {...form}>
