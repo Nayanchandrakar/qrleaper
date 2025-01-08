@@ -27,6 +27,7 @@ import { QrControls } from "@/components/forms/pages/design/qr-style/qr-controls
 import { useQrDataContext } from "@/hooks/qr/useQrDataContext"
 import { createQrCodeMessageAction } from "@/app/actions/pages/design/message/create-message-qr-code-action"
 import { Textarea } from "@/components/ui/textarea"
+import { useMessageFormPersist } from "@/hooks/forms/design/useMessageFormPersist"
 
 export const MessageForm = () => {
   const router = useRouter()
@@ -35,6 +36,7 @@ export const MessageForm = () => {
   const { executeAsync, isExecuting } = useAction(createQrCodeMessageAction, {
     onSuccess: ({ data }) => {
       setData(data?.endpoint!)
+      form.reset()
       toast.success("Successfully created a QR Code")
       router.push("/dashboard/qr-codes")
     },
@@ -59,6 +61,8 @@ export const MessageForm = () => {
       },
     },
   })
+
+  useMessageFormPersist(form)
 
   return (
     <FormProvider {...form}>
