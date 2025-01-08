@@ -38,10 +38,7 @@ export const AnalyticsReport: React.FC<AnalyticsReportProps> = ({ id }) => {
 
   return (
     <section className="space-y-12">
-      <AnalyticsDurationChangeForm
-        numberOfDays={numberOfDays}
-        isExecuting={isExecuting}
-      />
+      <AnalyticsDurationChangeForm isExecuting={isExecuting} />
 
       {isExecuting && (
         <div className="space-y-12">

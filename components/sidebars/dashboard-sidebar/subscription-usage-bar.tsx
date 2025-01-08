@@ -1,15 +1,12 @@
-"use client"
-
 import { toast } from "sonner"
 import { Loader, Sparkles } from "lucide-react"
-import { useAction } from "next-safe-action/hooks"
-
-import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
+
 import { subscriptionPlan } from "@/app/actions/helpers"
 import type { subscritpionTableType } from "@/types/db-types"
 import { usageStatData } from "@/constants/pages/pricing/usage"
-import { generateUserStripeAction } from "@/app/actions/pages/pricing/generate-user-stripe"
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 interface SubscriptionUsageBarProps {
   subscription: subscritpionTableType
@@ -19,12 +16,6 @@ export const SubscriptionUsageBar = ({
   subscription,
 }: SubscriptionUsageBarProps) => {
   const plan = subscriptionPlan(subscription?.stripePriceId!)
-
-  const { executeAsync, isExecuting } = useAction(generateUserStripeAction, {
-    onError: ({ error }) => {
-      toast.error(error.serverError)
-    },
-  })
 
   return (
     <div className="flex flex-col rounded-lg bg-gray-50 p-4 border border-gray-200">
@@ -41,19 +32,11 @@ export const SubscriptionUsageBar = ({
       />
 
       {plan?.type !== "Pro" && (
-        <Button
-          onClick={() =>
-            executeAsync({ priceId: usageStatData.PRO.stripeIds.monthly! })
-          }
-          disabled={isExecuting}
-          className="bg-gradient-brand mt-4"
-        >
-          {isExecuting ? (
-            <Loader className="size-5 animate-spin" />
-          ) : (
+        <Button asChild className="bg-gradient-brand mt-4">
+          <Link href="/pricing">
             <Sparkles className="size-5 fill-white" />
-          )}
-          Upgrade to pro
+            Upgrade
+          </Link>
         </Button>
       )}
     </div>
