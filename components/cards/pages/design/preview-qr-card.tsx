@@ -3,7 +3,6 @@
 import { toast } from "sonner"
 import { useCallback, useRef } from "react"
 import { useFormContext } from "react-hook-form"
-import type { FileExtension } from "qr-code-styling"
 import { ChevronDown, Image as LucideImage } from "lucide-react"
 
 import {
@@ -13,24 +12,35 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu"
 
-import type { qrCodeRefType } from "@/types/type"
-import { QrCode } from "@/components/package/qr-code/qr-code"
-import { StepLabel } from "@/components/ui/step-label"
-import { useQrDataContext } from "@/hooks/qr/useQrDataContext"
 import { getFilePath } from "@/utils/client"
+import { StepLabel } from "@/components/ui/step-label"
+import type { FileExtension } from "qr-code-styling"
+import { QrCode } from "@/components/package/qr-code/qr-code"
+import { useQrDataContext } from "@/hooks/qr/useQrDataContext"
 import { downloadOptionData } from "@/constants/qr/download-options"
+import { useSvgToPdf } from "@/hooks/global/downloads/useSvgToPdfDownload"
+import type { FileExtensionTypeExtended, qrCodeRefType } from "@/types/type"
 
 export const PreviewQrCard = () => {
   const qrCodeRef = useRef<qrCodeRefType>(null)
   const { getValues } = useFormContext()
   const { data } = useQrDataContext()
   const { style, title } = getValues()
+  const { convertSvgToPdf } = useSvgToPdf()
 
   const handleDownload = useCallback(
-    (extension: FileExtension) => {
+    (extension: FileExtensionTypeExtended) => {
       if (!qrCodeRef.current) return
-      qrCodeRef?.current.download({ extension, name: title })
-      toast.success("QR Code Downloaded Succefully!")
+
+      if (extension === "pdf") convertSvgToPdf(title)
+
+      if (extension !== "pdf") {
+        qrCodeRef?.current.download({
+          extension: extension as FileExtension,
+          name: title,
+        })
+      }
+      toast.success("QR Code Downloaded Successfully!")
     },
     [qrCodeRef, title]
   )
@@ -65,7 +75,7 @@ export const PreviewQrCard = () => {
             <DropdownMenuItem
               key={id}
               className="cursor-pointer"
-              onClick={() => handleDownload(value as FileExtension)}
+              onClick={() => handleDownload(value as FileExtensionTypeExtended)}
             >
               <span className="flex items-center gap-2 text-sm font-medium text-gray-700">
                 <LucideImage className="size-5" />

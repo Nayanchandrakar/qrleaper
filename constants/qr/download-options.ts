@@ -19,4 +19,9 @@ export const downloadOptionData = [
     label: "Download WEBP",
     value: "webp",
   },
+  {
+    id: 2342364,
+    label: "Download PDF",
+    value: "pdf",
+  },
 ]
