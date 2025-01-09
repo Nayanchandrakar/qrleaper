@@ -1,7 +1,6 @@
 "use client"
 
-import { toast } from "sonner"
-import { useCallback, useRef } from "react"
+import { useRef } from "react"
 import { Image as LucideImage, Download } from "lucide-react"
 import type { FileExtension, ShapeType } from "qr-code-styling"
 
@@ -19,25 +18,19 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu"
 
-import type { qrCodeRefType } from "@/types/type"
+import type { FileExtensionTypeExtended, qrCodeRefType } from "@/types/type"
 import { getEndpointURLClient, getFilePath } from "@/utils/client"
 import { ShimmerDots } from "@/components/ui/shimmer-dots"
 import { QrCode } from "@/components/package/qr-code/qr-code"
 import { downloadOptionData } from "@/constants/qr/download-options"
 import { usePreviewQrCode } from "@/hooks/pages/dashboard/qr-codes/usePreviewQr"
+import { useQrCodeDownload } from "@/hooks/global/downloads/useQrCodeDownload"
 
 export const ShowQrCodePopup = () => {
   const qrCodeRef = useRef<qrCodeRefType>(null)
-  const { isOpen, setIsOpen, data } = usePreviewQrCode()
 
-  const handleDownload = useCallback(
-    (extension: FileExtension) => {
-      if (!qrCodeRef.current) return
-      qrCodeRef?.current.download({ extension, name: data?.qr_code.title })
-      toast.success("QR Code Downloaded Succefully!")
-    },
-    [qrCodeRef, data?.qr_code.title]
-  )
+  const { isOpen, setIsOpen, data } = usePreviewQrCode()
+  const { download } = useQrCodeDownload(qrCodeRef)
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -65,7 +58,12 @@ export const ShowQrCodePopup = () => {
                   <DropdownMenuItem
                     key={id}
                     className="cursor-pointer"
-                    onClick={() => handleDownload(value as FileExtension)}
+                    onClick={() =>
+                      download({
+                        fileExtension: value as FileExtensionTypeExtended,
+                        fileName: data?.qr_code.title!,
+                      })
+                    }
                   >
                     <span className="flex items-center gap-2 text-sm font-medium text-gray-700">
                       <LucideImage className="size-5" />
