@@ -6,7 +6,6 @@ import { useFormContext } from "react-hook-form"
 import { useAction } from "next-safe-action/hooks"
 
 import { cn } from "@/lib/utils"
-import { Input } from "@/components/ui/input"
 import type { userNameInputType } from "@/types/type"
 import { validateInput, validInputClassName } from "@/utils/username-valid"
 import { checkVCardUserNameAction } from "@/app/actions/utils/pages/vcard/check-username-action"
@@ -15,17 +14,18 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
 } from "@/components/ui/form"
+import VanityInput from "@/components/ui/vanity-input"
+import { appUrl } from "@/constants/config"
 
-interface UserNameInputWithSuffixProps {
+interface UserNameInputProps {
   isExecuting: boolean
   isEditForm?: boolean
 }
-export const UserNameInputWithSuffix = ({
+export const UserNameInput = ({
   isExecuting,
   isEditForm = false,
-}: UserNameInputWithSuffixProps) => {
+}: UserNameInputProps) => {
   const { control, setError, getValues, clearErrors, getFieldState } =
     useFormContext()
 
@@ -96,48 +96,28 @@ export const UserNameInputWithSuffix = ({
 
   return (
     <div className="flex flex-col gap-3">
-      <div className="flex items-center sm:flex-row flex-col gap-4 sm:gap-3 ">
-        <FormField
-          control={control}
-          name="userName"
-          disabled={isExecuting}
-          render={({ field }) => (
-            <FormItem className="w-full">
-              <FormLabel>Username</FormLabel>
-              <FormControl>
-                <Input
-                  type="text"
-                  placeholder="Your Unique username"
-                  {...field}
-                  onChange={(e) => {
-                    field.onChange(e)
-                    setValue(e.target.value)
-                  }}
-                />
-              </FormControl>
-            </FormItem>
-          )}
-        />
+      <FormField
+        control={control}
+        name="userName"
+        disabled={isExecuting}
+        render={({ field }) => (
+          <FormItem className="w-full">
+            <FormLabel>Username</FormLabel>
+            <FormControl>
+              <VanityInput
+                label={`${appUrl}/vcard/`}
+                placeholder="Your Unique username"
+                {...field}
+                onChange={(e) => {
+                  field.onChange(e)
+                  setValue(e.target.value)
+                }}
+              />
+            </FormControl>
+          </FormItem>
+        )}
+      />
 
-        <FormField
-          control={control}
-          name="suffix"
-          disabled={isExecuting}
-          render={({ field }) => (
-            <FormItem className="w-full">
-              <FormLabel>Suffix</FormLabel>
-              <FormControl>
-                <Input
-                  type="text"
-                  placeholder="Your Suffix (optional)"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-      </div>
       <p
         className={cn(
           "text-sm font-medium text-gray-600",

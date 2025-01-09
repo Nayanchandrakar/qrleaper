@@ -2,7 +2,7 @@
 
 import { useRef } from "react"
 import { Image as LucideImage, Download } from "lucide-react"
-import type { FileExtension, ShapeType } from "qr-code-styling"
+import type { ShapeType } from "qr-code-styling"
 
 import {
   Dialog,

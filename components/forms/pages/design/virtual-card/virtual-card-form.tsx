@@ -13,6 +13,7 @@ import {
   type virtualCardFormSchemaType,
 } from "@/zod/forms/vcard/virtual-card-form-schema"
 import { useQrDataContext } from "@/hooks/qr/useQrDataContext"
+import { useVcardFormPersist } from "@/hooks/forms/design/useVcardFormPersist"
 import { PhoneNumberSection } from "./vcard-section-forms/phone-number-section"
 import { PreviewQrCard } from "@/components/cards/pages/design/preview-qr-card"
 import { WorkAddressSection } from "./vcard-section-forms/work-adddress-section"
@@ -55,6 +56,7 @@ export const VirtualCardForm = () => {
   const { executeAsync, isExecuting } = useAction(createVcardQrCodeAction, {
     onSuccess: ({ data }) => {
       setData(data?.endpoint!)
+      form.reset()
       toast.success("Successfully created a QR Code")
       router.push("/dashboard/qr-codes")
     },
@@ -86,6 +88,8 @@ export const VirtualCardForm = () => {
       executeAsync({ formData, ...remaining })
     })(event)
   }
+
+  useVcardFormPersist(form)
 
   return (
     <FormProvider {...form}>
