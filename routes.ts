@@ -1,4 +1,5 @@
 export const authRoutes = ["/login", "/register"]
+
 const publicRoutes = [
   "/design",
   "/expired",
@@ -7,6 +8,7 @@ const publicRoutes = [
   "/forgot-password",
   "/api/view",
   "/vcard",
+  "/profile",
 ]
 
 export const editRouteRegex = new RegExp(`^/edit($|/)`)
