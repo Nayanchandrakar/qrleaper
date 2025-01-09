@@ -7,7 +7,7 @@ import {
   apiAuthPrefixRegex,
   apiStripePrefixRegex,
   linkMiddlewareRouteRegex,
-  vcardProfileRouteRegex,
+  vcardRouteRegex,
 } from "@/routes"
 import { auth } from "@/lib/auth/auth"
 import { getSubscriptionByUserId } from "@/app/actions/utils"
@@ -33,7 +33,7 @@ export default auth(async function middleware(req) {
   }
 
   // Handle vcard profile middleware
-  if (vcardProfileRouteRegex.test(pathname)) {
+  if (vcardRouteRegex.test(pathname)) {
     return vCardLinkMiddleware(req)
   }
 

@@ -5,7 +5,7 @@ import { linkMiddleware } from "@/middlewares/link-middleware"
 
 export const vCardLinkMiddleware = async (req: NextRequest) => {
   const nextUrl = req.nextUrl
-  const slug = req.nextUrl.pathname.split("/")?.[3]
+  const slug = req.nextUrl.pathname.split("/")?.[2]
 
   const id = await getVCardByUserName(slug)
 

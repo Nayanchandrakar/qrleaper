@@ -7,7 +7,7 @@ export const getEndpointURL = (id: string) => {
 }
 
 export const getvCardCopyEndpointURL = (userName: string) => {
-  return `${process.env.APP_URL}/vcard/profile/${userName}`
+  return `${process.env.APP_URL}/vcard/${userName}`
 }
 
 export const getEditURL = (type: qrType, id: string) => {
@@ -46,7 +46,7 @@ export const getFileDbEndpointURL = (fileName: string) => {
 }
 
 export const getVcardDbEndpointURL = (id: string) => {
-  return `${process.env.APP_URL}/vcard/${id}`
+  return `${process.env.APP_URL}/profile/vcard/${id}`
 }
 
 export function absoluteUrl(path: string) {
