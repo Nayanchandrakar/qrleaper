@@ -1,7 +1,6 @@
 "use client"
 
-import { toast } from "sonner"
-import { useCallback, useRef } from "react"
+import { useRef } from "react"
 import { useFormContext } from "react-hook-form"
 import { ChevronDown, Image as LucideImage } from "lucide-react"
 
@@ -14,36 +13,19 @@ import {
 
 import { getFilePath } from "@/utils/client"
 import { StepLabel } from "@/components/ui/step-label"
-import type { FileExtension } from "qr-code-styling"
 import { QrCode } from "@/components/package/qr-code/qr-code"
 import { useQrDataContext } from "@/hooks/qr/useQrDataContext"
 import { downloadOptionData } from "@/constants/qr/download-options"
-import { useSvgToPdf } from "@/hooks/global/downloads/useSvgToPdfDownload"
 import type { FileExtensionTypeExtended, qrCodeRefType } from "@/types/type"
+import { useQrCodeDownload } from "@/hooks/global/downloads/useQrCodeDownload"
 
 export const PreviewQrCard = () => {
   const qrCodeRef = useRef<qrCodeRefType>(null)
+
+  const { download } = useQrCodeDownload(qrCodeRef)
   const { getValues } = useFormContext()
   const { data } = useQrDataContext()
   const { style, title } = getValues()
-  const { convertSvgToPdf } = useSvgToPdf()
-
-  const handleDownload = useCallback(
-    (extension: FileExtensionTypeExtended) => {
-      if (!qrCodeRef.current) return
-
-      if (extension === "pdf") convertSvgToPdf(title)
-
-      if (extension !== "pdf") {
-        qrCodeRef?.current.download({
-          extension: extension as FileExtension,
-          name: title,
-        })
-      }
-      toast.success("QR Code Downloaded Successfully!")
-    },
-    [qrCodeRef, title]
-  )
 
   return (
     <div className="flex items-center justify-center flex-col gap-4 bg-gray-100 py-8 rounded-lg max-h-[50rem] sm:sticky sm:top-0">
@@ -75,7 +57,12 @@ export const PreviewQrCard = () => {
             <DropdownMenuItem
               key={id}
               className="cursor-pointer"
-              onClick={() => handleDownload(value as FileExtensionTypeExtended)}
+              onClick={() =>
+                download({
+                  fileExtension: value as FileExtensionTypeExtended,
+                  fileName: title,
+                })
+              }
             >
               <span className="flex items-center gap-2 text-sm font-medium text-gray-700">
                 <LucideImage className="size-5" />
