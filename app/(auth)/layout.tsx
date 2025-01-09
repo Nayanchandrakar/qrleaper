@@ -20,7 +20,7 @@ const AuthLayout = ({ children }: AuthLayoutProps) => {
             width={1000}
             height={1000}
             sizes="100vw"
-            className="absolute w-32 h-fit left-4 top-[-20px] z-10"
+            className="absolute w-36 h-fit left-4 top-[-30px] z-10"
           />
         </Link>
         {children}
