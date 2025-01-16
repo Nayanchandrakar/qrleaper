@@ -7,6 +7,7 @@ import { useAction } from "next-safe-action/hooks"
 import { Skeleton } from "@/components/ui/skeleton"
 import { useDateRange } from "@/hooks/pages/dashboard/analytics/useDateRange"
 import { useAnalyticsData } from "@/hooks/pages/dashboard/analytics/useAnalyticsData"
+import { AnalyticsMap } from "@/components/maps/pages/dashboard/analytics/analytics-map"
 import { getQrCodeAnalyticsAction } from "@/app/actions/pages/dashboard/analytics/get-qr-code-analytics-action"
 import { AnalyticsDurationChangeForm } from "@/components/forms/pages/dashboard/analytics/analytics-form/anayltics-duration-change-form"
 import { DeviceAnalyticsChart } from "@/components/charts/pages/dashboard/analytics/device-analytics-chart"
@@ -56,6 +57,7 @@ export const AnalyticsReport: React.FC<AnalyticsReportProps> = ({ id }) => {
             fromDateFormatted={fromDateFormatted!}
             toDateFormatted={toDateFormatted}
           />
+          <AnalyticsMap />
         </>
       )}
     </section>
