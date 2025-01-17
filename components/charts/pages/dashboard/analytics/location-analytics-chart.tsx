@@ -19,6 +19,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
+import { locationAnalytics } from "@/utils/location-analytics"
 
 export const description = "A bar chart with a location analytics"
 
@@ -42,17 +43,7 @@ export const LocationAnalyticsChart = ({
   toDateFormatted,
   numberOfDays,
 }: LocationAnalyticsChartProps) => {
-  const summedCountries: qrAnayticsType[] = []
-  const countryMap = new Map()
-
-  data?.forEach((curr) => {
-    if (countryMap.has(curr.country)) {
-      countryMap.get(curr.country).count += curr.count
-    } else {
-      countryMap.set(curr.country, curr)
-      summedCountries.push(curr)
-    }
-  })
+  const groupedCountries = locationAnalytics(data)
 
   return (
     <Card>
@@ -66,7 +57,7 @@ export const LocationAnalyticsChart = ({
         <ChartContainer config={chartConfig}>
           <BarChart
             accessibilityLayer
-            data={summedCountries}
+            data={groupedCountries}
             margin={{
               top: 20,
             }}

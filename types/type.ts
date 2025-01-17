@@ -147,3 +147,8 @@ export interface userNameInputType {
 }
 
 export type formType = UseFormReturn<any, any, undefined>
+
+export type geoDataType = {
+  country: string
+  count: number
+}
