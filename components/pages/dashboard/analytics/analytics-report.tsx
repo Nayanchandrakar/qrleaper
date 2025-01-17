@@ -6,7 +6,6 @@ import { useAction } from "next-safe-action/hooks"
 
 import { Skeleton } from "@/components/ui/skeleton"
 import { useDateRange } from "@/hooks/pages/dashboard/analytics/useDateRange"
-import { GeoAnalytics } from "@/components/pages/dashboard/analytics/geo-analytics"
 import { useAnalyticsData } from "@/hooks/pages/dashboard/analytics/useAnalyticsData"
 import { DeviceAnalyticsChart } from "@/components/charts/pages/dashboard/analytics/device-analytics-chart"
 import { getQrCodeAnalyticsAction } from "@/app/actions/pages/dashboard/analytics/get-qr-code-analytics-action"
