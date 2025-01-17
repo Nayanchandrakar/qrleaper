@@ -57,7 +57,7 @@ export const AnalyticsReport: React.FC<AnalyticsReportProps> = ({ id }) => {
             fromDateFormatted={fromDateFormatted!}
             toDateFormatted={toDateFormatted}
           />
-          <GeoAnalytics data={data} />
+          {/* <GeoAnalytics data={data} /> */}
         </>
       )}
     </section>
