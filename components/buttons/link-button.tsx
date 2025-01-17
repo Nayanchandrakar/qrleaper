@@ -15,7 +15,7 @@ export const LinkButton = ({
   return (
     <Link
       className={cn(
-        "text-sm text-gray-500 transition-colors duration-200 hover:text-gray-800 font-semibold",
+        "text-sm text-gray-100 transition-colors duration-200 hover:text-gray-200 font-semibold",
         className
       )}
       href={href}

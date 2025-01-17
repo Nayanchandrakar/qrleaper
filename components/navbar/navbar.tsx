@@ -23,7 +23,7 @@ const Navbar = ({ session }: NavbarProps) => {
   }
 
   return (
-    <header className="sticky overflow-hidden top-0 z-[60] h-[62px] w-full border-b border-b-zinc-300 bg-white ">
+    <header className="sticky overflow-hidden top-0 z-[60] h-[62px] w-full bg-gradient-brand ">
       <Container className="flex size-full items-center justify-between">
         <NavbarLogo />
         <NavigationMenu session={session} />

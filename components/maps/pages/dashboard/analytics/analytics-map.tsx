@@ -2,7 +2,6 @@
 
 import "leaflet/dist/leaflet.css"
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css"
-import "leaflet-defaulticon-compatibility"
 
 import type { LatLngExpression } from "leaflet"
 import { MapContainer, TileLayer, GeoJSON } from "react-leaflet"
@@ -31,12 +30,11 @@ const AnalyticsMap = ({ data }: MapProps) => {
       />
 
       <GeoJSON
+        // eslint-disable-next-line  @typescript-eslint/no-explicit-any
         data={countries as any}
         style={(feature) => {
-          const countryCode = feature?.properties?.ISO_A2
-
           return {
-            fillColor: getColor(data[countryCode] ?? 0),
+            fillColor: getColor(data[feature?.properties?.ISO_A2] ?? 0),
             weight: 0.4,
             color: "transparent",
             opacity: 1,
