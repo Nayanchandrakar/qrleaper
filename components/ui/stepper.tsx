@@ -57,7 +57,7 @@ const Stepper = React.forwardRef<HTMLDivElement, StepperProps>(
     React.useEffect(() => {
       if (typeof isFirstStep === "function") isFirstStep(isFirstStepValue)
       if (typeof isLastStep === "function") isLastStep(isLastStepValue)
-    }, [isFirstStep, isFirstStepValue, isLastStep, isLastStepValue])
+    }, [isFirstStepValue, isLastStepValue])
 
     return (
       <div

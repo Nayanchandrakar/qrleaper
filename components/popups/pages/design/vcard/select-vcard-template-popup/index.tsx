@@ -10,18 +10,23 @@ import {
 import { useVcardTemplate } from "@/hooks/pages/design/vcard/useVcardTemplate"
 
 interface SelectTemplatePopupProps {
-  isCollapsible?: boolean
+  onCollapse?: () => void
   onConfirm: () => void
 }
 
 export const SelectTemplatePopup = ({
-  isCollapsible = false,
   onConfirm,
+  onCollapse,
 }: SelectTemplatePopupProps) => {
   const { isOpen, setIsOpen } = useVcardTemplate()
 
+  const onClose = (value: boolean) => {
+    if (!value && onCollapse) onCollapse()
+    setIsOpen(value)
+  }
+
   return (
-    <Dialog open={isCollapsible || true} onOpenChange={setIsOpen}>
+    <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Testing</DialogTitle>

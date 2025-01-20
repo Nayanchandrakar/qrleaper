@@ -5,15 +5,29 @@ import React from "react"
 import { Step } from "@/components/ui/step"
 import { Button } from "@/components/ui/button"
 import { Stepper } from "@/components/ui/stepper"
-import { stepperIcons } from "@/constants/pages/design/vcard/stepper-data"
+import {
+  stepperIcons,
+  stepperComponents,
+} from "@/constants/pages/design/vcard/stepper-data"
+import { useStepper } from "@/hooks/pages/design/vcard/useStepper"
 
 export function VcardCreateStepperForm() {
-  const [activeStep, setActiveStep] = React.useState(0)
-  const [isLastStep, setIsLastStep] = React.useState(false)
-  const [isFirstStep, setIsFirstStep] = React.useState(false)
+  const {
+    activeStep,
+    isFirstStep,
+    isLastStep,
+    onNext,
+    onPrev,
+    setActiveStep,
+    setIsFirstStep,
+    setIsLastStep,
+  } = useStepper()
 
-  const handleNext = () => !isLastStep && setActiveStep((cur) => cur + 1)
-  const handlePrev = () => !isFirstStep && setActiveStep((cur) => cur - 1)
+  const handleNext = () => !isLastStep && onNext()
+  const handlePrev = () => !isFirstStep && onPrev()
+
+  const StepperComponent = stepperComponents.find((e) => e.index === activeStep)
+    ?.Component!
 
   return (
     <div className="w-full">
@@ -28,6 +42,8 @@ export function VcardCreateStepperForm() {
           </Step>
         ))}
       </Stepper>
+
+      <StepperComponent />
 
       <div className="mt-8 flex justify-between">
         <Button onClick={handlePrev} disabled={isFirstStep}>

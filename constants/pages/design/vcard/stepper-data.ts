@@ -1,3 +1,4 @@
+import { TemplateComponent } from "@/components/pages/design/vcard/template-component"
 import { LayoutTemplate, UserPen, QrCode } from "lucide-react"
 
 export const stepperIcons = [
@@ -15,5 +16,13 @@ export const stepperIcons = [
     id: 33456346346,
     Icon: QrCode,
     label: "",
+  },
+]
+
+export const stepperComponents = [
+  {
+    id: 2345466,
+    index: 0,
+    Component: TemplateComponent,
   },
 ]
