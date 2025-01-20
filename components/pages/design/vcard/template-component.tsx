@@ -21,7 +21,7 @@ export const TemplateComponent = () => {
 
   const onCollapse = () => {
     setIsOpen(false)
-    router.push("/design")
+    router.back()
   }
 
   useEffect(() => {

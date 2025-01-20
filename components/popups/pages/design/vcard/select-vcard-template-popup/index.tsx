@@ -1,8 +1,12 @@
 "use client"
 
+import { TemplateCarousel } from "@/components/carousels/pages/design/vcard/template-carousel"
+import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
@@ -27,10 +31,18 @@ export const SelectTemplatePopup = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent>
+      <DialogContent className="max-w-[600px]">
         <DialogHeader>
-          <DialogTitle>Testing</DialogTitle>
+          <DialogTitle>Choose Template</DialogTitle>
+          <DialogDescription>
+            Select from the pre-designed templates below to create your
+            customized Vcard QR Code.
+          </DialogDescription>
         </DialogHeader>
+        <TemplateCarousel />
+        <DialogFooter>
+          <Button className="bg-green-600">Next</Button>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   )

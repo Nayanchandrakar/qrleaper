@@ -20,6 +20,8 @@ export const virtualCardFormSchema = z.object({
     max_profile_image_upload_size
   ),
 
+  templateId: z.string().min(1).max(10),
+
   // Gallery Images
   images: z
     .array(createFileSchema(profile_image_type, max_vcard_image_upload_size))
