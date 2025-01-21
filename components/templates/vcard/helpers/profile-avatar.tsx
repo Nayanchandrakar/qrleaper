@@ -1,7 +1,6 @@
-import { Loader } from "lucide-react"
-
-import { getFilePath } from "@/utils/client"
+import { getFilePath, getObjectFileSrc } from "@/utils/client"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Skeleton } from "@/components/ui/skeleton"
 
 interface ProfileAvatarProps {
   lastName: string
@@ -11,6 +10,7 @@ interface ProfileAvatarProps {
   suffix: string | null
   middleName: string | null
   jobTitle: string | null
+  isPreviewMode: boolean
 }
 
 export const ProfileAvatar = ({
@@ -21,13 +21,17 @@ export const ProfileAvatar = ({
   prefix,
   suffix,
   profileImage,
+  isPreviewMode,
 }: ProfileAvatarProps) => {
   return (
     <>
       <Avatar className="size-24">
-        <AvatarImage className="object-cover" src={getFilePath(profileImage)} />
+        <AvatarImage
+          className="object-cover"
+          src={getObjectFileSrc(isPreviewMode, profileImage)!}
+        />
         <AvatarFallback>
-          <Loader className="size-5 animate-spin" />
+          <Skeleton className="size-full" />
         </AvatarFallback>
       </Avatar>
       <div className="flex items-center justify-center flex-col gap-2">

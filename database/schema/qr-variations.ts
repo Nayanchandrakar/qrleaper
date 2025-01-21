@@ -161,6 +161,8 @@ export const qrVirtualCard = pgTable(
         onDelete: "cascade",
       })
       .notNull(),
+
+    templateId: text("template_id").notNull(),
     userName: text("user_name").unique().notNull(),
 
     // Profile Image

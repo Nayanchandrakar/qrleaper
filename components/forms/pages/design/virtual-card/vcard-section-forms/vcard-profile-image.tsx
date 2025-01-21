@@ -16,11 +16,11 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { getProfileImage } from "@/utils/client"
 
 interface VcardProfileImageUploadFormProps {
-  isExecuting: boolean
+  isExecuting?: boolean
 }
 
 export const VcardProfileImageUploadForm = ({
-  isExecuting,
+  isExecuting = false,
 }: VcardProfileImageUploadFormProps) => {
   const { control, getValues, setValue } = useFormContext()
   const imageSrc = getValues("profileImage")

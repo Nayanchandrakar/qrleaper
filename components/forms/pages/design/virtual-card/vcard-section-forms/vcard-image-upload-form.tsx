@@ -19,11 +19,11 @@ import { ImageActionCard } from "@/components/cards/pages/design/vcard/image-act
 import { getFileName, getProfileImage } from "@/utils/client"
 
 interface VcardImageUploadFormType {
-  isExecuting: boolean
+  isExecuting?: boolean
 }
 
 export const VcardImageUploadForm = ({
-  isExecuting,
+  isExecuting = false,
 }: VcardImageUploadFormType) => {
   const { setValue, getValues, formState, control } = useFormContext()
 

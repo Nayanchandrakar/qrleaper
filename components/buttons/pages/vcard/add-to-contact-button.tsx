@@ -10,11 +10,13 @@ import { createDownloadInstance } from "@/utils/download-instance"
 interface AddToContactButtonProps {
   data: qrCodevCardType
   endpoint: string
+  isPreviewMode: boolean
 }
 
 export const AddToContactButton: React.FC<AddToContactButtonProps> = ({
   data,
   endpoint,
+  isPreviewMode,
 }) => {
   const [isLoading, setIsLoading] = useTransition()
 
@@ -33,8 +35,8 @@ export const AddToContactButton: React.FC<AddToContactButtonProps> = ({
   return (
     <Button
       size="lg"
-      disabled={isLoading}
       onClick={handleDownload}
+      disabled={isLoading || isPreviewMode}
       className="bg-gradient-brand mt-2"
     >
       {isLoading && <Loader className="animate-spin size-4" />}

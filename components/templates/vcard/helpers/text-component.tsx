@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-import { VcardInfo } from "@/components/pages/vcard/vcard-info"
+import { VcardInfo } from "@/components/templates/vcard/helpers/vcard-info"
 
 interface TextComponentProps {
   text: string

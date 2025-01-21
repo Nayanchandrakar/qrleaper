@@ -12,11 +12,11 @@ import { VCardLabelCard } from "@/components/cards/pages/design/vcard/vcard-labe
 import { useFormContext } from "react-hook-form"
 
 interface PhoneNumberSectionProps {
-  isExecuting: boolean
+  isExecuting?: boolean
 }
 
 export const PhoneNumberSection = ({
-  isExecuting,
+  isExecuting = false,
 }: PhoneNumberSectionProps) => {
   const { control } = useFormContext()
 

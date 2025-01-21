@@ -7,31 +7,38 @@ import { Icons } from "@/components/shared/icons"
 import type { qrCodevCardType } from "@/types/db-types"
 import {
   formatAddress,
-  getFilePath,
+  getObjectFileSrc,
   shouldRenderVcardInfo,
 } from "@/utils/client"
-import { VcardInfo } from "@/components/pages/vcard/vcard-info"
-import { SocialIcon } from "@/components/pages/vcard/social-icon"
+import { VcardInfo } from "@/components/templates/vcard/helpers/vcard-info"
+import { SocialIcon } from "@/components/templates/vcard/helpers/social-icon"
 import { ListComponent } from "@/components/global/list-component"
-import { ProfileAvatar } from "@/components/pages/vcard/profile-avatar"
-import { TextComponent } from "@/components/pages/vcard/text-component"
+import { ProfileAvatar } from "@/components/templates/vcard/helpers/profile-avatar"
+import { TextComponent } from "@/components/templates/vcard/helpers/text-component"
 import { AddToContactButton } from "@/components/buttons/pages/vcard/add-to-contact-button"
 
-interface ShowVcardComponentProps {
+interface CorePreviewComponentProps {
   vCard: qrCodevCardType
-  endpoint: string
+  endpoint?: string
+  isPreviewMode?: boolean
 }
 
-export const RenderVcardComponent = ({
+export const CorePreviewComponent = ({
   vCard,
-  endpoint,
-}: ShowVcardComponentProps) => {
+  endpoint = "id",
+  isPreviewMode = false,
+}: CorePreviewComponentProps) => {
+  console.log(vCard)
   return (
     <section className="flex flex-col items-center justify-center">
       <div className="flex items-center justify-center flex-col gap-3">
-        <ProfileAvatar {...vCard} />
+        <ProfileAvatar {...vCard} isPreviewMode={isPreviewMode} />
 
-        <AddToContactButton data={vCard!} endpoint={endpoint} />
+        <AddToContactButton
+          data={vCard!}
+          endpoint={endpoint}
+          isPreviewMode={isPreviewMode}
+        />
         {shouldRenderVcardInfo([
           vCard.mobileNumber,
           vCard.workEmail,
@@ -162,7 +169,7 @@ export const RenderVcardComponent = ({
                 renderItem={(data) => (
                   <Image
                     key={data}
-                    src={getFilePath(data)}
+                    src={getObjectFileSrc(isPreviewMode, data)!}
                     alt="Gallery Image"
                     width={1000}
                     height={1000}

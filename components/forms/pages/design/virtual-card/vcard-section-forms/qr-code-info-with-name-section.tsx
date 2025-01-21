@@ -14,12 +14,12 @@ import { VCardLabelCard } from "@/components/cards/pages/design/vcard/vcard-labe
 import { UserNameInput } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/username-input"
 
 interface QrCodeInfoWithNameSectionProps {
-  isExecuting: boolean
+  isExecuting?: boolean
   isEditForm?: boolean
 }
 
 export const QrCodeInfoWithNameSection = ({
-  isExecuting,
+  isExecuting = false,
   isEditForm = false,
 }: QrCodeInfoWithNameSectionProps) => {
   const form = useFormContext()
@@ -27,21 +27,6 @@ export const QrCodeInfoWithNameSection = ({
   return (
     <div className="space-y-6">
       <VCardLabelCard>Basic Information</VCardLabelCard>
-      <FormField
-        control={form.control}
-        name="title"
-        disabled={isExecuting}
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>QR title</FormLabel>
-            <FormControl>
-              <Input type="text" placeholder="example:StarBucks" {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-
       <div className="flex items-center sm:flex-row flex-col gap-4 sm:gap-3 ">
         <FormField
           control={form.control}

@@ -2,11 +2,17 @@ import type { Session } from "next-auth"
 import type QRCodeStyling from "qr-code-styling"
 import type { UseFormReturn } from "react-hook-form"
 import type { FileExtension } from "qr-code-styling"
-import type { qrCodeStyleType, qrCodeType, qrScanCountType } from "./db-types"
+import type {
+  qrCodeStyleType,
+  qrCodeType,
+  qrScanCountType,
+} from "@/types/db-types"
+import type { virtualCardFormSchemaType } from "@/zod/forms/vcard/virtual-card-form-schema"
 
 export type SessionType = Session | null
 export type qrCodeRefType = QRCodeStyling | null
 export type FileExtensionTypeExtended = FileExtension | "pdf"
+export type VcarStepperFieldNameType = keyof virtualCardFormSchemaType
 
 export interface QrCodeProps {
   shape?: "square" | "circle"

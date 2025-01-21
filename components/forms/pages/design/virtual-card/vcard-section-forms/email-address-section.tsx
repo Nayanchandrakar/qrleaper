@@ -13,11 +13,11 @@ import { Input } from "@/components/ui/input"
 import { VCardLabelCard } from "@/components/cards/pages/design/vcard/vcard-label-card"
 
 interface EmailAddressSectionProps {
-  isExecuting: boolean
+  isExecuting?: boolean
 }
 
 export const EmailAddressSection = ({
-  isExecuting,
+  isExecuting = false,
 }: EmailAddressSectionProps) => {
   const { control } = useFormContext()
 

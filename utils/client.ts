@@ -10,6 +10,17 @@ export const formatAddress = (...texts: (string | null | undefined)[]) => {
   return texts.filter(Boolean).join(", ")
 }
 
+export const getObjectFileSrc = (
+  isPreviewMode: boolean,
+  url: File | string
+) => {
+  if (isPreviewMode && typeof url === "object") {
+    return URL.createObjectURL(url)
+  } else if (!isPreviewMode && typeof url === "string") {
+    return getFilePath(url)
+  }
+}
+
 export const getProfileImage = (image: File | string) => {
   if (!image) return ""
 

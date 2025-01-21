@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation"
 
+import { getTemplateComponent } from "@/utils/pages/design/vcard"
 import { getQrCodeById, getVCardQrCodeByqrCodeId } from "@/app/actions/utils"
-import { RenderVcardComponent } from "@/components/pages/vcard"
 
 export const metadata = {
   title: "QR Leapers User Profile Page",
@@ -24,11 +24,13 @@ const ShowVcardPage = async ({ params }: ShowVcardPageProps) => {
 
   const vCard = await getVCardQrCodeByqrCodeId(qrCode.id)
 
+  const TemplateComponent = getTemplateComponent(vCard?.templateId!)
+
   return (
     <section className="size-full relative">
       <div className="design-mesh fixed size-full z-[-1]" />
       <div className="max-w-4xl mx-auto my-20">
-        <RenderVcardComponent vCard={vCard!} endpoint={qrCode.endpoint!} />
+        <TemplateComponent vCard={vCard!} endpoint={qrCode.endpoint!} />
       </div>
     </section>
   )

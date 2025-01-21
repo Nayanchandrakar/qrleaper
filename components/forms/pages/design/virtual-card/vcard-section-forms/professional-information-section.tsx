@@ -13,11 +13,11 @@ import { Input } from "@/components/ui/input"
 import { VCardLabelCard } from "@/components/cards/pages/design/vcard/vcard-label-card"
 
 interface ProfessionalInformationSection {
-  isExecuting: boolean
+  isExecuting?: boolean
 }
 
 export const ProfessionalInformationSection = ({
-  isExecuting,
+  isExecuting = false,
 }: ProfessionalInformationSection) => {
   const form = useFormContext()
 

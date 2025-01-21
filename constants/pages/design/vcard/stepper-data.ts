@@ -1,28 +1,75 @@
-import { TemplateComponent } from "@/components/pages/design/vcard/template-component"
 import { LayoutTemplate, UserPen, QrCode } from "lucide-react"
 
-export const stepperIcons = [
+import { DesignComponent } from "@/components/pages/design/vcard/design-component"
+import { TemplateComponent } from "@/components/pages/design/vcard/template-component"
+import { VirtualCardForm } from "@/components/forms/pages/design/virtual-card/virtual-card-form"
+
+export const stepperVcardData = [
   {
     id: 43453453245,
     Icon: LayoutTemplate,
     label: "",
+    index: 0,
+    Component: TemplateComponent,
+    fields: ["templateId"],
   },
   {
     id: 4373463456,
     Icon: UserPen,
     label: "",
+    index: 1,
+    Component: VirtualCardForm,
+    fields: [
+      "profileImage",
+      "images",
+      "userName",
+      "firstName",
+      "lastName",
+      "middleName",
+      "prefix",
+      "suffix",
+      "mobileNumber",
+      "workNumber",
+      "homeNumber",
+      "whatsappNumber",
+      "faxNumber",
+      "personalEmail",
+      "workEmail",
+      "homeStreet",
+      "homeCity",
+      "homeState",
+      "homeZip",
+      "homeCountry",
+      "workStreet",
+      "workCity",
+      "workState",
+      "workZip",
+      "workCountry",
+      "website",
+      "company",
+      "jobTitle",
+      "department",
+      "linkedin",
+      "twitter",
+      "instagram",
+      "facebook",
+      "note",
+    ],
   },
   {
     id: 33456346346,
     Icon: QrCode,
     label: "",
-  },
-]
-
-export const stepperComponents = [
-  {
-    id: 2345466,
-    index: 0,
-    Component: TemplateComponent,
+    index: 2,
+    Component: DesignComponent,
+    fields: [
+      "title",
+      "style.color",
+      "style.bottomInput",
+      "style.topInput",
+      "style.shape",
+      "style.hasFramee",
+      "style.image",
+    ],
   },
 ]

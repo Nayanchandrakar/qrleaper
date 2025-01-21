@@ -14,14 +14,12 @@ export const TemplateComponent = () => {
 
   const onConfirm = () => {
     setIsOpen(false)
-
-    // Proceed for vcard form
-    setActiveStep(2)
+    setActiveStep(1)
   }
 
   const onCollapse = () => {
     setIsOpen(false)
-    router.back()
+    router.push("/design")
   }
 
   useEffect(() => {

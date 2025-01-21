@@ -4,79 +4,64 @@ import React from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { FormProvider, useForm } from "react-hook-form"
 
-import { Step } from "@/components/ui/step"
-import { Stepper } from "@/components/ui/stepper"
-import {
-  stepperIcons,
-  stepperComponents,
-} from "@/constants/pages/design/vcard/stepper-data"
+import { MouseEventType } from "@/types/event-types"
+import { VcarStepperFieldNameType } from "@/types/type"
+
 import {
   virtualCardFormSchema,
   virtualCardFormSchemaType,
 } from "@/zod/forms/vcard/virtual-card-form-schema"
-import { colorsList } from "@/constants/qr/colors"
+
 import { useStepper } from "@/hooks/pages/design/vcard/useStepper"
-import { templateCarouselData } from "@/constants/pages/design/vcard/template-carousel-data"
+import { StepperBar } from "@/components/pages/design/vcard/stepper-bar"
+import { stepperVcardData } from "@/constants/pages/design/vcard/stepper-data"
+import { useVcardCreateHandler } from "@/handlers/pages/design/vcard/useVcardCreateHandler"
+import { vcardCreateDefaultValues } from "@/constants/global/vcard-create-form-default-values"
 import { StepperNavigationButtons } from "@/components/buttons/pages/vcard/vcard-stepper-pre-buttons"
+import { useVcardFormPersist } from "@/hooks/forms/design/useVcardFormPersist"
 
 export function VcardCreateStepperForm() {
-  const {
-    activeStep,
-    isFirstStep,
-    isLastStep,
-    onNext,
-    onPrev,
-    setActiveStep,
-    setIsFirstStep,
-    setIsLastStep,
-  } = useStepper()
-
-  const handleNext = () => !isLastStep && onNext()
-  const handlePrev = () => !isFirstStep && onPrev()
-
-  const StepperComponent = stepperComponents.find((e) => e.index === activeStep)
-    ?.Component!
+  const { activeStep, isFirstStep, isLastStep, onNext, onPrev } = useStepper()
 
   const form = useForm<virtualCardFormSchemaType>({
     resolver: zodResolver(virtualCardFormSchema),
-    defaultValues: {
-      title: "",
-      firstName: "",
-      lastName: "",
-      templateId: templateCarouselData[0].templateId,
-      style: {
-        bottomInput: "",
-        image: "",
-        topInput: "",
-        color: colorsList[0],
-        hasFrame: false,
-        shape: "square",
-      },
-    },
+    defaultValues: vcardCreateDefaultValues,
+    mode: "onChange",
   })
+
+  useVcardFormPersist(form)
+
+  const { onSubmit, isExecuting } = useVcardCreateHandler({ reset: form.reset })
+  const currentStep = stepperVcardData.find((e) => e.index === activeStep)!
+  const StepperComponent = currentStep?.Component
+
+  const handleNext = async (event: MouseEventType) => {
+    const isSuccess = await form.trigger(
+      currentStep.fields as VcarStepperFieldNameType[],
+      { shouldFocus: true }
+    )
+
+    if (isSuccess && isLastStep) form.handleSubmit(onSubmit)(event)
+    if (isSuccess && !isLastStep) onNext()
+  }
+
+  const handlePrev = () => !isFirstStep && onPrev()
 
   return (
     <FormProvider {...form}>
-      <Stepper
-        activeStep={activeStep}
-        isLastStep={(value) => setIsLastStep(value)}
-        isFirstStep={(value) => setIsFirstStep(value)}
-      >
-        {stepperIcons.map(({ Icon, id }, index) => (
-          <Step key={id} onClick={() => setActiveStep(index)}>
-            <Icon className="size-5" />
-          </Step>
-        ))}
-      </Stepper>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <StepperBar />
 
-      {/* Component  */}
-      <StepperComponent />
+        <div className="my-12">
+          <StepperComponent />
+        </div>
 
-      {/* Stepper Navigation Buttons  */}
-      <StepperNavigationButtons
-        handleNext={handleNext}
-        handlePrev={handlePrev}
-      />
+        <StepperNavigationButtons
+          handleNext={handleNext}
+          handlePrev={handlePrev}
+          isExecuting={isExecuting}
+        />
+      </form>
     </FormProvider>
   )
 }

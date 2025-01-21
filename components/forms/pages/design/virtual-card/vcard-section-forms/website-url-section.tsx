@@ -13,10 +13,12 @@ import { Input } from "@/components/ui/input"
 import { VCardLabelCard } from "@/components/cards/pages/design/vcard/vcard-label-card"
 
 interface WebsiteSectionProps {
-  isExecuting: boolean
+  isExecuting?: boolean
 }
 
-export const WebsiteSection = ({ isExecuting }: WebsiteSectionProps) => {
+export const WebsiteSection = ({
+  isExecuting = false,
+}: WebsiteSectionProps) => {
   const form = useFormContext()
 
   return (

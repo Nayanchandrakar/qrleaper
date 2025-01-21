@@ -13,11 +13,11 @@ import { Input } from "@/components/ui/input"
 import { VCardLabelCard } from "@/components/cards/pages/design/vcard/vcard-label-card"
 
 interface SocialMediaProfileSectionProps {
-  isExecuting: boolean
+  isExecuting?: boolean
 }
 
 export const SocialMediaProfileSection = ({
-  isExecuting,
+  isExecuting = false,
 }: SocialMediaProfileSectionProps) => {
   const form = useFormContext()
 

@@ -13,11 +13,11 @@ import { Textarea } from "@/components/ui/textarea"
 import { VCardLabelCard } from "@/components/cards/pages/design/vcard/vcard-label-card"
 
 interface AdditionalInformationSectionProps {
-  isExecuting: boolean
+  isExecuting?: boolean
 }
 
 export const AdditionalInformationSection = ({
-  isExecuting,
+  isExecuting = false,
 }: AdditionalInformationSectionProps) => {
   const form = useFormContext()
 

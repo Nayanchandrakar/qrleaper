@@ -1,6 +1,5 @@
 "use client"
 
-import { TemplateCarousel } from "@/components/carousels/pages/design/vcard/template-carousel"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -12,6 +11,7 @@ import {
 } from "@/components/ui/dialog"
 
 import { useVcardTemplate } from "@/hooks/pages/design/vcard/useVcardTemplate"
+import { TemplateCarousel } from "@/components/carousels/pages/design/vcard/template-carousel"
 
 interface SelectTemplatePopupProps {
   onCollapse?: () => void
@@ -41,7 +41,9 @@ export const SelectTemplatePopup = ({
         </DialogHeader>
         <TemplateCarousel />
         <DialogFooter>
-          <Button className="bg-green-600">Next</Button>
+          <Button variant="primary" onClick={onConfirm}>
+            Continue
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
