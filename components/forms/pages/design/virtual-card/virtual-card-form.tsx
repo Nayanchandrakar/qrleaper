@@ -13,7 +13,7 @@ import { QrCodeInfoWithNameSection } from "@/components/forms/pages/design/virtu
 import { ProfessionalInformationSection } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/professional-information-section"
 import { SocialMediaProfileSection } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/social-media-profile-section"
 
-export const VirtualCardForm = () => {
+const VirtualCardForm = () => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[60%_38%] gap-8 items-start">
       <div className="space-y-7">
@@ -33,3 +33,5 @@ export const VirtualCardForm = () => {
     </div>
   )
 }
+
+export default VirtualCardForm

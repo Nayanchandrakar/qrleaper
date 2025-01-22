@@ -18,7 +18,7 @@ export function PhoneLayout({
     >
       <span className="size-5 top-3 z-10 rounded-full absolute inset-0 left-[50%] -translate-x-[50%] bg-black" />
 
-      <div className="py-12 overflow-y-auto rounded-[30px] h-[35rem]">
+      <div className="py-12 overflow-y-auto rounded-[30px] h-[35rem] ">
         {children}
       </div>
     </div>

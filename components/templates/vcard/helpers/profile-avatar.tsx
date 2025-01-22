@@ -28,7 +28,11 @@ export const ProfileAvatar = ({
       <Avatar className="size-24">
         <AvatarImage
           className="object-cover"
-          src={getObjectFileSrc(isPreviewMode, profileImage)!}
+          src={
+            isPreviewMode && profileImage === undefined
+              ? "/global/profile-pic.jpg"
+              : getObjectFileSrc(isPreviewMode, profileImage)!
+          }
         />
         <AvatarFallback>
           <Skeleton className="size-full" />

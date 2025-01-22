@@ -7,7 +7,7 @@ import { useStepper } from "@/hooks/pages/design/vcard/useStepper"
 import { useVcardTemplate } from "@/hooks/pages/design/vcard/useVcardTemplate"
 import { SelectTemplatePopup } from "@/components/popups/pages/design/vcard/select-vcard-template-popup"
 
-export const TemplateComponent = () => {
+const TemplateComponent = () => {
   const router = useRouter()
   const { setActiveStep } = useStepper()
   const { setIsOpen, isOpen } = useVcardTemplate()
@@ -28,3 +28,5 @@ export const TemplateComponent = () => {
 
   return <SelectTemplatePopup onCollapse={onCollapse} onConfirm={onConfirm} />
 }
+
+export default TemplateComponent

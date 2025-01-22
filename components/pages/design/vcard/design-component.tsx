@@ -8,7 +8,7 @@ interface DesignComponentProps {
   isExecuting: boolean
 }
 
-export const DesignComponent = ({ isExecuting }: DesignComponentProps) => {
+const DesignComponent = ({ isExecuting }: DesignComponentProps) => {
   return (
     <section className="grid grid-cols-1 lg:grid-cols-2 gap-8">
       <div>
@@ -20,3 +20,5 @@ export const DesignComponent = ({ isExecuting }: DesignComponentProps) => {
     </section>
   )
 }
+
+export default DesignComponent

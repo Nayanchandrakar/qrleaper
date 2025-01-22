@@ -10,9 +10,10 @@ import {
   getObjectFileSrc,
   shouldRenderVcardInfo,
 } from "@/utils/client"
+
+import { ListComponent } from "@/components/global/list-component"
 import { VcardInfo } from "@/components/templates/vcard/helpers/vcard-info"
 import { SocialIcon } from "@/components/templates/vcard/helpers/social-icon"
-import { ListComponent } from "@/components/global/list-component"
 import { ProfileAvatar } from "@/components/templates/vcard/helpers/profile-avatar"
 import { TextComponent } from "@/components/templates/vcard/helpers/text-component"
 import { AddToContactButton } from "@/components/buttons/pages/vcard/add-to-contact-button"
@@ -23,12 +24,11 @@ interface CorePreviewComponentProps {
   isPreviewMode?: boolean
 }
 
-export const CorePreviewComponent = ({
+const CorePreviewComponent = ({
   vCard,
   endpoint = "id",
   isPreviewMode = false,
 }: CorePreviewComponentProps) => {
-  console.log(vCard)
   return (
     <section className="flex flex-col items-center justify-center ">
       <div className="flex items-center justify-center flex-col gap-3">
@@ -248,3 +248,5 @@ export const CorePreviewComponent = ({
     </section>
   )
 }
+
+export default CorePreviewComponent

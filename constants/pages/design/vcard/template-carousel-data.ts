@@ -1,16 +1,16 @@
-import { CorePreviewComponent } from "@/components/templates/vcard/core"
+import { CoreVcardPreviewComponentDynamic } from "@/components/dynamic"
 
 export const templateCarouselData = [
   {
     id: 434346346,
     templateId: "A7B3C8D2",
     image: "/vcard/template1.webp",
-    Component: CorePreviewComponent,
+    Component: CoreVcardPreviewComponentDynamic,
   },
   {
     id: 236346443,
     templateId: "ALDEU345",
     image: "/vcard/template1.webp",
-    Component: CorePreviewComponent,
+    Component: CoreVcardPreviewComponentDynamic,
   },
 ]

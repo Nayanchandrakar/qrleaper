@@ -14,11 +14,11 @@ import {
 
 import { useStepper } from "@/hooks/pages/design/vcard/useStepper"
 import { StepperBar } from "@/components/pages/design/vcard/stepper-bar"
+import { useVcardFormPersist } from "@/hooks/forms/design/useVcardFormPersist"
 import { stepperVcardData } from "@/constants/pages/design/vcard/stepper-data"
 import { useVcardCreateHandler } from "@/handlers/pages/design/vcard/useVcardCreateHandler"
 import { vcardCreateDefaultValues } from "@/constants/global/vcard-create-form-default-values"
 import { StepperNavigationButtons } from "@/components/buttons/pages/vcard/vcard-stepper-pre-buttons"
-import { useVcardFormPersist } from "@/hooks/forms/design/useVcardFormPersist"
 
 export function VcardCreateStepperForm() {
   const { activeStep, isFirstStep, isLastStep, onNext, onPrev } = useStepper()
@@ -53,7 +53,7 @@ export function VcardCreateStepperForm() {
         <StepperBar />
 
         <div className="my-12">
-          <StepperComponent />
+          <StepperComponent isExecuting={isExecuting} />
         </div>
 
         <StepperNavigationButtons
