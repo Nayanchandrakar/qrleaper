@@ -1,9 +1,9 @@
 import { LayoutTemplate, UserPen, QrCode } from "lucide-react"
 
 import {
-  DesignComponentDynamic,
-  TemplateComponentDynamic,
-  VcardDesignFormDynamic,
+  TemplateComponent,
+  VcardCreateForm,
+  VcardQrCodeDesign,
 } from "@/components/dynamic"
 
 export const stepperVcardData = [
@@ -12,7 +12,7 @@ export const stepperVcardData = [
     Icon: LayoutTemplate,
     label: "",
     index: 0,
-    Component: TemplateComponentDynamic,
+    Component: TemplateComponent,
     fields: ["templateId"],
   },
   {
@@ -20,7 +20,7 @@ export const stepperVcardData = [
     Icon: UserPen,
     label: "",
     index: 1,
-    Component: VcardDesignFormDynamic,
+    Component: VcardCreateForm,
     fields: [
       "profileImage",
       "images",
@@ -63,7 +63,7 @@ export const stepperVcardData = [
     Icon: QrCode,
     label: "",
     index: 2,
-    Component: DesignComponentDynamic,
+    Component: VcardQrCodeDesign,
     fields: [
       "title",
       "style.color",

@@ -9,6 +9,10 @@ export const StepperBar = () => {
   const { activeStep, setIsFirstStep, setIsLastStep, setActiveStep } =
     useStepper()
 
+  const onClick = (index: number) => {
+    if (activeStep > index) setActiveStep(index)
+  }
+
   return (
     <Stepper
       activeStep={activeStep}
@@ -16,7 +20,7 @@ export const StepperBar = () => {
       isFirstStep={(value) => setIsFirstStep(value)}
     >
       {stepperVcardData?.map(({ Icon, id, index }) => (
-        <Step key={id} onClick={() => setActiveStep(index)}>
+        <Step key={id} onClick={() => onClick(index)}>
           <Icon className="size-5" />
         </Step>
       ))}

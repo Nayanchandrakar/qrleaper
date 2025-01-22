@@ -1,9 +1,10 @@
 import React from "react"
+
 import { cn } from "@/lib/utils"
 
 interface PhoneLayoutProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-export function PhoneLayout({
+export function PhoneFrame({
   children,
   className,
   ...props
@@ -16,9 +17,9 @@ export function PhoneLayout({
       )}
       {...props}
     >
-      <span className="size-5 top-3 z-10 rounded-full absolute inset-0 left-[50%] -translate-x-[50%] bg-black" />
+      <span className="h-6 w-28 z-10 rounded-b-lg absolute inset-0 left-[50%] -translate-x-[50%] bg-black" />
 
-      <div className="py-12 overflow-y-auto rounded-[30px] h-[35rem] ">
+      <div className="py-12 hide-scrollbar overflow-y-auto rounded-[30px] h-[35rem] ">
         {children}
       </div>
     </div>

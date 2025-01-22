@@ -68,7 +68,10 @@ const VcardInfoSubDescription = ({
   ...props
 }: VcardInfoTitleProps) => {
   return (
-    <p className={cn("text-sm font-medium text-black", className)} {...props}>
+    <p
+      className={cn("text-sm font-medium text-black break-all", className)}
+      {...props}
+    >
       {children}
     </p>
   )

@@ -1,5 +1,6 @@
 "use client"
 
+import { VcardTemplateCarousel } from "@/components/carousels/vcard-template-carousel"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -11,7 +12,6 @@ import {
 } from "@/components/ui/dialog"
 
 import { useVcardTemplate } from "@/hooks/pages/design/vcard/useVcardTemplate"
-import { TemplateCarousel } from "@/components/carousels/pages/design/vcard/template-carousel"
 
 interface SelectTemplatePopupProps {
   onCollapse?: () => void
@@ -39,7 +39,7 @@ export const SelectTemplatePopup = ({
             customized Vcard QR Code.
           </DialogDescription>
         </DialogHeader>
-        <TemplateCarousel />
+        <VcardTemplateCarousel />
         <DialogFooter>
           <Button variant="primary" onClick={onConfirm}>
             Continue

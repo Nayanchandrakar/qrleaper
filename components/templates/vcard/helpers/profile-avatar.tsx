@@ -39,7 +39,7 @@ export const ProfileAvatar = ({
         </AvatarFallback>
       </Avatar>
       <div className="flex items-center justify-center flex-col gap-2">
-        <h3 className="font-semibold text-green-600 text-xl text-center">
+        <h3 className="font-bold text-green-600 text-lg sm:text-xl text-center">
           {prefix} {firstName} {middleName} {lastName}
           <br />
           {suffix}

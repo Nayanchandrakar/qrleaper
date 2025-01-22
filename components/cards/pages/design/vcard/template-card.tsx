@@ -18,7 +18,7 @@ export const TemplateSelectCard = ({
   return (
     <CarouselItem
       className={cn(
-        "md:basis-1/2 h-[25rem] border-[3px] rounded-lg flex items-center justify-center pl-0 transition-all duration-200  border-zinc-200 cursor-pointer",
+        "sm:basis-1/2 h-[25rem] border-[3px] rounded-lg flex items-center justify-center pl-0 transition-all duration-200  border-zinc-200 cursor-pointer",
         className
       )}
       {...props}

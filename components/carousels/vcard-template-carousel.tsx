@@ -12,11 +12,9 @@ import {
 import { TemplateSelectCard } from "@/components/cards/pages/design/vcard/template-card"
 import { templateCarouselData } from "@/constants/pages/design/vcard/template-carousel-data"
 
-export const TemplateCarousel = () => {
-  const { setValue, getValues, formState } = useFormContext()
+export const VcardTemplateCarousel = () => {
+  const { setValue, getValues } = useFormContext()
   const currentTemplateId = getValues("templateId")
-
-  console.log(formState.errors)
 
   return (
     <Carousel opts={{ align: "center" }}>

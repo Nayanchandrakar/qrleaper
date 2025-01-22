@@ -1,7 +1,7 @@
 import { ListComponent } from "@/components/global/list-component"
 import { newQrData } from "@/constants/layouts/design/new-qr-data"
 import { HeadingShortner } from "@/components/global/heading-shortner"
-import { NewQrCodeGridCard } from "@/components/cards/layouts/design/new-qr-code-grid-card"
+import { NewQrCodeGridCard } from "@/components/cards/pages/design/new-qr-code-grid-card"
 
 export const NewQrCodeGrid = () => {
   return (

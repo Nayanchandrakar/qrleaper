@@ -24,7 +24,9 @@ interface CorePreviewComponentProps {
   isPreviewMode?: boolean
 }
 
-const CorePreviewComponent = ({
+// Dynamic Component
+
+export default ({
   vCard,
   endpoint = "id",
   isPreviewMode = false,
@@ -248,5 +250,3 @@ const CorePreviewComponent = ({
     </section>
   )
 }
-
-export default CorePreviewComponent

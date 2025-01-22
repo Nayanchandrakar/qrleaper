@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button"
 import type { MouseEventType } from "@/types/event-types"
 import { useStepper } from "@/hooks/pages/design/vcard/useStepper"
+import { Loader } from "lucide-react"
 
 interface StepperNavigationButtonProps {
   handlePrev: () => void
@@ -31,8 +32,11 @@ export const StepperNavigationButtons = ({
         variant="primary"
         type="button"
         onClick={handleNext}
-        disabled={isLastStep || isExecuting}
+        disabled={isExecuting}
       >
+        {isExecuting && isLastStep && (
+          <Loader className="animate-spin size-4" />
+        )}
         Continue
       </Button>
     </div>

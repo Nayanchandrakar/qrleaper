@@ -83,3 +83,7 @@ body {
     ),
     radial-gradient(at 67% 43%, hsla(104, 100%, 82%, 0.5) 0px, transparent 50%);
 }
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}

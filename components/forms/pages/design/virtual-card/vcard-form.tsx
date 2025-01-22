@@ -4,8 +4,8 @@ import React from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { FormProvider, useForm } from "react-hook-form"
 
-import { MouseEventType } from "@/types/event-types"
-import { VcarStepperFieldNameType } from "@/types/type"
+import type { MouseEventType } from "@/types/event-types"
+import type { VcarStepperFieldNameType } from "@/types/type"
 
 import {
   virtualCardFormSchema,
@@ -13,14 +13,14 @@ import {
 } from "@/zod/forms/vcard/virtual-card-form-schema"
 
 import { useStepper } from "@/hooks/pages/design/vcard/useStepper"
-import { StepperBar } from "@/components/pages/design/vcard/stepper-bar"
 import { useVcardFormPersist } from "@/hooks/forms/design/useVcardFormPersist"
 import { stepperVcardData } from "@/constants/pages/design/vcard/stepper-data"
 import { useVcardCreateHandler } from "@/handlers/pages/design/vcard/useVcardCreateHandler"
 import { vcardCreateDefaultValues } from "@/constants/global/vcard-create-form-default-values"
 import { StepperNavigationButtons } from "@/components/buttons/pages/vcard/vcard-stepper-pre-buttons"
+import { StepperBar } from "@/components/forms/pages/design/virtual-card/stepper-components/stepper-bar"
 
-export function VcardCreateStepperForm() {
+export function VCardForm() {
   const { activeStep, isFirstStep, isLastStep, onNext, onPrev } = useStepper()
 
   const form = useForm<virtualCardFormSchemaType>({
@@ -31,7 +31,10 @@ export function VcardCreateStepperForm() {
 
   useVcardFormPersist(form)
 
-  const { onSubmit, isExecuting } = useVcardCreateHandler({ reset: form.reset })
+  const { onSubmit, isExecuting, throwFormErrors } = useVcardCreateHandler({
+    form,
+  })
+
   const currentStep = stepperVcardData.find((e) => e.index === activeStep)!
   const StepperComponent = currentStep?.Component
 
@@ -41,8 +44,13 @@ export function VcardCreateStepperForm() {
       { shouldFocus: true }
     )
 
-    if (isSuccess && isLastStep) form.handleSubmit(onSubmit)(event)
-    if (isSuccess && !isLastStep) onNext()
+    if (!isSuccess) {
+      throwFormErrors()
+      return
+    }
+
+    if (isLastStep) form.handleSubmit(onSubmit)(event)
+    if (!isLastStep) onNext()
   }
 
   const handlePrev = () => !isFirstStep && onPrev()

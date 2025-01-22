@@ -2,9 +2,9 @@
 
 import { useFormContext } from "react-hook-form"
 
-import { qrCodevCardType } from "@/types/db-types"
+import type { qrCodevCardType } from "@/types/db-types"
+import { PhoneFrame } from "@/components/global/phone-frame"
 import { getTemplateComponent } from "@/utils/pages/design/vcard"
-import { PhoneLayout } from "@/components/cards/layouts/design/vcard/phone-layout"
 
 export const VcardTemplatePreview = () => {
   const { getValues } = useFormContext()
@@ -14,12 +14,12 @@ export const VcardTemplatePreview = () => {
 
   return (
     <div className="flex items-center justify-center h-fit sticky top-20">
-      <PhoneLayout>
+      <PhoneFrame>
         <TemplateComponent
           vCard={formValues as qrCodevCardType}
           isPreviewMode
         />
-      </PhoneLayout>
+      </PhoneFrame>
     </div>
   )
 }

@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { VCardLabelCard } from "@/components/cards/pages/design/vcard/vcard-label-card"
-import { UserNameInput } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/username-input"
+import { UserNameInput } from "./username-input"
 
 interface QrCodeInfoWithNameSectionProps {
   isExecuting?: boolean

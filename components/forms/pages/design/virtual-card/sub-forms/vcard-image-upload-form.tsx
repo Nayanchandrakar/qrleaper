@@ -54,22 +54,6 @@ export const VcardImageUploadForm = ({
     setValue("images", previousFiles, setValueConfig)
   }
 
-  useEffect(() => {
-    if (!formErrors) return
-
-    Object?.keys(formErrors)?.forEach((key) => {
-      const errors = formErrors[key]
-
-      if (key === "images" && Array.isArray(errors)) {
-        errors.forEach((error) => {
-          toast.error(error?.message)
-        })
-      } else if (errors?.message) {
-        toast.error(errors.message as string)
-      }
-    })
-  }, [formErrors])
-
   return (
     <div className="space-y-3">
       <VCardLabelCard>Images Upload</VCardLabelCard>

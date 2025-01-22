@@ -11,23 +11,31 @@ export const AnalyticsMapDynamic = dynamic(
   }
 )
 
-export const TemplateComponentDynamic = dynamic(
-  () => import("@/components/pages/design/vcard/template-component"),
-  { ssr: false }
-)
-
-export const VcardDesignFormDynamic = dynamic(
+export const TemplateComponent = dynamic(
   () =>
-    import("@/components/forms/pages/design/virtual-card/virtual-card-form"),
+    import(
+      "@/components/forms/pages/design/virtual-card/stepper-components/template-component"
+    ),
   { ssr: false }
 )
 
-export const DesignComponentDynamic = dynamic(
-  () => import("@/components/pages/design/vcard/design-component"),
+export const VcardCreateForm = dynamic(
+  () =>
+    import(
+      "@/components/forms/pages/design/virtual-card/sub-forms/vcard-create-form"
+    ),
   { ssr: false }
 )
 
-export const CoreVcardPreviewComponentDynamic = dynamic(
+export const VcardQrCodeDesign = dynamic(
+  () =>
+    import(
+      "@/components/forms/pages/design/virtual-card/stepper-components/vcard-qr-code-design"
+    ),
+  { ssr: false }
+)
+
+export const CoreVcardPreview = dynamic(
   () => import("@/components/templates/vcard/core"),
   { ssr: false }
 )

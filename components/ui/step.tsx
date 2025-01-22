@@ -21,7 +21,7 @@ export const Step = React.forwardRef<HTMLDivElement, StepProps>(
         {...rest}
         ref={ref}
         className={cn(
-          "relative z-10 grid place-items-center size-10 rounded-full bg-zinc-100 text-zinc-800 font-bold transition-all duration-300",
+          "relative cursor-pointer z-10 grid place-items-center size-10 rounded-full bg-zinc-100 text-zinc-800 font-bold transition-all duration-300",
           className
         )}
       >
