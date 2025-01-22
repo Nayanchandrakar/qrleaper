@@ -13,7 +13,7 @@ export const VcardTemplatePreview = () => {
   const TemplateComponent = getTemplateComponent(formValues?.templateId)
 
   return (
-    <div className="flex items-center justify-center h-fit">
+    <div className="flex items-center justify-center h-fit sticky top-20">
       <PhoneLayout>
         <TemplateComponent
           vCard={formValues as qrCodevCardType}

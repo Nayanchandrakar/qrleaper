@@ -30,7 +30,7 @@ export const CorePreviewComponent = ({
 }: CorePreviewComponentProps) => {
   console.log(vCard)
   return (
-    <section className="flex flex-col items-center justify-center">
+    <section className="flex flex-col items-center justify-center ">
       <div className="flex items-center justify-center flex-col gap-3">
         <ProfileAvatar {...vCard} isPreviewMode={isPreviewMode} />
 
