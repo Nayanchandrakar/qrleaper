@@ -40,13 +40,23 @@ const Stepper = React.forwardRef<HTMLDivElement, StepperProps>(
       React.Children.count(children) > 0 &&
       activeStep > React.Children.count(children) - 1
 
-    React.useEffect(() => {
+    const updateWidthPerStep = () => {
       if (containerRef.current) {
         const { width } = containerRef.current.getBoundingClientRect()
         const totalSteps = React.Children.count(children)
         const widthPerStepCalc = totalSteps > 1 ? width / (totalSteps - 1) : 0
 
         setWidthPerStep(widthPerStepCalc)
+      }
+    }
+
+    React.useEffect(() => {
+      updateWidthPerStep()
+
+      window.addEventListener("resize", updateWidthPerStep)
+
+      return () => {
+        window.removeEventListener("resize", updateWidthPerStep)
       }
     }, [children])
 

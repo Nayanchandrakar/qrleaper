@@ -5,12 +5,16 @@ import { Stepper } from "@/components/ui/stepper"
 import { useStepper } from "@/hooks/pages/design/vcard/useStepper"
 import { stepperVcardData } from "@/constants/pages/design/vcard/stepper-data"
 
-export const StepperBar = () => {
+interface StepperBarProps {
+  isExecuting: boolean
+}
+
+export const StepperBar = ({ isExecuting }: StepperBarProps) => {
   const { activeStep, setIsFirstStep, setIsLastStep, setActiveStep } =
     useStepper()
 
   const onClick = (index: number) => {
-    if (activeStep > index) setActiveStep(index)
+    if (activeStep > index && !isExecuting) setActiveStep(index)
   }
 
   return (
