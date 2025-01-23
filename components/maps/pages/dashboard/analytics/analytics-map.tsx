@@ -1,7 +1,6 @@
 "use client"
 
 import "leaflet/dist/leaflet.css"
-import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css"
 
 import type { LatLngExpression } from "leaflet"
 import { MapContainer, TileLayer, GeoJSON } from "react-leaflet"

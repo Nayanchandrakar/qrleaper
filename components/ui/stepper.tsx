@@ -15,16 +15,19 @@ export interface StepperProps extends React.ComponentProps<"div"> {
 }
 
 const Stepper = React.forwardRef<HTMLDivElement, StepperProps>(
-  ({
-    activeStep = 0,
-    isFirstStep,
-    isLastStep,
-    className,
-    lineClassName,
-    activeLineClassName,
-    children,
-    ...rest
-  }) => {
+  (
+    {
+      activeStep = 0,
+      isFirstStep,
+      isLastStep,
+      className,
+      lineClassName,
+      activeLineClassName,
+      children,
+      ...rest
+    },
+    ref
+  ) => {
     const containerRef = React.useRef<HTMLDivElement | null>(null)
     const [widthPerStep, setWidthPerStep] = React.useState(0)
 
@@ -52,10 +55,15 @@ const Stepper = React.forwardRef<HTMLDivElement, StepperProps>(
     }, [activeStep, isReachEnd, widthPerStep])
 
     React.useEffect(() => {
-      isFirstStep?.(isFirstStepValue)
-      isLastStep?.(isFirstStepValue)
+      if (typeof isFirstStep === "function") {
+        isFirstStep(isFirstStepValue)
+      }
+
+      if (typeof isLastStep === "function") {
+        isLastStep(isFirstStepValue)
+      }
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isFirstStepValue, isLastStepValue, updateWidthPerStep])
+    }, [isFirstStepValue, isLastStepValue])
 
     React.useEffect(() => {
       updateWidthPerStep()
@@ -63,7 +71,7 @@ const Stepper = React.forwardRef<HTMLDivElement, StepperProps>(
       return () => {
         window.removeEventListener("resize", updateWidthPerStep)
       }
-    }, [children, updateWidthPerStep])
+    }, [updateWidthPerStep])
 
     return (
       <div
