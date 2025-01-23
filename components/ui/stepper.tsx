@@ -26,6 +26,7 @@ const Stepper = React.forwardRef<HTMLDivElement, StepperProps>(
       children,
       ...rest
     },
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     ref
   ) => {
     const containerRef = React.useRef<HTMLDivElement | null>(null)

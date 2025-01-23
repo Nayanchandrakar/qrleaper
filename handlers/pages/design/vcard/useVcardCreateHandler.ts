@@ -14,7 +14,8 @@ interface useVcardCreateHandlerProps {
 
 export const useVcardCreateHandler = ({ form }: useVcardCreateHandlerProps) => {
   const router = useRouter()
-  const formErrors = form.formState.errors
+  const formErrors = form?.formState?.errors
+
   const actions = useAction(createVcardQrCodeAction, {
     onSuccess: () => {
       form.reset()

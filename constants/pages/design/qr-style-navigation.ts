@@ -5,25 +5,25 @@ import { ShapeForm } from "@/components/forms/pages/design/qr-style/shape-form"
 
 export const qrStyleNavigationData = [
   {
-    id: 34235,
+    id: 45745745,
     label: "Color",
     value: "color",
     form: ColorForm,
   },
   {
-    id: 346346,
+    id: 5734245,
     label: "Shape",
     value: "shape",
     form: ShapeForm,
   },
   {
-    id: 34235,
+    id: 56454,
     label: "Frame",
     value: "frame",
     form: FrameForm,
   },
   {
-    id: 34235,
+    id: 34637,
     label: "Logo",
     value: "logo",
     form: LogoForm,

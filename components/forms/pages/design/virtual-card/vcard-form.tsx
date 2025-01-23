@@ -44,6 +44,7 @@ export function VCardForm() {
       { shouldFocus: true }
     )
 
+    console.log({ isSuccess, isLastStep })
     if (!isSuccess) {
       throwFormErrors()
       return

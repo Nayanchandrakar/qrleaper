@@ -16,7 +16,6 @@ export const colorsList = [
   "#800080", // Purple
   "#000080", // Dark Navy
   "#00008B", // Navy
-  "#00008B", // Dark Blue
   "#0000FF", // Blue
   "#00CED1", // Dark Turquoise
   "#40E0D0", // Turquoise

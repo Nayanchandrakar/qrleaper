@@ -14,7 +14,7 @@ import { SocialMediaProfileSection } from "@/components/forms/pages/design/virtu
 import { VcardProfileImageUploadForm } from "@/components/forms/pages/design/virtual-card/sub-forms/vcard-profile-image"
 
 // Dynamic Component
-const VcardCreateForm = () => {
+const VcardCreateFormDynamic = () => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[60%_38%] gap-8 items-start">
       <div className="space-y-7">
@@ -35,4 +35,4 @@ const VcardCreateForm = () => {
   )
 }
 
-export default VcardCreateForm
+export default VcardCreateFormDynamic
