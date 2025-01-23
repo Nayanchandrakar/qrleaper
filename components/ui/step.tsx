@@ -6,16 +6,11 @@ import { cn } from "@/lib/utils"
 
 export interface StepProps extends React.ComponentProps<"div"> {
   className?: string
-  activeClassName?: string
-  completedClassName?: string
   children?: React.ReactNode
 }
 
 export const Step = React.forwardRef<HTMLDivElement, StepProps>(
-  (
-    { className, activeClassName, completedClassName, children, ...rest },
-    ref
-  ) => {
+  ({ className, children, ...rest }, ref) => {
     return (
       <div
         {...rest}

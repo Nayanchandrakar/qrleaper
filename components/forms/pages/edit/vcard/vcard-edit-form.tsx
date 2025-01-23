@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, FormProvider } from "react-hook-form"
 
 import { useQrDataContext } from "@/hooks/qr/useQrDataContext"
+import { VcardTemplateChangeButton } from "@/components/dynamic"
 import { QrStyleForm } from "@/components/forms/pages/design/qr-style/qr-style-form"
 import { PreviewQrCard } from "@/components/cards/pages/design/preview-qr-card"
 import { QrEditControl } from "@/components/forms/pages/edit/design/qr-edit-controls"
@@ -15,18 +16,19 @@ import {
   type vCardEditFormSchemaType,
 } from "@/zod/pages/edit/vcard/vcard-edit-form-schema"
 import { editQrVcardType } from "@/types/type"
+
+import { QrCodeInfoWithNameSection } from "@/components/forms/pages/design/virtual-card/sub-forms/qr-code-info-with-name-section"
+import { PhoneNumberSection } from "@/components/forms/pages/design/virtual-card/sub-forms/phone-number-section"
+import { EmailAddressSection } from "@/components/forms/pages/design/virtual-card/sub-forms/email-address-section"
+import { AddressSection } from "@/components/forms/pages/design/virtual-card/sub-forms/addresses-section"
+import { WorkAddressSection } from "@/components/forms/pages/design/virtual-card/sub-forms/work-adddress-section"
+import { WebsiteSection } from "@/components/forms/pages/design/virtual-card/sub-forms/website-url-section"
+import { ProfessionalInformationSection } from "@/components/forms/pages/design/virtual-card/sub-forms/professional-information-section"
+import { AdditionalInformationSection } from "@/components/forms/pages/design/virtual-card/sub-forms/additional-information-section"
+import { VcardImageUploadForm } from "@/components/forms/pages/design/virtual-card/sub-forms/vcard-image-upload-form"
+import { SocialMediaProfileSection } from "@/components/forms/pages/design/virtual-card/sub-forms/social-media-profile-section"
+import { VcardProfileImageUploadForm } from "@/components/forms/pages/design/virtual-card/sub-forms/vcard-profile-image"
 import { updateQrCodeVcardAction } from "@/app/actions/pages/edit/vcard/update-qr-code-vcard-action"
-import { AddressSection } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/addresses-section"
-import { QrCodeInfoWithNameSection } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/qr-code-info-with-name-section"
-import { PhoneNumberSection } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/phone-number-section"
-import { EmailAddressSection } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/email-address-section"
-import { WorkAddressSection } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/work-adddress-section"
-import { WebsiteSection } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/website-url-section"
-import { ProfessionalInformationSection } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/professional-information-section"
-import { SocialMediaProfileSection } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/social-media-profile-section"
-import { AdditionalInformationSection } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/additional-information-section"
-import { VcardProfileImageUploadForm } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/vcard-profile-image"
-import { VcardImageUploadForm } from "@/components/forms/pages/design/virtual-card/vcard-section-forms/vcard-image-upload-form"
 
 interface VcardEditFormProps {
   qrCode: editQrVcardType
@@ -100,7 +102,10 @@ export const VcardEditForm = ({ qrCode, endpoint }: VcardEditFormProps) => {
       >
         <div>
           <div className="space-y-7">
-            <VcardProfileImageUploadForm isExecuting={isExecuting} />
+            <div className="flex items-center justify-between gap-4">
+              <VcardProfileImageUploadForm isExecuting={isExecuting} />
+              <VcardTemplateChangeButton isExecuting={isExecuting} />
+            </div>
             <QrCodeInfoWithNameSection isExecuting={isExecuting} isEditForm />
             <PhoneNumberSection isExecuting={isExecuting} />
             <EmailAddressSection isExecuting={isExecuting} />

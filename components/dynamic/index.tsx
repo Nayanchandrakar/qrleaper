@@ -39,3 +39,8 @@ export const CoreVcardPreview = dynamic(
   () => import("@/components/templates/vcard/core"),
   { ssr: false }
 )
+
+export const VcardTemplateChangeButton = dynamic(
+  () => import("@/components/popups/pages/edit/vcard-edit-template-popup"),
+  { ssr: false, loading: () => <Skeleton className="h-9 px-4 py-2 w-72" /> }
+)

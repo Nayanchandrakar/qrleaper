@@ -60,7 +60,7 @@ export function VCardForm() {
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <StepperBar isExecuting={isExecuting} />
 
-        <div className="my-12">
+        <div className="mb-12 mt-20">
           <StepperComponent isExecuting={isExecuting} />
         </div>
 

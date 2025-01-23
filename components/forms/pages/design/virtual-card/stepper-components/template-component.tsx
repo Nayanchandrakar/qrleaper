@@ -8,7 +8,7 @@ import { useVcardTemplate } from "@/hooks/pages/design/vcard/useVcardTemplate"
 import { SelectTemplatePopup } from "@/components/popups/pages/design/vcard/select-vcard-template-popup"
 
 // Dynamic Component
-export default () => {
+const TemplateComponentDynamic = () => {
   const router = useRouter()
   const { setActiveStep } = useStepper()
   const { setIsOpen, isOpen } = useVcardTemplate()
@@ -25,7 +25,9 @@ export default () => {
 
   useEffect(() => {
     if (!isOpen) setIsOpen(true)
-  }, [])
+  }, [isOpen, setIsOpen])
 
   return <SelectTemplatePopup onCollapse={onCollapse} onConfirm={onConfirm} />
 }
+
+export default TemplateComponentDynamic

@@ -10,7 +10,7 @@ export const stepperVcardData = [
   {
     id: 43453453245,
     Icon: LayoutTemplate,
-    label: "",
+    label: "Choose Template",
     index: 0,
     Component: TemplateComponent,
     fields: ["templateId"],
@@ -18,7 +18,7 @@ export const stepperVcardData = [
   {
     id: 4373463456,
     Icon: UserPen,
-    label: "",
+    label: "Enter Information",
     index: 1,
     Component: VcardCreateForm,
     fields: [
@@ -61,7 +61,7 @@ export const stepperVcardData = [
   {
     id: 33456346346,
     Icon: QrCode,
-    label: "",
+    label: "Create QR Code",
     index: 2,
     Component: VcardQrCodeDesign,
     fields: [

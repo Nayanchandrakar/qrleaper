@@ -21,7 +21,7 @@ interface VcardQrCodeDesignProps {
 
 // Dynamic Component
 
-export default ({ isExecuting }: VcardQrCodeDesignProps) => {
+const VcardQrCodeDesignDynamic = ({ isExecuting }: VcardQrCodeDesignProps) => {
   const form = useFormContext()
 
   return (
@@ -59,3 +59,5 @@ export default ({ isExecuting }: VcardQrCodeDesignProps) => {
     </section>
   )
 }
+
+export default VcardQrCodeDesignDynamic

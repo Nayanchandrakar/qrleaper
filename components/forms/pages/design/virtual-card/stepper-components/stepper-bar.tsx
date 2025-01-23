@@ -18,16 +18,24 @@ export const StepperBar = ({ isExecuting }: StepperBarProps) => {
   }
 
   return (
-    <Stepper
-      activeStep={activeStep}
-      isLastStep={(value) => setIsLastStep(value)}
-      isFirstStep={(value) => setIsFirstStep(value)}
-    >
-      {stepperVcardData?.map(({ Icon, id, index }) => (
-        <Step key={id} onClick={() => onClick(index)}>
-          <Icon className="size-5" />
-        </Step>
-      ))}
-    </Stepper>
+    <div className="flex items-center justify-center">
+      <Stepper
+        activeStep={activeStep}
+        isLastStep={(value) => setIsLastStep(value)}
+        isFirstStep={(value) => setIsFirstStep(value)}
+        className="sm:w-[90%]"
+      >
+        {stepperVcardData?.map(({ Icon, id, index, label }) => (
+          <Step key={id} onClick={() => onClick(index)}>
+            <Icon className="size-5" />
+            <div className="sm:inline-block hidden absolute w-max top-[3rem]">
+              <p className="text-sm  font-medium text-zinc-700 text-center">
+                {label}
+              </p>
+            </div>
+          </Step>
+        ))}
+      </Stepper>
+    </div>
   )
 }

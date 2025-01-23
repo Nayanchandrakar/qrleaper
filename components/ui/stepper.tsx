@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react"
+import React, { useCallback } from "react"
 
 import { cn } from "@/lib/utils"
 
@@ -15,19 +15,16 @@ export interface StepperProps extends React.ComponentProps<"div"> {
 }
 
 const Stepper = React.forwardRef<HTMLDivElement, StepperProps>(
-  (
-    {
-      activeStep = 0,
-      isFirstStep,
-      isLastStep,
-      className,
-      lineClassName,
-      activeLineClassName,
-      children,
-      ...rest
-    },
-    ref
-  ) => {
+  ({
+    activeStep = 0,
+    isFirstStep,
+    isLastStep,
+    className,
+    lineClassName,
+    activeLineClassName,
+    children,
+    ...rest
+  }) => {
     const containerRef = React.useRef<HTMLDivElement | null>(null)
     const [widthPerStep, setWidthPerStep] = React.useState(0)
 
@@ -40,23 +37,13 @@ const Stepper = React.forwardRef<HTMLDivElement, StepperProps>(
       React.Children.count(children) > 0 &&
       activeStep > React.Children.count(children) - 1
 
-    const updateWidthPerStep = () => {
+    const updateWidthPerStep = useCallback(() => {
       if (containerRef.current) {
         const { width } = containerRef.current.getBoundingClientRect()
         const totalSteps = React.Children.count(children)
         const widthPerStepCalc = totalSteps > 1 ? width / (totalSteps - 1) : 0
 
         setWidthPerStep(widthPerStepCalc)
-      }
-    }
-
-    React.useEffect(() => {
-      updateWidthPerStep()
-
-      window.addEventListener("resize", updateWidthPerStep)
-
-      return () => {
-        window.removeEventListener("resize", updateWidthPerStep)
       }
     }, [children])
 
@@ -65,16 +52,25 @@ const Stepper = React.forwardRef<HTMLDivElement, StepperProps>(
     }, [activeStep, isReachEnd, widthPerStep])
 
     React.useEffect(() => {
-      if (typeof isFirstStep === "function") isFirstStep(isFirstStepValue)
-      if (typeof isLastStep === "function") isLastStep(isLastStepValue)
-    }, [isFirstStepValue, isLastStepValue])
+      isFirstStep?.(isFirstStepValue)
+      isLastStep?.(isFirstStepValue)
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isFirstStepValue, isLastStepValue, updateWidthPerStep])
+
+    React.useEffect(() => {
+      updateWidthPerStep()
+      window.addEventListener("resize", updateWidthPerStep)
+      return () => {
+        window.removeEventListener("resize", updateWidthPerStep)
+      }
+    }, [children, updateWidthPerStep])
 
     return (
       <div
         {...rest}
         ref={containerRef}
         className={cn(
-          "w-full relative flex items-center justify-between",
+          "w-full relative flex items-center justify-between ",
           className
         )}
       >
@@ -91,6 +87,7 @@ const Stepper = React.forwardRef<HTMLDivElement, StepperProps>(
           )}
           style={{ width: `${width}px` }}
         />
+        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
         {React.Children.map(children, (child: any, index) =>
           React.cloneElement(child as React.ReactElement, {
             className: cn(

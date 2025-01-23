@@ -2,6 +2,7 @@ import React from "react"
 
 import { cn } from "@/lib/utils"
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface PhoneLayoutProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function PhoneFrame({

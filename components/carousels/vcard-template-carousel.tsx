@@ -12,7 +12,12 @@ import {
 import { TemplateSelectCard } from "@/components/cards/pages/design/vcard/template-card"
 import { templateCarouselData } from "@/constants/pages/design/vcard/template-carousel-data"
 
-export const VcardTemplateCarousel = () => {
+interface VCardTemplateCarouselProps {
+  onSelect?: () => void
+}
+export const VcardTemplateCarousel = ({
+  onSelect,
+}: VCardTemplateCarouselProps) => {
   const { setValue, getValues } = useFormContext()
   const currentTemplateId = getValues("templateId")
 
@@ -34,6 +39,7 @@ export const VcardTemplateCarousel = () => {
                 shouldTouch: true,
                 shouldValidate: true,
               })
+              onSelect?.()
             }}
           />
         ))}

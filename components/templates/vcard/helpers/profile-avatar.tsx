@@ -1,4 +1,4 @@
-import { getFilePath, getObjectFileSrc } from "@/utils/client"
+import { getObjectFileSrc } from "@/utils/client"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Skeleton } from "@/components/ui/skeleton"
 

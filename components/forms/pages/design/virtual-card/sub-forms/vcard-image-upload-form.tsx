@@ -1,7 +1,5 @@
 "use client"
 
-import { toast } from "sonner"
-import { useEffect } from "react"
 import { CloudUpload } from "lucide-react"
 import { useFormContext } from "react-hook-form"
 
@@ -25,10 +23,9 @@ interface VcardImageUploadFormType {
 export const VcardImageUploadForm = ({
   isExecuting = false,
 }: VcardImageUploadFormType) => {
-  const { setValue, getValues, formState, control } = useFormContext()
+  const { setValue, getValues, control } = useFormContext()
 
   const images = getValues("images") as (File | string)[]
-  const formErrors = formState?.errors
   const isFileExceptLimitExceed = !!(images?.length >= 4)
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
