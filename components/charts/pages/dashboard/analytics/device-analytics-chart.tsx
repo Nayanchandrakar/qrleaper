@@ -45,9 +45,9 @@ const groupDataByDate = (data: qrAnayticsType[]) => {
   /* eslint-disable  @typescript-eslint/no-explicit-any */
   const groupedData = new Map<string, any>()
 
-  data.forEach((device) => {
-    const deviceType = device.deviceType || "Unknown"
-    const date = device.updatedAt?.toDateString()
+  data?.forEach((device) => {
+    const deviceType = device?.deviceType || "Unknown"
+    const date = device?.updatedAt?.toDateString()
 
     if (!groupedData.has(date!)) {
       groupedData.set(date!, { date, desktop: 0, mobile: 0, other: 0 })
