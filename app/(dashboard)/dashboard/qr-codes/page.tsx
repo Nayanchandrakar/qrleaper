@@ -45,7 +45,9 @@ const QrCodePage = async ({ searchParams }: QrCodePageProps) => {
 
       <ListComponent
         data={data}
-        renderItem={(cardData) => <QrCard data={cardData} />}
+        renderItem={(cardData) => (
+          <QrCard key={cardData.qr_code.id} data={cardData} />
+        )}
         className="mt-12 grid grid-cols-1 gap-3 sm:grid-cols-2 min-[880px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
       />
 
