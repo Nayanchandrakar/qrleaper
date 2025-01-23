@@ -44,7 +44,6 @@ export function VCardForm() {
       { shouldFocus: true }
     )
 
-    console.log({ isSuccess, isLastStep })
     if (!isSuccess) {
       throwFormErrors()
       return
@@ -62,7 +61,7 @@ export function VCardForm() {
         <StepperBar isExecuting={isExecuting} />
 
         <div className="mb-12 mt-20">
-          <StepperComponent isExecuting={isExecuting} />
+          {StepperComponent && <StepperComponent isExecuting={isExecuting} />}
         </div>
 
         <StepperNavigationButtons
