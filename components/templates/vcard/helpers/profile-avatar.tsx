@@ -24,7 +24,6 @@ export const ProfileAvatar = ({
   profileImage,
   isPreviewMode,
 }: ProfileAvatarProps) => {
-  // Memoize the image source URL to prevent unnecessary re-renders
   const imageSrc = useMemo(() => {
     return isPreviewMode && profileImage === undefined
       ? "/global/profile-pic.jpg"
@@ -34,10 +33,7 @@ export const ProfileAvatar = ({
   return (
     <>
       <Avatar className="size-24">
-        <AvatarImage
-          className="object-cover"
-          src={imageSrc} // Use the memoized image source
-        />
+        <AvatarImage className="object-cover" src={imageSrc} />
         <AvatarFallback>
           <Skeleton className="size-full" />
         </AvatarFallback>

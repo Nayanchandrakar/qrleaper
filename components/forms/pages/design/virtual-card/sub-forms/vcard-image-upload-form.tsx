@@ -14,7 +14,6 @@ import { setValueConfig } from "@/constants/react-hook"
 import { ListComponent } from "@/components/global/list-component"
 import { VCardLabelCard } from "@/components/cards/pages/design/vcard/vcard-label-card"
 import { ImageActionCard } from "@/components/cards/pages/design/vcard/image-action-card"
-import { getFileName, getProfileImage } from "@/utils/client"
 
 interface VcardImageUploadFormType {
   isExecuting?: boolean
@@ -62,8 +61,7 @@ export const VcardImageUploadForm = ({
           <ImageActionCard
             key={index + 2}
             disabled={isExecuting}
-            fileName={getFileName(file)}
-            src={getProfileImage(file)}
+            file={file}
             onDelete={() => onDelete(file)}
           />
         )}

@@ -1,23 +1,30 @@
 "use client"
 
 import Image from "next/image"
+import { useMemo } from "react"
 import { Trash } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
+import { getFileName, getProfileImage } from "@/utils/client"
 
 interface ImageActionCardProps {
-  fileName?: string
-  src: string
   disabled?: boolean
   onDelete: () => void
+  file: File | string
 }
 
 export const ImageActionCard = ({
-  src,
-  fileName,
   disabled = false,
   onDelete,
+  file,
 }: ImageActionCardProps) => {
+  const { fileName, imageSrc } = useMemo(() => {
+    return {
+      fileName: getFileName(file),
+      imageSrc: getProfileImage(file),
+    }
+  }, [file])
+
   return (
     <div className="group flex items-center justify-center rounded-lg overflow-hidden relative h-80">
       <div className="absolute top-4 w-full h-fit px-4 flex items-center justify-between gap-4">
@@ -40,7 +47,7 @@ export const ImageActionCard = ({
       </div>
 
       <Image
-        src={src}
+        src={imageSrc}
         width={1000}
         sizes="100vw"
         height={1000}

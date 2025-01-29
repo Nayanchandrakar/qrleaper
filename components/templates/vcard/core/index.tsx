@@ -1,15 +1,10 @@
 "use client"
 
-import Image from "next/image"
 import { Facebook, Instagram, Linkedin, Mail, Phone } from "lucide-react"
 
 import { Icons } from "@/components/shared/icons"
 import type { qrCodevCardType } from "@/types/db-types"
-import {
-  formatAddress,
-  getObjectFileSrc,
-  shouldRenderVcardInfo,
-} from "@/utils/client"
+import { formatAddress, shouldRenderVcardInfo } from "@/utils/client"
 
 import { ListComponent } from "@/components/global/list-component"
 import { VcardInfo } from "@/components/templates/vcard/helpers/vcard-info"
@@ -17,6 +12,7 @@ import { SocialIcon } from "@/components/templates/vcard/helpers/social-icon"
 import { ProfileAvatar } from "@/components/templates/vcard/helpers/profile-avatar"
 import { TextComponent } from "@/components/templates/vcard/helpers/text-component"
 import { AddToContactButton } from "@/components/buttons/pages/vcard/add-to-contact-button"
+import { VcardImageGallery } from "@/components/templates/vcard/helpers/vcard-image-gallery"
 
 interface CorePreviewComponentProps {
   vCard: qrCodevCardType
@@ -169,14 +165,9 @@ const CorePreviewComponentDynamic = ({
                 data={vCard.images}
                 className="flex flex-col gap-6 mt-5"
                 renderItem={(data) => (
-                  <Image
-                    key={data}
-                    src={getObjectFileSrc(isPreviewMode, data)!}
-                    alt="Gallery Image"
-                    width={1000}
-                    height={1000}
-                    sizes="100vw"
-                    className="rounded-lg"
+                  <VcardImageGallery
+                    imageSrc={data}
+                    isPreviewMode={isPreviewMode}
                   />
                 )}
               />
