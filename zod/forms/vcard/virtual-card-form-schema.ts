@@ -32,6 +32,7 @@ export const virtualCardFormSchema = z.object({
     .string()
     .min(3, { message: "Username is a required field and it must be unique" })
     .max(32)
+    .nonempty("Username is a required field and it must be unique")
     .refine((str) => {
       return regexPatterns.specialCharacters.test(str)
     }, "Username must not contain any special characters"),
