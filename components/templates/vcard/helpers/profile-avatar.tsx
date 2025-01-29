@@ -1,3 +1,4 @@
+import { useMemo } from "react"
 import { getObjectFileSrc } from "@/utils/client"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Skeleton } from "@/components/ui/skeleton"
@@ -23,16 +24,19 @@ export const ProfileAvatar = ({
   profileImage,
   isPreviewMode,
 }: ProfileAvatarProps) => {
+  // Memoize the image source URL to prevent unnecessary re-renders
+  const imageSrc = useMemo(() => {
+    return isPreviewMode && profileImage === undefined
+      ? "/global/profile-pic.jpg"
+      : getObjectFileSrc(isPreviewMode, profileImage)!
+  }, [isPreviewMode, profileImage])
+
   return (
     <>
       <Avatar className="size-24">
         <AvatarImage
           className="object-cover"
-          src={
-            isPreviewMode && profileImage === undefined
-              ? "/global/profile-pic.jpg"
-              : getObjectFileSrc(isPreviewMode, profileImage)!
-          }
+          src={imageSrc} // Use the memoized image source
         />
         <AvatarFallback>
           <Skeleton className="size-full" />

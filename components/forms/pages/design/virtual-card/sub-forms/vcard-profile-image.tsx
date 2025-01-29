@@ -2,6 +2,7 @@
 
 import { Camera, User } from "lucide-react"
 import { useFormContext } from "react-hook-form"
+import { useMemo } from "react"
 
 import {
   FormControl,
@@ -25,6 +26,9 @@ export const VcardProfileImageUploadForm = ({
   const { control, getValues, setValue } = useFormContext()
   const imageSrc = getValues("profileImage")
 
+  // Memoize the profile image URL to prevent unnecessary re-renders
+  const profileImageUrl = useMemo(() => getProfileImage(imageSrc), [imageSrc])
+
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0]
@@ -45,7 +49,7 @@ export const VcardProfileImageUploadForm = ({
               <Avatar className="size-20 relative group cursor-pointer">
                 <AvatarImage
                   className="object-cover"
-                  src={getProfileImage(imageSrc)}
+                  src={profileImageUrl} // Use the memoized URL
                 />
                 <span className="w-full h-7 bg-black/20 backdrop-blur-sm absolute -bottom-[5rem] flex item-center justify-center group-hover:bottom-0 transition-all duration-200">
                   <Camera className="text-white size-4 mt-1" />
