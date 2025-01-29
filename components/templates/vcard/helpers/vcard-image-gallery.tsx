@@ -16,7 +16,7 @@ export const VcardImageGallery = ({
 }: VcardImageGalleryProps) => {
   const data = useMemo(
     () => getObjectFileSrc(isPreviewMode, imageSrc),
-    [imageSrc]
+    [imageSrc, isPreviewMode]
   )
 
   return (
