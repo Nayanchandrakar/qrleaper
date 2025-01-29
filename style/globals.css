@@ -87,3 +87,24 @@ body {
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+.vcard-create-scrollbar::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+.vcard-create-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 30px;
+}
+
+/* Handle */
+.vcard-create-scrollbar::-webkit-scrollbar-thumb {
+  background: #c0bebe;
+  border-radius: 30px;
+}
+
+/* Handle on hover */
+.vcard-create-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #aaa9a9;
+}
