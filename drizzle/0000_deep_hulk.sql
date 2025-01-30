@@ -173,6 +173,7 @@ CREATE TABLE IF NOT EXISTS "qr_message" (
 CREATE TABLE IF NOT EXISTS "qr_virtual_card" (
 	"id" text PRIMARY KEY NOT NULL,
 	"qr_code_id" text NOT NULL,
+	"template_id" text NOT NULL,
 	"user_name" text NOT NULL,
 	"profile_image" text NOT NULL,
 	"images" text[],

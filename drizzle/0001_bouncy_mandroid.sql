@@ -1,1 +1,0 @@
-ALTER TABLE "qr_virtual_card" ADD COLUMN "template_id" text NOT NULL;

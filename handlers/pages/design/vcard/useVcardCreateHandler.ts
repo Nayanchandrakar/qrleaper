@@ -5,8 +5,10 @@ import { useRouter } from "next/navigation"
 import { useAction } from "next-safe-action/hooks"
 
 import type { formType } from "@/types/type"
-import { createVcardQrCodeAction } from "@/app/actions/pages/design/vcard/create-vcard-qr-code-action"
+
+import { useStepper } from "@/hooks/pages/design/vcard/useStepper"
 import { virtualCardFormSchemaType } from "@/zod/forms/vcard/virtual-card-form-schema"
+import { createVcardQrCodeAction } from "@/app/actions/pages/design/vcard/create-vcard-qr-code-action"
 
 interface useVcardCreateHandlerProps {
   form: formType
@@ -14,11 +16,19 @@ interface useVcardCreateHandlerProps {
 
 export const useVcardCreateHandler = ({ form }: useVcardCreateHandlerProps) => {
   const router = useRouter()
+  const { setIsFirstStep, setActiveStep, setIsLastStep } = useStepper()
   const formErrors = form?.formState?.errors
+
+  const handleClear = () => {
+    form.reset()
+    setActiveStep(1)
+    setIsFirstStep(false)
+    setIsLastStep(false)
+  }
 
   const actions = useAction(createVcardQrCodeAction, {
     onSuccess: () => {
-      form.reset()
+      handleClear()
       router.push("/dashboard/qr-codes")
       toast.success("Successfully created a QR Code")
     },

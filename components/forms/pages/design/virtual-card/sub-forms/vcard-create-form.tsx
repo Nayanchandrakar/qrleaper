@@ -16,8 +16,8 @@ import { VcardProfileImageUploadForm } from "@/components/forms/pages/design/vir
 // Dynamic Component
 const VcardCreateFormDynamic = () => {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[60%_38%] gap-8 items-start h-fit">
-      <div className="space-y-7 h-full max-h-[40rem] overflow-y-scroll vcard-create-scrollbar pr-4">
+    <div className="grid grid-cols-1 lg:grid-cols-[60%_40%] gap-8 items-start h-fit">
+      <div className="space-y-7 h-full max-h-[40rem] overflow-y-scroll vcard-create-scrollbar px-2">
         <VcardProfileImageUploadForm />
         <QrCodeInfoWithNameSection />
         <PhoneNumberSection />

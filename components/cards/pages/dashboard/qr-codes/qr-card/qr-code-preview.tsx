@@ -1,11 +1,12 @@
 "use client"
 
 import { useRef } from "react"
+import { Gem } from "lucide-react"
 
+import { getFilePath } from "@/utils/client"
 import { DeleteQrCodeButton } from "./delete-qr-code-button"
 import { QrCode } from "@/components/package/qr-code/qr-code"
 import type { qrCardType, QrCodeProps, qrCodeRefType } from "@/types/type"
-import { getFilePath } from "@/utils/client"
 
 interface QrCodePreviewType {
   endpoint: string
@@ -16,8 +17,15 @@ export const QrCodePreview = ({ endpoint, data }: QrCodePreviewType) => {
   const qrCodeRef = useRef<qrCodeRefType>(null)
   const { qr_code_style: styleData } = data
 
+  const isBussinessCard = data?.qr_code?.type === "vcard"
+
   return (
     <div className="bg-gray-100 flex items-center justify-center h-44 w-full group relative ">
+      {isBussinessCard && (
+        <span className="border rounded-lg flex items-center justify-center size-fit p-2 absolute top-4 left-4 bg-white z-10">
+          <Gem className="text-green-600 size-6" />
+        </span>
+      )}
       <QrCode
         data={endpoint}
         qrCodeRef={qrCodeRef}

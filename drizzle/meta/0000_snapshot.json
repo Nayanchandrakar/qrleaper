@@ -1,5 +1,5 @@
 {
-  "id": "f6ad5629-4568-4d7c-bea6-fde342ae28a7",
+  "id": "85ab053d-6c69-413f-aa81-4efd7f041e3b",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -1367,6 +1367,12 @@
         },
         "qr_code_id": {
           "name": "qr_code_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "template_id": {
+          "name": "template_id",
           "type": "text",
           "primaryKey": false,
           "notNull": true
