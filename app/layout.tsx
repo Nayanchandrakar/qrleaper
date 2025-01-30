@@ -1,7 +1,7 @@
 import "@/style/globals.css"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
 import { SessionProvider } from "next-auth/react"
+import { Inter } from "next/font/google"
 
 import { auth } from "@/lib/auth/auth"
 import { Toaster } from "@/components/ui/sonner"
