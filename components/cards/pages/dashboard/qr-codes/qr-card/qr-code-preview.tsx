@@ -1,7 +1,7 @@
 "use client"
 
 import { useRef } from "react"
-import { Gem } from "lucide-react"
+import { IdCard } from "lucide-react"
 
 import { getFilePath } from "@/utils/client"
 import { DeleteQrCodeButton } from "./delete-qr-code-button"
@@ -23,7 +23,7 @@ export const QrCodePreview = ({ endpoint, data }: QrCodePreviewType) => {
     <div className="bg-gray-100 flex items-center justify-center h-44 w-full group relative ">
       {isBussinessCard && (
         <span className="border rounded-lg flex items-center justify-center size-fit p-2 absolute top-4 left-4 bg-white z-10">
-          <Gem className="text-green-600 size-6" />
+          <IdCard className="text-green-600 size-6" />
         </span>
       )}
       <QrCode
