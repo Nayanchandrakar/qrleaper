@@ -26,7 +26,6 @@ export const StepperBar = forwardRef<HTMLDivElement, StepperBarProps>(
           isLastStep={(value) => setIsLastStep(value)}
           isFirstStep={(value) => setIsFirstStep(value)}
           className="sm:w-[90%]"
-          id="vcard-stepper"
         >
           {stepperVcardData?.map(({ Icon, id, index, label }) => (
             <Step key={id} onClick={() => onClick(index)}>

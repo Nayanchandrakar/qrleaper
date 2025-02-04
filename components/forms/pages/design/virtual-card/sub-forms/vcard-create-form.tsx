@@ -1,5 +1,6 @@
 "use client"
 
+import { Accordion } from "@/components/ui/accordion"
 import { VcardTemplatePreview } from "@/components/cards/pages/design/vcard/vcard-template-preview"
 import { QrCodeInfoWithNameSection } from "@/components/forms/pages/design/virtual-card/sub-forms/qr-code-info-with-name-section"
 import { PhoneNumberSection } from "@/components/forms/pages/design/virtual-card/sub-forms/phone-number-section"
@@ -17,7 +18,12 @@ import { VcardProfileImageUploadForm } from "@/components/forms/pages/design/vir
 const VcardCreateFormDynamic = () => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[60%_40%] gap-8 items-start h-fit">
-      <div className="space-y-7 h-full max-h-[40rem] overflow-y-scroll vcard-create-scrollbar px-2">
+      <Accordion
+        type="single"
+        collapsible
+        className="space-y-7"
+        defaultValue="basic-information"
+      >
         <VcardProfileImageUploadForm />
         <QrCodeInfoWithNameSection />
         <PhoneNumberSection />
@@ -29,7 +35,7 @@ const VcardCreateFormDynamic = () => {
         <SocialMediaProfileSection />
         <AdditionalInformationSection />
         <VcardImageUploadForm />
-      </div>
+      </Accordion>
       <VcardTemplatePreview />
     </div>
   )

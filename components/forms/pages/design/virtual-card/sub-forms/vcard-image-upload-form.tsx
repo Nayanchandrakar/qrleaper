@@ -10,9 +10,14 @@ import {
   FormLabel,
 } from "@/components/ui/form"
 
+import {
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
+
 import { setValueConfig } from "@/constants/react-hook"
 import { ListComponent } from "@/components/global/list-component"
-import { VCardLabelCard } from "@/components/cards/pages/design/vcard/vcard-label-card"
 import { ImageActionCard } from "@/components/cards/pages/design/vcard/image-action-card"
 
 interface VcardImageUploadFormType {
@@ -51,46 +56,49 @@ export const VcardImageUploadForm = ({
   }
 
   return (
-    <div className="space-y-3">
-      <VCardLabelCard>Images Upload</VCardLabelCard>
-
-      <ListComponent
-        data={images}
-        className="grid grid-cols-1 sm:grid-cols-2 gap-3"
-        renderItem={(file, index) => (
-          <ImageActionCard
-            key={index + 2}
-            disabled={isExecuting}
-            file={file}
-            onDelete={() => onDelete(file)}
-          />
-        )}
-      />
-
-      {!isFileExceptLimitExceed && (
-        <FormField
-          control={control}
-          name="images"
-          disabled={isExecuting || isFileExceptLimitExceed}
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          render={({ field: { value, onChange, ...fieldProps } }) => (
-            <FormItem>
-              <FormLabel className="w-full flex items-center justify-center bg-gray-100/60 rounded-md  border border-gray-200 h-[10rem] transition duration-200 hover:bg-gray-100 cursor-pointer  flex-col">
-                <CloudUpload className="size-8 text-gray-400" />
-              </FormLabel>
-              <FormControl>
-                <input
-                  hidden
-                  {...fieldProps}
-                  type="file"
-                  accept="image/*"
-                  onChange={handleOnChange}
-                />
-              </FormControl>
-            </FormItem>
+    <AccordionItem className="border-b-0" value="image-upload">
+      <AccordionTrigger className="px-2 rounded-lg  bg-gray-100 text-gray-500 hover:no-underline">
+        Images Upload
+      </AccordionTrigger>
+      <AccordionContent className="pt-4 px-2 space-y-6">
+        <ListComponent
+          data={images}
+          className="grid grid-cols-1 sm:grid-cols-2 gap-3"
+          renderItem={(file, index) => (
+            <ImageActionCard
+              key={index + 2}
+              disabled={isExecuting}
+              file={file}
+              onDelete={() => onDelete(file)}
+            />
           )}
         />
-      )}
-    </div>
+
+        {!isFileExceptLimitExceed && (
+          <FormField
+            control={control}
+            name="images"
+            disabled={isExecuting || isFileExceptLimitExceed}
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            render={({ field: { value, onChange, ...fieldProps } }) => (
+              <FormItem>
+                <FormLabel className="w-full flex items-center justify-center bg-gray-100/60 rounded-md  border border-gray-200 h-[10rem] transition duration-200 hover:bg-gray-100 cursor-pointer  flex-col">
+                  <CloudUpload className="size-8 text-gray-400" />
+                </FormLabel>
+                <FormControl>
+                  <input
+                    hidden
+                    {...fieldProps}
+                    type="file"
+                    accept="image/*"
+                    onChange={handleOnChange}
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+        )}
+      </AccordionContent>
+    </AccordionItem>
   )
 }

@@ -30,7 +30,7 @@ export const virtualCardFormSchema = z.object({
   // Name Components
   userName: z
     .string({ message: "Username is a required field and it must be unique" })
-    .min(3)
+    .min(3, { message: "Username must include 3 characters" })
     .max(32)
     .nonempty("Username is a required field and it must be unique")
     .refine((str) => {

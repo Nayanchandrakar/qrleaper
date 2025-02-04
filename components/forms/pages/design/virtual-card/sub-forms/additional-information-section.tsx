@@ -9,8 +9,14 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
+
+import {
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
+
 import { Textarea } from "@/components/ui/textarea"
-import { VCardLabelCard } from "@/components/cards/pages/design/vcard/vcard-label-card"
 
 interface AdditionalInformationSectionProps {
   isExecuting?: boolean
@@ -22,26 +28,30 @@ export const AdditionalInformationSection = ({
   const form = useFormContext()
 
   return (
-    <div className="space-y-6">
-      <VCardLabelCard>Additional Information</VCardLabelCard>
-      <FormField
-        control={form.control}
-        name="note"
-        disabled={isExecuting}
-        render={({ field }) => (
-          <FormItem className="w-full">
-            <FormLabel>Additional Information</FormLabel>
-            <FormControl>
-              <Textarea
-                placeholder="Any Additional Information (optional)"
-                {...field}
-                rows={6}
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-    </div>
+    <AccordionItem className="border-b-0" value="additional-information">
+      <AccordionTrigger className="px-2 rounded-lg  bg-gray-100 text-gray-500 hover:no-underline">
+        Additional Information
+      </AccordionTrigger>
+      <AccordionContent className="pt-4 px-2 space-y-6">
+        <FormField
+          control={form.control}
+          name="note"
+          disabled={isExecuting}
+          render={({ field }) => (
+            <FormItem className="w-full">
+              <FormLabel>Additional Information</FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder="Any Additional Information (optional)"
+                  {...field}
+                  rows={6}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </AccordionContent>
+    </AccordionItem>
   )
 }
