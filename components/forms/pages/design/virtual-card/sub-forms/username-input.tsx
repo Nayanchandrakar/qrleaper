@@ -31,7 +31,7 @@ export const UserNameInput = ({
 
   const userNameError = getFieldState("userName")?.error
   const defaultUserName = getValues("userName") as string
-  const [debouncedValue, setValue] = useDebounceValue(defaultUserName, 500)
+  const [debouncedValue, setValue] = useDebounceValue(defaultUserName, 300)
 
   const handleError = (message?: string) => {
     if (!message) {
