@@ -39,7 +39,7 @@ export const UserNameInput = ({
       return
     }
 
-    setError("userName", { message, type: "validate" }, { shouldFocus: true })
+    setError("userName", { message, type: "validate" }, { shouldFocus: false })
   }
 
   const handleValidation = (data: userNameInputType) => {
