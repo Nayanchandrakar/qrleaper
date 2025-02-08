@@ -29,6 +29,7 @@ import { VcardImageUploadForm } from "@/components/forms/pages/design/virtual-ca
 import { SocialMediaProfileSection } from "@/components/forms/pages/design/virtual-card/sub-forms/social-media-profile-section"
 import { VcardProfileImageUploadForm } from "@/components/forms/pages/design/virtual-card/sub-forms/vcard-profile-image"
 import { updateQrCodeVcardAction } from "@/app/actions/pages/edit/vcard/update-qr-code-vcard-action"
+import { Accordion } from "@/components/ui/accordion"
 
 interface VcardEditFormProps {
   qrCode: editQrVcardType
@@ -101,7 +102,12 @@ export const VcardEditForm = ({ qrCode, endpoint }: VcardEditFormProps) => {
         className="grid grid-cols-1 lg:grid-cols-2 gap-8"
       >
         <div>
-          <div className="space-y-7">
+          <Accordion
+            type="single"
+            collapsible
+            defaultValue="basic-information"
+            className="space-y-7"
+          >
             <div className="flex items-center justify-between gap-4">
               <VcardProfileImageUploadForm isExecuting={isExecuting} />
               <VcardTemplateChangeButton isExecuting={isExecuting} />
@@ -122,7 +128,7 @@ export const VcardEditForm = ({ qrCode, endpoint }: VcardEditFormProps) => {
                 JSON.stringify(form.getValues()) === JSON.stringify(qrCode)
               }
             />
-          </div>
+          </Accordion>
           <QrStyleForm />
         </div>
 
