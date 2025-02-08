@@ -1,6 +1,6 @@
 "use client"
 
-import { Loader } from "lucide-react"
+import { Loader, RotateCcw } from "lucide-react"
 import { useCallback } from "react"
 import { useFormContext } from "react-hook-form"
 
@@ -41,8 +41,9 @@ export const StepperNavigationButtons = ({
         type="button"
         disabled={isExecuting}
         onClick={handleReset}
-        className="bg-zinc-100 hover:bg-zinc-100/80 text-accent-foreground"
+        className="bg-zinc-100 hover:bg-zinc-100/80 text-accent-foreground items-center justify-center"
       >
+        <RotateCcw className="size-4" />
         Create New
       </Button>
 
