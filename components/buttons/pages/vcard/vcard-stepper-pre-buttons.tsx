@@ -39,11 +39,11 @@ export const StepperNavigationButtons = ({
     <div className="mt-8 flex justify-end gap-4 sm:flex-row flex-col">
       <Button
         type="button"
-        variant="destructive"
         disabled={isExecuting}
         onClick={handleReset}
+        className="bg-zinc-100 hover:bg-zinc-100/80 text-accent-foreground"
       >
-        Reset Form
+        Create New
       </Button>
 
       <Button
