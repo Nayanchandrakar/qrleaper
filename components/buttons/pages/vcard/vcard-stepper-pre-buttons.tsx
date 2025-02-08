@@ -1,9 +1,12 @@
 "use client"
 
+import { Loader } from "lucide-react"
+import { useCallback } from "react"
+import { useFormContext } from "react-hook-form"
+
 import { Button } from "@/components/ui/button"
 import type { MouseEventType } from "@/types/event-types"
 import { useStepper } from "@/hooks/pages/design/vcard/useStepper"
-import { Loader } from "lucide-react"
 
 interface StepperNavigationButtonProps {
   handlePrev: () => void
@@ -16,10 +19,33 @@ export const StepperNavigationButtons = ({
   handleNext,
   isExecuting,
 }: StepperNavigationButtonProps) => {
-  const { isLastStep, isFirstStep } = useStepper()
+  const { reset } = useFormContext()
+  const {
+    isLastStep,
+    isFirstStep,
+    setActiveStep,
+    setIsFirstStep,
+    setIsLastStep,
+  } = useStepper()
+
+  const handleReset = useCallback(() => {
+    setActiveStep(0)
+    setIsFirstStep(false)
+    setIsLastStep(false)
+    reset()
+  }, [reset, setActiveStep, setIsFirstStep, setIsLastStep])
 
   return (
-    <div className="mt-8 flex justify-end gap-4">
+    <div className="mt-8 flex justify-end gap-4 sm:flex-row flex-col">
+      <Button
+        type="button"
+        variant="destructive"
+        disabled={isExecuting}
+        onClick={handleReset}
+      >
+        Reset Form
+      </Button>
+
       <Button
         type="button"
         onClick={handlePrev}
