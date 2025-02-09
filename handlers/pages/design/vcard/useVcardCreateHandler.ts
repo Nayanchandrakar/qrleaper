@@ -21,7 +21,7 @@ export const useVcardCreateHandler = ({ form }: useVcardCreateHandlerProps) => {
 
   const handleClear = () => {
     form.reset()
-    setActiveStep(1)
+    setActiveStep(0)
     setIsFirstStep(false)
     setIsLastStep(false)
   }
