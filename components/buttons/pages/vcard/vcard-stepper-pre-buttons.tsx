@@ -44,7 +44,7 @@ export const StepperNavigationButtons = ({
         className="bg-zinc-100 hover:bg-zinc-100/80 text-accent-foreground items-center justify-center"
       >
         <RotateCcw className="size-4" />
-        Create New
+        Reset Information
       </Button>
 
       <Button
