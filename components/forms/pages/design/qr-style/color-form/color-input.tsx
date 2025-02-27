@@ -2,7 +2,7 @@
 
 import { useFormContext } from "react-hook-form"
 import { HexColorInput, HexColorPicker } from "react-colorful"
-import { TooltipComponent } from "@/components/ui/tooltip-content"
+import { PopOverComponent } from "@/components/ui/popover-content"
 
 export const ColorInput = () => {
   const { getValues, setValue } = useFormContext()
@@ -19,7 +19,7 @@ export const ColorInput = () => {
 
   return (
     <div className="relative flex h-9 w-full sm:max-w-40 flex-shrink-0 rounded-md shadow-sm">
-      <TooltipComponent
+      <PopOverComponent
         content={
           <div className="flex max-w-xs flex-col items-center space-y-3 p-5 text-center">
             <HexColorPicker color={color} onChange={onColorChange} />
@@ -33,7 +33,7 @@ export const ColorInput = () => {
             borderColor: color,
           }}
         />
-      </TooltipComponent>
+      </PopOverComponent>
       <HexColorInput
         id="color"
         name="color"
