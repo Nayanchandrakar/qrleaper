@@ -24,7 +24,6 @@ import { AddressSection } from "@/components/forms/pages/design/virtual-card/sub
 import { WorkAddressSection } from "@/components/forms/pages/design/virtual-card/sub-forms/work-adddress-section"
 import { WebsiteSection } from "@/components/forms/pages/design/virtual-card/sub-forms/website-url-section"
 import { ProfessionalInformationSection } from "@/components/forms/pages/design/virtual-card/sub-forms/professional-information-section"
-import { AdditionalInformationSection } from "@/components/forms/pages/design/virtual-card/sub-forms/additional-information-section"
 import { VcardImageUploadForm } from "@/components/forms/pages/design/virtual-card/sub-forms/vcard-image-upload-form"
 import { SocialMediaProfileSection } from "@/components/forms/pages/design/virtual-card/sub-forms/social-media-profile-section"
 import { VcardProfileImageUploadForm } from "@/components/forms/pages/design/virtual-card/sub-forms/vcard-profile-image"
@@ -120,7 +119,6 @@ export const VcardEditForm = ({ qrCode, endpoint }: VcardEditFormProps) => {
             <WebsiteSection isExecuting={isExecuting} />
             <ProfessionalInformationSection isExecuting={isExecuting} />
             <SocialMediaProfileSection isExecuting={isExecuting} />
-            <AdditionalInformationSection isExecuting={isExecuting} />
             <VcardImageUploadForm isExecuting={isExecuting} />
             <QrEditControl
               isExecuting={isExecuting}

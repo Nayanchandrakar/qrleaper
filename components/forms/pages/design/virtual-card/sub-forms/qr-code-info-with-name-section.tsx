@@ -18,6 +18,7 @@ import {
 
 import { Input } from "@/components/ui/input"
 import { UserNameInput } from "./username-input"
+import { Textarea } from "@/components/ui/textarea"
 
 interface QrCodeInfoWithNameSectionProps {
   isExecuting?: boolean
@@ -127,6 +128,25 @@ export const QrCodeInfoWithNameSection = ({
         />
 
         <UserNameInput isEditForm={isEditForm} isExecuting={isExecuting} />
+
+        <FormField
+          control={form.control}
+          name="note"
+          disabled={isExecuting}
+          render={({ field }) => (
+            <FormItem className="w-full">
+              <FormLabel>Additional Information</FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder="Any Additional Information (optional)"
+                  {...field}
+                  rows={6}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
       </AccordionContent>
     </AccordionItem>
   )
