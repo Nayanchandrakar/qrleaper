@@ -30,7 +30,7 @@ export const StepperNavigationButtons = ({
 
   const handleReset = useCallback(() => {
     setActiveStep(0)
-    setIsFirstStep(false)
+    setIsFirstStep(true)
     setIsLastStep(false)
     reset()
   }, [reset, setActiveStep, setIsFirstStep, setIsLastStep])

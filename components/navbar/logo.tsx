@@ -12,7 +12,7 @@ export const NavbarLogo = ({ className }: { className?: string }) => {
         sizes="100vw"
         alt="navbar-logo"
         src="/white-logo-full.svg"
-        className="size-40"
+        className="size-36"
       />
     </Link>
   )
