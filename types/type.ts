@@ -16,12 +16,14 @@ export type VcarStepperFieldNameType = keyof virtualCardFormSchemaType
 
 export interface QrCodeProps {
   shape?: "square" | "circle"
-  color?: string
   hasFrame?: boolean
   data?: string
   logo?: string
   topInput?: string
   bottomInput?: string
+  colors: string[]
+  colorType: colorType
+  rotation: number
   qrCodeRef: React.MutableRefObject<qrCodeRefType>
 }
 
@@ -162,3 +164,4 @@ export type geoDataType = {
 }
 
 export type colorType = qrCodeStyleType["colorType"]
+export type colorSelectType = "gradient" | "single"

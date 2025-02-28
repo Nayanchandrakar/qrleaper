@@ -37,7 +37,9 @@ export const PreviewQrCard = () => {
         qrCodeRef={qrCodeRef}
         bottomInput={style?.bottomInput}
         topInput={style?.topInput}
-        color={style?.color}
+        colors={style?.colors}
+        colorType={style?.colorType}
+        rotation={style?.rotation}
         hasFrame={style?.hasFrame}
         shape={style?.shape}
         {...(data && { data })}

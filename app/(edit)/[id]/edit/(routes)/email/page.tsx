@@ -46,9 +46,11 @@ const MessageEditPage = async ({ params }: MessageEditPageProps) => {
       bottomInput: qrStyleAndEmailData?.style.bottomText ?? "",
       image: qrStyleAndEmailData?.style.logo ?? "",
       topInput: qrStyleAndEmailData?.style.topText ?? "",
-      color: qrStyleAndEmailData?.style.color ?? "",
       hasFrame: !!qrStyleAndEmailData?.style.hasFrame,
       shape: qrStyleAndEmailData?.style.shape ?? "square",
+      colors: qrStyleAndEmailData?.style.colors ?? [""],
+      colorType: qrStyleAndEmailData?.style.colorType ?? "linear",
+      rotation: qrStyleAndEmailData?.style.rotation ?? 0,
     },
   }
 

@@ -1,22 +1,27 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { useFormContext } from "react-hook-form"
 
-import type { colorType } from "@/types/type"
+import type { colorSelectType } from "@/types/type"
 import { ColorSelectButtons } from "./color-select-buttons"
 import { SingleColorForm, GradientColorForm } from "@/components/dynamic"
 
 export const ColorForm = () => {
-  const { getValues } = useFormContext()
-  const colors = getValues("style.colors")
+  const { watch } = useFormContext()
+  const colors = watch("style.colors")
 
-  const [colorFormType, setColorFormType] = useState<colorType>(
-    colors?.length > 1 ? "gradient" : "single"
+  const defaultFormType = useMemo(
+    () => (colors?.length > 1 ? "gradient" : "single"),
+    [colors]
   )
 
-  const Component =
-    colorFormType === "gradient" ? GradientColorForm : SingleColorForm
+  const [colorFormType, setColorFormType] =
+    useState<colorSelectType>(defaultFormType)
+
+  useEffect(() => {
+    setColorFormType(defaultFormType)
+  }, [defaultFormType])
 
   return (
     <div className="flex flex-col gap-2">
@@ -26,7 +31,11 @@ export const ColorForm = () => {
       />
 
       <div className="mt-3">
-        <Component />
+        {colorFormType === "gradient" ? (
+          <GradientColorForm />
+        ) : (
+          <SingleColorForm />
+        )}
       </div>
     </div>
   )

@@ -30,11 +30,13 @@ export const QrCodePreview = ({ endpoint, data }: QrCodePreviewType) => {
         data={endpoint}
         qrCodeRef={qrCodeRef}
         className="scale-[0.5]"
-        color={styleData?.color}
         hasFrame={styleData?.hasFrame}
         topInput={styleData?.topText!}
         bottomInput={styleData?.bottomText!}
         shape={styleData?.shape! as QrCodeProps["shape"]}
+        colorType={styleData?.colorType!}
+        colors={styleData?.colors!}
+        rotation={styleData?.rotation ?? 0}
         {...(styleData?.logo! && { logo: getFilePath(styleData?.logo!) })}
       />
       <DeleteQrCodeButton id={data.qr_code.id} />

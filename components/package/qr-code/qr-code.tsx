@@ -1,12 +1,11 @@
 "use client"
 
 import { useEffect, useMemo, useRef, forwardRef } from "react"
-import QRCodeStyling, { type Options } from "qr-code-styling"
+import QRCodeStyling, { type Gradient, type Options } from "qr-code-styling"
 
 import { cn } from "@/lib/utils"
 import { appUrl } from "@/constants/config"
 import type { QrCodeProps } from "@/types/type"
-import { colorsList } from "@/constants/qr/colors"
 import { createBorder } from "@/components/package/qr-code/qr-border-styling"
 
 export const QrCode = forwardRef<
@@ -17,18 +16,36 @@ export const QrCode = forwardRef<
     {
       shape = "square",
       bottomInput,
-      color = colorsList[0],
       data = appUrl,
       hasFrame = false,
       logo,
       topInput,
       qrCodeRef,
       className,
+      colorType,
+      colors,
+      rotation,
     },
     /* eslint-disable  @typescript-eslint/no-unused-vars */
     ref
   ) => {
     const localRef = useRef<HTMLDivElement>(null)
+    const isGradientSelected = useMemo<boolean>(
+      () => colors?.length > 1,
+      [colors]
+    )
+
+    const gradientOptions: Gradient = useMemo(
+      () => ({
+        colorStops: colors?.map((color, index) => ({
+          offset: index,
+          color,
+        })),
+        type: colorType || "linear",
+        rotation: rotation || 0,
+      }),
+      [colors, colorType, rotation]
+    )
 
     const qrOptions = useMemo<Options>(() => {
       return {
@@ -51,8 +68,9 @@ export const QrCode = forwardRef<
         data,
         dotsOptions: {
           type: "classy-rounded",
-          color,
           roundSize: true,
+          ...(!isGradientSelected && { color: colors?.[0] }),
+          ...(isGradientSelected && { gradient: gradientOptions }),
         },
         backgroundOptions: {
           round: shape === "circle" ? 1 : 0.2,
@@ -69,13 +87,21 @@ export const QrCode = forwardRef<
         },
         ...(logo && { image: logo }),
       }
-    }, [shape, hasFrame, data, color, logo])
+    }, [
+      shape,
+      hasFrame,
+      data,
+      logo,
+      colors,
+      gradientOptions,
+      isGradientSelected,
+    ])
 
     const extensionOptions = useMemo(() => {
       return {
         round: shape === "circle" ? 1 : 0.13,
         thickness: hasFrame ? 30 : 8,
-        color,
+        color: colors?.[0],
         decorations: {
           ...(topInput &&
             hasFrame && {
@@ -95,7 +121,7 @@ export const QrCode = forwardRef<
             }),
         },
       }
-    }, [shape, hasFrame, color, topInput, bottomInput])
+    }, [shape, hasFrame, colors, topInput, bottomInput])
 
     // Initialize QRCodeStyling
     useEffect(() => {

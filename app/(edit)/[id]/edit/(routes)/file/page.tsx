@@ -44,9 +44,11 @@ const FileEditPage = async ({ params }: FileEditPageProps) => {
       bottomInput: qrStyleAndFileData?.style.bottomText ?? "",
       image: qrStyleAndFileData?.style.logo ?? "",
       topInput: qrStyleAndFileData?.style.topText ?? "",
-      color: qrStyleAndFileData?.style.color ?? "",
       hasFrame: !!qrStyleAndFileData?.style.hasFrame,
       shape: qrStyleAndFileData?.style.shape ?? "square",
+      colors: qrStyleAndFileData?.style.colors ?? [""],
+      colorType: qrStyleAndFileData?.style.colorType ?? "linear",
+      rotation: qrStyleAndFileData?.style.rotation ?? 0,
     },
   }
 

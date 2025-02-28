@@ -46,9 +46,11 @@ const FacebookEditPage = async ({ params }: FacebookEditPageProps) => {
       bottomInput: qrStyleAndFacebookData?.style.bottomText ?? "",
       image: qrStyleAndFacebookData?.style.logo ?? "",
       topInput: qrStyleAndFacebookData?.style.topText ?? "",
-      color: qrStyleAndFacebookData?.style.color ?? "",
       hasFrame: !!qrStyleAndFacebookData?.style.hasFrame,
       shape: qrStyleAndFacebookData?.style.shape ?? "square",
+      colors: qrStyleAndFacebookData?.style.colors ?? [""],
+      colorType: qrStyleAndFacebookData?.style.colorType ?? "linear",
+      rotation: qrStyleAndFacebookData?.style.rotation ?? 0,
     },
   }
 

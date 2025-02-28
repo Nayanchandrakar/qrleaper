@@ -11,6 +11,7 @@ import { getEndpointURL } from "@/utils"
 import { youtubeFormSchema } from "@/zod/forms/youtube/youtube-form-schema"
 import { incrementQrSubscriptionCountByUserId } from "@/app/actions/helpers/subscription/utils"
 import { throwSubscriptionError } from "@/lib/action/throw-subscription-error"
+import { colorType } from "@/types/type"
 
 export const createQrCodeYoutubeAction = authUserActionClient
   .schema(youtubeFormSchema, {
@@ -44,7 +45,9 @@ export const createQrCodeYoutubeAction = authUserActionClient
         // insert qr code styling data with qrCode id
         tx.insert(qrCodeStyle).values({
           qrCodeId: data.id,
-          color: style.color,
+          colors: style.colors,
+          colorType: style.colorType as colorType,
+          rotation: style.rotation,
           hasFrame: !!style.hasFrame,
           shape: style.shape,
           ...(style.bottomInput && { bottomText: style.bottomInput }),

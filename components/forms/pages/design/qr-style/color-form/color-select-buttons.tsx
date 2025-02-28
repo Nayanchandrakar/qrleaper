@@ -4,14 +4,14 @@ import { PaintBucket } from "lucide-react"
 import { Dispatch, SetStateAction, useCallback } from "react"
 
 import { cn } from "@/lib/utils"
-import type { colorType } from "@/types/type"
+import type { colorSelectType } from "@/types/type"
 
 interface ColorSelectButtonsProps {
-  setColorFormType: Dispatch<SetStateAction<colorType>>
-  colorFormType: colorType
+  setColorFormType: Dispatch<SetStateAction<colorSelectType>>
+  colorFormType: colorSelectType
 }
 
-const options: { type: colorType; label: string }[] = [
+const options: { type: colorSelectType; label: string }[] = [
   { type: "single", label: "Single" },
   { type: "gradient", label: "Gradient" },
 ]
@@ -21,7 +21,7 @@ export const ColorSelectButtons = ({
   colorFormType,
 }: ColorSelectButtonsProps) => {
   const handleClick = useCallback(
-    (type: colorType) => () => setColorFormType(type),
+    (type: colorSelectType) => () => setColorFormType(type),
     [setColorFormType]
   )
 

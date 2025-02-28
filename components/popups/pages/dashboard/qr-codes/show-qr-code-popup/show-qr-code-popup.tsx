@@ -88,6 +88,9 @@ export const ShowQrCodePopup = () => {
                   ? getFilePath(data?.qr_code_style?.logo!)
                   : undefined
               }
+              colorType={data?.qr_code_style?.colorType!}
+              colors={data?.qr_code_style?.colors!}
+              rotation={data?.qr_code_style?.rotation ?? 0}
               className="scale-[0.7]"
             />
             <ShimmerDots className="pointer-events-none z-10 opacity-30 [mask-image:radial-gradient(40%_80%,transparent_50%,black)]" />

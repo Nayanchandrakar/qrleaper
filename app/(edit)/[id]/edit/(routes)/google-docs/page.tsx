@@ -46,9 +46,11 @@ const DesignEditPage = async ({ params }: DesignEditPageProps) => {
       bottomInput: qrStyleAndGoogleDocsData?.style.bottomText ?? "",
       image: qrStyleAndGoogleDocsData?.style.logo ?? "",
       topInput: qrStyleAndGoogleDocsData?.style.topText ?? "",
-      color: qrStyleAndGoogleDocsData?.style.color ?? "",
       hasFrame: !!qrStyleAndGoogleDocsData?.style.hasFrame,
       shape: qrStyleAndGoogleDocsData?.style.shape ?? "square",
+      colors: qrStyleAndGoogleDocsData?.style.colors ?? [""],
+      colorType: qrStyleAndGoogleDocsData?.style.colorType ?? "linear",
+      rotation: qrStyleAndGoogleDocsData?.style.rotation ?? 0,
     },
   }
 

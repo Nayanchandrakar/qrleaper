@@ -73,15 +73,17 @@ const GradientColorForm = () => {
       <div className="space-y-2">
         <FormLabel>Select Colors</FormLabel>
 
-        <div className="flex items-center gap-2 ">
+        <div className="flex flex-col sm:flex-row items-center gap-2 ">
           <ColorInput
             color={colors[0]}
             onColorChange={(value) => onColorChange(value, 0)}
+            className="flex-shrink"
           />
 
           <ColorInput
             color={colors[1] ?? colors[0]}
             onColorChange={(value) => onColorChange(value, 1)}
+            className="flex-shrink"
           />
         </div>
       </div>

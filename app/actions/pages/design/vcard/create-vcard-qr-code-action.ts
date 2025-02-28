@@ -11,6 +11,7 @@ import { incrementQrSubscriptionCountByUserId } from "@/app/actions/helpers/subs
 import { virtualCardFormSchema } from "@/zod/forms/vcard/virtual-card-form-schema"
 import { uploadBulkFiles, uploadFile } from "@/app/actions/file/utils"
 import { throwUserNameError } from "@/lib/action/throw-user-name-error"
+import { colorType } from "@/types/type"
 
 export const createVcardQrCodeAction = authUserActionClient
   .use(async ({ next, clientInput }) => {
@@ -68,7 +69,9 @@ export const createVcardQrCodeAction = authUserActionClient
 
         tx.insert(qrCodeStyle).values({
           qrCodeId,
-          color: style.color,
+          colors: style.colors,
+          colorType: style.colorType as colorType,
+          rotation: style.rotation,
           shape: style.shape,
           hasFrame: !!style.hasFrame,
           ...(style.bottomInput && { bottomText: style.bottomInput }),

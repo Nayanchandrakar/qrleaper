@@ -44,9 +44,11 @@ const InstagramEditPage = async ({ params }: InstagramEditPageProps) => {
       bottomInput: qrStyleAndLinkData?.style.bottomText ?? "",
       image: qrStyleAndLinkData?.style.logo ?? "",
       topInput: qrStyleAndLinkData?.style.topText ?? "",
-      color: qrStyleAndLinkData?.style.color ?? "",
       hasFrame: !!qrStyleAndLinkData?.style.hasFrame,
       shape: qrStyleAndLinkData?.style.shape ?? "square",
+      colors: qrStyleAndLinkData?.style.colors ?? [""],
+      colorType: qrStyleAndLinkData?.style.colorType ?? "linear",
+      rotation: qrStyleAndLinkData?.style.rotation ?? 0,
     },
   }
 

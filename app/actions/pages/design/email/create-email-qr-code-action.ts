@@ -11,6 +11,7 @@ import { getEmailDbEndpointURL, getEndpointURL } from "@/utils"
 import { emailFormSchema } from "@/zod/forms/email/email-form-schema"
 import { throwSubscriptionError } from "@/lib/action/throw-subscription-error"
 import { incrementQrSubscriptionCountByUserId } from "@/app/actions/helpers/subscription/utils"
+import { colorType } from "@/types/type"
 
 export const createQrCodeEmailAction = authUserActionClient
   .schema(emailFormSchema, {
@@ -46,7 +47,9 @@ export const createQrCodeEmailAction = authUserActionClient
         // insert qr code styling data with qrCode id
         tx.insert(qrCodeStyle).values({
           qrCodeId: data.id,
-          color: style.color,
+          colors: style.colors,
+          colorType: style.colorType as colorType,
+          rotation: style.rotation,
           hasFrame: !!style.hasFrame,
           shape: style.shape,
           ...(style.bottomInput && { bottomText: style.bottomInput }),

@@ -52,9 +52,11 @@ const VcardEditPage = async ({ params }: VcardEditPageProps) => {
       bottomInput: qrStyleAndVcardData?.style.bottomText ?? "",
       image: qrStyleAndVcardData?.style.logo ?? "",
       topInput: qrStyleAndVcardData?.style.topText ?? "",
-      color: qrStyleAndVcardData?.style.color ?? "",
       hasFrame: !!qrStyleAndVcardData?.style.hasFrame,
       shape: qrStyleAndVcardData?.style.shape ?? "square",
+      colors: qrStyleAndVcardData?.style.colors ?? [""],
+      colorType: qrStyleAndVcardData?.style.colorType ?? "linear",
+      rotation: qrStyleAndVcardData?.style.rotation ?? 0,
     },
   }
 

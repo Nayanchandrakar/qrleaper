@@ -23,13 +23,13 @@ export const StepperBar = forwardRef<HTMLDivElement, StepperBarProps>(
       () =>
         stepperVcardData.length > 0 &&
         activeStep === stepperVcardData?.length - 1,
-      [stepperVcardData, activeStep]
+      [activeStep]
     )
 
     useEffect(() => {
       setIsLastStep(isLastStepValue)
       setIsFirstStep(isFirstStepValue)
-    }, [isFirstStepValue, isLastStepValue])
+    }, [isFirstStepValue, isLastStepValue, setIsFirstStep, setIsLastStep])
 
     const onClick = (index: number) => {
       if (activeStep > index && !isExecuting) setActiveStep(index)

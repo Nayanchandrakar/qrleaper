@@ -2,15 +2,26 @@
 
 import { HexColorInput, HexColorPicker } from "react-colorful"
 import { PopOverComponent } from "@/components/ui/popover-content"
+import { cn } from "@/lib/utils"
 
 interface ColorInputProps {
   onColorChange: (value: string) => void
   color: string
+  className?: string
 }
 
-export const ColorInput = ({ color, onColorChange }: ColorInputProps) => {
+export const ColorInput = ({
+  color,
+  onColorChange,
+  className,
+}: ColorInputProps) => {
   return (
-    <div className="relative flex h-9 w-full sm:max-w-40 flex-shrink-0 rounded-md shadow-sm">
+    <div
+      className={cn(
+        "relative flex h-9 w-full sm:max-w-40 flex-shrink-0 rounded-md shadow-sm",
+        className
+      )}
+    >
       <PopOverComponent
         content={
           <div className="flex max-w-xs flex-col items-center space-y-3 p-5 text-center">
