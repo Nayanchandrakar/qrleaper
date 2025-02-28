@@ -1,128 +1,99 @@
 "use client"
 
-import React from "react"
-
 import { cn } from "@/lib/utils"
 
-export interface StepperProps extends React.ComponentProps<"div"> {
-  activeStep?: number
-  isFirstStep?: (value: boolean) => void
-  isLastStep?: (value: boolean) => void
-  className?: string
-  lineClassName?: string
-  activeLineClassName?: string
-  children: React.ReactNode
+interface StepperProps extends React.HTMLAttributes<HTMLOListElement> {}
+
+const Stepper = ({ className, children, ...props }: StepperProps) => {
+  return (
+    <ol
+      className={cn(
+        "flex flex-col items-start md:flex-row md:items-center gap-3 w-full md:gap-4",
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </ol>
+  )
 }
 
-const Stepper = React.forwardRef<HTMLDivElement, StepperProps>(
-  (
-    {
-      activeStep = 0,
-      isFirstStep,
-      isLastStep,
-      className,
-      lineClassName,
-      activeLineClassName,
-      children,
-      ...rest
-    },
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    ref
-  ) => {
-    const containerRef = React.useRef<HTMLDivElement | null>(null)
-    const [widthPerStep, setWidthPerStep] = React.useState(0)
+interface StepperContentProps extends React.HTMLAttributes<HTMLLIElement> {
+  isExecuting?: boolean
+}
 
-    const isFirstStepValue = activeStep === 0
-    const isLastStepValue =
-      React.Children.count(children) > 0 &&
-      activeStep === React.Children.count(children) - 1
+const StepperContent = ({
+  className,
+  children,
+  isExecuting = false,
+  ...props
+}: StepperContentProps) => {
+  return (
+    <li
+      className={cn(
+        "flex items-center gap-2 cursor-pointer",
+        isExecuting && "cursor-not-allowed",
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </li>
+  )
+}
 
-    const isReachEnd =
-      React.Children.count(children) > 0 &&
-      activeStep > React.Children.count(children) - 1
+Stepper.Content = StepperContent
 
-    React.useEffect(() => {
-      if (containerRef.current) {
-        const { width } = containerRef.current.getBoundingClientRect()
-        const totalSteps = React.Children.count(children)
-        const widthPerStepCalc = totalSteps > 1 ? width / (totalSteps - 1) : 0
+interface StepperIconProps extends React.HTMLAttributes<HTMLSpanElement> {
+  isActive?: boolean
+}
 
-        setWidthPerStep(widthPerStepCalc)
-      }
-    }, [children])
+const StepperIcon = ({
+  className,
+  children,
+  isActive = false,
+  ...props
+}: StepperIconProps) => {
+  return (
+    <span
+      className={cn(
+        "flex items-center justify-center size-10 rounded-full bg-white transition-all duration-300",
+        isActive && "bg-green-600",
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </span>
+  )
+}
 
-    const width = React.useMemo(() => {
-      return !isReachEnd ? widthPerStep * activeStep : 0
-    }, [activeStep, isReachEnd, widthPerStep])
+Stepper.Icon = StepperIcon
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    const updateWidthPerStep = () => {
-      if (containerRef.current) {
-        const { width } = containerRef.current.getBoundingClientRect()
-        const totalSteps = React.Children.count(children)
-        const widthPerStepCalc = totalSteps > 1 ? width / (totalSteps - 1) : 0
+interface StepperLabel extends React.HTMLAttributes<HTMLParagraphElement> {
+  isActive?: boolean
+}
 
-        setWidthPerStep(widthPerStepCalc)
-      }
-    }
+const StepperLabel = ({
+  className,
+  children,
+  isActive = false,
+  ...props
+}: StepperLabel) => {
+  return (
+    <p
+      className={cn(
+        "text-sm font-medium text-zinc-700 text-center transition-all duration-300",
+        isActive && "text-green-600",
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </p>
+  )
+}
 
-    React.useEffect(() => {
-      if (typeof isFirstStep === "function") isFirstStep(isFirstStepValue)
-      if (typeof isLastStep === "function") isLastStep(isLastStepValue)
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isFirstStepValue, isLastStepValue])
-
-    React.useEffect(() => {
-      updateWidthPerStep()
-      window.addEventListener("resize", updateWidthPerStep)
-      return () => {
-        window.removeEventListener("resize", updateWidthPerStep)
-      }
-    }, [updateWidthPerStep])
-
-    return (
-      <div
-        {...rest}
-        ref={containerRef}
-        className={cn(
-          "w-full relative flex items-center justify-between",
-          className
-        )}
-      >
-        <div
-          className={cn(
-            "absolute left-0 top-2/4 h-0.5 w-full -translate-y-2/4 bg-zinc-100",
-            lineClassName
-          )}
-        />
-        <div
-          className={cn(
-            "absolute left-0 top-2/4 h-0.5 w-full -translate-y-2/4 bg-green-600 transition-all duration-500",
-            activeLineClassName
-          )}
-          style={{ width: `${width}px` }}
-        />
-        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any   */}
-        {React.Children.map(children, (child: any, index) =>
-          React.cloneElement(child as React.ReactElement, {
-            className: cn(
-              (child as React.ReactElement).props.className,
-              index === activeStep
-                ? cn("bg-green-600 text-white", child?.props?.activeClassName)
-                : index < activeStep
-                ? cn(
-                    "bg-green-600 text-white",
-                    child?.props?.completedClassName
-                  )
-                : ""
-            ),
-          })
-        )}
-      </div>
-    )
-  }
-)
-
-Stepper.displayName = "Stepper"
+Stepper.Label = StepperLabel
 
 export { Stepper }
