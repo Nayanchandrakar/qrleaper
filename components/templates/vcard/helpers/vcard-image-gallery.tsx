@@ -1,7 +1,6 @@
 "use client"
 
 import { useMemo } from "react"
-import Image from "next/image"
 
 import { getObjectFileSrc } from "@/utils/client"
 
@@ -20,14 +19,12 @@ export const VcardImageGallery = ({
   )
 
   return (
-    <Image
+    /* eslint-disable @next/next/no-img-element */
+    <img
       key={imageSrc}
       src={data!}
       alt="Gallery Image"
-      width={1000}
-      height={1000}
-      sizes="100vw"
-      className="rounded-lg"
+      className="rounded-lg size-full"
     />
   )
 }
