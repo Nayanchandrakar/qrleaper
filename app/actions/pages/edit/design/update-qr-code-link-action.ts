@@ -5,6 +5,7 @@ import { eq } from "drizzle-orm"
 import { flattenValidationErrors } from "next-safe-action"
 
 import { db } from "@/database/db"
+import type { colorType } from "@/types/type"
 import { qrCode, qrCodeStyle } from "@/database/schema"
 import { qrLink } from "@/database/schema/qr-variations"
 import { authUserActionClient } from "@/lib/action/safe-action"
@@ -41,7 +42,9 @@ export const updateQrCodeLinkAction = authUserActionClient
         tx
           .update(qrCodeStyle)
           .set({
-            color: style.color,
+            colors: style.colors,
+            colorType: style.colorType as colorType,
+            rotation: style.rotation,
             hasFrame: !!style.hasFrame,
             shape: style.shape,
             ...(style.bottomInput && { bottomText: style.bottomInput }),

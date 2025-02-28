@@ -31,7 +31,9 @@ export const idSchema = z.object({
 })
 
 export const qrStyleSchema = z.object({
-  color: z.string().min(1).max(20).default(colorsList[0]),
+  colors: z.array(z.string().default(colorsList[0])).min(1).max(2),
+  rotation: z.coerce.number().min(0).max(180).default(0),
+  colorType: z.string().min(1).max(20).default("linear"),
   bottomInput: z.string().max(30).optional(),
   topInput: z.string().max(30).optional(),
   shape: z.string().min(3).max(20).default("square"),

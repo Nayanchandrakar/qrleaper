@@ -12,6 +12,7 @@ import { instagramFormSchema } from "@/zod/forms/instagram/instagram-form-schema
 import { getInstagramDbEndpointURL } from "@/utils"
 import { throwSubscriptionEditError } from "@/lib/action/throw-subscription-error"
 import { throwQrCodeNotFoundError } from "@/lib/action/throw-qr-code-error"
+import { colorType } from "@/types/type"
 
 export const updateQrCodeInstagramAction = authUserActionClient
   .schema(
@@ -47,7 +48,9 @@ export const updateQrCodeInstagramAction = authUserActionClient
         tx
           .update(qrCodeStyle)
           .set({
-            color: style.color,
+            colors: style.colors,
+            colorType: style.colorType as colorType,
+            rotation: style.rotation,
             hasFrame: !!style.hasFrame,
             shape: style.shape,
             ...(style.bottomInput && { bottomText: style.bottomInput }),

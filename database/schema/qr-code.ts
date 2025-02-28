@@ -1,10 +1,18 @@
 import { createId } from "@paralleldrive/cuid2"
-import { pgTable, text, pgEnum, index, boolean } from "drizzle-orm/pg-core"
+import {
+  pgTable,
+  text,
+  pgEnum,
+  index,
+  boolean,
+  integer,
+} from "drizzle-orm/pg-core"
 
 import { lifeCycleDates } from "@/database/utils"
 import { users } from "@/database/schema/user"
 
 export const statusEnum = pgEnum("status", ["active", "inactive"])
+export const gradientType = pgEnum("gradient_type", ["linear", "radial"])
 export const typeEnum = pgEnum("type", [
   "link",
   "file",
@@ -51,12 +59,14 @@ export const qrCodeStyle = pgTable(
         onDelete: "cascade",
       })
       .notNull(),
-    color: text("color").notNull(),
     logo: text("logo"),
-    shape: text("shape").notNull(),
-    hasFrame: boolean("has_frame").notNull(),
     topText: text("top_text"),
+    shape: text("shape").notNull(),
     bottomText: text("bottom_text"),
+    colors: text("colors").array().notNull(),
+    hasFrame: boolean("has_frame").notNull(),
+    rotation: integer("rotation").notNull().default(0),
+    colorType: gradientType("gradient_type").default("linear").notNull(),
   },
   (table) => ({
     qrIdIndex: index("qr_code_style_idx").on(table.qrCodeId),

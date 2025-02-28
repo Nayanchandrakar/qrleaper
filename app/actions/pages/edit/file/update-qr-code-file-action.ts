@@ -12,6 +12,7 @@ import { fileFormSchema } from "@/zod/forms/file/file-form-schema"
 import { getFileDbEndpointURL } from "@/utils"
 import { throwSubscriptionEditError } from "@/lib/action/throw-subscription-error"
 import { throwQrCodeNotFoundError } from "@/lib/action/throw-qr-code-error"
+import { colorType } from "@/types/type"
 
 export const updateQrCodeFileAction = authUserActionClient
   .schema(
@@ -45,7 +46,9 @@ export const updateQrCodeFileAction = authUserActionClient
         tx
           .update(qrCodeStyle)
           .set({
-            color: style.color,
+            colors: style.colors,
+            colorType: style.colorType as colorType,
+            rotation: style.rotation,
             hasFrame: !!style.hasFrame,
             shape: style.shape,
             ...(style.bottomInput && { bottomText: style.bottomInput }),

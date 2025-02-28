@@ -12,6 +12,7 @@ import { authUserActionClient } from "@/lib/action/safe-action"
 import { messageFormSchema } from "@/zod/forms/message/message-form-schema"
 import { throwSubscriptionEditError } from "@/lib/action/throw-subscription-error"
 import { throwQrCodeNotFoundError } from "@/lib/action/throw-qr-code-error"
+import { colorType } from "@/types/type"
 
 export const updateQrCodeMessageAction = authUserActionClient
   .schema(
@@ -50,7 +51,9 @@ export const updateQrCodeMessageAction = authUserActionClient
         tx
           .update(qrCodeStyle)
           .set({
-            color: style.color,
+            colors: style.colors,
+            colorType: style.colorType as colorType,
+            rotation: style.rotation,
             hasFrame: !!style.hasFrame,
             shape: style.shape,
             ...(style.bottomInput && { bottomText: style.bottomInput }),

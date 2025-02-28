@@ -11,6 +11,7 @@ import { authUserActionClient } from "@/lib/action/safe-action"
 import { youtubeFormSchema } from "@/zod/forms/youtube/youtube-form-schema"
 import { throwSubscriptionEditError } from "@/lib/action/throw-subscription-error"
 import { throwQrCodeNotFoundError } from "@/lib/action/throw-qr-code-error"
+import { colorType } from "@/types/type"
 
 export const updateQrCodeYoutubeAction = authUserActionClient
   .schema(
@@ -43,7 +44,9 @@ export const updateQrCodeYoutubeAction = authUserActionClient
         tx
           .update(qrCodeStyle)
           .set({
-            color: style.color,
+            colors: style.colors,
+            colorType: style.colorType as colorType,
+            rotation: style.rotation,
             hasFrame: !!style.hasFrame,
             shape: style.shape,
             ...(style.bottomInput && { bottomText: style.bottomInput }),

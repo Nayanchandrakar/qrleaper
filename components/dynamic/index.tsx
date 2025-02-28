@@ -44,3 +44,19 @@ export const VcardTemplateChangeButton = dynamic(
   () => import("@/components/popups/pages/edit/vcard-edit-template-popup"),
   { ssr: false, loading: () => <Skeleton className="h-9 px-4 py-2 w-72" /> }
 )
+
+export const SingleColorForm = dynamic(
+  () =>
+    import(
+      "@/components/forms/pages/design/qr-style/color-form/single-color-form/single-color-form"
+    ),
+  { ssr: false, loading: () => <Skeleton className="w-full h-20" /> }
+)
+
+export const GradientColorForm = dynamic(
+  () =>
+    import(
+      "@/components/forms/pages/design/qr-style/color-form/gradient-color-form/gradient-color-form"
+    ),
+  { ssr: false, loading: () => <Skeleton className="w-full h-20" /> }
+)

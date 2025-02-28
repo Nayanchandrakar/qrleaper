@@ -5,14 +5,24 @@ import { useFormContext } from "react-hook-form"
 import { colorsList } from "@/constants/qr/colors"
 import ColorCard from "@/components/cards/color-card"
 import { ListComponent } from "@/components/global/list-component"
-import { ColorInput } from "@/components/forms/pages/design/qr-style/color-form/color-input"
+import { ColorInput } from "@/components/forms/pages/design/qr-style/color-form/single-color-form/color-input"
 
-export const ColorForm = () => {
+const SingleColorForm = () => {
   const { getValues, setValue } = useFormContext()
+
+  const defaultColor = getValues("style.colors")?.[0]
+
+  const onColorChange = (value: string) => {
+    setValue("style.colors", [value], {
+      shouldDirty: true,
+      shouldTouch: true,
+      shouldValidate: true,
+    })
+  }
 
   return (
     <div className="flex flex-col items-start gap-3">
-      <ColorInput />
+      <ColorInput color={defaultColor} onColorChange={onColorChange} />
 
       <ListComponent
         className="flex flex-wrap gap-3 mt-2"
@@ -21,17 +31,13 @@ export const ColorForm = () => {
           <ColorCard
             color={color}
             key={color}
-            currentColor={getValues("style.color")}
-            onClick={() => {
-              setValue("style.color", color, {
-                shouldDirty: true,
-                shouldTouch: true,
-                shouldValidate: true,
-              })
-            }}
+            currentColor={defaultColor}
+            onClick={() => onColorChange(color)}
           />
         )}
       />
     </div>
   )
 }
+
+export default SingleColorForm

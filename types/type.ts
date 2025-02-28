@@ -29,9 +29,11 @@ type responseQrStyleType = {
   bottomInput: string
   image: string
   topInput: string
-  color: string
   hasFrame: boolean
   shape: string
+  colors: string[]
+  colorType: colorType
+  rotation: number
 }
 
 export interface editQrLinkType {
@@ -158,3 +160,5 @@ export type geoDataType = {
   country: string
   count: number
 }
+
+export type colorType = qrCodeStyleType["colorType"]

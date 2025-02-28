@@ -12,6 +12,7 @@ import { getEmailDbEndpointURL } from "@/utils"
 import { emailFormSchema } from "@/zod/forms/email/email-form-schema"
 import { throwSubscriptionEditError } from "@/lib/action/throw-subscription-error"
 import { throwQrCodeNotFoundError } from "@/lib/action/throw-qr-code-error"
+import { colorType } from "@/types/type"
 
 export const updateQrCodeEmailAction = authUserActionClient
   .schema(
@@ -48,7 +49,9 @@ export const updateQrCodeEmailAction = authUserActionClient
         tx
           .update(qrCodeStyle)
           .set({
-            color: style.color,
+            colors: style.colors,
+            colorType: style.colorType as colorType,
+            rotation: style.rotation,
             hasFrame: !!style.hasFrame,
             shape: style.shape,
             ...(style.bottomInput && { bottomText: style.bottomInput }),

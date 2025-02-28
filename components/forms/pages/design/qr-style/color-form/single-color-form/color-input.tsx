@@ -1,22 +1,14 @@
 "use client"
 
-import { useFormContext } from "react-hook-form"
 import { HexColorInput, HexColorPicker } from "react-colorful"
 import { PopOverComponent } from "@/components/ui/popover-content"
 
-export const ColorInput = () => {
-  const { getValues, setValue } = useFormContext()
+interface ColorInputProps {
+  onColorChange: (value: string) => void
+  color: string
+}
 
-  const color = getValues("style.color")
-
-  const onColorChange = (value: string) => {
-    setValue("style.color", value, {
-      shouldDirty: true,
-      shouldTouch: true,
-      shouldValidate: true,
-    })
-  }
-
+export const ColorInput = ({ color, onColorChange }: ColorInputProps) => {
   return (
     <div className="relative flex h-9 w-full sm:max-w-40 flex-shrink-0 rounded-md shadow-sm">
       <PopOverComponent

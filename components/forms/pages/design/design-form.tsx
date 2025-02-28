@@ -18,16 +18,17 @@ import {
   designFormSchema,
   designFormSchemaType,
 } from "@/zod/forms/design/design-form-schema"
+
 import { appUrl } from "@/constants/config"
 import { Input } from "@/components/ui/input"
 import { StepLabel } from "@/components/ui/step-label"
-import { QrStyleForm } from "@/components/forms/pages/design/qr-style/qr-style-form"
 import { colorsList } from "@/constants/qr/colors"
-import { PreviewQrCard } from "@/components/cards/pages/design/preview-qr-card"
-import { createQrCodeAction } from "@/app/actions/pages/design/create-qr-code-action"
-import { QrControls } from "@/components/forms/pages/design/qr-style/qr-controls"
 import { useQrDataContext } from "@/hooks/qr/useQrDataContext"
+import { PreviewQrCard } from "@/components/cards/pages/design/preview-qr-card"
+import { QrControls } from "@/components/forms/pages/design/qr-style/qr-controls"
 import { useDesignFormPersist } from "@/hooks/forms/design/useDesignFormPersist"
+import { QrStyleForm } from "@/components/forms/pages/design/qr-style/qr-style-form"
+import { createQrCodeAction } from "@/app/actions/pages/design/create-qr-code-action"
 
 export const DesignForm = () => {
   const router = useRouter()
@@ -42,7 +43,9 @@ export const DesignForm = () => {
         bottomInput: "",
         image: "",
         topInput: "",
-        color: colorsList[0],
+        colors: [colorsList[0]],
+        colorType: "linear",
+        rotation: 0,
         hasFrame: false,
         shape: "square",
       },

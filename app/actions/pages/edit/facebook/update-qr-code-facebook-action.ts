@@ -11,6 +11,7 @@ import { authUserActionClient } from "@/lib/action/safe-action"
 import { facebookFormSchema } from "@/zod/forms/facebook/facebook-form-schema"
 import { throwSubscriptionEditError } from "@/lib/action/throw-subscription-error"
 import { throwQrCodeNotFoundError } from "@/lib/action/throw-qr-code-error"
+import { colorType } from "@/types/type"
 
 export const updateQrCodeFacebookAction = authUserActionClient
   .schema(
@@ -46,7 +47,9 @@ export const updateQrCodeFacebookAction = authUserActionClient
         tx
           .update(qrCodeStyle)
           .set({
-            color: style.color,
+            colors: style.colors,
+            colorType: style.colorType as colorType,
+            rotation: style.rotation,
             hasFrame: !!style.hasFrame,
             shape: style.shape,
             ...(style.bottomInput && { bottomText: style.bottomInput }),

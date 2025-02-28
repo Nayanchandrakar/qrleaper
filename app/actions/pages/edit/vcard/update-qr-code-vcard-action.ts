@@ -15,6 +15,7 @@ import { throwSubscriptionEditError } from "@/lib/action/throw-subscription-erro
 import { vCardEditFormSchema } from "@/zod/pages/edit/vcard/vcard-edit-form-schema"
 import { throwQrCodeNotFoundError } from "@/lib/action/throw-qr-code-error"
 import { throwUserNameError } from "@/lib/action/throw-user-name-error"
+import { colorType } from "@/types/type"
 
 export const updateQrCodeVcardAction = authUserActionClient
   .use(async ({ next, clientInput }) => {
@@ -88,7 +89,9 @@ export const updateQrCodeVcardAction = authUserActionClient
         tx
           .update(qrCodeStyle)
           .set({
-            color: style.color,
+            colors: style.colors,
+            colorType: style.colorType as colorType,
+            rotation: style.rotation,
             hasFrame: !!style.hasFrame,
             shape: style.shape,
             ...(style.bottomInput && { bottomText: style.bottomInput }),

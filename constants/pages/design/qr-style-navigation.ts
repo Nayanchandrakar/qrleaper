@@ -1,4 +1,4 @@
-import { ColorForm } from "@/components/forms/pages/design/qr-style/color-form/color-form"
+import { ColorForm } from "@/components/forms/pages/design/qr-style/color-form"
 import { FrameForm } from "@/components/forms/pages/design/qr-style/frame-form"
 import { LogoForm } from "@/components/forms/pages/design/qr-style/logo-form"
 import { ShapeForm } from "@/components/forms/pages/design/qr-style/shape-form"

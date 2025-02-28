@@ -5,6 +5,7 @@ import { flattenValidationErrors } from "next-safe-action"
 
 import { db } from "@/database/db"
 import { getEndpointURL } from "@/utils"
+import type { colorType } from "@/types/type"
 import { qrCode, qrCodeStyle } from "@/database/schema"
 import { qrLink } from "@/database/schema/qr-variations"
 import { authUserActionClient } from "@/lib/action/safe-action"
@@ -44,7 +45,9 @@ export const createQrCodeAction = authUserActionClient
         // insert qr code styling data with qrCode id
         tx.insert(qrCodeStyle).values({
           qrCodeId: data.id,
-          color: style.color,
+          colors: style.colors,
+          colorType: style.colorType as colorType,
+          rotation: style.rotation,
           hasFrame: !!style.hasFrame,
           shape: style.shape,
           ...(style.bottomInput && { bottomText: style.bottomInput }),
