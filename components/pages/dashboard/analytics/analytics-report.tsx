@@ -12,6 +12,7 @@ import { DeviceAnalyticsChart } from "@/components/charts/pages/dashboard/analyt
 import { getQrCodeAnalyticsAction } from "@/app/actions/pages/dashboard/analytics/get-qr-code-analytics-action"
 import { LocationAnalyticsChart } from "@/components/charts/pages/dashboard/analytics/location-analytics-chart"
 import { AnalyticsDurationChangeForm } from "@/components/forms/pages/dashboard/analytics/analytics-form/anayltics-duration-change-form"
+import { CityAnalyticsChart } from "@/components/charts/pages/dashboard/analytics/city-analytics-chart"
 
 interface AnalyticsReportProps {
   id: string
@@ -52,6 +53,13 @@ export const AnalyticsReport: React.FC<AnalyticsReportProps> = ({ id }) => {
         <>
           <DeviceAnalyticsChart data={data} numberOfDays={numberOfDays} />
           <LocationAnalyticsChart
+            data={data}
+            numberOfDays={numberOfDays}
+            fromDateFormatted={fromDateFormatted!}
+            toDateFormatted={toDateFormatted}
+          />
+
+          <CityAnalyticsChart
             data={data}
             numberOfDays={numberOfDays}
             fromDateFormatted={fromDateFormatted!}

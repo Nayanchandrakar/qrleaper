@@ -15,6 +15,21 @@ export const locationAnalytics = (data: qrAnayticsType[]) => {
   return countries
 }
 
+export const cityAnalytics = (data: qrAnayticsType[]) => {
+  const cities: qrAnayticsType[] = []
+  const citiesMap = new Map()
+
+  data?.forEach((curr) => {
+    if (citiesMap.has(curr.city)) {
+      citiesMap.get(curr.city).count += curr.count
+    } else {
+      citiesMap.set(curr.city, curr)
+      cities.push(curr)
+    }
+  })
+  return cities
+}
+
 export const toGeoLocationObject = (data: qrAnayticsType[]) => {
   let obj = {}
 

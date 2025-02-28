@@ -1,10 +1,11 @@
 "use client"
 
 import * as React from "react"
-import type { qrAnayticsType } from "@/types/db-types"
-import { COUNTRIES } from "@/constants/pages/dashboard/analytics/countries"
 import { TrendingUp } from "lucide-react"
 import { Bar, BarChart, CartesianGrid, LabelList, XAxis } from "recharts"
+
+import type { qrAnayticsType } from "@/types/db-types"
+
 import {
   Card,
   CardContent,
@@ -19,9 +20,9 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-import { locationAnalytics } from "@/utils/location-analytics"
+import { cityAnalytics } from "@/utils/location-analytics"
 
-export const description = "A bar chart with a location analytics"
+export const description = "A bar chart with a city analytics"
 
 const chartConfig = {
   desktop: {
@@ -30,25 +31,25 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-interface LocationAnalyticsChartProps {
+interface CityAnalyticsChartProps {
   data: qrAnayticsType[]
   numberOfDays: number
   toDateFormatted: string
   fromDateFormatted: string
 }
 
-export const LocationAnalyticsChart = ({
+export const CityAnalyticsChart = ({
   data,
   fromDateFormatted,
   toDateFormatted,
   numberOfDays,
-}: LocationAnalyticsChartProps) => {
-  const groupedCountries = locationAnalytics(data)
+}: CityAnalyticsChartProps) => {
+  const groupedCities = cityAnalytics(data)
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Country based analytics</CardTitle>
+        <CardTitle>City based analytics</CardTitle>
         <CardDescription>
           {fromDateFormatted} - {toDateFormatted}
         </CardDescription>
@@ -57,7 +58,7 @@ export const LocationAnalyticsChart = ({
         <ChartContainer config={chartConfig}>
           <BarChart
             accessibilityLayer
-            data={groupedCountries}
+            data={groupedCities}
             margin={{
               top: 20,
             }}
@@ -72,7 +73,7 @@ export const LocationAnalyticsChart = ({
 
             <CartesianGrid vertical={false} />
             <XAxis
-              dataKey="country"
+              dataKey="city"
               tickLine={false}
               tickMargin={10}
               axisLine={false}
@@ -85,7 +86,7 @@ export const LocationAnalyticsChart = ({
               cursor={false}
               content={
                 <ChartTooltipContent
-                  labelFormatter={(value) => COUNTRIES[value] || "Unknown"}
+                  labelFormatter={(value) => value || "Unknown"}
                   indicator="dashed"
                 />
               }
@@ -104,7 +105,7 @@ export const LocationAnalyticsChart = ({
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
         <div className="flex gap-2 font-medium leading-none">
-          Gives you a country-based analytics <TrendingUp className="h-4 w-4" />
+          Gives you a city-based analytics <TrendingUp className="h-4 w-4" />
         </div>
         <div className="leading-none text-muted-foreground">
           Showing total visitors for the last {numberOfDays} days
