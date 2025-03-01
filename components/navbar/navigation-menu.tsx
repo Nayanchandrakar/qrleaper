@@ -16,10 +16,16 @@ const NavigationMenu = ({ session }: NavigationMenuProps) => {
 
   return (
     <div className="flex items-center gap-4">
-      <LinkButton href="/pricing">Pricing</LinkButton>
       <LinkButton href="/design" className="sm:inline-block hidden">
         QR Code Generator
       </LinkButton>
+
+      <LinkButton href="/solutions" className="sm:inline-block hidden">
+        Solutions
+      </LinkButton>
+
+      <LinkButton href="/pricing">Pricing</LinkButton>
+
       {isAuthenticated ? (
         <>
           <LinkButton

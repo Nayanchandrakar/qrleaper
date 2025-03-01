@@ -1,4 +1,11 @@
-import { BadgePlus, CreditCard, Gem, QrCode, UserRoundPen } from "lucide-react"
+import {
+  BadgePlus,
+  CreditCard,
+  FileText,
+  Gem,
+  QrCode,
+  UserRoundPen,
+} from "lucide-react"
 
 export const userNavigationLinks = [
   {
@@ -6,6 +13,12 @@ export const userNavigationLinks = [
     Icon: BadgePlus,
     label: "Create QR",
     href: "/design",
+  },
+  {
+    id: 324525,
+    Icon: FileText,
+    label: "Solutions",
+    href: "/solutions",
   },
   {
     id: 34524,
