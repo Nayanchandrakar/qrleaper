@@ -1,25 +1,13 @@
-import { LayoutTemplate, UserPen, QrCode } from "lucide-react"
+import { UserPen, QrCode } from "lucide-react"
 
-import {
-  TemplateComponent,
-  VcardCreateForm,
-  VcardQrCodeDesign,
-} from "@/components/dynamic"
+import { VcardCreateForm, VcardQrCodeDesign } from "@/components/dynamic"
 
 export const stepperVcardData = [
-  {
-    id: 43453453245,
-    Icon: LayoutTemplate,
-    label: "Choose Template",
-    index: 0,
-    Component: TemplateComponent,
-    fields: ["templateId"],
-  },
   {
     id: 4373463456,
     Icon: UserPen,
     label: "Enter Information",
-    index: 1,
+    index: 0,
     Component: VcardCreateForm,
     fields: [
       "profileImage",
@@ -62,7 +50,7 @@ export const stepperVcardData = [
     id: 33456346346,
     Icon: QrCode,
     label: "Create QR Code",
-    index: 2,
+    index: 1,
     Component: VcardQrCodeDesign,
     fields: [
       "title",

@@ -6,8 +6,8 @@ import { useAction } from "next-safe-action/hooks"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, FormProvider } from "react-hook-form"
 
+import { Accordion } from "@/components/ui/accordion"
 import { useQrDataContext } from "@/hooks/qr/useQrDataContext"
-import { VcardTemplateChangeButton } from "@/components/dynamic"
 import { QrStyleForm } from "@/components/forms/pages/design/qr-style/qr-style-form"
 import { PreviewQrCard } from "@/components/cards/pages/design/preview-qr-card"
 import { QrEditControl } from "@/components/forms/pages/edit/design/qr-edit-controls"
@@ -28,7 +28,7 @@ import { VcardImageUploadForm } from "@/components/forms/pages/design/virtual-ca
 import { SocialMediaProfileSection } from "@/components/forms/pages/design/virtual-card/sub-forms/social-media-profile-section"
 import { VcardProfileImageUploadForm } from "@/components/forms/pages/design/virtual-card/sub-forms/vcard-profile-image"
 import { updateQrCodeVcardAction } from "@/app/actions/pages/edit/vcard/update-qr-code-vcard-action"
-import { Accordion } from "@/components/ui/accordion"
+import { TemplateComponent } from "@/components/forms/pages/design/virtual-card/stepper-components/template-component"
 
 interface VcardEditFormProps {
   qrCode: editQrVcardType
@@ -107,10 +107,8 @@ export const VcardEditForm = ({ qrCode, endpoint }: VcardEditFormProps) => {
             defaultValue="basic-information"
             className="space-y-7"
           >
-            <div className="flex items-center justify-between gap-4">
-              <VcardProfileImageUploadForm isExecuting={isExecuting} />
-              <VcardTemplateChangeButton isExecuting={isExecuting} />
-            </div>
+            <TemplateComponent />
+            <VcardProfileImageUploadForm isExecuting={isExecuting} />
             <QrCodeInfoWithNameSection isExecuting={isExecuting} isEditForm />
             <PhoneNumberSection isExecuting={isExecuting} />
             <EmailAddressSection isExecuting={isExecuting} />

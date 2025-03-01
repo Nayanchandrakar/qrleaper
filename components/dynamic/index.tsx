@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic"
 import { Skeleton } from "@/components/ui/skeleton"
+import { Loader2 } from "lucide-react"
 
 export const AnalyticsMapDynamic = dynamic(
   () => import("@/components/maps/pages/dashboard/analytics/analytics-map"),
@@ -11,20 +12,12 @@ export const AnalyticsMapDynamic = dynamic(
   }
 )
 
-export const TemplateComponent = dynamic(
-  () =>
-    import(
-      "@/components/forms/pages/design/virtual-card/stepper-components/template-component"
-    ),
-  { ssr: false }
-)
-
 export const VcardCreateForm = dynamic(
   () =>
     import(
       "@/components/forms/pages/design/virtual-card/sub-forms/vcard-create-form"
     ),
-  { ssr: false }
+  { ssr: false, loading: () => <Skeleton className="w-full h-[40rem]" /> }
 )
 
 export const VcardQrCodeDesign = dynamic(
@@ -32,17 +25,20 @@ export const VcardQrCodeDesign = dynamic(
     import(
       "@/components/forms/pages/design/virtual-card/stepper-components/vcard-qr-code-design"
     ),
-  { ssr: false }
+  { ssr: false, loading: () => <Skeleton className="w-full h-[40rem]" /> }
 )
 
 export const CoreVcardPreview = dynamic(
   () => import("@/components/templates/vcard/core"),
-  { ssr: false }
-)
-
-export const VcardTemplateChangeButton = dynamic(
-  () => import("@/components/popups/pages/edit/vcard-edit-template-popup"),
-  { ssr: false, loading: () => <Skeleton className="h-9 px-4 py-2 w-72" /> }
+  {
+    ssr: false,
+    loading: () => (
+      <div className="flex items-center justify-center gap-2 flex-col size-full">
+        <Loader2 className="animate-spin size-4" />
+        Booting...
+      </div>
+    ),
+  }
 )
 
 export const SingleColorForm = dynamic(
@@ -50,7 +46,7 @@ export const SingleColorForm = dynamic(
     import(
       "@/components/forms/pages/design/qr-style/color-form/single-color-form/single-color-form"
     ),
-  { ssr: false, loading: () => <Skeleton className="w-full h-20" /> }
+  { ssr: false, loading: () => <Skeleton className="w-full h-32" /> }
 )
 
 export const GradientColorForm = dynamic(
@@ -58,5 +54,5 @@ export const GradientColorForm = dynamic(
     import(
       "@/components/forms/pages/design/qr-style/color-form/gradient-color-form/gradient-color-form"
     ),
-  { ssr: false, loading: () => <Skeleton className="w-full h-20" /> }
+  { ssr: false, loading: () => <Skeleton className="w-full h-32" /> }
 )

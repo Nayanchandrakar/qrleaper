@@ -1,8 +1,8 @@
 "use client"
 
+import { useMemo } from "react"
 import { Camera, User } from "lucide-react"
 import { useFormContext } from "react-hook-form"
-import { useMemo } from "react"
 
 import {
   FormControl,
@@ -37,7 +37,7 @@ export const VcardProfileImageUploadForm = ({
   }
 
   return (
-    <div className="flex items-start w-full">
+    <div className="flex items-start w-full" style={{ marginTop: "1rem" }}>
       <FormField
         control={control}
         name="profileImage"
