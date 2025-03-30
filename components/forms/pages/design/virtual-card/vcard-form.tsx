@@ -17,7 +17,6 @@ import { useVcardFormPersist } from "@/hooks/forms/design/useVcardFormPersist"
 import { stepperVcardData } from "@/constants/pages/design/vcard/stepper-data"
 import { useVcardCreateHandler } from "@/handlers/pages/design/vcard/useVcardCreateHandler"
 import { vcardCreateDefaultValues } from "@/constants/global/vcard-create-form-default-values"
-import { StepperNavigationButtons } from "@/components/buttons/pages/vcard/vcard-stepper-pre-buttons"
 import { StepperBar } from "@/components/forms/pages/design/virtual-card/stepper-components/stepper-bar"
 
 export function VCardForm() {
@@ -58,17 +57,15 @@ export function VCardForm() {
   return (
     <FormProvider {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <StepperBar isExecuting={isExecuting} />
+        <StepperBar 
+          isExecuting={isExecuting} 
+          handleNext={handleNext}
+          handlePrev={handlePrev}
+         />
 
         <div className="mb-12 mt-7">
           {StepperComponent && <StepperComponent isExecuting={isExecuting} />}
         </div>
-
-        <StepperNavigationButtons
-          handleNext={handleNext}
-          handlePrev={handlePrev}
-          isExecuting={isExecuting}
-        />
       </form>
     </FormProvider>
   )

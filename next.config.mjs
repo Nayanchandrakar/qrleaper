@@ -5,12 +5,12 @@ const nextConfig = {
       {
         source: "/",
         destination: "/design",
-        permanent: true,
+        permanent: false,
       },
       {
         source: "/dashboard",
         destination: "/dashboard/qr-codes",
-        permanent: true,
+        permanent: false,
       },
     ]
   },

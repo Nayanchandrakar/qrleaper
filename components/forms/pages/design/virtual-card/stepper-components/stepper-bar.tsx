@@ -5,15 +5,20 @@ import { forwardRef, useEffect, useMemo } from "react"
 
 import { cn } from "@/lib/utils"
 import { Stepper } from "@/components/ui/stepper"
+import type { MouseEventType } from "@/types/event-types"
 import { useStepper } from "@/hooks/pages/design/vcard/useStepper"
 import { stepperVcardData } from "@/constants/pages/design/vcard/stepper-data"
+import { StepperNavigationButtons } from "@/components/buttons/pages/vcard/vcard-stepper-pre-buttons"
+
 
 interface StepperBarProps {
   isExecuting: boolean
+  handlePrev: () => void
+  handleNext: (event: MouseEventType) => void
 }
 
 export const StepperBar = forwardRef<HTMLDivElement, StepperBarProps>(
-  ({ isExecuting }, ref) => {
+  ({ isExecuting , handleNext , handlePrev }, ref) => {
     const { activeStep, setIsFirstStep, setIsLastStep, setActiveStep } =
       useStepper()
 
@@ -38,7 +43,7 @@ export const StepperBar = forwardRef<HTMLDivElement, StepperBarProps>(
     return (
       <div
         ref={ref}
-        className="flex items-center justify-center bg-zinc-100 rounded-lg p-3 w-full md:w-fit lg:sticky lg:top-20 lg:z-10 border border-zinc-200"
+        className="flex items-start lg:items-center justify-between bg-zinc-50 rounded-lg p-3 w-full lg:sticky lg:top-20 lg:z-10 border border-zinc-200 flex-col lg:flex-row gap-5"
       >
         <Stepper>
           {stepperVcardData.map(({ id, Icon, label }, index) => {
@@ -75,6 +80,11 @@ export const StepperBar = forwardRef<HTMLDivElement, StepperBarProps>(
             )
           })}
         </Stepper>
+        <StepperNavigationButtons 
+          isExecuting={isExecuting}
+          handleNext={handleNext}
+          handlePrev={handlePrev}
+        />
       </div>
     )
   }

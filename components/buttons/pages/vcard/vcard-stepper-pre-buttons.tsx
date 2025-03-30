@@ -4,6 +4,7 @@ import { Loader, RotateCcw } from "lucide-react"
 import { useCallback } from "react"
 import { useFormContext } from "react-hook-form"
 
+import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import type { MouseEventType } from "@/types/event-types"
 import { useStepper } from "@/hooks/pages/design/vcard/useStepper"
@@ -12,12 +13,14 @@ interface StepperNavigationButtonProps {
   handlePrev: () => void
   handleNext: (event: MouseEventType) => void
   isExecuting: boolean
+  className?:string;
 }
 
 export const StepperNavigationButtons = ({
   handlePrev,
   handleNext,
   isExecuting,
+  className
 }: StepperNavigationButtonProps) => {
   const { reset } = useFormContext()
   const {
@@ -36,7 +39,7 @@ export const StepperNavigationButtons = ({
   }, [reset, setActiveStep, setIsFirstStep, setIsLastStep])
 
   return (
-    <div className="mt-8 flex justify-end gap-4 sm:flex-row flex-col">
+    <div className={cn("flex gap-4 flex-col lg:justify-end min-[505px]:flex-row w-full" , className)}>
       <Button
         type="button"
         disabled={isExecuting}
