@@ -12,7 +12,7 @@ export const createAnalyticsRecord = async (
   deviceId: string
 ) => {
   try {
-    const isVercel = process.env.VERCEL === "1"
+    const isVercel = process.env.NODE_ENV === "production"
     const ip = isVercel ? ipAddress(req) : LOCALHOST_IP
     const continent = isVercel
       ? req.headers.get("x-vercel-ip-continent")
