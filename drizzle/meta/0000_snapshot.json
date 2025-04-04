@@ -1,5 +1,5 @@
 {
-  "id": "85ab053d-6c69-413f-aa81-4efd7f041e3b",
+  "id": "3bbef4df-af95-4ddf-b21d-000151a7eb95",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -729,14 +729,14 @@
           "primaryKey": false,
           "notNull": true
         },
-        "color": {
-          "name": "color",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
         "logo": {
           "name": "logo",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "top_text": {
+          "name": "top_text",
           "type": "text",
           "primaryKey": false,
           "notNull": false
@@ -747,23 +747,38 @@
           "primaryKey": false,
           "notNull": true
         },
+        "bottom_text": {
+          "name": "bottom_text",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "colors": {
+          "name": "colors",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": true
+        },
         "has_frame": {
           "name": "has_frame",
           "type": "boolean",
           "primaryKey": false,
           "notNull": true
         },
-        "top_text": {
-          "name": "top_text",
-          "type": "text",
+        "rotation": {
+          "name": "rotation",
+          "type": "integer",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true,
+          "default": 0
         },
-        "bottom_text": {
-          "name": "bottom_text",
-          "type": "text",
+        "gradient_type": {
+          "name": "gradient_type",
+          "type": "gradient_type",
+          "typeSchema": "public",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true,
+          "default": "'linear'"
         }
       },
       "indexes": {
@@ -1706,6 +1721,14 @@
     }
   },
   "enums": {
+    "public.gradient_type": {
+      "name": "gradient_type",
+      "schema": "public",
+      "values": [
+        "linear",
+        "radial"
+      ]
+    },
     "public.status": {
       "name": "status",
       "schema": "public",
