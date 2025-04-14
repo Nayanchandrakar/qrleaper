@@ -1,7 +1,7 @@
-import { compare, hash } from "bcryptjs"
+import { hash, verify } from 'argon2'
 
 export async function hashPassword(password: string) {
-  return await hash(password, 12)
+  return await hash(password)
 }
 
 export async function validatePassword({
@@ -11,5 +11,5 @@ export async function validatePassword({
   password: string
   passwordHash: string
 }) {
-  return await compare(password, passwordHash)
+  return await verify(passwordHash, password)
 }
