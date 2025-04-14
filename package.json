@@ -39,8 +39,8 @@
     "@radix-ui/react-tooltip": "^1.1.5",
     "@react-email/components": "0.0.28",
     "@vercel/functions": "^1.5.1",
-    "argon2": "^0.41.1",
     "axios": "^1.7.9",
+    "bcryptjs": "^3.0.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "1.0.0",
@@ -79,6 +79,7 @@
     "zustand": "^4.5.4"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^3.0.0",
     "@types/leaflet": "^1.9.16",
     "@types/node": "^20",
     "@types/react": "^18",
