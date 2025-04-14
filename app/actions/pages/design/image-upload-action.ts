@@ -7,8 +7,10 @@ import {
   updateQrCodeStylelogoById,
 } from "@/app/actions/utils"
 import { logoFileFormSchema } from "@/zod/forms/design/logo-form-schema"
+import { throwSubscriptionError } from "@/lib/action/throw-subscription-error"
 
 export const imageUploadAction = authUserActionClient
+  .use(throwSubscriptionError)
   .use(async ({ next, clientInput }) => {
     const formData = clientInput as FormData
 
