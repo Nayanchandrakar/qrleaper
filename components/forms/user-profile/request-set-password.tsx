@@ -30,9 +30,9 @@ export const RequestSetPassword = ({
 
 	return (
 		<div className="rounded-lg border border-gray-200 bg-white">
-			<div className="flex flex-col gap-3 border-b border-gray-200 p-5 sm:p-10">
-				<h2 className="text-xl font-medium">Password</h2>
-				<p className="pb-2 text-sm text-gray-500">
+			<div className="flex flex-col gap-3 border-gray-200 border-b p-5 sm:p-10">
+				<h2 className="font-medium text-xl">Password</h2>
+				<p className="pb-2 text-gray-500 text-sm">
 					Your account is managed by{" "}
 					<span className="uppercase">{provider ?? "other"}</span>. You can set
 					a password to use with your QR Leaper account.
@@ -40,7 +40,7 @@ export const RequestSetPassword = ({
 			</div>
 			<div className="p-5">
 				<Button onClick={() => executeAsync()} disabled={isExecuting}>
-					{isExecuting && <Loader className="animate-spin size-5 mr-1" />}
+					{isExecuting && <Loader className="mr-1 size-5 animate-spin" />}
 					Create account password
 				</Button>
 			</div>

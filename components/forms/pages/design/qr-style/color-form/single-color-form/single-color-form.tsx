@@ -25,7 +25,7 @@ const SingleColorForm = () => {
 			<ColorInput color={defaultColor} onColorChange={onColorChange} />
 
 			<ListComponent
-				className="flex flex-wrap gap-3 mt-2"
+				className="mt-2 flex flex-wrap gap-3"
 				data={colorsList}
 				renderItem={(color) => (
 					<ColorCard

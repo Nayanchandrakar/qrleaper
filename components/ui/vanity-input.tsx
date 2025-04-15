@@ -8,8 +8,8 @@ interface VanityInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 
 export default function VanityInput({ label, ...props }: VanityInputProps) {
 	return (
-		<div className="flex rounded-lg shadow-sm shadow-black/5">
-			<span className="flex items-center rounded-s-lg border border-input bg-background px-3 text-sm text-muted-foreground flex-shrink-0">
+		<div className="flex rounded-lg shadow-black/5 shadow-sm">
+			<span className="flex flex-shrink-0 items-center rounded-s-lg border border-input bg-background px-3 text-muted-foreground text-sm">
 				{label}
 			</span>
 			<Input

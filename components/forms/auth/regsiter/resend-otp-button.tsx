@@ -43,11 +43,11 @@ const ResendOtpButton = ({ email }: ResendOtpButtonProps) => {
 	}, [delaySeconds]);
 
 	return (
-		<div className="relative mt-4 text-center text-sm text-gray-500">
+		<div className="relative mt-4 text-center text-gray-500 text-sm">
 			{state === "default" && (
 				<>
 					{isExecuting && (
-						<div className="absolute left-0 top-1/2 -translate-x-full -translate-y-1/2 pr-1.5">
+						<div className="-translate-x-full -translate-y-1/2 absolute top-1/2 left-0 pr-1.5">
 							<Loader className="size-5 animate-spin" />
 						</div>
 					)}
@@ -68,13 +68,13 @@ const ResendOtpButton = ({ email }: ResendOtpButtonProps) => {
 			)}
 
 			{state === "success" && (
-				<p className="text-sm text-gray-500">
+				<p className="text-gray-500 text-sm">
 					Code sent successfully. <Delay seconds={delaySeconds} />
 				</p>
 			)}
 
 			{state === "error" && (
-				<p className="text-sm text-gray-500">
+				<p className="text-gray-500 text-sm">
 					Failed to send code. <Delay seconds={delaySeconds} />
 				</p>
 			)}
@@ -84,7 +84,7 @@ const ResendOtpButton = ({ email }: ResendOtpButtonProps) => {
 
 const Delay = ({ seconds }: { seconds: number }) => {
 	return (
-		<span className="ml-1 text-sm tabular-nums text-gray-400">{seconds}s</span>
+		<span className="ml-1 text-gray-400 text-sm tabular-nums">{seconds}s</span>
 	);
 };
 

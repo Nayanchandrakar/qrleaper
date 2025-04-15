@@ -8,7 +8,7 @@ export const AnalyticsMapDynamic = dynamic(
 	() => import("@/components/maps/pages/dashboard/analytics/analytics-map"),
 	{
 		ssr: false,
-		loading: () => <Skeleton className="w-full rounded-lg h-[30rem]" />,
+		loading: () => <Skeleton className="h-[30rem] w-full rounded-lg" />,
 	},
 );
 
@@ -17,7 +17,7 @@ export const VcardCreateForm = dynamic(
 		import(
 			"@/components/forms/pages/design/virtual-card/sub-forms/vcard-create-form"
 		),
-	{ ssr: false, loading: () => <Skeleton className="w-full h-[40rem]" /> },
+	{ ssr: false, loading: () => <Skeleton className="h-[40rem] w-full" /> },
 );
 
 export const VcardQrCodeDesign = dynamic(
@@ -25,7 +25,7 @@ export const VcardQrCodeDesign = dynamic(
 		import(
 			"@/components/forms/pages/design/virtual-card/stepper-components/vcard-qr-code-design"
 		),
-	{ ssr: false, loading: () => <Skeleton className="w-full h-[40rem]" /> },
+	{ ssr: false, loading: () => <Skeleton className="h-[40rem] w-full" /> },
 );
 
 export const CoreVcardPreview = dynamic(
@@ -33,8 +33,8 @@ export const CoreVcardPreview = dynamic(
 	{
 		ssr: false,
 		loading: () => (
-			<div className="flex items-center justify-center gap-2 flex-col size-full">
-				<Loader2 className="animate-spin size-4" />
+			<div className="flex size-full flex-col items-center justify-center gap-2">
+				<Loader2 className="size-4 animate-spin" />
 				Booting...
 			</div>
 		),
@@ -46,8 +46,8 @@ export const BlueVcardPreview = dynamic(
 	{
 		ssr: false,
 		loading: () => (
-			<div className="flex items-center justify-center gap-2 flex-col size-full">
-				<Loader2 className="animate-spin size-4" />
+			<div className="flex size-full flex-col items-center justify-center gap-2">
+				<Loader2 className="size-4 animate-spin" />
 				Booting...
 			</div>
 		),
@@ -59,8 +59,8 @@ export const OrangeGrayPreview = dynamic(
 	{
 		ssr: false,
 		loading: () => (
-			<div className="flex items-center justify-center gap-2 flex-col size-full">
-				<Loader2 className="animate-spin size-4" />
+			<div className="flex size-full flex-col items-center justify-center gap-2">
+				<Loader2 className="size-4 animate-spin" />
 				Booting...
 			</div>
 		),
@@ -72,7 +72,7 @@ export const SingleColorForm = dynamic(
 		import(
 			"@/components/forms/pages/design/qr-style/color-form/single-color-form/single-color-form"
 		),
-	{ ssr: false, loading: () => <Skeleton className="w-full h-32" /> },
+	{ ssr: false, loading: () => <Skeleton className="h-32 w-full" /> },
 );
 
 export const GradientColorForm = dynamic(
@@ -80,5 +80,5 @@ export const GradientColorForm = dynamic(
 		import(
 			"@/components/forms/pages/design/qr-style/color-form/gradient-color-form/gradient-color-form"
 		),
-	{ ssr: false, loading: () => <Skeleton className="w-full h-32" /> },
+	{ ssr: false, loading: () => <Skeleton className="h-32 w-full" /> },
 );

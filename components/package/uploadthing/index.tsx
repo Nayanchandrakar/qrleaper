@@ -22,7 +22,7 @@ export const Uploadthing = ({
 		<div>
 			<label
 				htmlFor={htmlFor}
-				className="flex h-50 p-12 w-full cursor-pointer items-center justify-center rounded-lg bg-gray-50 border border-gray-200 transition-colors duration-200 hover:bg-gray-100 flex-col gap-2"
+				className="flex h-50 w-full cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border border-gray-200 bg-gray-50 p-12 transition-colors duration-200 hover:bg-gray-100"
 			>
 				<input
 					name="file"
@@ -35,18 +35,18 @@ export const Uploadthing = ({
 				/>
 
 				{isExecuting ? (
-					<Loader className="animate-spin text-gray-600 size-6" />
+					<Loader className="size-6 animate-spin text-gray-600" />
 				) : (
 					<CloudUpload className="size-8 stroke-gray-500" />
 				)}
-				<p className="text-sm font-semibold text-gray-900 transition-colors duration-200 hover:text-green-600">
+				<p className="font-semibold text-gray-900 text-sm transition-colors duration-200 hover:text-green-600">
 					{isExecuting ? "Uploading..." : fileName || "Click to upload a file"}
 				</p>
 				{!isExecuting && (
-					<p className="text-xs font-medium ">Allowed content</p>
+					<p className="font-medium text-xs ">Allowed content</p>
 				)}
 			</label>
-			<p className="mt-2 text-xs text-gray-500 font-medium">{footerText}</p>
+			<p className="mt-2 font-medium text-gray-500 text-xs">{footerText}</p>
 		</div>
 	);
 };

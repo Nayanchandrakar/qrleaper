@@ -21,7 +21,7 @@ const AnalyticsMap = ({ data }: MapProps) => {
 		<MapContainer
 			zoom={2}
 			center={position}
-			className="rounded-lg w-full h-[30rem]"
+			className="h-[30rem] w-full rounded-lg"
 		>
 			<TileLayer
 				attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'

@@ -15,12 +15,12 @@ export const TopCountries = ({ data }: TopCountriesProps) => {
 
 	return (
 		<div className="mt-8">
-			<div className="flex items-center justify-between gap-2 bg-zinc-100 p-3 rounded-lg">
-				<p className="text-sm font-semibold text-black">
+			<div className="flex items-center justify-between gap-2 rounded-lg bg-zinc-100 p-3">
+				<p className="font-semibold text-black text-sm">
 					Top {sortedCountries?.length ?? 0} Countr
 					{sortedCountries.length > 1 ? "ies" : "y"}
 				</p>
-				<p className="text-sm font-medium text-gray-800 flex items-center gap-2">
+				<p className="flex items-center gap-2 font-medium text-gray-800 text-sm">
 					<ScanQrCode className="size-4" />
 					Scans
 				</p>
@@ -28,7 +28,7 @@ export const TopCountries = ({ data }: TopCountriesProps) => {
 
 			<ListComponent
 				data={sortedCountries}
-				className="flex flex-col gap-2 mt-4"
+				className="mt-4 flex flex-col gap-2"
 				renderItem={(item) => <TopScanCard key={item?.country} data={item} />}
 			/>
 		</div>

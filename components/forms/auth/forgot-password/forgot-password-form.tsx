@@ -40,16 +40,16 @@ const ForgotPasswordForm = () => {
 	};
 
 	return (
-		<Card className="sm:rounded-2xl border border-gray-200 w-full max-w-[460px] overflow-hidden">
-			<CardHeader className="text-center p-0">
-				<CardTitle className="text-lg font-semibold border-b py-7 border-gray-200">
+		<Card className="w-full max-w-[460px] overflow-hidden border border-gray-200 sm:rounded-2xl">
+			<CardHeader className="p-0 text-center">
+				<CardTitle className="border-gray-200 border-b py-7 font-semibold text-lg">
 					Get started with QR Leaper
 				</CardTitle>
 			</CardHeader>
 			<CardContent className=" bg-gray-50 px-4 pt-8 pb-4 sm:px-16">
 				<form onSubmit={onSubmit} className="space-y-5">
 					<label>
-						<span className="text-sm font-medium text-gray-700">Email</span>
+						<span className="font-medium text-gray-700 text-sm">Email</span>
 						<Input
 							type="email"
 							value={email}
@@ -60,14 +60,14 @@ const ForgotPasswordForm = () => {
 						/>
 					</label>
 					<Button disabled={isExecuting} className="w-full" type="submit">
-						{isExecuting && <Loader className="animate-spin size-5" />}
+						{isExecuting && <Loader className="size-5 animate-spin" />}
 						{isExecuting ? "Sending..." : "Send reset link"}
 					</Button>
 				</form>
 			</CardContent>
 
 			<CardFooter className=" justify-center">
-				<p className="mt-4 text-center text-sm text-gray-500">
+				<p className="mt-4 text-center text-gray-500 text-sm">
 					Already have an account?&nbsp;
 					<Link
 						href="/login"

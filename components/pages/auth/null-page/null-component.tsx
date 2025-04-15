@@ -8,12 +8,12 @@ export const NullComponent = ({
 	description: string;
 }) => {
 	return (
-		<div className="flex items-center flex-col gap-4">
-			<span className="size-16 bg-gray-50/70 backdrop-blur-sm flex items-center justify-center rounded-lg border border-gray-200">
+		<div className="flex flex-col items-center gap-4">
+			<span className="flex size-16 items-center justify-center rounded-lg border border-gray-200 bg-gray-50/70 backdrop-blur-sm">
 				<KeyboardOff className="size-6 " />
 			</span>
 			<h3 className="font-medium text-sm ">{title}</h3>
-			<p className="font-normal text-sm text-gray-500 max-w-xs text-center">
+			<p className="max-w-xs text-center font-normal text-gray-500 text-sm">
 				{description}
 			</p>
 		</div>

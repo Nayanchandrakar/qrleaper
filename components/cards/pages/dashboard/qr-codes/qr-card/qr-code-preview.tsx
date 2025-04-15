@@ -20,10 +20,10 @@ export const QrCodePreview = ({ endpoint, data }: QrCodePreviewType) => {
 	const isBussinessCard = data?.qr_code?.type === "vcard";
 
 	return (
-		<div className="bg-gray-100 flex items-center justify-center h-44 w-full group relative ">
+		<div className="group relative flex h-44 w-full items-center justify-center bg-gray-100 ">
 			{isBussinessCard && (
-				<span className="border rounded-lg flex items-center justify-center size-fit p-2 absolute top-4 left-4 bg-white z-10">
-					<IdCard className="text-green-600 size-6" />
+				<span className="absolute top-4 left-4 z-10 flex size-fit items-center justify-center rounded-lg border bg-white p-2">
+					<IdCard className="size-6 text-green-600" />
 				</span>
 			)}
 			<QrCode

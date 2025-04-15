@@ -10,7 +10,7 @@ const HeadingShortner = ({
 }: HeadingShortnerProps) => {
 	return (
 		<div
-			className={cn("flex items-start flex-col gap-1", className)}
+			className={cn("flex flex-col items-start gap-1", className)}
 			{...props}
 		>
 			{children}
@@ -24,7 +24,7 @@ interface HeadingShortnerProps extends HTMLAttributes<HTMLHeadingElement> {
 
 const Heading = ({ className, children, ...props }: HeadingShortnerProps) => {
 	return (
-		<h3 className={cn("text-xl font-bold md:text-2xl", className)} {...props}>
+		<h3 className={cn("font-bold text-xl md:text-2xl", className)} {...props}>
 			{children}
 		</h3>
 	);
@@ -44,7 +44,7 @@ const Paragraph = ({
 }: HeadingShortnerTitleProps) => {
 	return (
 		<p
-			className={cn("text-base font-medium text-gray-600", className)}
+			className={cn("font-medium text-base text-gray-600", className)}
 			{...props}
 		>
 			{children}

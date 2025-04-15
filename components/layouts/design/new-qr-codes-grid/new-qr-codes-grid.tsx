@@ -12,7 +12,7 @@ export const NewQrCodeGrid = () => {
 
 			<ListComponent
 				data={newQrData}
-				className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-8 mb-20"
+				className="mt-8 mb-20 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
 				renderItem={(data) => <NewQrCodeGridCard key={data.id} {...data} />}
 			/>
 		</section>

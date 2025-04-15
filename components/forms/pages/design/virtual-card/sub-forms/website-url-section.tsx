@@ -27,10 +27,10 @@ export const WebsiteSection = ({
 
 	return (
 		<AccordionItem className="border-b-0" value="website-section">
-			<AccordionTrigger className="px-2 rounded-lg  bg-gray-100 text-gray-500 hover:no-underline">
+			<AccordionTrigger className="rounded-lg bg-gray-100 px-2 text-gray-500 hover:no-underline">
 				Website
 			</AccordionTrigger>
-			<AccordionContent className="pt-4 px-2 space-y-6">
+			<AccordionContent className="space-y-6 px-2 pt-4">
 				<FormField
 					control={form.control}
 					name="website"

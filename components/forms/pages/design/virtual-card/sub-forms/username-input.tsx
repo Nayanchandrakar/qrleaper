@@ -120,7 +120,7 @@ export const UserNameInput = ({
 
 			<p
 				className={cn(
-					"text-sm font-medium text-gray-600",
+					"font-medium text-gray-600 text-sm",
 					validInputClassName(
 						!!userNameError,
 						checkingUserName,
@@ -130,7 +130,7 @@ export const UserNameInput = ({
 			>
 				{checkingUserName ? (
 					<span className="flex items-center gap-1">
-						<Loader className="animate-spin size-3" /> checking username...
+						<Loader className="size-3 animate-spin" /> checking username...
 					</span>
 				) : (
 					validateInput(userNameError?.message!, isUserNameAvailable)

@@ -30,7 +30,7 @@ export const Sidebar = ({ subscription }: SidebarProps) => {
 						key={index}
 						href={navigation?.href}
 						className={cn(
-							"flex w-full cursor-pointer items-center rounded-md p-2 text-sm font-medium text-black antialiased transition-colors duration-300 hover:bg-slate-100",
+							"flex w-full cursor-pointer items-center rounded-md p-2 font-medium text-black text-sm antialiased transition-colors duration-300 hover:bg-slate-100",
 							checkRoute(navigation?.href),
 						)}
 					>

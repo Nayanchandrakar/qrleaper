@@ -17,7 +17,7 @@ export const TemplateComponent = () => {
 	const currentTemplateId = getValues("templateId");
 
 	return (
-		<div className="flex items-start flex-col mt-3">
+		<div className="mt-3 flex flex-col items-start">
 			<CardHeader className="p-0 pb-3">
 				<CardTitle>Choose Template</CardTitle>
 				<CardDescription>
@@ -27,7 +27,7 @@ export const TemplateComponent = () => {
 			</CardHeader>
 
 			<Carousel className="w-full" opts={{ align: "center" }}>
-				<CarouselContent className="my-3 mx-1 gap-2">
+				<CarouselContent className="mx-1 my-3 gap-2">
 					{templateCarouselData?.map(({ id, image, templateId }) => (
 						<TemplateSelectCard
 							key={id}

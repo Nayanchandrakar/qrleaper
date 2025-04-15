@@ -26,12 +26,12 @@ const CorePreviewComponentDynamic = ({
 	isPreviewMode = false,
 }: CorePreviewComponentProps) => {
 	return (
-		<section className="size-full relative">
+		<section className="relative size-full">
 			{/* Only show mesh on non preview mode  */}
-			{!isPreviewMode && <div className="design-mesh fixed size-full z-[-1]" />}
+			{!isPreviewMode && <div className="design-mesh fixed z-[-1] size-full" />}
 
-			<div className="flex flex-col items-center justify-center py-20 max-w-4xl mx-auto">
-				<div className="flex items-center justify-center flex-col gap-3">
+			<div className="mx-auto flex max-w-4xl flex-col items-center justify-center py-20">
+				<div className="flex flex-col items-center justify-center gap-3">
 					<ProfileAvatar {...vCard} isPreviewMode={isPreviewMode} />
 
 					<AddToContactButton
@@ -44,7 +44,7 @@ const CorePreviewComponentDynamic = ({
 						vCard.workEmail,
 						vCard.whatsappNumber,
 					]) && (
-						<div className="flex items-center gap-4 mt-4">
+						<div className="mt-4 flex items-center gap-4">
 							{vCard.mobileNumber && (
 								<SocialIcon>
 									<SocialIcon.Icon href={`tel:${vCard.mobileNumber}`}>
@@ -74,7 +74,7 @@ const CorePreviewComponentDynamic = ({
 					)}
 				</div>
 
-				<div className="rounded-lg border border-gray-100 bg-white p-8 mt-12 w-full max-w-lg space-y-8">
+				<div className="mt-12 w-full max-w-lg space-y-8 rounded-lg border border-gray-100 bg-white p-8">
 					{shouldRenderVcardInfo([
 						vCard.mobileNumber,
 						vCard.workNumber,
@@ -167,7 +167,7 @@ const CorePreviewComponentDynamic = ({
 							{vCard.images && (
 								<ListComponent
 									data={vCard.images}
-									className="flex flex-col gap-6 mt-5"
+									className="mt-5 flex flex-col gap-6"
 									renderItem={(data) => (
 										<VcardImageGallery
 											imageSrc={data}
@@ -196,7 +196,7 @@ const CorePreviewComponentDynamic = ({
 					]) && (
 						<VcardInfo>
 							<VcardInfo.Title>Social Media</VcardInfo.Title>
-							<div className="flex flex-col gap-7 mt-5">
+							<div className="mt-5 flex flex-col gap-7">
 								{vCard.linkedin && (
 									<SocialIcon>
 										<SocialIcon.Icon href={vCard.linkedin}>

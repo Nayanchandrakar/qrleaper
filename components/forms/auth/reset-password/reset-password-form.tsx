@@ -60,14 +60,14 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
 		executeAsync(formData);
 
 	return (
-		<Card className="sm:rounded-2xl border border-gray-200 w-full max-w-[460px] overflow-hidden">
-			<CardHeader className="text-center p-0 py-7 border-b  border-gray-200">
-				<CardTitle className="text-lg font-semibold ">
+		<Card className="w-full max-w-[460px] overflow-hidden border border-gray-200 sm:rounded-2xl">
+			<CardHeader className="border-gray-200 border-b p-0 py-7 text-center">
+				<CardTitle className="font-semibold text-lg ">
 					Reset your password
 				</CardTitle>
 				<CardDescription>Enter new password for your account.</CardDescription>
 			</CardHeader>
-			<CardContent className=" bg-gray-50 px-4 pt-8  sm:px-16">
+			<CardContent className=" bg-gray-50 px-4 pt-8 sm:px-16">
 				<Form {...form}>
 					<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
 						<input value={token} {...form.register("token")} type="hidden" />
@@ -107,7 +107,7 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
 						/>
 
 						<Button disabled={isExecuting} className="w-full" type="submit">
-							{isExecuting && <Loader className="animate-spin size-5" />}
+							{isExecuting && <Loader className="size-5 animate-spin" />}
 							{isExecuting ? "Submitting.." : "Reset Password"}
 						</Button>
 					</form>

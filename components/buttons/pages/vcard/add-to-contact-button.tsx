@@ -40,9 +40,9 @@ export const AddToContactButton: React.FC<AddToContactButtonProps> = ({
 			size="lg"
 			onClick={handleDownload}
 			disabled={isLoading || isPreviewMode}
-			className={cn("bg-gradient-brand mt-2", className)}
+			className={cn("mt-2 bg-gradient-brand", className)}
 		>
-			{isLoading && <Loader className="animate-spin size-4" />}
+			{isLoading && <Loader className="size-4 animate-spin" />}
 			Add to Contacts
 		</Button>
 	);

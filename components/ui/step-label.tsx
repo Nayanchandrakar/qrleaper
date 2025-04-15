@@ -23,7 +23,7 @@ const StepLabelCounter = ({
 	return (
 		<span
 			className={cn(
-				"text-sm size-7 bg-black  flex items-center justify-center rounded-full text-white font-medium",
+				"flex size-7 items-center justify-center rounded-full bg-black font-medium text-sm text-white",
 				className,
 			)}
 			{...props}
@@ -45,7 +45,7 @@ const StepLabelTitle = ({
 	...props
 }: StepLabelTitleProps) => {
 	return (
-		<p className={cn("text-sm font-semibold", className)} {...props}>
+		<p className={cn("font-semibold text-sm", className)} {...props}>
 			{children}
 		</p>
 	);

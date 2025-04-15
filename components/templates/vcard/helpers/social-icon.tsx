@@ -31,7 +31,7 @@ const SocialIconIcon = ({
 	return (
 		<Link
 			className={cn(
-				"flex items-center justify-center size-10 rounded-full bg-gradient-brand",
+				"flex size-10 items-center justify-center rounded-full bg-gradient-brand",
 				className,
 			)}
 			{...props}

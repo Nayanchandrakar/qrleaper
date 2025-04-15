@@ -20,13 +20,13 @@ export const DeleteQrCodeButton = ({ id }: DeleteQrCodeButtonProps) => {
 	return (
 		<Button
 			onClick={() => executeAsync({ id })}
-			className="absolute top-4 right-4 transition duration-200 opacity-0 group-hover:opacity-100"
+			className="absolute top-4 right-4 opacity-0 transition duration-200 group-hover:opacity-100"
 			variant="destructive"
 			size="icon"
 			disabled={isExecuting}
 		>
 			{isExecuting ? (
-				<Loader className="animate-spin size-4" />
+				<Loader className="size-4 animate-spin" />
 			) : (
 				<Trash className="size-4" />
 			)}

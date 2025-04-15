@@ -26,7 +26,7 @@ export const UserButton = ({ session }: { session: Session }) => {
 			<DropdownMenuTrigger className="outline-none">
 				<Avatar className="cursor-pointer">
 					<AvatarImage src={user?.image!} />
-					<AvatarFallback className="bg-green-600 text-sm font-semibold uppercase text-white">
+					<AvatarFallback className="bg-green-600 font-semibold text-sm text-white uppercase">
 						{user?.name?.slice(0, 1)}
 					</AvatarFallback>
 				</Avatar>
@@ -34,10 +34,10 @@ export const UserButton = ({ session }: { session: Session }) => {
 			<DropdownMenuContent className="mr-8 w-[14rem]">
 				<DropdownMenuLabel>
 					<span className="antialiased">
-						<p className="text-sm font-semibold first-letter:uppercase">
+						<p className="font-semibold text-sm first-letter:uppercase">
 							{user?.name}
 						</p>
-						<p className="text-xs font-normal text-zinc-500">{user?.email}</p>
+						<p className="font-normal text-xs text-zinc-500">{user?.email}</p>
 					</span>
 				</DropdownMenuLabel>
 				<DropdownMenuSeparator />

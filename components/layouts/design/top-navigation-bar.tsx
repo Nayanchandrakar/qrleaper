@@ -17,20 +17,20 @@ const TopNavigationBar = () => {
 	};
 
 	return (
-		<div className="p-3 bg-white rounded-lg">
+		<div className="rounded-lg bg-white p-3">
 			<ListComponent
-				className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-8 gap-4 w-full "
+				className="grid w-full grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-8 "
 				data={topNavigationData}
 				renderItem={({ Icon, endpoint, id, label }) => (
 					<Link
 						key={id}
 						href={endpoint}
 						className={cn(
-							"transition-colors text-sm flex items-center justify-center duration-200 hover:bg-zinc-200/60 font-medium text-zinc-800 bg-zinc-50 px-5 py-2 rounded-md w-full border border-zinc-200",
+							"flex w-full items-center justify-center rounded-md border border-zinc-200 bg-zinc-50 px-5 py-2 font-medium text-sm text-zinc-800 transition-colors duration-200 hover:bg-zinc-200/60",
 							currentTab(endpoint),
 						)}
 					>
-						<Icon className="size-4 mr-2" />
+						<Icon className="mr-2 size-4" />
 						{label}
 					</Link>
 				)}

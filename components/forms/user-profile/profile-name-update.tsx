@@ -37,10 +37,10 @@ const ProfileNameUpdateForm = ({ defaultName }: ProfileNameUpdateFormProps) => {
 
 	return (
 		<form onSubmit={onSubmit} className="rounded-lg border border-gray-200">
-			<div className="pt-5 px-5 sm:pt-10 sm:px-10">
+			<div className="px-5 pt-5 sm:px-10 sm:pt-10">
 				<div className="flex flex-col space-y-3 ">
-					<h2 className="text-xl font-medium">Your Name</h2>
-					<p className="text-sm text-gray-500">
+					<h2 className="font-medium text-xl">Your Name</h2>
+					<p className="text-gray-500 text-sm">
 						This will be your display name on QR Leaper.
 					</p>
 				</div>
@@ -61,13 +61,13 @@ const ProfileNameUpdateForm = ({ defaultName }: ProfileNameUpdateFormProps) => {
 				</div>
 			</div>
 
-			<div className="border-t border-gray-200 flex items-center gap-2 justify-between bg-gray-50 py-4 px-5 sm:px-10">
+			<div className="flex items-center justify-between gap-2 border-gray-200 border-t bg-gray-50 px-5 py-4 sm:px-10">
 				<p className="text-gray-500 text-sm ">Max 32 characters.</p>
 				<Button
 					className="cursor-pointer disabled:cursor-not-allowed"
 					disabled={isDisabled}
 				>
-					{isExecuting && <Loader className="size-5 mr-1 animate-spin" />}
+					{isExecuting && <Loader className="mr-1 size-5 animate-spin" />}
 					{isExecuting ? "Submitting.." : "Save Changes"}
 				</Button>
 			</div>

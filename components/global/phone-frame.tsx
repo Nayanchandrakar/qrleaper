@@ -12,14 +12,14 @@ export function PhoneFrame({
 	return (
 		<div
 			className={cn(
-				"w-full border-[15px] rounded-[30px] border-black max-w-[20rem] relative",
+				"relative w-full max-w-[20rem] rounded-[30px] border-[15px] border-black",
 				className,
 			)}
 			{...props}
 		>
-			<span className="h-6 w-28 z-10 rounded-b-lg absolute inset-0 left-[50%] -translate-x-[50%] bg-black" />
+			<span className="-translate-x-[50%] absolute inset-0 left-[50%] z-10 h-6 w-28 rounded-b-lg bg-black" />
 
-			<div className="hide-scrollbar overflow-y-auto rounded-[16px] h-[35rem]">
+			<div className="hide-scrollbar h-[35rem] overflow-y-auto rounded-[16px]">
 				{children}
 			</div>
 		</div>

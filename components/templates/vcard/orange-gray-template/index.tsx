@@ -27,24 +27,24 @@ const OrangeGrayTemplate = ({
 	isPreviewMode = false,
 }: OrangeGrayTemplateProps) => {
 	return (
-		<section className="flex items-center flex-col gap-4">
+		<section className="flex flex-col items-center gap-4">
 			<div
 				className={cn(
-					"max-w-4xl mx-auto bg-gray-100 pt-16 overflow-hidden border border-zinc-100 shadow-lg shadow-black/10",
+					"mx-auto max-w-4xl overflow-hidden border border-zinc-100 bg-gray-100 pt-16 shadow-black/10 shadow-lg",
 					!isPreviewMode && "my-20 rounded-xl",
 				)}
 			>
-				<div className="flex items-center justify-center flex-col gap-3">
+				<div className="flex flex-col items-center justify-center gap-3">
 					<OrangeGrayProfileAvatar {...vCard} isPreviewMode={isPreviewMode} />
 
 					<AddToContactButton
 						data={vCard!}
 						endpoint={endpoint}
 						isPreviewMode={isPreviewMode}
-						className="bg-white text-orange-500 hover:bg-white/80 rounded-full border-[2px] border-orange-500 shadow-lg shadow-orange-500/10 hover:shadow-orange-500/20"
+						className="rounded-full border-[2px] border-orange-500 bg-white text-orange-500 shadow-lg shadow-orange-500/10 hover:bg-white/80 hover:shadow-orange-500/20"
 					/>
 
-					<div className="px-2 py-4 bg-orange-500 mt-4 w-full flex justify-center">
+					<div className="mt-4 flex w-full justify-center bg-orange-500 px-2 py-4">
 						{shouldRenderVcardInfo([
 							vCard.mobileNumber,
 							vCard.workEmail,
@@ -55,7 +55,7 @@ const OrangeGrayTemplate = ({
 									<SocialIcon>
 										<SocialIcon.Icon
 											href={`tel:${vCard.mobileNumber}`}
-											className="bg-transparent size-11 rounded-full border border-orange-200"
+											className="size-11 rounded-full border border-orange-200 bg-transparent"
 										>
 											<Phone className="size-6 text-white" />
 										</SocialIcon.Icon>
@@ -66,7 +66,7 @@ const OrangeGrayTemplate = ({
 									<SocialIcon>
 										<SocialIcon.Icon
 											href={`mailto:${vCard.workEmail}`}
-											className="bg-transparent size-11 rounded-full border border-orange-200"
+											className="size-11 rounded-full border border-orange-200 bg-transparent"
 										>
 											<Mail className="size-6 text-white" />
 										</SocialIcon.Icon>
@@ -77,7 +77,7 @@ const OrangeGrayTemplate = ({
 									<SocialIcon>
 										<SocialIcon.Icon
 											href={`https://wa.me/${vCard.whatsappNumber}`}
-											className="bg-transparent size-11 rounded-full border border-orange-200"
+											className="size-11 rounded-full border border-orange-200 bg-transparent"
 										>
 											<Icons.whatsapp className="size-6" color="white" />
 										</SocialIcon.Icon>
@@ -88,7 +88,7 @@ const OrangeGrayTemplate = ({
 					</div>
 				</div>
 
-				<div className=" border border-gray-100 bg-white mt-12 p-5 md:p-6 lg:p-8 w-full max-w-2xl space-y-8">
+				<div className=" mt-12 w-full max-w-2xl space-y-8 border border-gray-100 bg-white p-5 md:p-6 lg:p-8">
 					{shouldRenderVcardInfo([
 						vCard.mobileNumber,
 						vCard.workNumber,
@@ -99,7 +99,7 @@ const OrangeGrayTemplate = ({
 						vCard.workEmail,
 					]) && (
 						<VcardInfo>
-							<VcardInfo.Title className="text-orange-500 border-y border-y-orange-500 bg-white text-center py-2">
+							<VcardInfo.Title className="border-y border-y-orange-500 bg-white py-2 text-center text-orange-500">
 								Contact Info
 							</VcardInfo.Title>
 							{[
@@ -129,7 +129,7 @@ const OrangeGrayTemplate = ({
 						vCard.workCountry,
 					]) && (
 						<VcardInfo>
-							<VcardInfo.Title className="text-orange-500 border-y border-y-orange-500 bg-white text-center py-2">
+							<VcardInfo.Title className="border-y border-y-orange-500 bg-white py-2 text-center text-orange-500">
 								Addresses
 							</VcardInfo.Title>
 							<TextComponent
@@ -161,7 +161,7 @@ const OrangeGrayTemplate = ({
 						vCard.department,
 					]) && (
 						<VcardInfo>
-							<VcardInfo.Title className="text-orange-500 border-y border-y-orange-500 bg-white text-center py-2">
+							<VcardInfo.Title className="border-y border-y-orange-500 bg-white py-2 text-center text-orange-500">
 								Professional Information
 							</VcardInfo.Title>
 							{[
@@ -176,7 +176,7 @@ const OrangeGrayTemplate = ({
 
 					{vCard.note && (
 						<VcardInfo>
-							<VcardInfo.Title className="text-orange-500 border-y border-y-orange-500 bg-white text-center py-2">
+							<VcardInfo.Title className="border-y border-y-orange-500 bg-white py-2 text-center text-orange-500">
 								Additional Information
 							</VcardInfo.Title>
 							{vCard.note && <TextComponent text="Notes" value={vCard.note} />}
@@ -185,13 +185,13 @@ const OrangeGrayTemplate = ({
 
 					{vCard?.images?.length! > 0 && (
 						<VcardInfo>
-							<VcardInfo.Title className="text-orange-500 border-y border-y-orange-500 bg-white text-center py-2">
+							<VcardInfo.Title className="border-y border-y-orange-500 bg-white py-2 text-center text-orange-500">
 								Gallery
 							</VcardInfo.Title>
 							{vCard.images && (
 								<ListComponent
 									data={vCard.images}
-									className="flex flex-col gap-6 mt-5"
+									className="mt-5 flex flex-col gap-6"
 									renderItem={(data) => (
 										<VcardImageGallery
 											imageSrc={data}
@@ -205,7 +205,7 @@ const OrangeGrayTemplate = ({
 
 					{vCard.website && (
 						<VcardInfo>
-							<VcardInfo.Title className="text-orange-500 border-y border-y-orange-500 bg-white text-center py-2">
+							<VcardInfo.Title className="border-y border-y-orange-500 bg-white py-2 text-center text-orange-500">
 								Website URL
 							</VcardInfo.Title>
 							{vCard.website && (
@@ -225,14 +225,14 @@ const OrangeGrayTemplate = ({
 						vCard.facebook,
 					]) && (
 						<VcardInfo>
-							<VcardInfo.Title className="text-orange-500 border-y border-y-orange-500 bg-white text-center py-2">
+							<VcardInfo.Title className="border-y border-y-orange-500 bg-white py-2 text-center text-orange-500">
 								Social Media
 							</VcardInfo.Title>
-							<div className="flex flex-col gap-7 mt-5">
+							<div className="mt-5 flex flex-col gap-7">
 								{vCard.linkedin && (
 									<SocialIcon>
 										<SocialIcon.Icon
-											className="bg-orange-500 size-11"
+											className="size-11 bg-orange-500"
 											href={vCard.linkedin}
 										>
 											<Linkedin className="size-6 text-white" />
@@ -247,7 +247,7 @@ const OrangeGrayTemplate = ({
 								{vCard.instagram && (
 									<SocialIcon>
 										<SocialIcon.Icon
-											className="bg-orange-500 size-11"
+											className="size-11 bg-orange-500"
 											href={vCard.instagram}
 										>
 											<Instagram className="size-6 text-white" />
@@ -262,7 +262,7 @@ const OrangeGrayTemplate = ({
 								{vCard.twitter && (
 									<SocialIcon>
 										<SocialIcon.Icon
-											className="bg-orange-500 size-11"
+											className="size-11 bg-orange-500"
 											href={vCard.twitter}
 										>
 											<Icons.XCom className="size-5 fill-white" />
@@ -277,7 +277,7 @@ const OrangeGrayTemplate = ({
 								{vCard.facebook && (
 									<SocialIcon>
 										<SocialIcon.Icon
-											className="bg-orange-500 size-11"
+											className="size-11 bg-orange-500"
 											href={vCard.facebook}
 										>
 											<Facebook className="size-5 text-white" />

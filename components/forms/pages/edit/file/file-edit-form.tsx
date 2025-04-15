@@ -59,7 +59,7 @@ export const FileEditForm = ({ qrCode, endpoint }: FileEditFormProps) => {
 		<FormProvider {...form}>
 			<form
 				onSubmit={form.handleSubmit(executeAsync)}
-				className="grid grid-cols-1 lg:grid-cols-2 gap-8"
+				className="grid grid-cols-1 gap-8 lg:grid-cols-2"
 			>
 				{/* main form  */}
 				<div>

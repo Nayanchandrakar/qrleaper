@@ -18,7 +18,7 @@ export const PopOverComponent = ({
 	return (
 		<Popover>
 			<PopoverTrigger type="button">{children}</PopoverTrigger>
-			<PopoverContent className="bg-white shadow-md shadow-black/10 border border-gray-200">
+			<PopoverContent className="border border-gray-200 bg-white shadow-black/10 shadow-md">
 				{content}
 			</PopoverContent>
 		</Popover>

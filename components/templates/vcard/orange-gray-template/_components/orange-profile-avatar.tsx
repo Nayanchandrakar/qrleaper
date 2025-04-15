@@ -1,4 +1,3 @@
-
 import { cn } from "@/lib/utils";
 import { getObjectFileSrc } from "@/utils/client";
 import Image from "next/image";
@@ -34,8 +33,8 @@ export const OrangeGrayProfileAvatar = ({
 	return (
 		<div
 			className={cn(
-				"grid grid-cols-1 h-fit sm:h-56 sm:grid-cols-2 gap-2 bg-blue-900 rounded-xl max-w-xl items-center overflow-hidden",
-				isPreviewMode && "grid-cols-1 sm:grid-cols-1 sm:h-fit",
+				"grid h-fit max-w-xl grid-cols-1 items-center gap-2 overflow-hidden rounded-xl bg-blue-900 sm:h-56 sm:grid-cols-2",
+				isPreviewMode && "grid-cols-1 sm:h-fit sm:grid-cols-1",
 			)}
 		>
 			<Image
@@ -43,17 +42,17 @@ export const OrangeGrayProfileAvatar = ({
 				height={1000}
 				sizes="100vw"
 				src={imageSrc}
-				className="object-cover h-56"
+				className="h-56 object-cover"
 				alt="profile-cover-image"
 			/>
 
 			<div
 				className={cn(
-					"flex  flex-col gap-2 text-center sm:py-0 py-4",
+					"flex flex-col gap-2 py-4 text-center sm:py-0",
 					isPreviewMode && "sm:py-4",
 				)}
 			>
-				<h3 className="font-bold text-white text-base sm:text-lg text-center">
+				<h3 className="text-center font-bold text-base text-white sm:text-lg">
 					{prefix} {firstName} {middleName} {lastName}
 					<br />
 					{suffix}

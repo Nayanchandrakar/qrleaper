@@ -23,7 +23,7 @@ const VcardInfoTitle = ({
 }: VcardInfoTitleProps) => {
 	return (
 		<p
-			className={cn("text-base font-semibold text-green-700", className)}
+			className={cn("font-semibold text-base text-green-700", className)}
 			{...props}
 		>
 			{children}
@@ -38,7 +38,7 @@ const VcardInfoGridWrap = ({
 }: VcardInfoProps) => {
 	return (
 		<div
-			className={cn("grid grid-cols-[40%_60%] gap-4 mt-5", className)}
+			className={cn("mt-5 grid grid-cols-[40%_60%] gap-4", className)}
 			{...props}
 		>
 			{children}
@@ -53,7 +53,7 @@ const VcardInfoSubTitle = ({
 }: VcardInfoTitleProps) => {
 	return (
 		<p
-			className={cn("text-sm font-medium text-gray-600", className)}
+			className={cn("font-medium text-gray-600 text-sm", className)}
 			{...props}
 		>
 			{children}
@@ -68,7 +68,7 @@ const VcardInfoSubDescription = ({
 }: VcardInfoTitleProps) => {
 	return (
 		<p
-			className={cn("text-sm font-medium text-black break-all", className)}
+			className={cn("break-all font-medium text-black text-sm", className)}
 			{...props}
 		>
 			{children}

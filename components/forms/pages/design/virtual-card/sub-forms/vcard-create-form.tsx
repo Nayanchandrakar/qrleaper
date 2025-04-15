@@ -17,7 +17,7 @@ import { Accordion } from "@/components/ui/accordion";
 // Dynamic Component
 const VcardCreateFormDynamic = () => {
 	return (
-		<div className="grid grid-cols-1 lg:grid-cols-[60%_40%] gap-8 items-start h-fit">
+		<div className="grid h-fit grid-cols-1 items-start gap-8 lg:grid-cols-[60%_40%]">
 			<Accordion
 				type="single"
 				collapsible

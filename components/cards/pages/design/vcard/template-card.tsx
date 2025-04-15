@@ -18,7 +18,7 @@ export const TemplateSelectCard = ({
 	return (
 		<CarouselItem
 			className={cn(
-				"sm:basis-1/5 border-[3px] rounded-lg flex items-center justify-center pl-0 transition-all duration-200  border-zinc-200 cursor-pointer",
+				"flex cursor-pointer items-center justify-center rounded-lg border-[3px] border-zinc-200 pl-0 transition-all duration-200 sm:basis-1/5",
 				className,
 			)}
 			{...props}
@@ -29,7 +29,7 @@ export const TemplateSelectCard = ({
 				height={1000}
 				sizes="100vw"
 				alt="template-image"
-				className="object-top object-cover size-[10rem] h-fit rounded-lg"
+				className="size-[10rem] h-fit rounded-lg object-cover object-top"
 			/>
 		</CarouselItem>
 	);

@@ -43,10 +43,10 @@ export const ProfileAvatar = ({
 					<Skeleton className="size-full" />
 				</AvatarFallback>
 			</Avatar>
-			<div className="flex items-center justify-center flex-col gap-2">
+			<div className="flex flex-col items-center justify-center gap-2">
 				<h3
 					className={cn(
-						"font-bold text-green-600 text-lg sm:text-xl text-center",
+						"text-center font-bold text-green-600 text-lg sm:text-xl",
 						headClassName,
 					)}
 				>
@@ -54,7 +54,7 @@ export const ProfileAvatar = ({
 					<br />
 					{suffix}
 				</h3>
-				<p className={cn("font-medium text-sm text-green-700", paraClassName)}>
+				<p className={cn("font-medium text-green-700 text-sm", paraClassName)}>
 					{jobTitle}
 				</p>
 			</div>

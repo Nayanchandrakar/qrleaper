@@ -23,7 +23,7 @@ export const VcardImageGallery = ({
 			key={imageSrc}
 			src={data!}
 			alt="Gallery Image"
-			className="rounded-lg size-full"
+			className="size-full rounded-lg"
 		/>
 	);
 };

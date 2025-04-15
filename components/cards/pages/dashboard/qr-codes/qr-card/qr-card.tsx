@@ -19,12 +19,12 @@ export const QrCard = ({ data }: QrCardProps) => {
 		<Card className="overflow-hidden">
 			<QrCodePreview endpoint={getEndpointURL(data.qr_code.id)} data={data} />
 
-			<CardHeader className="px-3 pt-4 space-y-3">
+			<CardHeader className="space-y-3 px-3 pt-4">
 				<QrHeader data={data} />
 
-				<div className="flex items-center gap-2 justify-between">
+				<div className="flex items-center justify-between gap-2">
 					<Badge variant="clicks">
-						<MousePointerClick className="size-4 mr-1" />
+						<MousePointerClick className="mr-1 size-4" />
 						{clicksFormatter(data?.qr_scan_count?.count!)} clicks
 					</Badge>
 

@@ -43,7 +43,7 @@ TextComponent.Link = ({
 					<Link
 						href={link}
 						className={cn(
-							"w-fit text-sm font-medium  text-green-600 break-all",
+							"w-fit break-all font-medium text-green-600 text-sm",
 							linkClassName,
 						)}
 						target="_blank"

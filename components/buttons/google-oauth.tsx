@@ -21,9 +21,9 @@ const GoogleOauth = () => {
 			className="w-full hover:bg-gray-50"
 		>
 			{isLoading ? (
-				<Loader className="size-5 mr-1 animate-spin" />
+				<Loader className="mr-1 size-5 animate-spin" />
 			) : (
-				<Icons.google className="size-5 mr-1" />
+				<Icons.google className="mr-1 size-5" />
 			)}
 			Continue with Google
 		</Button>

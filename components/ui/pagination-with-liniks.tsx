@@ -147,9 +147,9 @@ export function PaginationWithLinks({
 	};
 
 	return (
-		<div className="flex flex-col md:flex-row items-center gap-3 w-full mt-12">
+		<div className="mt-12 flex w-full flex-col items-center gap-3 md:flex-row">
 			{pageSizeSelectOptions && (
-				<div className="flex flex-col gap-4 flex-1">
+				<div className="flex flex-1 flex-col gap-4">
 					<SelectRowsPerPage
 						options={pageSizeSelectOptions.pageSizeOptions}
 						setPageSize={navToPageSize}

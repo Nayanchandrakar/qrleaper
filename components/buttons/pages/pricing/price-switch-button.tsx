@@ -17,7 +17,7 @@ export const PriceSwitchButton = ({
 	return (
 		<div className="flex items-center justify-center gap-4 transition-colors duration-200">
 			<span
-				className={cn("text-base font-semibold", !isYearly && "text-green-600")}
+				className={cn("font-semibold text-base", !isYearly && "text-green-600")}
 			>
 				Monthly
 			</span>
@@ -28,7 +28,7 @@ export const PriceSwitchButton = ({
 				onCheckedChange={setIsYearly}
 			/>
 			<span
-				className={cn("text-base font-semibold", isYearly && "text-green-600")}
+				className={cn("font-semibold text-base", isYearly && "text-green-600")}
 			>
 				Yearly
 			</span>

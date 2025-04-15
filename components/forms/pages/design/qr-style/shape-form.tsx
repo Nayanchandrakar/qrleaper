@@ -18,7 +18,7 @@ export const ShapeForm = () => {
 					key={id}
 					type="button"
 					className={cn(
-						"cursor-pointer py-2 px-4  transition-colors duration-200 hover:bg-green-100 rounded-lg flex items-center gap-2 text-sm hover:text-green-500",
+						"flex cursor-pointer items-center gap-2 rounded-lg px-4 py-2 text-sm transition-colors duration-200 hover:bg-green-100 hover:text-green-500",
 						value === getValues("style.shape") && "bg-green-100 text-green-500",
 					)}
 					onClick={() =>

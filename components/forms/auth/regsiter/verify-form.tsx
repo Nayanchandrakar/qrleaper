@@ -66,9 +66,9 @@ const VerifyForm = () => {
 	}
 
 	return (
-		<Card className="sm:rounded-2xl border border-gray-200 w-full max-w-[460px] overflow-hidden">
-			<CardHeader className="text-center p-0 border-b py-7 border-gray-200">
-				<CardTitle className="text-lg font-semibold mb-2">
+		<Card className="w-full max-w-[460px] overflow-hidden border border-gray-200 sm:rounded-2xl">
+			<CardHeader className="border-gray-200 border-b p-0 py-7 text-center">
+				<CardTitle className="mb-2 font-semibold text-lg">
 					Verify your email address
 				</CardTitle>
 				<CardDescription className="text-center">
@@ -100,7 +100,7 @@ const VerifyForm = () => {
 											key={idx}
 											className={cn(
 												"relative flex h-14 w-10 items-center justify-center text-xl",
-												"border-y border-r border-gray-200 bg-white first:rounded-l-lg first:border-l last:rounded-r-lg",
+												"border-gray-200 border-y border-r bg-white first:rounded-l-lg first:border-l last:rounded-r-lg",
 												"ring-0 transition-all",
 												isActive &&
 													"z-10 border border-gray-500 ring-2 ring-gray-200",
@@ -109,7 +109,7 @@ const VerifyForm = () => {
 										>
 											{char}
 											{hasFakeCaret && (
-												<div className="animate-caret-blink pointer-events-none absolute inset-0 flex items-center justify-center">
+												<div className="pointer-events-none absolute inset-0 flex animate-caret-blink items-center justify-center">
 													<div className="h-5 w-px bg-black" />
 												</div>
 											)}
@@ -122,13 +122,13 @@ const VerifyForm = () => {
 							}}
 						/>
 						{isInvalidCode && (
-							<p className="mt-2 text-center text-sm text-red-500 ">
+							<p className="mt-2 text-center text-red-500 text-sm ">
 								Invalid code. Please try again.
 							</p>
 						)}
 
 						<Button
-							className="mt-8 w-full disabled:bg-gray-200 border-gray-300"
+							className="mt-8 w-full border-gray-300 disabled:bg-gray-200"
 							type="submit"
 							variant="outline"
 							disabled={!code || code.length < 6 || isExecuting}

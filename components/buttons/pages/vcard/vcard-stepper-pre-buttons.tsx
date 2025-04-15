@@ -41,7 +41,7 @@ export const StepperNavigationButtons = ({
 	return (
 		<div
 			className={cn(
-				"flex gap-4 flex-col lg:justify-end min-[505px]:flex-row w-full",
+				"flex w-full flex-col gap-4 lg:justify-end min-[505px]:flex-row",
 				className,
 			)}
 		>
@@ -49,7 +49,7 @@ export const StepperNavigationButtons = ({
 				type="button"
 				disabled={isExecuting}
 				onClick={handleReset}
-				className="bg-zinc-100 hover:bg-zinc-100/80 text-accent-foreground items-center justify-center"
+				className="items-center justify-center bg-zinc-100 text-accent-foreground hover:bg-zinc-100/80"
 			>
 				<RotateCcw className="size-4" />
 				Reset Information
@@ -59,7 +59,7 @@ export const StepperNavigationButtons = ({
 				type="button"
 				onClick={handlePrev}
 				disabled={isFirstStep || isExecuting}
-				className="bg-zinc-100 hover:bg-zinc-100/80 text-accent-foreground"
+				className="bg-zinc-100 text-accent-foreground hover:bg-zinc-100/80"
 			>
 				Back
 			</Button>
@@ -70,7 +70,7 @@ export const StepperNavigationButtons = ({
 				disabled={isExecuting}
 			>
 				{isExecuting && isLastStep && (
-					<Loader className="animate-spin size-4" />
+					<Loader className="size-4 animate-spin" />
 				)}
 				Continue
 			</Button>

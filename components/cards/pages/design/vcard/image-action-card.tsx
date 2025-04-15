@@ -26,10 +26,10 @@ export const ImageActionCard = ({
 	}, [file]);
 
 	return (
-		<div className="group flex items-center justify-center rounded-lg overflow-hidden relative h-80">
-			<div className="absolute top-4 w-full h-fit px-4 flex items-center justify-between gap-4">
+		<div className="group relative flex h-80 items-center justify-center overflow-hidden rounded-lg">
+			<div className="absolute top-4 flex h-fit w-full items-center justify-between gap-4 px-4">
 				{fileName && (
-					<span className="text-black border border-gray-100 bg-white rounded-md text-xs font-medium py-2 px-2  truncate">
+					<span className="truncate rounded-md border border-gray-100 bg-white px-2 py-2 font-medium text-black text-xs">
 						{fileName}
 					</span>
 				)}
@@ -40,7 +40,7 @@ export const ImageActionCard = ({
 					onClick={onDelete}
 					disabled={disabled}
 					variant="destructive"
-					className="opacity-0 group-hover:opacity-100 transition duration-200 disabled:opacity-50 flex-shrink-0"
+					className="flex-shrink-0 opacity-0 transition duration-200 disabled:opacity-50 group-hover:opacity-100"
 				>
 					<Trash className="size-4" />
 				</Button>

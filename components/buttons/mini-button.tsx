@@ -17,7 +17,7 @@ export const MiniButton = ({
 	return (
 		<button
 			className={cn(
-				"bg-black hover:bg-black/90 transition-colors duration-200 text-white  px-5 py-2 font-medium rounded-full text-sm disabled:cursor-not-allowed  disabled:opacity-50 disabled:pointer-events-none",
+				"rounded-full bg-black px-5 py-2 font-medium text-sm text-white transition-colors duration-200 hover:bg-black/90 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
 				className,
 			)}
 			disabled={disabled}

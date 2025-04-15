@@ -29,11 +29,11 @@ export const WorkAddressSection = ({
 
 	return (
 		<AccordionItem className="border-b-0" value="work-address">
-			<AccordionTrigger className="px-2 rounded-lg  bg-gray-100 text-gray-500 hover:no-underline">
+			<AccordionTrigger className="rounded-lg bg-gray-100 px-2 text-gray-500 hover:no-underline">
 				Work Address
 			</AccordionTrigger>
-			<AccordionContent className="pt-4 px-2 space-y-6">
-				<div className="flex items-center sm:flex-row flex-col gap-4 sm:gap-3 ">
+			<AccordionContent className="space-y-6 px-2 pt-4">
+				<div className="flex flex-col items-center gap-4 sm:flex-row sm:gap-3 ">
 					<FormField
 						control={form.control}
 						name="workStreet"
@@ -72,7 +72,7 @@ export const WorkAddressSection = ({
 					/>
 				</div>
 
-				<div className="flex items-center sm:flex-row flex-col gap-4 sm:gap-3 ">
+				<div className="flex flex-col items-center gap-4 sm:flex-row sm:gap-3 ">
 					<FormField
 						control={form.control}
 						name="workState"

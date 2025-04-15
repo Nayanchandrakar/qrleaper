@@ -17,8 +17,8 @@ export const QrHeader = async ({ data }: QrHeaderProps) => {
 	}
 
 	return (
-		<div className="flex items-center gap-4 justify-between">
-			<span className="truncate text-gray-500 font-semibold">
+		<div className="flex items-center justify-between gap-4">
+			<span className="truncate font-semibold text-gray-500">
 				{data?.qr_code.title}
 			</span>
 

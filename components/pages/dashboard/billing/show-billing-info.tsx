@@ -23,18 +23,18 @@ export const ShowBillingInfo = ({
 }: ShowBillingInfoProps) => {
 	return (
 		<div className="rounded-lg border border-gray-200">
-			<div className="pt-5 px-5 sm:pt-10 sm:px-10">
+			<div className="px-5 pt-5 sm:px-10 sm:pt-10">
 				<div className="flex flex-col space-y-3 ">
-					<h2 className="text-xl font-medium">Subscription Plan</h2>
-					<p className="text-sm text-gray-500">
+					<h2 className="font-medium text-xl">Subscription Plan</h2>
+					<p className="text-gray-500 text-sm">
 						You are currently on the <strong>{planType}</strong> plan.
 					</p>
 				</div>
 
-				<p className="my-6 text-sm text-gray-800">{description}</p>
+				<p className="my-6 text-gray-800 text-sm">{description}</p>
 			</div>
 
-			<div className="border-t border-gray-200 flex items-center gap-2 justify-between bg-gray-50 py-4 px-5 sm:px-10">
+			<div className="flex items-center justify-between gap-2 border-gray-200 border-t bg-gray-50 px-5 py-4 sm:px-10">
 				{isPaid && (
 					<p className="text-gray-500 text-sm">
 						{isCanceled

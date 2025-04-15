@@ -13,7 +13,7 @@ export const DurationChangeSkeleton = () => {
 				</CardDescription>
 			</div>
 
-			<Skeleton className="w-50 h-8" />
+			<Skeleton className="h-8 w-50" />
 		</CardHeader>
 	);
 };

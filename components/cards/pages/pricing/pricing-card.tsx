@@ -31,23 +31,23 @@ const PricingCard = ({
 	return (
 		<Card
 			className={cn(
-				"relative flex flex-col justify-between overflow-hidden rounded-xl shadow-lg shadow-black/10",
+				"relative flex flex-col justify-between overflow-hidden rounded-xl shadow-black/10 shadow-lg",
 				data?.recommended && "border-2 border-green-600",
 			)}
 		>
 			{data?.recommended && (
-				<span className="bg-gradient-brand absolute right-0 size-fit rounded-bl-lg px-3 py-2 text-xs font-semibold text-white">
+				<span className="absolute right-0 size-fit rounded-bl-lg bg-gradient-brand px-3 py-2 font-semibold text-white text-xs">
 					Recommended
 				</span>
 			)}
 			<CardHeader>
-				<CardTitle className="text-base font-semibold text-gray-800">
+				<CardTitle className="font-semibold text-base text-gray-800">
 					{data?.title}
 				</CardTitle>
 				<div className="flex gap-1 py-4">
 					<h3
 						className={cn(
-							"text-4xl font-bold text-black",
+							"font-bold text-4xl text-black",
 							data?.recommended &&
 								"bg-gradient-brand bg-clip-text text-transparent",
 						)}
@@ -56,7 +56,7 @@ const PricingCard = ({
 					</h3>
 					<span
 						className={cn(
-							"mb-1 flex flex-col justify-end text-sm font-semibold",
+							"mb-1 flex flex-col justify-end font-semibold text-sm",
 							data?.recommended && "text-green-800",
 						)}
 					>

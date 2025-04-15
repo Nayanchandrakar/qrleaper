@@ -23,12 +23,12 @@ export const PricingComponent = ({
 	return (
 		<Container className="my-24">
 			<div className="flex flex-col items-center justify-center gap-5">
-				<h2 className="text-6xl font-bold antialiased">Pricing</h2>
+				<h2 className="font-bold text-6xl antialiased">Pricing</h2>
 				<PriceSwitchButton isYearly={isYearly} setIsYearly={setIsYearly} />
 			</div>
 			<ListComponent
 				data={pricingData}
-				className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 min-[895px]:grid-cols-3 min-[1200px]:grid-cols-4"
+				className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 min-[1200px]:grid-cols-4 min-[895px]:grid-cols-3"
 				renderItem={(data) => (
 					<PricingCard
 						key={data?.id}

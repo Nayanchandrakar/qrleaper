@@ -63,11 +63,11 @@
 				"noUnsafeDeclarationMerging": "error",
 				"useNamespaceKeyword": "error"
 			},
-			"nursery":{
-				"useSortedClasses":{
-					"level":"error",
-					"fix":"safe",
-					"options":{}
+			"nursery": {
+				"useSortedClasses": {
+					"level": "error",
+					"fix": "safe",
+					"options": {}
 				}
 			}
 		}
@@ -94,8 +94,8 @@
 						"noSetterReturn": "off",
 						"noUndeclaredVariables": "info",
 						"noUnreachable": "off",
-						"noUnusedLabels":"warn",
-						"noUnusedImports":"warn",
+						"noUnusedLabels": "warn",
+						"noUnusedImports": "warn",
 						"noUnreachableSuper": "off"
 					},
 					"style": {

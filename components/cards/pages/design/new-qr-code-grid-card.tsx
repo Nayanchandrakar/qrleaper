@@ -17,9 +17,9 @@ export const NewQrCodeGridCard = ({
 	return (
 		<Link
 			href={endpoint}
-			className="rounded-lg w-full shadow shadow-black/20 bg-green-600/10 backdrop-blur-sm overflow-hidden group border border-green-600/10 hover:border-green-600"
+			className="group w-full overflow-hidden rounded-lg border border-green-600/10 bg-green-600/10 shadow shadow-black/20 backdrop-blur-sm hover:border-green-600"
 		>
-			<div className="w-full h-[12rem] overflow-hidden flex justify-center">
+			<div className="flex h-[12rem] w-full justify-center overflow-hidden">
 				<Image
 					src={nextImage}
 					width={600}
@@ -28,11 +28,11 @@ export const NewQrCodeGridCard = ({
 					className="size-[10rem] h-fit"
 				/>
 			</div>
-			<div className="bg-white py-5 px-4 text-center flex flex-col gap-1 border-t border-gray-100 ">
-				<h4 className="text-base font-semibold group-hover:text-green-600 transition duration-200">
+			<div className="flex flex-col gap-1 border-gray-100 border-t bg-white px-4 py-5 text-center ">
+				<h4 className="font-semibold text-base transition duration-200 group-hover:text-green-600">
 					{title}
 				</h4>
-				<p className="text-sm font-medium text-gray-500 transition duration-200 group-hover:text">
+				<p className="group-hover:text font-medium text-gray-500 text-sm transition duration-200">
 					{description}
 				</p>
 			</div>

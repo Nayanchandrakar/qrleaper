@@ -12,7 +12,7 @@ interface TopScanCardProps {
 
 export const TopScanCard = ({ data }: TopScanCardProps) => {
 	return (
-		<div className="flex rounded-md bg-green-100 items-center justify-between gap-2 p-2.5">
+		<div className="flex items-center justify-between gap-2 rounded-md bg-green-100 p-2.5">
 			<span className="flex items-center gap-2">
 				<Image
 					alt="flag-image"
@@ -22,11 +22,11 @@ export const TopScanCard = ({ data }: TopScanCardProps) => {
 					sizes="100vw"
 					className="size-fit"
 				/>
-				<p className="text-sm text-gray-800 truncate">
+				<p className="truncate text-gray-800 text-sm">
 					{COUNTRIES[data.country] ?? "NA"}
 				</p>
 			</span>
-			<p className="text-sm text-gray-800">
+			<p className="text-gray-800 text-sm">
 				{clicksFormatter(data.count ?? 0, { full: true })}
 			</p>
 		</div>

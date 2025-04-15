@@ -18,7 +18,7 @@ export const ColorInput = ({
 	return (
 		<div
 			className={cn(
-				"relative flex h-9 w-full sm:max-w-40 flex-shrink-0 rounded-md shadow-sm",
+				"relative flex h-9 w-full flex-shrink-0 rounded-md shadow-sm sm:max-w-40",
 				className,
 			)}
 		>

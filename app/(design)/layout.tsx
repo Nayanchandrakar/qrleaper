@@ -8,25 +8,25 @@ interface DesignLayoutProps {
 
 const DesignLayout = ({ children }: DesignLayoutProps) => {
 	return (
-		<div className="size-full  relative">
-			<div className="design-mesh fixed size-full z-[-1]" />
+		<div className="relative size-full">
+			<div className="design-mesh fixed z-[-1] size-full" />
 
 			<Container>
-				<div className="flex  items-center justify-center flex-col gap-3 my-16 sm:my-20">
-					<h2 className="font-bold text-3xl sm:text-4xl text-black text-center">
+				<div className="my-16 flex flex-col items-center justify-center gap-3 sm:my-20">
+					<h2 className="text-center font-bold text-3xl text-black sm:text-4xl">
 						Generate QR Code with{" "}
-						<span className="text-transparent bg-clip-text bg-gradient-brand">
+						<span className="bg-gradient-brand bg-clip-text text-transparent">
 							Super Powers.
 						</span>
 					</h2>
-					<p className="text-base font-semibold text-zinc-600 text-center">
+					<p className="text-center font-semibold text-base text-zinc-600">
 						Customize it with your color, shape and logo in 3 simple steps.
 					</p>
 				</div>
 
-				<div className="bg-gray-400/10 backdrop-blur-sm p-4 rounded-lg mb-28">
+				<div className="mb-28 rounded-lg bg-gray-400/10 p-4 backdrop-blur-sm">
 					<TopNavigationBar />
-					<div className="bg-white mt-4 p-4 sm:p-6 rounded-lg">{children}</div>
+					<div className="mt-4 rounded-lg bg-white p-4 sm:p-6">{children}</div>
 				</div>
 				<NewQrCodeGrid />
 			</Container>

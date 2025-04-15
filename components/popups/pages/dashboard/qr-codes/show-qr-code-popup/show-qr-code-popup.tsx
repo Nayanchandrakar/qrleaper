@@ -42,15 +42,15 @@ export const ShowQrCodePopup = () => {
 				</DialogHeader>
 
 				<div className="mt-3">
-					<div className="flex items-center gap-2 justify-between mb-3">
-						<span className="text-sm font-medium text-gray-600">
+					<div className="mb-3 flex items-center justify-between gap-2">
+						<span className="font-medium text-gray-600 text-sm">
 							QR Code Preview
 						</span>
 
 						<DropdownMenu>
 							<DropdownMenuTrigger>
-								<span className="size-6 rounded-md flex cursor-pointer transition duration-200 hover:bg-gray-100 items-center justify-center">
-									<Download className="text-gray-600 size-4" />
+								<span className="flex size-6 cursor-pointer items-center justify-center rounded-md transition duration-200 hover:bg-gray-100">
+									<Download className="size-4 text-gray-600" />
 								</span>
 							</DropdownMenuTrigger>
 							<DropdownMenuContent>
@@ -65,7 +65,7 @@ export const ShowQrCodePopup = () => {
 											})
 										}
 									>
-										<span className="flex items-center gap-2 text-sm font-medium text-gray-700">
+										<span className="flex items-center gap-2 font-medium text-gray-700 text-sm">
 											<LucideImage className="size-5" />
 											{label}
 										</span>
@@ -75,7 +75,7 @@ export const ShowQrCodePopup = () => {
 						</DropdownMenu>
 					</div>
 
-					<div className="flex items-center justify-center rounded-lg border border-gray-200 relative">
+					<div className="relative flex items-center justify-center rounded-lg border border-gray-200">
 						<QrCode
 							qrCodeRef={qrCodeRef}
 							{...data?.qr_code_style}

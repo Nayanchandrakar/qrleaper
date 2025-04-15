@@ -62,7 +62,7 @@ export function VCardForm() {
 					handlePrev={handlePrev}
 				/>
 
-				<div className="mb-12 mt-7">
+				<div className="mt-7 mb-12">
 					{StepperComponent && <StepperComponent isExecuting={isExecuting} />}
 				</div>
 			</form>

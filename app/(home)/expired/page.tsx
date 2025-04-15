@@ -18,10 +18,10 @@ const ExpiredPage = () => {
 				<span className="flex size-20 items-center justify-center rounded-full border">
 					<AlarmClockOff className="size-8 text-gray-600" />
 				</span>
-				<h4 className="text-5xl font-bold text-black sm:text-6xl">
+				<h4 className="font-bold text-5xl text-black sm:text-6xl">
 					Expired Link.
 				</h4>
-				<p className="text-center text-base font-medium text-gray-600 min-[400px]:text-lg sm:text-xl">
+				<p className="text-center font-medium text-base text-gray-600 sm:text-xl min-[400px]:text-lg">
 					This link has expired. Please contact the owner of this link to <br />
 					get a new one.
 				</p>

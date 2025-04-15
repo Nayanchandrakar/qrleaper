@@ -71,9 +71,9 @@ const RegisterForm = () => {
 	};
 
 	return (
-		<Card className="sm:rounded-2xl border border-gray-200 w-full max-w-[460px] overflow-hidden">
-			<CardHeader className="text-center p-0">
-				<CardTitle className="text-lg font-semibold border-b py-7 border-gray-200">
+		<Card className="w-full max-w-[460px] overflow-hidden border border-gray-200 sm:rounded-2xl">
+			<CardHeader className="p-0 text-center">
+				<CardTitle className="border-gray-200 border-b py-7 font-semibold text-lg">
 					Get started with QR Leaper
 				</CardTitle>
 			</CardHeader>
@@ -132,25 +132,25 @@ const RegisterForm = () => {
 							)}
 						/>
 						<Button disabled={isExecuting} className="w-full" type="submit">
-							{isExecuting && <Loader className="animate-spin size-5" />}
+							{isExecuting && <Loader className="size-5 animate-spin" />}
 							{isExecuting ? "Submitting.." : "Sign Up"}
 						</Button>
 					</form>
 				</Form>
 
-				<div className="py-6 flex flex-shrink items-center justify-center gap-2">
-					<div className="grow basis-0 border-b border-gray-300" />
-					<span className="text-xs font-normal uppercase leading-none text-gray-500">
+				<div className="flex flex-shrink items-center justify-center gap-2 py-6">
+					<div className="grow basis-0 border-gray-300 border-b" />
+					<span className="font-normal text-gray-500 text-xs uppercase leading-none">
 						or
 					</span>
-					<div className="grow basis-0 border-b border-gray-300" />
+					<div className="grow basis-0 border-gray-300 border-b" />
 				</div>
 
 				<GoogleOauth />
 			</CardContent>
 
 			<CardFooter className=" justify-center">
-				<p className="mt-4 text-center text-sm text-gray-500">
+				<p className="mt-4 text-center text-gray-500 text-sm">
 					Already have an account?&nbsp;
 					<Link
 						href="/login"

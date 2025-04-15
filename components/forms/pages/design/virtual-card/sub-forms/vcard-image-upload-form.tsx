@@ -57,13 +57,13 @@ export const VcardImageUploadForm = ({
 
 	return (
 		<AccordionItem className="border-b-0" value="image-upload">
-			<AccordionTrigger className="px-2 rounded-lg  bg-gray-100 text-gray-500 hover:no-underline">
+			<AccordionTrigger className="rounded-lg bg-gray-100 px-2 text-gray-500 hover:no-underline">
 				Images Upload
 			</AccordionTrigger>
-			<AccordionContent className="pt-4 px-2 space-y-6">
+			<AccordionContent className="space-y-6 px-2 pt-4">
 				<ListComponent
 					data={images}
-					className="grid grid-cols-1 sm:grid-cols-2 gap-3"
+					className="grid grid-cols-1 gap-3 sm:grid-cols-2"
 					renderItem={(file, index) => (
 						<ImageActionCard
 							key={index + 2}
@@ -81,7 +81,7 @@ export const VcardImageUploadForm = ({
 						disabled={isExecuting || isFileExceptLimitExceed}
 						render={({ field: { value, onChange, ...fieldProps } }) => (
 							<FormItem>
-								<FormLabel className="w-full flex items-center justify-center bg-gray-100/60 rounded-md  border border-gray-200 h-[10rem] transition duration-200 hover:bg-gray-100 cursor-pointer  flex-col">
+								<FormLabel className="flex h-[10rem] w-full cursor-pointer flex-col items-center justify-center rounded-md border border-gray-200 bg-gray-100/60 transition duration-200 hover:bg-gray-100">
 									<CloudUpload className="size-8 text-gray-400" />
 								</FormLabel>
 								<FormControl>

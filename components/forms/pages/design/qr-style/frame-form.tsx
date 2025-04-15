@@ -18,7 +18,7 @@ export const FrameForm = () => {
 
 	return (
 		<div>
-			<span className="text-sm flex items-center gap-3 ">
+			<span className="flex items-center gap-3 text-sm ">
 				Enable frame
 				<Switch
 					checked={style.hasFrame}
@@ -26,7 +26,7 @@ export const FrameForm = () => {
 				/>
 			</span>
 			{style.hasFrame && (
-				<div className="flex items-center sm:flex-row flex-col gap-3 mt-4">
+				<div className="mt-4 flex flex-col items-center gap-3 sm:flex-row">
 					<Input
 						value={style.topInput}
 						onChange={(e) => handleChange("style.topInput", e?.target?.value)}

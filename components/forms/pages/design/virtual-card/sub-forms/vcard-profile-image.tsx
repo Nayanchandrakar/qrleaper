@@ -37,21 +37,21 @@ export const VcardProfileImageUploadForm = ({
 	};
 
 	return (
-		<div className="flex items-start w-full" style={{ marginTop: "1rem" }}>
+		<div className="flex w-full items-start" style={{ marginTop: "1rem" }}>
 			<FormField
 				control={control}
 				name="profileImage"
 				disabled={isExecuting}
 				render={({ field: { value, onChange, ...fieldProps } }) => (
-					<FormItem className="flex items-center justify-center flex-col">
-						<FormLabel className="w-fit flex items-center justify-center flex-col gap-2">
-							<Avatar className="size-20 relative group cursor-pointer">
+					<FormItem className="flex flex-col items-center justify-center">
+						<FormLabel className="flex w-fit flex-col items-center justify-center gap-2">
+							<Avatar className="group relative size-20 cursor-pointer">
 								<AvatarImage
 									className="object-cover"
 									src={profileImageUrl} // Use the memoized URL
 								/>
-								<span className="w-full h-7 bg-black/20 backdrop-blur-sm absolute -bottom-[5rem] flex item-center justify-center group-hover:bottom-0 transition-all duration-200">
-									<Camera className="text-white size-4 mt-1" />
+								<span className="-bottom-[5rem] item-center absolute flex h-7 w-full justify-center bg-black/20 backdrop-blur-sm transition-all duration-200 group-hover:bottom-0">
+									<Camera className="mt-1 size-4 text-white" />
 								</span>
 								<AvatarFallback className="flex items-center justify-center">
 									<User className="size-8 text-gray-500" />

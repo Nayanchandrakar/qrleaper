@@ -24,11 +24,11 @@ export const TotalScanCount = ({
 	return (
 		<Card className="max-w-sm">
 			<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-				<CardTitle className="text-sm font-medium">Total Clicks</CardTitle>
+				<CardTitle className="font-medium text-sm">Total Clicks</CardTitle>
 				<Activity className="h-4 w-4 text-muted-foreground" />
 			</CardHeader>
 			<CardContent>
-				<div className="bg-gradient-brand bg-clip-text text-2xl font-bold text-transparent">
+				<div className="bg-gradient-brand bg-clip-text font-bold text-2xl text-transparent">
 					+
 					<CountUp
 						preserveValue
@@ -38,7 +38,7 @@ export const TotalScanCount = ({
 						delay={1}
 					/>
 				</div>
-				<p className="mt-1 text-xs text-muted-foreground">
+				<p className="mt-1 text-muted-foreground text-xs">
 					From {fromDate} to {toDate}
 				</p>
 			</CardContent>

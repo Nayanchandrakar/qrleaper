@@ -42,7 +42,7 @@ export const StepperBar = forwardRef<HTMLDivElement, StepperBarProps>(
 		return (
 			<div
 				ref={ref}
-				className="flex items-start lg:items-center justify-between bg-zinc-50 rounded-lg p-3 w-full lg:sticky lg:top-20 lg:z-10 border border-zinc-200 flex-col lg:flex-row gap-5"
+				className="flex w-full flex-col items-start justify-between gap-5 rounded-lg border border-zinc-200 bg-zinc-50 p-3 lg:sticky lg:top-20 lg:z-10 lg:flex-row lg:items-center"
 			>
 				<Stepper>
 					{stepperVcardData.map(({ id, Icon, label }, index) => {
@@ -70,7 +70,7 @@ export const StepperBar = forwardRef<HTMLDivElement, StepperBarProps>(
 								{!isLastIndex && (
 									<ChevronsRight
 										className={cn(
-											"size-4 text-zinc-800 transition-all duration-300 md:inline-block hidden",
+											"hidden size-4 text-zinc-800 transition-all duration-300 md:inline-block",
 											isActive && "text-green-600",
 										)}
 									/>

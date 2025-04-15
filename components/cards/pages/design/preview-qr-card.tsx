@@ -28,7 +28,7 @@ export const PreviewQrCard = () => {
 	const { style, title } = getValues();
 
 	return (
-		<div className="flex items-center justify-center flex-col gap-4 bg-gray-100 py-8 rounded-lg max-h-[50rem] sm:sticky sm:top-0">
+		<div className="flex max-h-[50rem] flex-col items-center justify-center gap-4 rounded-lg bg-gray-100 py-8 sm:sticky sm:top-0">
 			<StepLabel>
 				<StepLabel.Counter>3</StepLabel.Counter>
 				<StepLabel.Title>Download Your QR</StepLabel.Title>
@@ -49,7 +49,7 @@ export const PreviewQrCard = () => {
 			<DropdownMenu>
 				<DropdownMenuTrigger
 					disabled={data === null}
-					className="w-fit gap-2 bg-black hover:bg-black/90 transition-colors duration-200 text-white  px-5 py-2 font-medium rounded-full text-sm disabled:cursor-not-allowed  disabled:opacity-50 disabled:pointer-events-none flex items-center "
+					className="flex w-fit items-center gap-2 rounded-full bg-black px-5 py-2 font-medium text-sm text-white transition-colors duration-200 hover:bg-black/90 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 "
 				>
 					Download QR
 					<ChevronDown className="size-4" />
@@ -66,7 +66,7 @@ export const PreviewQrCard = () => {
 								})
 							}
 						>
-							<span className="flex items-center gap-2 text-sm font-medium text-gray-700">
+							<span className="flex items-center gap-2 font-medium text-gray-700 text-sm">
 								<LucideImage className="size-5" />
 								{label}
 							</span>

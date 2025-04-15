@@ -68,16 +68,16 @@ export const VerifyEmailChangeForm = () => {
 				onSubmit={form.handleSubmit(onSubmit)}
 				className="rounded-lg border border-gray-200"
 			>
-				<div className="pt-5 px-5 sm:pt-10 sm:px-10">
+				<div className="px-5 pt-5 sm:px-10 sm:pt-10">
 					<div className="flex flex-col space-y-3 ">
-						<h2 className="text-xl font-medium">Verify Your Email</h2>
-						<p className="text-sm text-gray-500">
+						<h2 className="font-medium text-xl">Verify Your Email</h2>
+						<p className="text-gray-500 text-sm">
 							This will be the email you use to log in to QR Leaper and receive
 							notifications.
 						</p>
 					</div>
 
-					<div className="flex flex-col  sm:flex-row items-center justify-between gap-4 my-6">
+					<div className="my-6 flex flex-col items-center justify-between gap-4 sm:flex-row">
 						<input
 							id="newEmail"
 							name="newEmail"
@@ -92,7 +92,7 @@ export const VerifyEmailChangeForm = () => {
 							name="token"
 							disabled={isExecuting}
 							render={({ field }) => (
-								<FormItem className="max-w-sm w-full">
+								<FormItem className="w-full max-w-sm">
 									<FormLabel>Your Otp</FormLabel>
 									<FormControl>
 										<Input
@@ -108,13 +108,13 @@ export const VerifyEmailChangeForm = () => {
 					</div>
 				</div>
 
-				<div className="border-t border-gray-200 flex items-center gap-5 sm:gap-4 sm:flex-row flex-col justify-end bg-gray-50 py-4 px-5 sm:px-10">
+				<div className="flex flex-col items-center justify-end gap-5 border-gray-200 border-t bg-gray-50 px-5 py-4 sm:flex-row sm:gap-4 sm:px-10">
 					<Button
 						disabled={isDisabled}
 						type="submit"
 						className="cursor-pointer disabled:cursor-not-allowed"
 					>
-						{isExecuting && <Loader className="size-5 mr-1 animate-spin" />}
+						{isExecuting && <Loader className="mr-1 size-5 animate-spin" />}
 						{isExecuting ? "Submitting..." : "Continue"}
 					</Button>
 				</div>

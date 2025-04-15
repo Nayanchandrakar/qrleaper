@@ -27,14 +27,14 @@ const BlueVcardTemplate = ({
 	isPreviewMode = false,
 }: BlueVcardTemplateProps) => {
 	return (
-		<section className="flex items-center flex-col gap-4 bg-sky-100">
+		<section className="flex flex-col items-center gap-4 bg-sky-100">
 			<div
 				className={cn(
-					"max-w-4xl mx-auto bg-blue-500 pt-16 overflow-hidden",
+					"mx-auto max-w-4xl overflow-hidden bg-blue-500 pt-16",
 					!isPreviewMode && "my-20 rounded-xl",
 				)}
 			>
-				<div className="flex items-center justify-center flex-col gap-3">
+				<div className="flex flex-col items-center justify-center gap-3">
 					<ProfileAvatar
 						{...vCard}
 						isPreviewMode={isPreviewMode}
@@ -53,12 +53,12 @@ const BlueVcardTemplate = ({
 						vCard.workEmail,
 						vCard.whatsappNumber,
 					]) && (
-						<div className="flex items-center gap-4 mt-4">
+						<div className="mt-4 flex items-center gap-4">
 							{vCard.mobileNumber && (
 								<SocialIcon>
 									<SocialIcon.Icon
 										href={`tel:${vCard.mobileNumber}`}
-										className="bg-white rounded-lg"
+										className="rounded-lg bg-white"
 									>
 										<Phone className="size-6 text-blue-500" />
 									</SocialIcon.Icon>
@@ -69,7 +69,7 @@ const BlueVcardTemplate = ({
 								<SocialIcon>
 									<SocialIcon.Icon
 										href={`mailto:${vCard.workEmail}`}
-										className="bg-white rounded-lg"
+										className="rounded-lg bg-white"
 									>
 										<Mail className="size-6 text-blue-500" />
 									</SocialIcon.Icon>
@@ -80,7 +80,7 @@ const BlueVcardTemplate = ({
 								<SocialIcon>
 									<SocialIcon.Icon
 										href={`https://wa.me/${vCard.whatsappNumber}`}
-										className="bg-white rounded-lg"
+										className="rounded-lg bg-white"
 									>
 										<Icons.whatsapp className="size-6" color="#3b82f6" />
 									</SocialIcon.Icon>
@@ -90,7 +90,7 @@ const BlueVcardTemplate = ({
 					)}
 				</div>
 
-				<div className=" border border-gray-100 bg-white p-8 mt-12 w-full max-w-2xl space-y-8">
+				<div className=" mt-12 w-full max-w-2xl space-y-8 border border-gray-100 bg-white p-8">
 					{shouldRenderVcardInfo([
 						vCard.mobileNumber,
 						vCard.workNumber,
@@ -193,7 +193,7 @@ const BlueVcardTemplate = ({
 							{vCard.images && (
 								<ListComponent
 									data={vCard.images}
-									className="flex flex-col gap-6 mt-5"
+									className="mt-5 flex flex-col gap-6"
 									renderItem={(data) => (
 										<VcardImageGallery
 											imageSrc={data}
@@ -230,11 +230,11 @@ const BlueVcardTemplate = ({
 							<VcardInfo.Title className="text-blue-500">
 								Social Media
 							</VcardInfo.Title>
-							<div className="flex flex-col gap-7 mt-5">
+							<div className="mt-5 flex flex-col gap-7">
 								{vCard.linkedin && (
 									<SocialIcon>
 										<SocialIcon.Icon
-											className="bg-blue-500 rounded-lg"
+											className="rounded-lg bg-blue-500"
 											href={vCard.linkedin}
 										>
 											<Linkedin className="size-6 text-white" />
@@ -249,7 +249,7 @@ const BlueVcardTemplate = ({
 								{vCard.instagram && (
 									<SocialIcon>
 										<SocialIcon.Icon
-											className="bg-blue-500 rounded-lg"
+											className="rounded-lg bg-blue-500"
 											href={vCard.instagram}
 										>
 											<Instagram className="size-6 text-white" />
@@ -264,7 +264,7 @@ const BlueVcardTemplate = ({
 								{vCard.twitter && (
 									<SocialIcon>
 										<SocialIcon.Icon
-											className="bg-blue-500 rounded-lg"
+											className="rounded-lg bg-blue-500"
 											href={vCard.twitter}
 										>
 											<Icons.XCom className="size-5 fill-white" />
@@ -279,7 +279,7 @@ const BlueVcardTemplate = ({
 								{vCard.facebook && (
 									<SocialIcon>
 										<SocialIcon.Icon
-											className="bg-blue-500 rounded-lg"
+											className="rounded-lg bg-blue-500"
 											href={vCard.facebook}
 										>
 											<Facebook className="size-5 text-white" />

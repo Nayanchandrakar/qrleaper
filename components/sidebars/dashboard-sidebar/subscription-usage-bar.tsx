@@ -16,8 +16,8 @@ export const SubscriptionUsageBar = ({
 	const plan = subscriptionPlan(subscription?.stripePriceId!);
 
 	return (
-		<div className="flex flex-col rounded-lg bg-gray-50 p-4 border border-gray-200">
-			<div className="mb-2.5 flex items-center justify-between gap-2 text-xs font-medium text-neutral-600">
+		<div className="flex flex-col rounded-lg border border-gray-200 bg-gray-50 p-4">
+			<div className="mb-2.5 flex items-center justify-between gap-2 font-medium text-neutral-600 text-xs">
 				<span>Usage</span>
 				<span>
 					{subscription?.count || 0}/{plan.limit}
@@ -30,7 +30,7 @@ export const SubscriptionUsageBar = ({
 			/>
 
 			{plan?.type !== "Pro" && (
-				<Button asChild className="bg-gradient-brand mt-4">
+				<Button asChild className="mt-4 bg-gradient-brand">
 					<Link href="/pricing">
 						<Sparkles className="size-5 fill-white" />
 						Upgrade

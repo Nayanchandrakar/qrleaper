@@ -8,7 +8,7 @@ const Stepper = ({ className, children, ...props }: StepperProps) => {
 	return (
 		<ol
 			className={cn(
-				"flex flex-col items-start md:flex-row md:items-center gap-3 w-full md:gap-4",
+				"flex w-full flex-col items-start gap-3 md:flex-row md:items-center md:gap-4",
 				className,
 			)}
 			{...props}
@@ -30,7 +30,7 @@ const StepperContent = ({
 	return (
 		<li
 			className={cn(
-				"flex items-center gap-2 cursor-pointer",
+				"flex cursor-pointer items-center gap-2",
 				isExecuting && "cursor-not-allowed",
 				className,
 			)}
@@ -56,7 +56,7 @@ const StepperIcon = ({
 	return (
 		<span
 			className={cn(
-				"flex items-center justify-center size-10 rounded-full bg-white transition-all duration-300",
+				"flex size-10 items-center justify-center rounded-full bg-white transition-all duration-300",
 				isActive && "bg-green-600",
 				className,
 			)}
@@ -82,7 +82,7 @@ const StepperLabel = ({
 	return (
 		<p
 			className={cn(
-				"text-sm font-medium text-zinc-700 text-center transition-all duration-300",
+				"text-center font-medium text-sm text-zinc-700 transition-all duration-300",
 				isActive && "text-green-600",
 				className,
 			)}

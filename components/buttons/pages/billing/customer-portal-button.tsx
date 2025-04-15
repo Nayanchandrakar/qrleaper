@@ -27,7 +27,7 @@ export const CustomerPortalButton = ({
 			onClick={() => executeAsync({ id: userStripeId })}
 		>
 			Customer Portal
-			{isExecuting && <Loader className="size-5 mr-1 animate-spin" />}
+			{isExecuting && <Loader className="mr-1 size-5 animate-spin" />}
 		</Button>
 	);
 };

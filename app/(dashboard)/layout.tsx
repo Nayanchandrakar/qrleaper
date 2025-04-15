@@ -16,7 +16,7 @@ const DashboardLayout = async ({ children }: DashboardLayoutProps) => {
 	const subscription = await getSubscriptionByUserId(session?.user.id!);
 
 	return (
-		<div className="size-full flex">
+		<div className="flex size-full">
 			<div className="fixed inset-0 z-[30] hidden h-full w-64 border-r bg-white p-4 md:flex">
 				<Sidebar subscription={subscription!} />
 			</div>

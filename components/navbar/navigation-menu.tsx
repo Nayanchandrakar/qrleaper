@@ -16,11 +16,11 @@ const NavigationMenu = ({ session }: NavigationMenuProps) => {
 
 	return (
 		<div className="flex items-center gap-4">
-			<LinkButton href="/design" className="sm:inline-block hidden">
+			<LinkButton href="/design" className="hidden sm:inline-block">
 				QR Code Generator
 			</LinkButton>
 
-			<LinkButton href="/solutions" className="sm:inline-block hidden">
+			<LinkButton href="/solutions" className="hidden sm:inline-block">
 				Solutions
 			</LinkButton>
 
@@ -29,7 +29,7 @@ const NavigationMenu = ({ session }: NavigationMenuProps) => {
 			{isAuthenticated ? (
 				<>
 					<LinkButton
-						className="sm:inline-block hidden"
+						className="hidden sm:inline-block"
 						href="/dashboard/qr-codes"
 					>
 						Dashboard
@@ -38,15 +38,15 @@ const NavigationMenu = ({ session }: NavigationMenuProps) => {
 				</>
 			) : (
 				<>
-					<LinkButton className="sm:inline-block hidden" href="/login">
+					<LinkButton className="hidden sm:inline-block" href="/login">
 						Login
 					</LinkButton>
 
-					<Link className="sm:inline-block hidden" href="/register">
+					<Link className="hidden sm:inline-block" href="/register">
 						<MiniButton>Sign Up</MiniButton>
 					</Link>
 
-					<Link className="sm:hidden inline-block " href="/login">
+					<Link className="inline-block sm:hidden " href="/login">
 						<MiniButton>Login</MiniButton>
 					</Link>
 				</>

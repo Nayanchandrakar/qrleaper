@@ -105,7 +105,7 @@ export const LocationAnalyticsChart = ({
 				<div className="flex gap-2 font-medium leading-none">
 					Gives you a country-based analytics <TrendingUp className="h-4 w-4" />
 				</div>
-				<div className="leading-none text-muted-foreground">
+				<div className="text-muted-foreground leading-none">
 					Showing total visitors for the last {numberOfDays} days
 				</div>
 			</CardFooter>
