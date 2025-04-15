@@ -79,7 +79,6 @@ export const VcardImageUploadForm = ({
             control={control}
             name="images"
             disabled={isExecuting || isFileExceptLimitExceed}
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             render={({ field: { value, onChange, ...fieldProps } }) => (
               <FormItem>
                 <FormLabel className="w-full flex items-center justify-center bg-gray-100/60 rounded-md  border border-gray-200 h-[10rem] transition duration-200 hover:bg-gray-100 cursor-pointer  flex-col">

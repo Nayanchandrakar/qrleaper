@@ -8,9 +8,10 @@ export const throwUserNameError = async ({
 }: {
   ctx: {
     user: User
-    /* eslint-disable  @typescript-eslint/no-explicit-any */
+    // biome-ignore lint/suspicious/noExplicitAny:
     parsedInput: any
   }
+  // biome-ignore lint/suspicious/noExplicitAny:
   next: () => any
   isEditAction?: boolean
 }) => {

@@ -19,7 +19,6 @@ export const VcardImageGallery = ({
   )
 
   return (
-    /* eslint-disable @next/next/no-img-element */
     <img
       key={imageSrc}
       src={data!}

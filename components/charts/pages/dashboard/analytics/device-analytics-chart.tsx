@@ -42,7 +42,8 @@ interface AnalyticsReportInterface {
 
 // Group the data by date and sum the counts
 const groupDataByDate = (data: qrAnayticsType[]) => {
-  /* eslint-disable  @typescript-eslint/no-explicit-any */
+  
+  // biome-ignore lint/suspicious/noExplicitAny:
   const groupedData = new Map<string, any>()
 
   data?.forEach((device) => {
@@ -55,7 +56,6 @@ const groupDataByDate = (data: qrAnayticsType[]) => {
 
     const groupedEntry = groupedData.get(date!)
 
-    // Increment counts based on the deviceType value
     groupedEntry.desktop += deviceType === "Desktop" ? device?.count : 0
     groupedEntry.mobile += deviceType === "Mobile" ? device?.count : 0
     groupedEntry.other += deviceType === "Unknown" ? device?.count : 0
@@ -63,7 +63,7 @@ const groupDataByDate = (data: qrAnayticsType[]) => {
 
   return Array.from(groupedData.values())
 }
-/* eslint-disable  @typescript-eslint/no-explicit-any */
+// biome-ignore lint/suspicious/noExplicitAny:
 const calculateTotals = (data: any[]) => {
   const totals = { desktop: 0, mobile: 0, other: 0 }
 

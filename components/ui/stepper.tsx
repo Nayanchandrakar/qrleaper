@@ -2,7 +2,6 @@
 
 import { cn } from "@/lib/utils"
 
-/* eslint-disable @typescript-eslint/no-empty-object-type */
 interface StepperProps extends React.HTMLAttributes<HTMLOListElement> {}
 
 const Stepper = ({ className, children, ...props }: StepperProps) => {
@@ -18,7 +17,6 @@ const Stepper = ({ className, children, ...props }: StepperProps) => {
     </ol>
   )
 }
-/* eslint-disable @typescript-eslint/no-empty-object-type */
 interface StepperContentProps extends React.HTMLAttributes<HTMLLIElement> {
   isExecuting?: boolean
 }

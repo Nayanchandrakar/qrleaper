@@ -9,7 +9,7 @@ export const sendEmail = async ({
 }: {
   subject: string
   email: string
-  // eslint-disable-next-line
+  // biome-ignore lint/suspicious/noExplicitAny:
   react: any
 }) => {
   try {

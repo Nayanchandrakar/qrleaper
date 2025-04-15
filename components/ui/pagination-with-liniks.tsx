@@ -67,6 +67,7 @@ export function PaginationWithLinks({
     [searchParams, pathname, pageSearchParam]
   )
 
+      // biome-ignore lint/correctness/useExhaustiveDependencies:
   const navToPageSize = useCallback(
     (newPageSize: number) => {
       const key = pageSizeSelectOptions?.pageSizeSearchParam || "pageSize"
@@ -75,7 +76,6 @@ export function PaginationWithLinks({
       newSearchParams.delete(pageSearchParam || "page") // Clear the page number when changing page size
       router.push(`${pathname}?${newSearchParams.toString()}`)
     },
-    /* eslint-disable  */
     [searchParams, pathname]
   )
 

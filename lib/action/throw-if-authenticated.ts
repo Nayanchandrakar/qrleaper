@@ -4,9 +4,9 @@ export const throwIfAuthenticated = async ({
   next,
   ctx,
 }: {
-  // eslint-disable-next-line
+  // biome-ignore lint/suspicious/noExplicitAny:
   next: any
-  // eslint-disable-next-line
+  // biome-ignore lint/suspicious/noExplicitAny:
   ctx: any
 }) => {
   const session = await auth()

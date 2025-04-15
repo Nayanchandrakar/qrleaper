@@ -1,7 +1,6 @@
 import { cn } from "@/lib/utils"
 import { HTMLAttributes } from "react"
 
-/* eslint-disable  @typescript-eslint/no-empty-object-type */
 interface HeadingShortnerProps extends HTMLAttributes<HTMLDivElement> {}
 
 const HeadingShortner = ({

@@ -29,7 +29,7 @@ const AnalyticsMap = ({ data }: MapProps) => {
       />
 
       <GeoJSON
-        // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+      // biome-ignore lint/suspicious/noExplicitAny:
         data={countries as any}
         style={(feature) => {
           return {

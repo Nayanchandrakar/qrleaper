@@ -22,9 +22,9 @@ export async function getFile(
 
   const createResponse = (
     status: number,
-    /* eslint-disable  @typescript-eslint/no-explicit-any */
+    // biome-ignore lint/suspicious/noExplicitAny:
     headers: any,
-    /* eslint-disable  @typescript-eslint/no-explicit-any */
+    // biome-ignore lint/suspicious/noExplicitAny:
     stream?: any,
     error?: string
   ) => ({

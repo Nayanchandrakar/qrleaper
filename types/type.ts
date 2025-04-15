@@ -155,7 +155,7 @@ export interface userNameInputType {
   result: string
   currentUserName: string
 }
-
+// biome-ignore lint/suspicious/noExplicitAny:
 export type formType = UseFormReturn<any, any, unknown>
 
 export type geoDataType = {

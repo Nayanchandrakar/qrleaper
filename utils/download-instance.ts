@@ -1,6 +1,7 @@
 export const createDownloadInstance = (
   fileName: string,
   fileExtension: string,
+  // biome-ignore lint/suspicious/noExplicitAny:
   href: any
 ) => {
   const link = document.createElement("a")

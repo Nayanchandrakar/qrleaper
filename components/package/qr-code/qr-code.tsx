@@ -26,8 +26,6 @@ export const QrCode = forwardRef<
       colors,
       rotation,
     },
-    /* eslint-disable  @typescript-eslint/no-unused-vars */
-    ref
   ) => {
     const localRef = useRef<HTMLDivElement>(null)
     const isGradientSelected = useMemo<boolean>(

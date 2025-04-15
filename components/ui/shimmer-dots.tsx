@@ -118,7 +118,7 @@ export function ShimmerDots({
     const dotSizeUniform = gl.getUniformLocation(shaderProgram, "dotSize")
     const cellSizeUniform = gl.getUniformLocation(shaderProgram, "cellSize")
     const speedUniform = gl.getUniformLocation(shaderProgram, "speed")
-
+    // biome-ignore lint/correctness/useHookAtTopLevel:
     gl.useProgram(shaderProgram)
 
     const pos = [1.0, 1.0, -1.0, 1.0, 1.0, -1.0, -1.0, -1.0]

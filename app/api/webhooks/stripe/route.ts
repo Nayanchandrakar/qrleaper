@@ -19,7 +19,8 @@ export async function POST(req: Request) {
       signature,
       process?.env?.STRIPE_WEBHOOK_SECRET! as string
     )
-    /* eslint-disable  @typescript-eslint/no-explicit-any */
+  
+    // biome-ignore lint/suspicious/noExplicitAny:
   } catch (error: any) {
     return new Response(`Webhook Error: ${error.message}`, { status: 400 })
   }

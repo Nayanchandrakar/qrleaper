@@ -5,7 +5,6 @@ import Link, { type LinkProps } from "next/link"
 
 import { cn } from "@/lib/utils"
 
-/* eslint-disable-next-line  @typescript-eslint/no-empty-object-type */
 interface SocialIconProps extends HTMLAttributes<HTMLDivElement> {}
 interface SocialIconLinkProps
   extends HTMLAttributes<HTMLAnchorElement>,

@@ -83,7 +83,7 @@ export const linkMiddleware = async (req: NextRequest) => {
 
     // Update the scan count for the QR Code
     await incrmentQrScanCountByQrCodeId(qrCode?.id!)
-  } catch (error) {
+  } catch {
     return redirectTo(nextUrl)
   }
 

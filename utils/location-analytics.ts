@@ -31,7 +31,7 @@ export const cityAnalytics = (data: qrAnayticsType[]) => {
 }
 
 export const toGeoLocationObject = (data: qrAnayticsType[]) => {
-  let obj = {}
+  const obj = {}
 
   data?.map(({ country, count }) => {
     // @ts-ignore

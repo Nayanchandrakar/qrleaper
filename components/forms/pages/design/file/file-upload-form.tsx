@@ -64,7 +64,7 @@ export const FileUploadForm = () => {
     if (fileName) formData.append("fileName", data.fileName as string)
     if (id) formData.append("id", id)
 
-    /* eslint-disable  @typescript-eslint/no-explicit-any */
+    // biome-ignore lint/suspicious/noExplicitAny:
     executeAsync(formData as any)
   }
 

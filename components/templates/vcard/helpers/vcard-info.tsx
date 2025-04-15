@@ -1,7 +1,6 @@
 import { cn } from "@/lib/utils"
 import { HTMLAttributes } from "react"
 
-/* eslint-disable  @typescript-eslint/no-empty-object-type */
 interface VcardInfoProps extends HTMLAttributes<HTMLDivElement> {}
 interface VcardInfoTitleProps extends HTMLAttributes<HTMLParagraphElement> {}
 

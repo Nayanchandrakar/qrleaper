@@ -2,6 +2,7 @@ import VcardJsLib from "vcards-js"
 
 import { getFilePath } from "@/utils/client"
 
+// biome-ignore lint/suspicious/noExplicitAny:
 export function generateVCard(data: any) {
   const vCard = VcardJsLib()
 

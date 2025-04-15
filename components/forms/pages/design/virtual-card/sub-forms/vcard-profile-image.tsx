@@ -42,7 +42,6 @@ export const VcardProfileImageUploadForm = ({
         control={control}
         name="profileImage"
         disabled={isExecuting}
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         render={({ field: { value, onChange, ...fieldProps } }) => (
           <FormItem className="flex items-center justify-center flex-col">
             <FormLabel className="w-fit flex items-center justify-center flex-col gap-2">

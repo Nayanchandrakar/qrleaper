@@ -55,8 +55,7 @@ export const LogoForm = () => {
     formData.append("file", data.file)
     if (style.image) formData.append("image", data.image as string)
     if (id) formData.append("id", id)
-
-    /* eslint-disable  @typescript-eslint/no-explicit-any */
+// biome-ignore lint/suspicious/noExplicitAny:
     executeAsync(formData as any)
   }
 
