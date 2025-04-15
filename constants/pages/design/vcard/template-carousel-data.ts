@@ -1,4 +1,4 @@
-import { CoreVcardPreview, BlueVcardPreview } from "@/components/dynamic"
+import { CoreVcardPreview, BlueVcardPreview, OrangeGrayPreview } from "@/components/dynamic"
 
 export const templateCarouselData = [
   {
@@ -12,5 +12,11 @@ export const templateCarouselData = [
     templateId: "ALSDFIO3",
     image: "/vcard/template1.jpeg",
     Component: BlueVcardPreview,
+  },
+  {
+    id: 346345345,
+    templateId: "DSFGHEEI",
+    image: "/vcard/template1.jpeg",
+    Component: OrangeGrayPreview,
   },
 ]
