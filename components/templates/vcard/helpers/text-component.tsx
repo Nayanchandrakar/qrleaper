@@ -1,6 +1,7 @@
 import Link from "next/link"
 
 import { VcardInfo } from "@/components/templates/vcard/helpers/vcard-info"
+import { cn } from "@/lib/utils"
 
 interface TextComponentProps {
   text: string
@@ -8,7 +9,7 @@ interface TextComponentProps {
 }
 
 export const TextComponent: React.FC<TextComponentProps> & {
-  Link: React.FC<{ text: string; link: string | null }>
+  Link: React.FC<{ text: string; link: string | null , linkClassName?:string; }>
 } = ({ text, value }: TextComponentProps) => {
   return (
     <>
@@ -27,9 +28,11 @@ TextComponent.displayName = "TextComponent"
 TextComponent.Link = ({
   text,
   link,
+  linkClassName,
 }: {
   text: string
   link: string | null
+  linkClassName?:string
 }) => {
   return (
     <>
@@ -39,7 +42,7 @@ TextComponent.Link = ({
 
           <Link
             href={link}
-            className="w-fit text-sm font-medium  text-green-600 break-all"
+            className={cn("w-fit text-sm font-medium  text-green-600 break-all", linkClassName)}
             target="_blank"
           >
             {link}

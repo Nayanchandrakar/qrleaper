@@ -9,7 +9,7 @@ export const templateCarouselData = [
   },
   {
     id: 456363464,
-    templateId: "ALSDFIO3234",
+    templateId: "ALSDFIO3",
     image: "/vcard/template1.jpeg",
     Component: BlueVcardPreview,
   },

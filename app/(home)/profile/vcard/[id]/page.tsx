@@ -26,14 +26,7 @@ const ShowVcardPage = async ({ params }: ShowVcardPageProps) => {
 
   const TemplateComponent = getTemplateComponent(vCard?.templateId!)
 
-  return (
-    <section className="size-full relative">
-      <div className="design-mesh fixed size-full z-[-1]" />
-      <div className="max-w-4xl mx-auto my-20">
-        <TemplateComponent vCard={vCard!} endpoint={qrCode.endpoint!} />
-      </div>
-    </section>
-  )
+  return <TemplateComponent vCard={vCard!} endpoint={qrCode.endpoint!} />
 }
 
 export default ShowVcardPage

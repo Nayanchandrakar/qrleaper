@@ -2,6 +2,7 @@ import { useMemo } from "react"
 import { getObjectFileSrc } from "@/utils/client"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Skeleton } from "@/components/ui/skeleton"
+import { cn } from "@/lib/utils"
 
 interface ProfileAvatarProps {
   lastName: string
@@ -12,6 +13,8 @@ interface ProfileAvatarProps {
   middleName: string | null
   jobTitle: string | null
   isPreviewMode: boolean
+  headClassName?:string;
+  paraClassName?:string
 }
 
 export const ProfileAvatar = ({
@@ -23,6 +26,8 @@ export const ProfileAvatar = ({
   suffix,
   profileImage,
   isPreviewMode,
+  headClassName,
+  paraClassName
 }: ProfileAvatarProps) => {
   const imageSrc = useMemo(() => {
     return isPreviewMode && profileImage === undefined
@@ -39,12 +44,12 @@ export const ProfileAvatar = ({
         </AvatarFallback>
       </Avatar>
       <div className="flex items-center justify-center flex-col gap-2">
-        <h3 className="font-bold text-green-600 text-lg sm:text-xl text-center">
+        <h3 className={cn("font-bold text-green-600 text-lg sm:text-xl text-center" ,headClassName)}>
           {prefix} {firstName} {middleName} {lastName}
           <br />
           {suffix}
         </h3>
-        <p className="font-medium text-sm text-green-700">{jobTitle}</p>
+        <p className={cn("font-medium text-sm text-green-700" , paraClassName)}>{jobTitle}</p>
       </div>
     </>
   )

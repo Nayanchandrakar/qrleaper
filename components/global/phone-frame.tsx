@@ -20,7 +20,7 @@ export function PhoneFrame({
     >
       <span className="h-6 w-28 z-10 rounded-b-lg absolute inset-0 left-[50%] -translate-x-[50%] bg-black" />
 
-      <div className="py-12 hide-scrollbar overflow-y-auto rounded-[30px] h-[35rem] ">
+      <div className="hide-scrollbar overflow-y-auto rounded-[16px] h-[35rem]">
         {children}
       </div>
     </div>
