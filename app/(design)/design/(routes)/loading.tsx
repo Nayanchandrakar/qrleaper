@@ -1,7 +1,7 @@
-import { DesignEditPageSkeleton } from "@/components/skeletons/pages/design-edit/design-edit-skeleton"
+import { DesignEditPageSkeleton } from "@/components/skeletons/pages/design-edit/design-edit-skeleton";
 
 const DesignLayoutLoadingPage = () => {
-  return <DesignEditPageSkeleton />
-}
+	return <DesignEditPageSkeleton />;
+};
 
-export default DesignLayoutLoadingPage
+export default DesignLayoutLoadingPage;

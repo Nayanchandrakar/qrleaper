@@ -1,11 +1,11 @@
-import { VCardForm } from "@/components/forms/pages/design/virtual-card/vcard-form"
+import { VCardForm } from "@/components/forms/pages/design/virtual-card/vcard-form";
 
 export const metadata = {
-  title: "Create Profile based QR Codes",
-}
+	title: "Create Profile based QR Codes",
+};
 
 const VirtualCardPage = () => {
-  return <VCardForm />
-}
+	return <VCardForm />;
+};
 
-export default VirtualCardPage
+export default VirtualCardPage;

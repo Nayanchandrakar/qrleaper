@@ -1,28 +1,28 @@
-import { createSafeActionClient } from "next-safe-action"
-import { auth } from "@/lib/auth/auth"
+import { auth } from "@/lib/auth/auth";
+import { createSafeActionClient } from "next-safe-action";
 
 export const actionClient = createSafeActionClient({
-  handleServerError: (e) => {
-    console.error("Server action error:", e)
+	handleServerError: (e) => {
+		console.error("Server action error:", e);
 
-    if (e instanceof Error) {
-      return e.message
-    }
+		if (e instanceof Error) {
+			return e.message;
+		}
 
-    return "An unknown error occurred."
-  },
-})
+		return "An unknown error occurred.";
+	},
+});
 
 export const authUserActionClient = actionClient.use(async ({ next }) => {
-  const session = await auth()
+	const session = await auth();
 
-  if (!session?.user?.id) {
-    throw new Error("Unauthorized: Login required.")
-  }
+	if (!session?.user?.id) {
+		throw new Error("Unauthorized: Login required.");
+	}
 
-  return next({
-    ctx: {
-      user: session.user,
-    },
-  })
-})
+	return next({
+		ctx: {
+			user: session.user,
+		},
+	});
+});

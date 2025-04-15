@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { useEffect, useRef, useState } from "react"
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
+import { useEffect, useRef, useState } from "react";
 
 const vertexShader = `
 attribute vec2 position;
@@ -10,7 +10,7 @@ void main()
 {
     gl_Position = vec4(position, 0.0, 1.0);
 }
-`
+`;
 
 const fragmentShader = `
 precision mediump float;
@@ -45,141 +45,141 @@ void main(void) {
 
   gl_FragColor = fragColor;
 }
-`
+`;
 
-const TARGET_FPS = 60
-const FRAME_INTERVAL = 1000 / TARGET_FPS
+const TARGET_FPS = 60;
+const FRAME_INTERVAL = 1000 / TARGET_FPS;
 
 export function ShimmerDots({
-  dotSize = 1,
-  cellSize = 3,
-  speed = 5,
-  className,
+	dotSize = 1,
+	cellSize = 3,
+	speed = 5,
+	className,
 }: {
-  dotSize?: number
-  cellSize?: number
-  speed?: number
-  className?: string
+	dotSize?: number;
+	cellSize?: number;
+	speed?: number;
+	className?: string;
 }) {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
+	const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  // Whether the WebGL context has been lost
-  const [contextLost, setContextLost] = useState(false)
+	// Whether the WebGL context has been lost
+	const [contextLost, setContextLost] = useState(false);
 
-  useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas || !canvas.parentElement) return
+	useEffect(() => {
+		const canvas = canvasRef.current;
+		if (!canvas || !canvas.parentElement) return;
 
-    const parent = canvas.parentElement
-    const devicePixelRatio = window.devicePixelRatio || 1
-    canvas.width = parent.clientWidth * devicePixelRatio
-    canvas.height = parent.clientHeight * devicePixelRatio
+		const parent = canvas.parentElement;
+		const devicePixelRatio = window.devicePixelRatio || 1;
+		canvas.width = parent.clientWidth * devicePixelRatio;
+		canvas.height = parent.clientHeight * devicePixelRatio;
 
-    const gl = canvas.getContext("webgl", {
-      powerPreference: "low-power",
-      depth: false,
-      stencil: false,
-    })
+		const gl = canvas.getContext("webgl", {
+			powerPreference: "low-power",
+			depth: false,
+			stencil: false,
+		});
 
-    if (gl === null) {
-      alert("Failed to initialize WebGL")
-      return
-    }
+		if (gl === null) {
+			alert("Failed to initialize WebGL");
+			return;
+		}
 
-    const shaderProgram = gl.createProgram()
-    if (!shaderProgram) {
-      console.error("Failed to create shader program")
-      return
-    }
+		const shaderProgram = gl.createProgram();
+		if (!shaderProgram) {
+			console.error("Failed to create shader program");
+			return;
+		}
 
-    for (let i = 0; i < 2; ++i) {
-      const source = i === 0 ? vertexShader : fragmentShader
-      const shaderObj = gl.createShader(
-        i === 0 ? gl.VERTEX_SHADER : gl.FRAGMENT_SHADER
-      )
-      if (!shaderObj) {
-        console.error("Failed to create shader")
-        return
-      }
-      gl.shaderSource(shaderObj, source)
-      gl.compileShader(shaderObj)
-      if (!gl.getShaderParameter(shaderObj, gl.COMPILE_STATUS))
-        console.error(gl.getShaderInfoLog(shaderObj))
-      gl.attachShader(shaderProgram, shaderObj)
-      gl.linkProgram(shaderProgram)
-    }
+		for (let i = 0; i < 2; ++i) {
+			const source = i === 0 ? vertexShader : fragmentShader;
+			const shaderObj = gl.createShader(
+				i === 0 ? gl.VERTEX_SHADER : gl.FRAGMENT_SHADER,
+			);
+			if (!shaderObj) {
+				console.error("Failed to create shader");
+				return;
+			}
+			gl.shaderSource(shaderObj, source);
+			gl.compileShader(shaderObj);
+			if (!gl.getShaderParameter(shaderObj, gl.COMPILE_STATUS))
+				console.error(gl.getShaderInfoLog(shaderObj));
+			gl.attachShader(shaderProgram, shaderObj);
+			gl.linkProgram(shaderProgram);
+		}
 
-    if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS))
-      console.error(gl.getProgramInfoLog(shaderProgram))
+		if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS))
+			console.error(gl.getProgramInfoLog(shaderProgram));
 
-    const position = gl.getAttribLocation(shaderProgram, "position")
-    const time = gl.getUniformLocation(shaderProgram, "time")
-    const resolution = gl.getUniformLocation(shaderProgram, "resolution")
-    const dotSizeUniform = gl.getUniformLocation(shaderProgram, "dotSize")
-    const cellSizeUniform = gl.getUniformLocation(shaderProgram, "cellSize")
-    const speedUniform = gl.getUniformLocation(shaderProgram, "speed")
-    // biome-ignore lint/correctness/useHookAtTopLevel:
-    gl.useProgram(shaderProgram)
+		const position = gl.getAttribLocation(shaderProgram, "position");
+		const time = gl.getUniformLocation(shaderProgram, "time");
+		const resolution = gl.getUniformLocation(shaderProgram, "resolution");
+		const dotSizeUniform = gl.getUniformLocation(shaderProgram, "dotSize");
+		const cellSizeUniform = gl.getUniformLocation(shaderProgram, "cellSize");
+		const speedUniform = gl.getUniformLocation(shaderProgram, "speed");
+		// biome-ignore lint/correctness/useHookAtTopLevel:
+		gl.useProgram(shaderProgram);
 
-    const pos = [1.0, 1.0, -1.0, 1.0, 1.0, -1.0, -1.0, -1.0]
-    const positionBuffer = gl.createBuffer()
-    gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer)
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(pos), gl.STATIC_DRAW)
+		const pos = [1.0, 1.0, -1.0, 1.0, 1.0, -1.0, -1.0, -1.0];
+		const positionBuffer = gl.createBuffer();
+		gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(pos), gl.STATIC_DRAW);
 
-    gl.enableVertexAttribArray(position)
-    gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0)
+		gl.enableVertexAttribArray(position);
+		gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
 
-    gl.uniform1f(dotSizeUniform, dotSize * window.devicePixelRatio)
-    gl.uniform1f(cellSizeUniform, cellSize * window.devicePixelRatio)
-    gl.uniform1f(speedUniform, speed)
+		gl.uniform1f(dotSizeUniform, dotSize * window.devicePixelRatio);
+		gl.uniform1f(cellSizeUniform, cellSize * window.devicePixelRatio);
+		gl.uniform1f(speedUniform, speed);
 
-    let animationFrameId: number
-    let lastTimestamp = 0
+		let animationFrameId: number;
+		let lastTimestamp = 0;
 
-    function render(timestamp: number) {
-      // Skip unncessary frames
-      if (timestamp - lastTimestamp < FRAME_INTERVAL) {
-        animationFrameId = requestAnimationFrame(render)
-        return
-      }
+		function render(timestamp: number) {
+			// Skip unncessary frames
+			if (timestamp - lastTimestamp < FRAME_INTERVAL) {
+				animationFrameId = requestAnimationFrame(render);
+				return;
+			}
 
-      lastTimestamp = timestamp
+			lastTimestamp = timestamp;
 
-      if (gl && canvas && shaderProgram) {
-        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
+			if (gl && canvas && shaderProgram) {
+				gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-        gl.uniform1f(time, timestamp / 1000.0)
-        gl.uniform2f(resolution, canvas.width, canvas.height)
-        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4)
-      }
-      animationFrameId = requestAnimationFrame(render)
-    }
+				gl.uniform1f(time, timestamp / 1000.0);
+				gl.uniform2f(resolution, canvas.width, canvas.height);
+				gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+			}
+			animationFrameId = requestAnimationFrame(render);
+		}
 
-    animationFrameId = requestAnimationFrame(render)
+		animationFrameId = requestAnimationFrame(render);
 
-    // We'll just hide the canvas when the context is lost since it's generally non-essential
-    canvas.addEventListener("webglcontextlost", (e) => {
-      e.preventDefault()
-      setContextLost(true)
-      cancelAnimationFrame(animationFrameId)
-    })
+		// We'll just hide the canvas when the context is lost since it's generally non-essential
+		canvas.addEventListener("webglcontextlost", (e) => {
+			e.preventDefault();
+			setContextLost(true);
+			cancelAnimationFrame(animationFrameId);
+		});
 
-    return () => {
-      cancelAnimationFrame(animationFrameId)
-      canvas.removeEventListener("webglcontextlost", () => {})
-    }
-  }, [dotSize, cellSize, speed])
+		return () => {
+			cancelAnimationFrame(animationFrameId);
+			canvas.removeEventListener("webglcontextlost", () => {});
+		};
+	}, [dotSize, cellSize, speed]);
 
-  return (
-    <div
-      className={cn("absolute inset-0", className, contextLost && "opacity-0")}
-    >
-      <canvas
-        ref={canvasRef}
-        width="100%"
-        height="100%"
-        className="size-full"
-      />
-    </div>
-  )
+	return (
+		<div
+			className={cn("absolute inset-0", className, contextLost && "opacity-0")}
+		>
+			<canvas
+				ref={canvasRef}
+				width="100%"
+				height="100%"
+				className="size-full"
+			/>
+		</div>
+	);
 }

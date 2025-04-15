@@ -1,11 +1,11 @@
-import { YoutubeForm } from "@/components/forms/pages/design/youtube/youtube-form"
+import { YoutubeForm } from "@/components/forms/pages/design/youtube/youtube-form";
 
 export const metadata = {
-  title: "Youtube Video Id based QR Codes",
-}
+	title: "Youtube Video Id based QR Codes",
+};
 
 const YoutubePage = () => {
-  return <YoutubeForm />
-}
+	return <YoutubeForm />;
+};
 
-export default YoutubePage
+export default YoutubePage;

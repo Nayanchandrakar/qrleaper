@@ -1,11 +1,11 @@
-import { DesignForm } from "@/components/forms/pages/design/design-form"
+import { DesignForm } from "@/components/forms/pages/design/design-form";
 
 export const metadata = {
-  title: "Create Link based QR Codes",
-}
+	title: "Create Link based QR Codes",
+};
 
 const DesignPage = () => {
-  return <DesignForm />
-}
+	return <DesignForm />;
+};
 
-export default DesignPage
+export default DesignPage;

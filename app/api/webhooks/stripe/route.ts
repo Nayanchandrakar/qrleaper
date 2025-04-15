@@ -1,85 +1,85 @@
-import Stripe from "stripe"
-import { eq } from "drizzle-orm"
-import { headers } from "next/headers"
+import { eq } from "drizzle-orm";
+import { headers } from "next/headers";
+import Stripe from "stripe";
 
-import { db } from "@/database/db"
-import { stripe } from "@/lib/stripe"
-import { subscription as subscriptionTable } from "@/database/schema"
-import { updateQrCodeStatusWithSubscriptionChange } from "@/app/actions/helpers/subscription/utils"
+import { updateQrCodeStatusWithSubscriptionChange } from "@/app/actions/helpers/subscription/utils";
+import { db } from "@/database/db";
+import { subscription as subscriptionTable } from "@/database/schema";
+import { stripe } from "@/lib/stripe";
 
 export async function POST(req: Request) {
-  const body = await req.text()
-  const signature = headers().get("Stripe-Signature") as string
+	const body = await req.text();
+	const signature = headers().get("Stripe-Signature") as string;
 
-  let event: Stripe.Event
+	let event: Stripe.Event;
 
-  try {
-    event = stripe.webhooks.constructEvent(
-      body,
-      signature,
-      process?.env?.STRIPE_WEBHOOK_SECRET! as string
-    )
-  
-    // biome-ignore lint/suspicious/noExplicitAny:
-  } catch (error: any) {
-    return new Response(`Webhook Error: ${error.message}`, { status: 400 })
-  }
+	try {
+		event = stripe.webhooks.constructEvent(
+			body,
+			signature,
+			process?.env?.STRIPE_WEBHOOK_SECRET! as string,
+		);
 
-  if (event.type === "checkout.session.completed") {
-    const session = event.data.object as Stripe.Checkout.Session
+		// biome-ignore lint/suspicious/noExplicitAny:
+	} catch (error: any) {
+		return new Response(`Webhook Error: ${error.message}`, { status: 400 });
+	}
 
-    // Retrieve the subscription details from Stripe.
-    const subscription = await stripe.subscriptions.retrieve(
-      session.subscription as string
-    )
+	if (event.type === "checkout.session.completed") {
+		const session = event.data.object as Stripe.Checkout.Session;
 
-    // Update the user stripe into in our database.
-    // Since this is the initial subscription, we need to update
-    // the subscription id and customer id.
-    await db
-      ?.update(subscriptionTable)
-      .set({
-        stripeCurrentPeriodEnd: new Date(
-          subscription.current_period_end * 1000
-        ),
-        stripeCustomerId: subscription.customer as string,
-        stripePriceId: subscription.items.data[0].price.id,
-        stripeSubscriptionId: subscription.id,
-      })
-      .where(eq(subscriptionTable.userId, session?.metadata?.userId!))
-  }
+		// Retrieve the subscription details from Stripe.
+		const subscription = await stripe.subscriptions.retrieve(
+			session.subscription as string,
+		);
 
-  if (event.type === "invoice.payment_succeeded") {
-    const session = event.data.object as Stripe.Invoice
+		// Update the user stripe into in our database.
+		// Since this is the initial subscription, we need to update
+		// the subscription id and customer id.
+		await db
+			?.update(subscriptionTable)
+			.set({
+				stripeCurrentPeriodEnd: new Date(
+					subscription.current_period_end * 1000,
+				),
+				stripeCustomerId: subscription.customer as string,
+				stripePriceId: subscription.items.data[0].price.id,
+				stripeSubscriptionId: subscription.id,
+			})
+			.where(eq(subscriptionTable.userId, session?.metadata?.userId!));
+	}
 
-    // If the billing reason is not subscription_create, it means the customer has updated their subscription.
-    // If it is subscription_create, we don't need to update the subscription id and it will handle by the checkout.session.completed event.
-    if (session.billing_reason != "subscription_create") {
-      // Retrieve the subscription details from Stripe.
-      const subscription = await stripe.subscriptions.retrieve(
-        session.subscription as string
-      )
+	if (event.type === "invoice.payment_succeeded") {
+		const session = event.data.object as Stripe.Invoice;
 
-      // Update the price id and set the new period end.
+		// If the billing reason is not subscription_create, it means the customer has updated their subscription.
+		// If it is subscription_create, we don't need to update the subscription id and it will handle by the checkout.session.completed event.
+		if (session.billing_reason != "subscription_create") {
+			// Retrieve the subscription details from Stripe.
+			const subscription = await stripe.subscriptions.retrieve(
+				session.subscription as string,
+			);
 
-      const [updatedSubscriptionData] = await db
-        ?.update(subscriptionTable)
-        .set({
-          stripeCurrentPeriodEnd: new Date(
-            subscription.current_period_end * 1000
-          ),
-          stripePriceId: subscription.items.data[0].price.id,
-        })
-        .where(eq(subscriptionTable.stripeSubscriptionId, subscription.id!))
-        .returning()
+			// Update the price id and set the new period end.
 
-      // Need to change the status of qr codes after each update
-      await updateQrCodeStatusWithSubscriptionChange(
-        updatedSubscriptionData.userId,
-        updatedSubscriptionData?.stripePriceId!
-      )
-    }
-  }
+			const [updatedSubscriptionData] = await db
+				?.update(subscriptionTable)
+				.set({
+					stripeCurrentPeriodEnd: new Date(
+						subscription.current_period_end * 1000,
+					),
+					stripePriceId: subscription.items.data[0].price.id,
+				})
+				.where(eq(subscriptionTable.stripeSubscriptionId, subscription.id!))
+				.returning();
 
-  return new Response(null, { status: 200 })
+			// Need to change the status of qr codes after each update
+			await updateQrCodeStatusWithSubscriptionChange(
+				updatedSubscriptionData.userId,
+				updatedSubscriptionData?.stripePriceId!,
+			);
+		}
+	}
+
+	return new Response(null, { status: 200 });
 }

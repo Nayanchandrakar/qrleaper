@@ -1,11 +1,11 @@
-import { FacebookForm } from "@/components/forms/pages/design/facebook/facebook-form"
+import { FacebookForm } from "@/components/forms/pages/design/facebook/facebook-form";
 
 export const metadata = {
-  title: "Create Facebook Related QR Codes",
-}
+	title: "Create Facebook Related QR Codes",
+};
 
 const FacebookPage = () => {
-  return <FacebookForm />
-}
+	return <FacebookForm />;
+};
 
-export default FacebookPage
+export default FacebookPage;

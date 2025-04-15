@@ -1,42 +1,42 @@
-import Link from "next/link"
-import { Sparkles } from "lucide-react"
-import { Progress } from "@/components/ui/progress"
+import { Progress } from "@/components/ui/progress";
+import { Sparkles } from "lucide-react";
+import Link from "next/link";
 
-import { subscriptionPlan } from "@/app/actions/helpers"
-import type { subscritpionTableType } from "@/types/db-types"
-import { Button } from "@/components/ui/button"
+import { subscriptionPlan } from "@/app/actions/helpers";
+import { Button } from "@/components/ui/button";
+import type { subscritpionTableType } from "@/types/db-types";
 
 interface SubscriptionUsageBarProps {
-  subscription: subscritpionTableType
+	subscription: subscritpionTableType;
 }
 
 export const SubscriptionUsageBar = ({
-  subscription,
+	subscription,
 }: SubscriptionUsageBarProps) => {
-  const plan = subscriptionPlan(subscription?.stripePriceId!)
+	const plan = subscriptionPlan(subscription?.stripePriceId!);
 
-  return (
-    <div className="flex flex-col rounded-lg bg-gray-50 p-4 border border-gray-200">
-      <div className="mb-2.5 flex items-center justify-between gap-2 text-xs font-medium text-neutral-600">
-        <span>Usage</span>
-        <span>
-          {subscription?.count || 0}/{plan.limit}
-        </span>
-      </div>
+	return (
+		<div className="flex flex-col rounded-lg bg-gray-50 p-4 border border-gray-200">
+			<div className="mb-2.5 flex items-center justify-between gap-2 text-xs font-medium text-neutral-600">
+				<span>Usage</span>
+				<span>
+					{subscription?.count || 0}/{plan.limit}
+				</span>
+			</div>
 
-      <Progress
-        className="h-2"
-        value={((subscription?.count! || 0) / plan.limit!) * 100}
-      />
+			<Progress
+				className="h-2"
+				value={((subscription?.count! || 0) / plan.limit!) * 100}
+			/>
 
-      {plan?.type !== "Pro" && (
-        <Button asChild className="bg-gradient-brand mt-4">
-          <Link href="/pricing">
-            <Sparkles className="size-5 fill-white" />
-            Upgrade
-          </Link>
-        </Button>
-      )}
-    </div>
-  )
-}
+			{plan?.type !== "Pro" && (
+				<Button asChild className="bg-gradient-brand mt-4">
+					<Link href="/pricing">
+						<Sparkles className="size-5 fill-white" />
+						Upgrade
+					</Link>
+				</Button>
+			)}
+		</div>
+	);
+};

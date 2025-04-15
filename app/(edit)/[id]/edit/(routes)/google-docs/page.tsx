@@ -1,62 +1,62 @@
-import { redirect } from "next/navigation"
+import { redirect } from "next/navigation";
 
-import { auth } from "@/lib/auth/auth"
 import {
-  getGoogleDocsQrStyleAndDataByQrCodeId,
-  getQrCodeByUserIdAndIdWithType,
-} from "@/app/actions/utils"
-import { getEndpointURL } from "@/utils"
-import { GoogleDocsEditForm } from "@/components/forms/pages/edit/google-docs/google-docs-edit-form"
+	getGoogleDocsQrStyleAndDataByQrCodeId,
+	getQrCodeByUserIdAndIdWithType,
+} from "@/app/actions/utils";
+import { GoogleDocsEditForm } from "@/components/forms/pages/edit/google-docs/google-docs-edit-form";
+import { auth } from "@/lib/auth/auth";
+import { getEndpointURL } from "@/utils";
 
 // Site metadata
 export const metadata = {
-  title: "Edit Google Docs based QR Codes",
-}
+	title: "Edit Google Docs based QR Codes",
+};
 
 interface DesignEditPageProps {
-  params: {
-    id: string
-  }
+	params: {
+		id: string;
+	};
 }
 
 const DesignEditPage = async ({ params }: DesignEditPageProps) => {
-  if (!params.id) redirect("/design")
+	if (!params.id) redirect("/design");
 
-  const session = await auth()
+	const session = await auth();
 
-  if (!session?.user?.id) redirect("/login")
+	if (!session?.user?.id) redirect("/login");
 
-  const data = await getQrCodeByUserIdAndIdWithType(
-    session.user.id,
-    params.id,
-    "googleDoc"
-  )
+	const data = await getQrCodeByUserIdAndIdWithType(
+		session.user.id,
+		params.id,
+		"googleDoc",
+	);
 
-  if (!data) redirect("/design")
+	if (!data) redirect("/design");
 
-  const qrStyleAndGoogleDocsData = await getGoogleDocsQrStyleAndDataByQrCodeId(
-    data.id
-  )
+	const qrStyleAndGoogleDocsData = await getGoogleDocsQrStyleAndDataByQrCodeId(
+		data.id,
+	);
 
-  const qrCode = {
-    id: data.id,
-    title: data.title ?? "",
-    googleDocUrl: qrStyleAndGoogleDocsData?.googleDocs.googleDocUrl ?? "",
-    style: {
-      bottomInput: qrStyleAndGoogleDocsData?.style.bottomText ?? "",
-      image: qrStyleAndGoogleDocsData?.style.logo ?? "",
-      topInput: qrStyleAndGoogleDocsData?.style.topText ?? "",
-      hasFrame: !!qrStyleAndGoogleDocsData?.style.hasFrame,
-      shape: qrStyleAndGoogleDocsData?.style.shape ?? "square",
-      colors: qrStyleAndGoogleDocsData?.style.colors ?? [""],
-      colorType: qrStyleAndGoogleDocsData?.style.colorType ?? "linear",
-      rotation: qrStyleAndGoogleDocsData?.style.rotation ?? 0,
-    },
-  }
+	const qrCode = {
+		id: data.id,
+		title: data.title ?? "",
+		googleDocUrl: qrStyleAndGoogleDocsData?.googleDocs.googleDocUrl ?? "",
+		style: {
+			bottomInput: qrStyleAndGoogleDocsData?.style.bottomText ?? "",
+			image: qrStyleAndGoogleDocsData?.style.logo ?? "",
+			topInput: qrStyleAndGoogleDocsData?.style.topText ?? "",
+			hasFrame: !!qrStyleAndGoogleDocsData?.style.hasFrame,
+			shape: qrStyleAndGoogleDocsData?.style.shape ?? "square",
+			colors: qrStyleAndGoogleDocsData?.style.colors ?? [""],
+			colorType: qrStyleAndGoogleDocsData?.style.colorType ?? "linear",
+			rotation: qrStyleAndGoogleDocsData?.style.rotation ?? 0,
+		},
+	};
 
-  return (
-    <GoogleDocsEditForm qrCode={qrCode} endpoint={getEndpointURL(data.id)} />
-  )
-}
+	return (
+		<GoogleDocsEditForm qrCode={qrCode} endpoint={getEndpointURL(data.id)} />
+	);
+};
 
-export default DesignEditPage
+export default DesignEditPage;

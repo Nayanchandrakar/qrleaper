@@ -1,11 +1,11 @@
-import { EmailForm } from "@/components/forms/pages/design/email/email-form"
+import { EmailForm } from "@/components/forms/pages/design/email/email-form";
 
 export const metadata = {
-  title: "Create Email based QR Codes",
-}
+	title: "Create Email based QR Codes",
+};
 
 const MessagePage = () => {
-  return <EmailForm />
-}
+	return <EmailForm />;
+};
 
-export default MessagePage
+export default MessagePage;

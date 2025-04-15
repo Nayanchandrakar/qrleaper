@@ -1,103 +1,103 @@
-"use client"
+"use client";
 
-import { CloudUpload } from "lucide-react"
-import { useFormContext } from "react-hook-form"
-
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@/components/ui/form"
+import { CloudUpload } from "lucide-react";
+import { useFormContext } from "react-hook-form";
 
 import {
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion"
+	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
+} from "@/components/ui/form";
 
-import { setValueConfig } from "@/constants/react-hook"
-import { ListComponent } from "@/components/global/list-component"
-import { ImageActionCard } from "@/components/cards/pages/design/vcard/image-action-card"
+import {
+	AccordionContent,
+	AccordionItem,
+	AccordionTrigger,
+} from "@/components/ui/accordion";
+
+import { ImageActionCard } from "@/components/cards/pages/design/vcard/image-action-card";
+import { ListComponent } from "@/components/global/list-component";
+import { setValueConfig } from "@/constants/react-hook";
 
 interface VcardImageUploadFormType {
-  isExecuting?: boolean
+	isExecuting?: boolean;
 }
 
 export const VcardImageUploadForm = ({
-  isExecuting = false,
+	isExecuting = false,
 }: VcardImageUploadFormType) => {
-  const { setValue, getValues, control } = useFormContext()
+	const { setValue, getValues, control } = useFormContext();
 
-  const images = getValues("images") as (File | string)[]
-  const isFileExceptLimitExceed = !!(images?.length >= 4)
+	const images = getValues("images") as (File | string)[];
+	const isFileExceptLimitExceed = !!(images?.length >= 4);
 
-  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0]
-      const previousFiles = images || []
-      const newFiles = [...previousFiles, file]
-      setValue("images", newFiles, setValueConfig)
-    }
-  }
+	const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		if (e.target.files && e.target.files[0]) {
+			const file = e.target.files[0];
+			const previousFiles = images || [];
+			const newFiles = [...previousFiles, file];
+			setValue("images", newFiles, setValueConfig);
+		}
+	};
 
-  const onDelete = (newFile: File | string) => {
-    const previousFiles = images.filter((file) => {
-      if (typeof file === "object" && typeof newFile === "object") {
-        return file.name !== newFile.name
-      }
-      if (typeof file === "string" && typeof newFile === "string") {
-        return file !== newFile
-      }
-      return true
-    })
+	const onDelete = (newFile: File | string) => {
+		const previousFiles = images.filter((file) => {
+			if (typeof file === "object" && typeof newFile === "object") {
+				return file.name !== newFile.name;
+			}
+			if (typeof file === "string" && typeof newFile === "string") {
+				return file !== newFile;
+			}
+			return true;
+		});
 
-    setValue("images", previousFiles, setValueConfig)
-  }
+		setValue("images", previousFiles, setValueConfig);
+	};
 
-  return (
-    <AccordionItem className="border-b-0" value="image-upload">
-      <AccordionTrigger className="px-2 rounded-lg  bg-gray-100 text-gray-500 hover:no-underline">
-        Images Upload
-      </AccordionTrigger>
-      <AccordionContent className="pt-4 px-2 space-y-6">
-        <ListComponent
-          data={images}
-          className="grid grid-cols-1 sm:grid-cols-2 gap-3"
-          renderItem={(file, index) => (
-            <ImageActionCard
-              key={index + 2}
-              disabled={isExecuting}
-              file={file}
-              onDelete={() => onDelete(file)}
-            />
-          )}
-        />
+	return (
+		<AccordionItem className="border-b-0" value="image-upload">
+			<AccordionTrigger className="px-2 rounded-lg  bg-gray-100 text-gray-500 hover:no-underline">
+				Images Upload
+			</AccordionTrigger>
+			<AccordionContent className="pt-4 px-2 space-y-6">
+				<ListComponent
+					data={images}
+					className="grid grid-cols-1 sm:grid-cols-2 gap-3"
+					renderItem={(file, index) => (
+						<ImageActionCard
+							key={index + 2}
+							disabled={isExecuting}
+							file={file}
+							onDelete={() => onDelete(file)}
+						/>
+					)}
+				/>
 
-        {!isFileExceptLimitExceed && (
-          <FormField
-            control={control}
-            name="images"
-            disabled={isExecuting || isFileExceptLimitExceed}
-            render={({ field: { value, onChange, ...fieldProps } }) => (
-              <FormItem>
-                <FormLabel className="w-full flex items-center justify-center bg-gray-100/60 rounded-md  border border-gray-200 h-[10rem] transition duration-200 hover:bg-gray-100 cursor-pointer  flex-col">
-                  <CloudUpload className="size-8 text-gray-400" />
-                </FormLabel>
-                <FormControl>
-                  <input
-                    hidden
-                    {...fieldProps}
-                    type="file"
-                    accept="image/*"
-                    onChange={handleOnChange}
-                  />
-                </FormControl>
-              </FormItem>
-            )}
-          />
-        )}
-      </AccordionContent>
-    </AccordionItem>
-  )
-}
+				{!isFileExceptLimitExceed && (
+					<FormField
+						control={control}
+						name="images"
+						disabled={isExecuting || isFileExceptLimitExceed}
+						render={({ field: { value, onChange, ...fieldProps } }) => (
+							<FormItem>
+								<FormLabel className="w-full flex items-center justify-center bg-gray-100/60 rounded-md  border border-gray-200 h-[10rem] transition duration-200 hover:bg-gray-100 cursor-pointer  flex-col">
+									<CloudUpload className="size-8 text-gray-400" />
+								</FormLabel>
+								<FormControl>
+									<input
+										hidden
+										{...fieldProps}
+										type="file"
+										accept="image/*"
+										onChange={handleOnChange}
+									/>
+								</FormControl>
+							</FormItem>
+						)}
+					/>
+				)}
+			</AccordionContent>
+		</AccordionItem>
+	);
+};

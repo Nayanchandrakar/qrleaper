@@ -1,29 +1,29 @@
-"use client"
+"use client";
 
-import { useMemo } from "react"
+import { useMemo } from "react";
 
-import { getObjectFileSrc } from "@/utils/client"
+import { getObjectFileSrc } from "@/utils/client";
 
 interface VcardImageGalleryProps {
-  imageSrc: string
-  isPreviewMode: boolean
+	imageSrc: string;
+	isPreviewMode: boolean;
 }
 
 export const VcardImageGallery = ({
-  imageSrc,
-  isPreviewMode,
+	imageSrc,
+	isPreviewMode,
 }: VcardImageGalleryProps) => {
-  const data = useMemo(
-    () => getObjectFileSrc(isPreviewMode, imageSrc),
-    [imageSrc, isPreviewMode]
-  )
+	const data = useMemo(
+		() => getObjectFileSrc(isPreviewMode, imageSrc),
+		[imageSrc, isPreviewMode],
+	);
 
-  return (
-    <img
-      key={imageSrc}
-      src={data!}
-      alt="Gallery Image"
-      className="rounded-lg size-full"
-    />
-  )
-}
+	return (
+		<img
+			key={imageSrc}
+			src={data!}
+			alt="Gallery Image"
+			className="rounded-lg size-full"
+		/>
+	);
+};

@@ -1,33 +1,33 @@
-import "@/style/globals.css"
-import type { Metadata } from "next"
-import { SessionProvider } from "next-auth/react"
-import { Inter } from "next/font/google"
-import { auth } from "@/lib/auth/auth"
-import { Toaster } from "@/components/ui/sonner"
-import { Navbar } from "@/components/navbar/navbar"
+import "@/style/globals.css";
+import { Navbar } from "@/components/navbar/navbar";
+import { Toaster } from "@/components/ui/sonner";
+import { auth } from "@/lib/auth/auth";
+import type { Metadata } from "next";
+import { SessionProvider } from "next-auth/react";
+import { Inter } from "next/font/google";
 
-const font = Inter({ subsets: ["latin"] })
+const font = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "QR Leaper",
-  description: "Design your imaginations in QR codes.",
-}
+	title: "QR Leaper",
+	description: "Design your imaginations in QR codes.",
+};
 export default async function RootLayout({
-  children,
+	children,
 }: Readonly<{
-  children: React.ReactNode
+	children: React.ReactNode;
 }>) {
-  const session = await auth()
+	const session = await auth();
 
-  return (
-    <html lang="en">
-      <SessionProvider>
-        <body className={`${font.className} antialiased`}>
-          <Navbar session={session} />
-          {children}
-          <Toaster />
-        </body>
-      </SessionProvider>
-    </html>
-  )
+	return (
+		<html lang="en">
+			<SessionProvider>
+				<body className={`${font.className} antialiased`}>
+					<Navbar session={session} />
+					{children}
+					<Toaster />
+				</body>
+			</SessionProvider>
+		</html>
+	);
 }

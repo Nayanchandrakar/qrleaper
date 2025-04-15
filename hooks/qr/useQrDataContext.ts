@@ -1,13 +1,13 @@
-"use client"
+"use client";
 
-import { create } from "zustand"
+import { create } from "zustand";
 
 interface useQrDataContextProps {
-  data: string | null
-  setData: (value: string | null) => void
+	data: string | null;
+	setData: (value: string | null) => void;
 }
 
 export const useQrDataContext = create<useQrDataContextProps>((set) => ({
-  data: null,
-  setData: (value) => set({ data: value }),
-}))
+	data: null,
+	setData: (value) => set({ data: value }),
+}));

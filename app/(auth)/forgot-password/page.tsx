@@ -1,11 +1,11 @@
-import { ForgotPasswordForm } from "@/components/forms/auth/forgot-password/forgot-password-form"
+import { ForgotPasswordForm } from "@/components/forms/auth/forgot-password/forgot-password-form";
 
 export const metadata = {
-  title: "Forgot Password for your QR Leaper account",
-}
+	title: "Forgot Password for your QR Leaper account",
+};
 
 const ForgotPasswordPage = () => {
-  return <ForgotPasswordForm />
-}
+	return <ForgotPasswordForm />;
+};
 
-export default ForgotPasswordPage
+export default ForgotPasswordPage;

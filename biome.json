@@ -72,12 +72,7 @@
 	},
 	"overrides": [
 		{
-			"include": [
-				"*.ts",
-				"*.tsx",
-				"*.mts",
-				"*.cts"
-			],
+			"include": ["*.ts", "*.tsx", "*.mts", "*.cts"],
 			"linter": {
 				"rules": {
 					"complexity": {
@@ -114,12 +109,7 @@
 			}
 		},
 		{
-			"include": [
-				"*.ts",
-				"*.tsx",
-				"*.mts",
-				"*.cts"
-			],
+			"include": ["*.ts", "*.tsx", "*.mts", "*.cts"],
 			"linter": {
 				"rules": {
 					"complexity": {
@@ -156,17 +146,10 @@
 			}
 		},
 		{
-			"include": [
-				"**/*.ts?(x)"
-			]
+			"include": ["**/*.ts?(x)"]
 		},
 		{
-			"include": [
-				"*.ts",
-				"*.tsx",
-				"*.mts",
-				"*.cts"
-			],
+			"include": ["*.ts", "*.tsx", "*.mts", "*.cts"],
 			"linter": {
 				"rules": {
 					"complexity": {
@@ -203,17 +186,10 @@
 			}
 		},
 		{
-			"include": [
-				"**/*.ts?(x)"
-			]
+			"include": ["**/*.ts?(x)"]
 		},
 		{
-			"include": [
-				"*.ts",
-				"*.tsx",
-				"*.mts",
-				"*.cts"
-			],
+			"include": ["*.ts", "*.tsx", "*.mts", "*.cts"],
 			"linter": {
 				"rules": {
 					"complexity": {
@@ -249,6 +225,5 @@
 				}
 			}
 		}
-
 	]
 }

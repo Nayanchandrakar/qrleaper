@@ -1,12 +1,12 @@
-import type { Metadata } from "next"
-import { LoginForm } from "@/components/forms/auth/login/login-form"
+import { LoginForm } from "@/components/forms/auth/login/login-form";
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Login to your QR Leaper account",
-}
+	title: "Login to your QR Leaper account",
+};
 
 const LoginPage = () => {
-  return <LoginForm />
-}
+	return <LoginForm />;
+};
 
-export default LoginPage
+export default LoginPage;
