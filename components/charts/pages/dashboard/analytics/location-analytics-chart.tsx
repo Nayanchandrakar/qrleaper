@@ -18,7 +18,6 @@ import { COUNTRIES } from "@/constants/pages/dashboard/analytics/countries";
 import type { qrAnayticsType } from "@/types/db-types";
 import { locationAnalytics } from "@/utils/location-analytics";
 import { TrendingUp } from "lucide-react";
-import * as React from "react";
 import { Bar, BarChart, CartesianGrid, LabelList, XAxis } from "recharts";
 
 export const description = "A bar chart with a location analytics";

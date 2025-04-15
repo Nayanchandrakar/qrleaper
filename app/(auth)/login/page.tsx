@@ -6,6 +6,8 @@ export const metadata: Metadata = {
 };
 
 const LoginPage = () => {
+
+	
 	return <LoginForm />;
 };
 

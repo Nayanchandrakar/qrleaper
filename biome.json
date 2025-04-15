@@ -62,6 +62,13 @@
 				"noMisleadingInstantiator": "error",
 				"noUnsafeDeclarationMerging": "error",
 				"useNamespaceKeyword": "error"
+			},
+			"nursery":{
+				"useSortedClasses":{
+					"level":"error",
+					"fix":"safe",
+					"options":{}
+				}
 			}
 		}
 	},
@@ -85,8 +92,10 @@
 						"noInvalidConstructorSuper": "off",
 						"noNewSymbol": "off",
 						"noSetterReturn": "off",
-						"noUndeclaredVariables": "off",
+						"noUndeclaredVariables": "info",
 						"noUnreachable": "off",
+						"noUnusedLabels":"warn",
+						"noUnusedImports":"warn",
 						"noUnreachableSuper": "off"
 					},
 					"style": {

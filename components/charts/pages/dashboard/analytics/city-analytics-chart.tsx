@@ -1,7 +1,6 @@
 "use client";
 
 import { TrendingUp } from "lucide-react";
-import * as React from "react";
 import { Bar, BarChart, CartesianGrid, LabelList, XAxis } from "recharts";
 
 import type { qrAnayticsType } from "@/types/db-types";
