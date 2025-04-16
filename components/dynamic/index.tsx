@@ -67,6 +67,19 @@ export const OrangeGrayPreview = dynamic(
 	},
 );
 
+export const BrownPaperPreview = dynamic(
+	() => import("@/components/templates/vcard/brown-paper-template"),
+	{
+		ssr: false,
+		loading: () => (
+			<div className="flex size-full flex-col items-center justify-center gap-2">
+				<Loader2 className="size-4 animate-spin" />
+				Booting...
+			</div>
+		),
+	},
+);
+
 export const SingleColorForm = dynamic(
 	() =>
 		import(

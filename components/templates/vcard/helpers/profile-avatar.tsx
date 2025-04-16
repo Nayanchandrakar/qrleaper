@@ -15,6 +15,7 @@ interface ProfileAvatarProps {
 	isPreviewMode: boolean;
 	headClassName?: string;
 	paraClassName?: string;
+	divClassName?: string;
 }
 
 export const ProfileAvatar = ({
@@ -28,6 +29,7 @@ export const ProfileAvatar = ({
 	isPreviewMode,
 	headClassName,
 	paraClassName,
+	divClassName,
 }: ProfileAvatarProps) => {
 	const imageSrc = useMemo(() => {
 		return isPreviewMode && profileImage === undefined
@@ -43,7 +45,12 @@ export const ProfileAvatar = ({
 					<Skeleton className="size-full" />
 				</AvatarFallback>
 			</Avatar>
-			<div className="flex flex-col items-center justify-center gap-2">
+			<div
+				className={cn(
+					"flex flex-col items-center justify-center gap-2",
+					divClassName,
+				)}
+			>
 				<h3
 					className={cn(
 						"text-center font-bold text-green-600 text-lg sm:text-xl",

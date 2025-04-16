@@ -1,5 +1,6 @@
 import {
 	BlueVcardPreview,
+	BrownPaperPreview,
 	CoreVcardPreview,
 	OrangeGrayPreview,
 } from "@/components/dynamic";
@@ -22,5 +23,11 @@ export const templateCarouselData = [
 		templateId: "DSFGHEEI",
 		image: "/vcard/template1.jpeg",
 		Component: OrangeGrayPreview,
+	},
+	{
+		id: 23452564,
+		templateId: "3ERWFDSD",
+		image: "/vcard/template1.jpeg",
+		Component: BrownPaperPreview,
 	},
 ];
