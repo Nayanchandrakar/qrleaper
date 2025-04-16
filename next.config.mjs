@@ -15,7 +15,7 @@ const nextConfig = {
 		];
 	},
 	images: {
-		domains: ["localhost", "qr-leaper-eews.vercel.app"],
+		domains: ["localhost", "qrleaper.com"],
 	},
 };
 
