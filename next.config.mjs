@@ -15,7 +15,7 @@ const nextConfig = {
 		];
 	},
 	images: {
-		domains: ["localhost", "qrleaper.com"],
+		domains: ["localhost", "www.qrleaper.com"],
 	},
 };
 
