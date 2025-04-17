@@ -48,7 +48,10 @@ export function VCardForm() {
 		}
 
 		if (isLastStep) form.handleSubmit(onSubmit)(event);
-		if (!isLastStep) onNext();
+		if (!isLastStep) {
+			onNext();
+			if (window !== undefined) window.scrollTo({ top: 0, behavior: "smooth" });
+		}
 	};
 
 	const handlePrev = () => !isFirstStep && onPrev();
