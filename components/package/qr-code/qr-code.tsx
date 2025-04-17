@@ -12,19 +12,23 @@ export const QrCode = forwardRef<
 	HTMLDivElement,
 	QrCodeProps & { className?: string }
 >(
-	({
-		shape = "square",
-		bottomInput,
-		data = appUrl,
-		hasFrame = false,
-		logo,
-		topInput,
-		qrCodeRef,
-		className,
-		colorType,
-		colors,
-		rotation,
-	}) => {
+	(
+		{
+			shape = "square",
+			bottomInput,
+			data = appUrl,
+			hasFrame = false,
+			logo,
+			topInput,
+			qrCodeRef,
+			className,
+			colorType,
+			colors,
+			rotation,
+			// biome-ignore lint/correctness/noUnusedVariables:
+		},
+		ref,
+	) => {
 		const localRef = useRef<HTMLDivElement>(null);
 		const isGradientSelected = useMemo<boolean>(
 			() => colors?.length > 1,
