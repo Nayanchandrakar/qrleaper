@@ -46,7 +46,7 @@ export const virtualCardFormSchema = z.object({
 		.max(20),
 	middleName: z.string().max(10).optional().or(z.literal("")),
 	prefix: z.string().max(10).optional().or(z.literal("")),
-	suffix: z.string().max(10).optional().or(z.literal("")),
+	suffix: z.string().max(20).optional().or(z.literal("")),
 
 	// Phone Numbers
 	mobileNumber: z.string().optional().or(z.literal("")),
