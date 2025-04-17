@@ -47,7 +47,7 @@ export const requestPasswordResetAction = actionClient
 				subject: `QR Leaper: Password reset instructions`,
 				email,
 				react: ResetPasswordLink({
-					url: `${process.env.APP_URL}/auth/reset-password/${token}`,
+					url: `${process.env.APP_URL}/reset-password/${token}`,
 				}),
 			}),
 		]);

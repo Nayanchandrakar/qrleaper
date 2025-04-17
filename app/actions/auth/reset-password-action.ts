@@ -47,20 +47,22 @@ export const resetPasswordAction = actionClient
 			throw new Error("No user Found with that Email address.");
 		}
 
+		const passwordHash = await hashPassword(password);
+
 		await Promise.all([
-			db.transaction(async () => {
-				db.delete(passwordResetToken).where(
-					eq(passwordResetToken.token, token),
-				);
-				db.update(users)
+			db.transaction(async (tx) => {
+				await tx
+					.delete(passwordResetToken)
+					.where(eq(passwordResetToken.token, token));
+
+				await tx
+					.update(users)
 					.set({
-						passwordHash: await hashPassword(password),
+						passwordHash,
 						...(!user.emailVerified && { emailVerified: new Date() }), // Mark the email as verified
 					})
 					.where(eq(users.id, user.id));
 			}),
-
-			db.delete(passwordResetToken).where(eq(passwordResetToken.token, token)),
 
 			sendEmail({
 				subject: `Your QR Leaper account password has been reset`,

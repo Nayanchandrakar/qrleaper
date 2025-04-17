@@ -89,6 +89,8 @@ const LoginForm = () => {
 			const provider =
 				accountInfo?.hasPassword && password ? "credentials" : "resend";
 
+			router.prefetch("/dashboard/qr-codes");
+
 			// Call server action for signing in
 			const response = await signIn(provider, {
 				email,
@@ -98,16 +100,9 @@ const LoginForm = () => {
 
 			if (response?.ok && !response.error && provider === "credentials") {
 				router?.push("/dashboard/qr-codes");
+				router.refresh();
 			} else {
-				const error = response?.error! as string;
-				console.log(error, "check", response);
-				// @ts-ignore
-				if (error && errorCodes[error]) {
-					// @ts-ignore
-					toast.error(errorCodes[error]);
-				} else {
-					toast.error("An error occurred. Please try again.");
-				}
+				toast.error(errorCodes["invalid-credentials"]);
 			}
 
 			if (provider === "resend") {

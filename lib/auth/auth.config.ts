@@ -1,5 +1,5 @@
 import { eq } from "drizzle-orm";
-import type { NextAuthConfig } from "next-auth";
+import { type NextAuthConfig } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
 import Resend from "next-auth/providers/resend";
@@ -46,38 +46,27 @@ export default {
 				password: { type: "password" },
 			},
 			async authorize(credentials) {
-				if (!credentials) {
-					throw new Error("no-credentials");
-				}
+				if (!credentials) return null;
 
 				const { email, password } = credentials;
 
-				if (!email || !password) {
-					throw new Error("no-credentials-provided");
-				}
+				if (!email || !password) return null;
 
 				const [user] = await db
 					.select()
 					.from(users)
 					.where(eq(users.email, email as string));
 
-				if (!user || !user.passwordHash) {
-					throw new Error("invalid-credentials");
-				}
+				if (!user || !user.passwordHash) return null;
 
 				const passwordMatch = await validatePassword({
 					password: password as string,
 					passwordHash: user.passwordHash,
 				});
 
-				if (!passwordMatch) {
-					throw new Error("invalid-credentials");
-				}
+				if (!passwordMatch) return null;
 
-				if (!user.emailVerified) {
-					throw new Error("email-not-verified");
-				}
-
+				if (!user.emailVerified) return null;
 				return user;
 			},
 		}),

@@ -17,8 +17,14 @@ const Navbar = ({ session }: NavbarProps) => {
 	const isAuthRoute = authRoutes?.includes(pathname);
 	const isRedirectRoute = pathname?.startsWith("/link");
 	const isForgotPasswordPath = pathname.startsWith("/forgot-password");
+	const isResetPasswordPath = pathname.startsWith("/reset-password");
 
-	if (isAuthRoute || isRedirectRoute || isForgotPasswordPath) {
+	if (
+		isAuthRoute ||
+		isRedirectRoute ||
+		isForgotPasswordPath ||
+		isResetPasswordPath
+	) {
 		return null;
 	}
 

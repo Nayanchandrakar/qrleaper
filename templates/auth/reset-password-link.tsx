@@ -6,15 +6,15 @@ import {
 	Heading,
 	Html,
 	Img,
+	Link,
 	Preview,
 	Section,
 	Tailwind,
 	Text,
 } from "@react-email/components";
-import Link from "next/link";
 
 export default function ResetPasswordLink({
-	url = "http://localhost:3000/auth/reset-password/asdfasdfasdfasdfasdfsdfsdadfsdfasdfasdfasdf",
+	url = "http://localhost:3000/reset-password/asdfasdfasdfasdfasdfsdfsdadfsdfasdfasdfasdf",
 }: {
 	url: string;
 }) {
