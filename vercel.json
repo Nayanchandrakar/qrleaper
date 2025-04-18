@@ -4,5 +4,10 @@
 			"path": "/api/cron/disposable-email",
 			"schedule": "30 17 * * *"
 		}
-	]
+	],
+	"git": {
+		"deploymentEnabled": {
+			"dev": false
+		}
+	}
 }

@@ -98,7 +98,7 @@ const LoginForm = () => {
 
 			router.prefetch("/dashboard/qr-codes");
 
-			if (!response?.ok && !response?.error && provider === "credentials") {
+			if (response?.ok && !response?.error && provider === "credentials") {
 				router.push("/dashboard/qr-codes");
 			} else {
 				toast.error(errorCodes["invalid-credentials"]);
