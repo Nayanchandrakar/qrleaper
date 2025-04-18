@@ -12,12 +12,7 @@ export const handleRedirect = (
 	nextUrl: NextURL,
 ) => {
 	if (["email", "sms"].includes(type)) {
-		return new Response(
-			`<meta http-equiv="refresh" content="0;url=${endpoint}">`,
-			{
-				headers: { "Content-Type": "text/html" },
-			},
-		);
+		return redirectTo(nextUrl, `/redirect?endpoint=${endpoint}`);
 	} else {
 		return redirectTo(nextUrl, endpoint);
 	}
