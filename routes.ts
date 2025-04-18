@@ -9,7 +9,6 @@ const publicRoutes = [
 	"/api/view",
 	"/vcard",
 	"/profile",
-	"/redirect",
 ];
 
 export const editRouteRegex = new RegExp(`^/edit($|/)`);

@@ -22,9 +22,9 @@ export const getMessageDbEndpointURL = (
 	message?: string,
 ) => {
 	if (message?.length! > 1) {
-		return `sms:${phoneNumber}?&body=${encodeURIComponent(message!)}`;
+		return `sms:${phoneNumber}?body=${encodeURIComponent(message!)}`;
 	}
-	return `sms:${phoneNumber}?&body=messagehere`;
+	return `sms:${phoneNumber}?body=messagehere`;
 };
 
 export const getEmailDbEndpointURL = (
