@@ -21,11 +21,8 @@ import { PasswordInput } from "@/components/ui/password-input";
 import { errorCodes } from "@/constants/auth/error-codes";
 import { useLoginContext } from "@/hooks/auth/useLoginContext";
 import { emailSchema } from "@/zod/utils";
-import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
-	const router = useRouter();
-
 	const {
 		checkingEmailPassword,
 		email,
@@ -96,11 +93,8 @@ const LoginForm = () => {
 				redirect: false,
 			});
 
-			router.prefetch("/dashboard/qr-codes");
-
 			if (response?.ok && !response?.error && provider === "credentials") {
-				router.push("/dashboard/qr-codes");
-				router.refresh();
+				window.location.href = "/dashboard/qr-codes";
 			} else {
 				toast.error(errorCodes["invalid-credentials"]);
 			}

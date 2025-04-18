@@ -7,7 +7,11 @@ import { users } from "@/database/schema";
 
 export const checkAccountExists = async (email: string) => {
 	try {
-		const [user] = await db.select().from(users).where(eq(users.email, email));
+		const [user] = await db
+			.select()
+			.from(users)
+			.where(eq(users.email, email))
+			.limit(1);
 
 		if (user) {
 			return {
