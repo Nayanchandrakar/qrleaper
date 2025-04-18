@@ -25,8 +25,8 @@ export const QrCode = forwardRef<
 			colorType,
 			colors,
 			rotation,
-			// biome-ignore lint/correctness/noUnusedVariables:
 		},
+		// biome-ignore lint/correctness/noUnusedVariables:
 		ref,
 	) => {
 		const localRef = useRef<HTMLDivElement>(null);

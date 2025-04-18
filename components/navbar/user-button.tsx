@@ -16,10 +16,15 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { userNavigationLinks } from "@/constants/navigation/navigation-constants";
+import {
+	userAuthRoutes,
+	userPublicRoutes,
+} from "@/constants/navigation/navigation-constants";
+import { useMemo } from "react";
 
 export const UserButton = ({ session }: { session: Session }) => {
 	const user = session?.user;
+	const routes = useMemo(() => [...userPublicRoutes, ...userAuthRoutes], []);
 
 	return (
 		<DropdownMenu>
@@ -42,7 +47,7 @@ export const UserButton = ({ session }: { session: Session }) => {
 				</DropdownMenuLabel>
 				<DropdownMenuSeparator />
 				<DropdownMenuGroup>
-					{userNavigationLinks?.map(({ id, Icon, href, label }) => (
+					{routes?.map(({ id, Icon, href, label }) => (
 						<DropdownMenuItem className="cursor-pointer" key={id} asChild>
 							<Link key={label} href={href}>
 								<Icon className="mr-2 size-4" />

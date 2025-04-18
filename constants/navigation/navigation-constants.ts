@@ -7,19 +7,7 @@ import {
 	UserRoundPen,
 } from "lucide-react";
 
-export const userNavigationLinks = [
-	{
-		id: 345256,
-		Icon: BadgePlus,
-		label: "Create QR",
-		href: "/design",
-	},
-	{
-		id: 324525,
-		Icon: FileText,
-		label: "Solutions",
-		href: "/solutions",
-	},
+export const userAuthRoutes = [
 	{
 		id: 34524,
 		Icon: QrCode,
@@ -32,11 +20,27 @@ export const userNavigationLinks = [
 		label: "Profile",
 		href: "/dashboard/user-profile",
 	},
-	{ id: 46367345, Icon: Gem, label: "Pricing", href: "/pricing" },
 	{
 		id: 346346734,
 		Icon: CreditCard,
 		label: "Billing",
 		href: "/dashboard/billing",
 	},
+];
+
+export const userPublicRoutes = [
+	{
+		id: 345256,
+		Icon: BadgePlus,
+		label: "Create QR",
+		href: "/design",
+	},
+	{
+		id: 324525,
+		Icon: FileText,
+		label: "Solutions",
+		href: "/solutions",
+	},
+
+	{ id: 46367345, Icon: Gem, label: "Pricing", href: "/pricing" },
 ];

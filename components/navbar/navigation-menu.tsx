@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import { LinkButton } from "@/components/buttons/link-button";
 import { MiniButton } from "@/components/buttons/mini-button";
+import { MobileHamburgerMenu } from "@/components/navbar/mobile-hamburger-menu";
 import { UserButton } from "@/components/navbar/user-button";
 import { SessionType } from "@/types/type";
 
@@ -15,7 +16,7 @@ const NavigationMenu = ({ session }: NavigationMenuProps) => {
 	const isAuthenticated = !!session?.user?.id;
 
 	return (
-		<div className="flex items-center gap-4">
+		<div className="flex items-center gap-3">
 			<LinkButton href="/design" className="hidden sm:inline-block">
 				QR Code Generator
 			</LinkButton>
@@ -24,7 +25,9 @@ const NavigationMenu = ({ session }: NavigationMenuProps) => {
 				Solutions
 			</LinkButton>
 
-			<LinkButton href="/pricing">Pricing</LinkButton>
+			<LinkButton href="/pricing" className="hidden sm:inline-block">
+				Pricing
+			</LinkButton>
 
 			{isAuthenticated ? (
 				<>
@@ -49,6 +52,8 @@ const NavigationMenu = ({ session }: NavigationMenuProps) => {
 					<Link className="inline-block sm:hidden " href="/login">
 						<MiniButton>Login</MiniButton>
 					</Link>
+
+					<MobileHamburgerMenu />
 				</>
 			)}
 		</div>
