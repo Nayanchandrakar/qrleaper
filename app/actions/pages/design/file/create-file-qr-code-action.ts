@@ -35,35 +35,27 @@ export const createFileQrCodeAction = authUserActionClient
 				})
 				.returning();
 
-			await Promise.all([
-				// create a desired form data
-				tx
-					.insert(qrFile)
-					.values({
-						fileId: fileName,
-						qrCodeId: data.id,
-					}),
-
+			await tx.insert(qrFile).values({
+				fileId: fileName,
+				qrCodeId: data.id,
+			}),
 				// insert qr code styling data with qrCode id
-				tx
-					.insert(qrCodeStyle)
-					.values({
-						qrCodeId: data.id,
-						colors: style.colors,
-						colorType: style.colorType as colorType,
-						rotation: style.rotation,
-						hasFrame: !!style.hasFrame,
-						shape: style.shape,
-						...(style.bottomInput && { bottomText: style.bottomInput }),
-						...(style.topInput && { topText: style.topInput }),
-						...(style.image && { logo: style.image }),
-					}),
-			]);
+				await tx.insert(qrCodeStyle).values({
+					qrCodeId: data.id,
+					colors: style.colors,
+					colorType: style.colorType as colorType,
+					rotation: style.rotation,
+					hasFrame: !!style.hasFrame,
+					shape: style.shape,
+					...(style.bottomInput && { bottomText: style.bottomInput }),
+					...(style.topInput && { topText: style.topInput }),
+					...(style.image && { logo: style.image }),
+				});
 
-			incrementQrSubscriptionCountByUserId(ctx.user.id!);
 			return data;
 		});
 
+		await incrementQrSubscriptionCountByUserId(ctx.user.id!);
 		revalidatePath("/dashboard/qr-codes");
 
 		return { endpoint: getEndpointURL(qrCodeData.id) as string };

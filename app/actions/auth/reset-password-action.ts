@@ -49,29 +49,27 @@ export const resetPasswordAction = actionClient
 
 		const passwordHash = await hashPassword(password);
 
-		await Promise.all([
-			db.transaction(async (tx) => {
-				await tx
-					.delete(passwordResetToken)
-					.where(eq(passwordResetToken.token, token));
+		await db.transaction(async (tx) => {
+			await tx
+				.delete(passwordResetToken)
+				.where(eq(passwordResetToken.token, token));
 
-				await tx
-					.update(users)
-					.set({
-						passwordHash,
-						...(!user.emailVerified && { emailVerified: new Date() }), // Mark the email as verified
-					})
-					.where(eq(users.id, user.id));
-			}),
+			await tx
+				.update(users)
+				.set({
+					passwordHash,
+					...(!user.emailVerified && { emailVerified: new Date() }), // Mark the email as verified
+				})
+				.where(eq(users.id, user.id));
+		});
 
-			sendEmail({
-				subject: `Your QR Leaper account password has been reset`,
-				email: identifier,
-				react: PasswordUpdated({
-					verb: "reset",
-				}),
+		await sendEmail({
+			subject: `Your QR Leaper account password has been reset`,
+			email: identifier,
+			react: PasswordUpdated({
+				verb: "reset",
 			}),
-		]);
+		});
 
 		return { ok: true };
 	});

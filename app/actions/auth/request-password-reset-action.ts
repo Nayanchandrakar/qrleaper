@@ -3,9 +3,10 @@ import { randomBytes } from "crypto";
 import { eq } from "drizzle-orm";
 import { flattenValidationErrors } from "next-safe-action";
 
+import { getUserByEmail } from "@/app/actions/utils";
 import { PASSWORD_RESET_TOKEN_EXPIRY } from "@/constants/auth";
 import { db } from "@/database/db";
-import { passwordResetToken, users } from "@/database/schema";
+import { passwordResetToken } from "@/database/schema";
 import { actionClient } from "@/lib/action/safe-action";
 import { throwIfAuthenticated } from "@/lib/action/throw-if-authenticated";
 import { sendEmail } from "@/lib/mail";
@@ -24,7 +25,7 @@ export const requestPasswordResetAction = actionClient
 	.action(async ({ parsedInput }) => {
 		const { email } = parsedInput;
 
-		const [user] = await db.select().from(users).where(eq(users.email, email));
+		const user = await getUserByEmail(email);
 
 		if (!user) {
 			throw new Error("No account found with that email address.");

@@ -9,7 +9,11 @@ export const getQrCodesWithStyleAndTotalQrCount = async (
 	page: number,
 ) => {
 	const [[totalQrCodes], data] = await Promise.all([
-		db.select({ count: count() }).from(qrCode).where(eq(qrCode.userId, userId)),
+		db
+			.select({ count: count() })
+			.from(qrCode)
+			.where(eq(qrCode.userId, userId))
+			.limit(1),
 
 		db
 			.select()

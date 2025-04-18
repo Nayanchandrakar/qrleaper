@@ -29,17 +29,13 @@ export const updateQrCodeLinkAction = authUserActionClient
 		const { link, style, title, id } = parsedInput;
 
 		await db.transaction(async (tx) => {
-			Promise.all([
-				// update a desired form data
-				tx
-					.update(qrCode)
-					.set({ title, endpoint: link })
-					.where(eq(qrCode.id, id)),
-
-				tx.update(qrLink).set({ link }).where(eq(qrLink.qrCodeId, id)),
-
+			await tx
+				.update(qrCode)
+				.set({ title, endpoint: link })
+				.where(eq(qrCode.id, id)),
+				await tx.update(qrLink).set({ link }).where(eq(qrLink.qrCodeId, id)),
 				// update qr code styling data with qrCode id
-				tx
+				await tx
 					.update(qrCodeStyle)
 					.set({
 						colors: style.colors,
@@ -51,8 +47,7 @@ export const updateQrCodeLinkAction = authUserActionClient
 						...(style.topInput && { topText: style.topInput }),
 						...(style.image && { logo: style.image }),
 					})
-					.where(eq(qrCodeStyle.qrCodeId, id)),
-			]);
+					.where(eq(qrCodeStyle.qrCodeId, id));
 		});
 
 		return { ok: true };

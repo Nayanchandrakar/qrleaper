@@ -59,15 +59,13 @@ export const createVcardQrCodeAction = authUserActionClient
 
 			const qrCodeId = qrCodeRecord.id;
 
-			await Promise.all([
-				tx.insert(qrVirtualCard).values({
-					...remainingInput,
-					images: imageLinks,
-					profileImage: profileImageResponse.newFileName,
-					qrCodeId,
-				}),
-
-				tx.insert(qrCodeStyle).values({
+			await tx.insert(qrVirtualCard).values({
+				...remainingInput,
+				images: imageLinks,
+				profileImage: profileImageResponse.newFileName,
+				qrCodeId,
+			}),
+				await tx.insert(qrCodeStyle).values({
 					qrCodeId,
 					colors: style.colors,
 					colorType: style.colorType as colorType,
@@ -77,17 +75,17 @@ export const createVcardQrCodeAction = authUserActionClient
 					...(style.bottomInput && { bottomText: style.bottomInput }),
 					...(style.topInput && { topText: style.topInput }),
 					...(style.image && { logo: style.image }),
-				}),
-			]);
-
-			incrementQrSubscriptionCountByUserId(user.id!);
+				});
 
 			return qrCodeId;
 		});
 
-		await db.update(qrCode).set({
-			endpoint: getVcardDbEndpointURL(qrCodeId),
-		});
+		await Promise.all([
+			incrementQrSubscriptionCountByUserId(user.id!),
+			db.update(qrCode).set({
+				endpoint: getVcardDbEndpointURL(qrCodeId),
+			}),
+		]);
 
 		revalidatePath("/dashboard/qr-codes");
 

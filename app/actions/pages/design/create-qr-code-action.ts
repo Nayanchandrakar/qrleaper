@@ -1,17 +1,16 @@
 "use server";
 
-import { flattenValidationErrors } from "next-safe-action";
-import { revalidatePath } from "next/cache";
-
 import { incrementQrSubscriptionCountByUserId } from "@/app/actions/helpers/subscription/utils";
 import { db } from "@/database/db";
 import { qrCode, qrCodeStyle } from "@/database/schema";
 import { qrLink } from "@/database/schema/qr-variations";
 import { authUserActionClient } from "@/lib/action/safe-action";
 import { throwSubscriptionError } from "@/lib/action/throw-subscription-error";
-import type { colorType } from "@/types/type";
+import { colorType } from "@/types/type";
 import { getEndpointURL } from "@/utils";
 import { designFormSchema } from "@/zod/forms/design/design-form-schema";
+import { flattenValidationErrors } from "next-safe-action";
+import { revalidatePath } from "next/cache";
 
 export const createQrCodeAction = authUserActionClient
 	.schema(designFormSchema, {
@@ -35,33 +34,27 @@ export const createQrCodeAction = authUserActionClient
 				})
 				.returning();
 
-			await Promise.all([
-				// create a desired form data
-				tx
-					.insert(qrLink)
-					.values({
-						link,
-						qrCodeId: data.id,
-					}),
-
+			await tx.insert(qrLink).values({
+				link,
+				qrCodeId: data.id,
+			}),
 				// insert qr code styling data with qrCode id
-				tx
-					.insert(qrCodeStyle)
-					.values({
-						qrCodeId: data.id,
-						colors: style.colors,
-						colorType: style.colorType as colorType,
-						rotation: style.rotation,
-						hasFrame: !!style.hasFrame,
-						shape: style.shape,
-						...(style.bottomInput && { bottomText: style.bottomInput }),
-						...(style.topInput && { topText: style.topInput }),
-						...(style.image && { logo: style.image }),
-					}),
-			]);
-			incrementQrSubscriptionCountByUserId(ctx.user.id!);
+				await tx.insert(qrCodeStyle).values({
+					qrCodeId: data.id,
+					colors: style.colors,
+					colorType: style.colorType as colorType,
+					rotation: style.rotation,
+					hasFrame: !!style.hasFrame,
+					shape: style.shape,
+					...(style.bottomInput && { bottomText: style.bottomInput }),
+					...(style.topInput && { topText: style.topInput }),
+					...(style.image && { logo: style.image }),
+				});
+
 			return data;
 		});
+
+		await incrementQrSubscriptionCountByUserId(ctx.user.id!);
 
 		revalidatePath("/dashboard/qr-codes");
 

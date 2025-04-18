@@ -74,32 +74,29 @@ export const updateQrCodeVcardAction = authUserActionClient
 		const finalImageUrls = [...updatedImageUrls, ...uploadedFilePaths];
 
 		await db.transaction(async (tx) => {
-			await Promise.all([
-				tx.update(qrCode).set({ title }).where(eq(qrCode.id, id)),
-
-				tx
+			await tx.update(qrCode).set({ title }).where(eq(qrCode.id, id)),
+				await tx
 					.update(qrVirtualCard)
 					.set({
 						images: finalImageUrls,
 						...(updatedProfileImage && { profileImage: updatedProfileImage }),
 						...otherFields,
 					})
-					.where(eq(qrVirtualCard.qrCodeId, id)),
+					.where(eq(qrVirtualCard.qrCodeId, id));
 
-				tx
-					.update(qrCodeStyle)
-					.set({
-						colors: style.colors,
-						colorType: style.colorType as colorType,
-						rotation: style.rotation,
-						hasFrame: !!style.hasFrame,
-						shape: style.shape,
-						...(style.bottomInput && { bottomText: style.bottomInput }),
-						...(style.topInput && { topText: style.topInput }),
-						...(style.image && { logo: style.image }),
-					})
-					.where(eq(qrCodeStyle.qrCodeId, id)),
-			]);
+			await tx
+				.update(qrCodeStyle)
+				.set({
+					colors: style.colors,
+					colorType: style.colorType as colorType,
+					rotation: style.rotation,
+					hasFrame: !!style.hasFrame,
+					shape: style.shape,
+					...(style.bottomInput && { bottomText: style.bottomInput }),
+					...(style.topInput && { topText: style.topInput }),
+					...(style.image && { logo: style.image }),
+				})
+				.where(eq(qrCodeStyle.qrCodeId, id));
 		});
 
 		// Delete obsolete files if any

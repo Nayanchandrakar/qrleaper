@@ -3,9 +3,10 @@
 import { eq } from "drizzle-orm";
 import { flattenValidationErrors } from "next-safe-action";
 
+import { getUserByEmail } from "@/app/actions/utils";
 import { EMAIL_OTP_EXPIRY_IN } from "@/constants/auth";
 import { db } from "@/database/db";
-import { users, verificationTokens } from "@/database/schema";
+import { verificationTokens } from "@/database/schema";
 import { actionClient } from "@/lib/action/safe-action";
 import { throwIfAuthenticated } from "@/lib/action/throw-if-authenticated";
 import { generateOTP } from "@/lib/auth/utils";
@@ -29,7 +30,7 @@ export const sendRegisterOtp = actionClient
 			);
 		}
 
-		const [user] = await db.select().from(users).where(eq(users.email, email));
+		const user = await getUserByEmail(email);
 
 		if (user) {
 			throw new Error("Email already in use.");

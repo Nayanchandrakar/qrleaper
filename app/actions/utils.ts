@@ -40,7 +40,8 @@ export const getQrCodeByUserIdAndStatusType = async (
 					eq(qrCode.id, qrId),
 					eq(qrCode.status, status!),
 				),
-			);
+			)
+			.limit(1);
 		return data;
 	} catch {
 		return null;
@@ -49,7 +50,11 @@ export const getQrCodeByUserIdAndStatusType = async (
 
 export const getUserById = async (id: string) => {
 	try {
-		const [user] = await db.select().from(users).where(eq(users.id, id));
+		const [user] = await db
+			.select()
+			.from(users)
+			.where(eq(users.id, id))
+			.limit(1);
 		return user;
 	} catch {
 		return null;
@@ -58,7 +63,11 @@ export const getUserById = async (id: string) => {
 
 export const getUserByEmail = async (email: string) => {
 	try {
-		const [user] = await db.select().from(users).where(eq(users.email, email));
+		const [user] = await db
+			.select()
+			.from(users)
+			.where(eq(users.email, email))
+			.limit(1);
 		return user;
 	} catch {
 		return null;
@@ -74,7 +83,8 @@ export const getUserWithAccountByUserId = async (id: string) => {
 				passwordHash: users.passwordHash,
 			})
 			.from(users)
-			.leftJoin(accounts, eq(accounts.userId, id));
+			.leftJoin(accounts, eq(accounts.userId, id))
+			.limit(1);
 
 		return userAccount;
 	} catch {
@@ -94,7 +104,8 @@ export const isValidToken = async (token: string) => {
 					eq(passwordResetToken.token, token),
 					gte(passwordResetToken.expires, new Date()),
 				),
-			);
+			)
+			.limit(1);
 
 		return userToken.token as string;
 	} catch {
@@ -118,7 +129,8 @@ export const getQrCodeByUserIdAndIdWithType = async (
 					eq(qrCode.type, type),
 					eq(qrCode.status, "active"),
 				),
-			);
+			)
+			.limit(1);
 
 		return data;
 	} catch {
@@ -128,17 +140,19 @@ export const getQrCodeByUserIdAndIdWithType = async (
 
 export const getLinkQrStyleAndDataByQrCodeId = async (id: string) => {
 	try {
-		const data = await db.transaction(async (tx) => {
-			const [[style], [link]] = await Promise.all([
-				tx.select().from(qrCodeStyle).where(eq(qrCodeStyle.qrCodeId, id)),
-				tx.select().from(qrLink).where(eq(qrLink.qrCodeId, id)),
-			]);
-			return {
-				style,
-				link,
-			};
-		});
-		return data;
+		const [[style], [link]] = await Promise.all([
+			db
+				.select()
+				.from(qrCodeStyle)
+				.where(eq(qrCodeStyle.qrCodeId, id))
+				.limit(1),
+			db.select().from(qrLink).where(eq(qrLink.qrCodeId, id)).limit(1),
+		]);
+
+		return {
+			style,
+			link,
+		};
 	} catch {
 		return null;
 	}
@@ -146,17 +160,16 @@ export const getLinkQrStyleAndDataByQrCodeId = async (id: string) => {
 
 export const getMessageQrStyleAndDataByQrCodeId = async (id: string) => {
 	try {
-		const data = await db.transaction(async (tx) => {
-			const [[style], [message]] = await Promise.all([
-				tx.select().from(qrCodeStyle).where(eq(qrCodeStyle.qrCodeId, id)),
-				tx.select().from(qrMessage).where(eq(qrMessage.qrCodeId, id)),
-			]);
-			return {
-				style,
-				message,
-			};
-		});
-		return data;
+		const [[style], [message]] = await Promise.all([
+			db
+				.select()
+				.from(qrCodeStyle)
+				.where(eq(qrCodeStyle.qrCodeId, id))
+				.limit(1),
+			db.select().from(qrMessage).where(eq(qrMessage.qrCodeId, id)).limit(1),
+		]);
+
+		return { style, message };
 	} catch {
 		return null;
 	}
@@ -164,17 +177,16 @@ export const getMessageQrStyleAndDataByQrCodeId = async (id: string) => {
 
 export const getEmailQrStyleAndDataByQrCodeId = async (id: string) => {
 	try {
-		const data = await db.transaction(async (tx) => {
-			const [[style], [email]] = await Promise.all([
-				tx.select().from(qrCodeStyle).where(eq(qrCodeStyle.qrCodeId, id)),
-				tx.select().from(qrEmail).where(eq(qrEmail.qrCodeId, id)),
-			]);
-			return {
-				style,
-				email,
-			};
-		});
-		return data;
+		const [[style], [email]] = await Promise.all([
+			db
+				.select()
+				.from(qrCodeStyle)
+				.where(eq(qrCodeStyle.qrCodeId, id))
+				.limit(1),
+			db.select().from(qrEmail).where(eq(qrEmail.qrCodeId, id)).limit(1),
+		]);
+
+		return { style, email };
 	} catch {
 		return null;
 	}
@@ -182,17 +194,19 @@ export const getEmailQrStyleAndDataByQrCodeId = async (id: string) => {
 
 export const getInstagramQrStyleAndDataByQrCodeId = async (id: string) => {
 	try {
-		const data = await db.transaction(async (tx) => {
-			const [[style], [instagram]] = await Promise.all([
-				tx.select().from(qrCodeStyle).where(eq(qrCodeStyle.qrCodeId, id)),
-				tx.select().from(qrInstagram).where(eq(qrInstagram.qrCodeId, id)),
-			]);
-			return {
-				style,
-				instagram,
-			};
-		});
-		return data;
+		const [[style], [instagram]] = await Promise.all([
+			db
+				.select()
+				.from(qrCodeStyle)
+				.where(eq(qrCodeStyle.qrCodeId, id))
+				.limit(1),
+			db
+				.select()
+				.from(qrInstagram)
+				.where(eq(qrInstagram.qrCodeId, id))
+				.limit(1),
+		]);
+		return { style, instagram };
 	} catch {
 		return null;
 	}
@@ -200,17 +214,19 @@ export const getInstagramQrStyleAndDataByQrCodeId = async (id: string) => {
 
 export const getFacebookQrStyleAndDataByQrCodeId = async (id: string) => {
 	try {
-		const data = await db.transaction(async (tx) => {
-			const [[style], [facebook]] = await Promise.all([
-				tx.select().from(qrCodeStyle).where(eq(qrCodeStyle.qrCodeId, id)),
-				tx.select().from(qrFacebook).where(eq(qrFacebook.qrCodeId, id)),
-			]);
-			return {
-				style,
-				facebook,
-			};
-		});
-		return data;
+		const [[style], [facebook]] = await Promise.all([
+			db
+				.select()
+				.from(qrCodeStyle)
+				.where(eq(qrCodeStyle.qrCodeId, id))
+				.limit(1),
+			db.select().from(qrFacebook).where(eq(qrFacebook.qrCodeId, id)).limit(1),
+		]);
+
+		return {
+			style,
+			facebook,
+		};
 	} catch {
 		return null;
 	}
@@ -218,17 +234,19 @@ export const getFacebookQrStyleAndDataByQrCodeId = async (id: string) => {
 
 export const getYoutubeQrStyleAndDataByQrCodeId = async (id: string) => {
 	try {
-		const data = await db.transaction(async (tx) => {
-			const [[style], [youtube]] = await Promise.all([
-				tx.select().from(qrCodeStyle).where(eq(qrCodeStyle.qrCodeId, id)),
-				tx.select().from(qrYoutube).where(eq(qrYoutube.qrCodeId, id)),
-			]);
-			return {
-				style,
-				youtube,
-			};
-		});
-		return data;
+		const [[style], [youtube]] = await Promise.all([
+			db
+				.select()
+				.from(qrCodeStyle)
+				.where(eq(qrCodeStyle.qrCodeId, id))
+				.limit(1),
+			db.select().from(qrYoutube).where(eq(qrYoutube.qrCodeId, id)).limit(1),
+		]);
+
+		return {
+			style,
+			youtube,
+		};
 	} catch {
 		return null;
 	}
@@ -236,17 +254,22 @@ export const getYoutubeQrStyleAndDataByQrCodeId = async (id: string) => {
 
 export const getGoogleDocsQrStyleAndDataByQrCodeId = async (id: string) => {
 	try {
-		const data = await db.transaction(async (tx) => {
-			const [[style], [googleDocs]] = await Promise.all([
-				tx.select().from(qrCodeStyle).where(eq(qrCodeStyle.qrCodeId, id)),
-				tx.select().from(qrGoogleDoc).where(eq(qrGoogleDoc.qrCodeId, id)),
-			]);
-			return {
-				style,
-				googleDocs,
-			};
-		});
-		return data;
+		const [[style], [googleDocs]] = await Promise.all([
+			db
+				.select()
+				.from(qrCodeStyle)
+				.where(eq(qrCodeStyle.qrCodeId, id))
+				.limit(1),
+			db
+				.select()
+				.from(qrGoogleDoc)
+				.where(eq(qrGoogleDoc.qrCodeId, id))
+				.limit(1),
+		]);
+		return {
+			style,
+			googleDocs,
+		};
 	} catch {
 		return null;
 	}
@@ -254,34 +277,36 @@ export const getGoogleDocsQrStyleAndDataByQrCodeId = async (id: string) => {
 
 export const getFileQrStyleAndDataByQrCodeId = async (id: string) => {
 	try {
-		const data = await db.transaction(async (tx) => {
-			const [[style], [file]] = await Promise.all([
-				tx.select().from(qrCodeStyle).where(eq(qrCodeStyle.qrCodeId, id)),
-				tx.select().from(qrFile).where(eq(qrFile.qrCodeId, id)),
-			]);
-			return {
-				style,
-				file,
-			};
-		});
-		return data;
+		const [[style], [file]] = await Promise.all([
+			db
+				.select()
+				.from(qrCodeStyle)
+				.where(eq(qrCodeStyle.qrCodeId, id))
+				.limit(1),
+			db.select().from(qrFile).where(eq(qrFile.qrCodeId, id)).limit(1),
+		]);
+		return {
+			style,
+			file,
+		};
 	} catch {
 		return null;
 	}
 };
 
 export const getVcardQrStyleAndDataByQrCodeId = async (id: string) => {
-	const data = await db.transaction(async (tx) => {
-		const [[style], [vcard]] = await Promise.all([
-			tx.select().from(qrCodeStyle).where(eq(qrCodeStyle.qrCodeId, id)),
-			tx.select().from(qrVirtualCard).where(eq(qrVirtualCard.qrCodeId, id)),
-		]);
-		return {
-			style,
-			vcard,
-		};
-	});
-	return data;
+	const [[style], [vcard]] = await Promise.all([
+		db.select().from(qrCodeStyle).where(eq(qrCodeStyle.qrCodeId, id)).limit(1),
+		db
+			.select()
+			.from(qrVirtualCard)
+			.where(eq(qrVirtualCard.qrCodeId, id))
+			.limit(1),
+	]);
+	return {
+		style,
+		vcard,
+	};
 };
 
 export const getQrScanCountById = async (id: string) => {
@@ -289,7 +314,8 @@ export const getQrScanCountById = async (id: string) => {
 		const [data] = await db
 			.select()
 			.from(qrScanCount)
-			.where(eq(qrScanCount.qrCodeId, id));
+			.where(eq(qrScanCount.qrCodeId, id))
+			.limit(1);
 		return data;
 	} catch {
 		return null;
@@ -301,7 +327,8 @@ export const getSubscriptionByUserId = async (userId: string) => {
 		const [data] = await db
 			?.select()
 			.from(subscription)
-			.where(eq(subscription.userId, userId));
+			.where(eq(subscription.userId, userId))
+			.limit(1);
 		return data;
 	} catch {
 		return null;
@@ -310,7 +337,11 @@ export const getSubscriptionByUserId = async (userId: string) => {
 
 export const getQrCodeById = async (id: string) => {
 	try {
-		const [data] = await db.select().from(qrCode).where(eq(qrCode.id, id));
+		const [data] = await db
+			.select()
+			.from(qrCode)
+			.where(eq(qrCode.id, id))
+			.limit(1);
 		return data;
 	} catch {
 		return null;
@@ -327,7 +358,8 @@ export const getQrAnalyticsByQrCodeIdAndDeviceId = async (
 			.from(qrAnalytics)
 			.where(
 				and(eq(qrAnalytics.qrCodeId, qrId), eq(qrAnalytics.deviceId, deviceId)),
-			);
+			)
+			.limit(1);
 
 		return data;
 	} catch {
@@ -375,7 +407,8 @@ export const getQrCodeWithStyleByUserIdAndId = async (
 			.select()
 			.from(qrCode)
 			.innerJoin(qrCodeStyle, eq(qrCode.id, qrCodeStyle.qrCodeId))
-			.where(and(eq(qrCode.userId, userId), eq(qrCode.id, id)));
+			.where(and(eq(qrCode.userId, userId), eq(qrCode.id, id)))
+			.limit(1);
 		return data;
 	} catch {
 		return null;
@@ -387,7 +420,8 @@ export const getQrFileByQrCodeId = async (id: string) => {
 		const [data] = await db
 			.select()
 			.from(qrFile)
-			.where(eq(qrFile.qrCodeId, id));
+			.where(eq(qrFile.qrCodeId, id))
+			.limit(1);
 		return data;
 	} catch {
 		return null;
@@ -412,7 +446,8 @@ export const getVCardQrCodeByqrCodeId = async (id: string) => {
 		const [vCardData] = await db
 			.select()
 			.from(qrVirtualCard)
-			.where(eq(qrVirtualCard.qrCodeId, id));
+			.where(eq(qrVirtualCard.qrCodeId, id))
+			.limit(1);
 		return vCardData;
 	} catch {
 		return null;
@@ -428,7 +463,8 @@ export const getVcardWithProfileImageAndImageByQrCodeId = async (
 			images: qrVirtualCard.images,
 		})
 		.from(qrVirtualCard)
-		.where(eq(qrVirtualCard.qrCodeId, qrCodeId));
+		.where(eq(qrVirtualCard.qrCodeId, qrCodeId))
+		.limit(1);
 
 	return vCardFile;
 };
@@ -450,7 +486,8 @@ export const getVCardByUserName = async (userName: string) => {
 				qrCodeId: qrVirtualCard.qrCodeId,
 			})
 			.from(qrVirtualCard)
-			.where(eq(qrVirtualCard.userName, userName));
+			.where(eq(qrVirtualCard.userName, userName))
+			.limit(1);
 
 		return result;
 	} catch {
@@ -465,7 +502,8 @@ export const getVCardUserNameByQrCodeId = async (id: string) => {
 				userName: qrVirtualCard.userName,
 			})
 			.from(qrVirtualCard)
-			.where(eq(qrVirtualCard.qrCodeId, id));
+			.where(eq(qrVirtualCard.qrCodeId, id))
+			.limit(1);
 
 		return result?.userName ?? "";
 	} catch {
@@ -481,7 +519,8 @@ export const getVCardFileDataByQrCodeId = async (id: string) => {
 				profileImage: qrVirtualCard.profileImage,
 			})
 			.from(qrVirtualCard)
-			.where(eq(qrVirtualCard.qrCodeId, id));
+			.where(eq(qrVirtualCard.qrCodeId, id))
+			.limit(1);
 
 		return result;
 	} catch {

@@ -49,18 +49,14 @@ export const fileUploadAction = authUserActionClient
 
 		if (response && data) {
 			await db.transaction(async (tx) => {
-				Promise.all([
-					// update a desired form data
-					tx
-						.update(qrCode)
-						.set({ endpoint: getFileDbEndpointURL(response.newFileName) })
-						.where(eq(qrCode.id, data.id)),
-
-					tx
+				await tx
+					.update(qrCode)
+					.set({ endpoint: getFileDbEndpointURL(response.newFileName) })
+					.where(eq(qrCode.id, data.id)),
+					await tx
 						.update(qrFile)
 						.set({ fileId: response.newFileName })
-						.where(eq(qrFile.qrCodeId, data.id)),
-				]);
+						.where(eq(qrFile.qrCodeId, data.id));
 			});
 		}
 
