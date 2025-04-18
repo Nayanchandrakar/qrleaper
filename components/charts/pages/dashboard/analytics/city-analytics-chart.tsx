@@ -77,7 +77,11 @@ export const CityAnalyticsChart = ({
 							tickMargin={10}
 							axisLine={false}
 							tickFormatter={(value) =>
-								value === "Unknown" ? "UA" : value?.slice(0, 10)
+								value === "Unknown"
+									? "UA"
+									: value?.length > 12
+										? value?.trim(0, 10) + "..."
+										: value
 							}
 						/>
 
