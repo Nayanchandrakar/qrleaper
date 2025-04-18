@@ -1,4 +1,4 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 import {
 	getIdentityHash,
@@ -87,5 +87,5 @@ export const linkMiddleware = async (req: NextRequest) => {
 		return redirectTo(nextUrl);
 	}
 
-	return redirectTo(nextUrl, qrCode?.endpoint!);
+	return NextResponse.redirect(qrCode?.endpoint ?? new URL("/design", nextUrl));
 };
