@@ -15,7 +15,7 @@ import {
 	incrmentQrScanCountByQrCodeId,
 } from "@/app/actions/utils";
 import { sendEmail } from "@/lib/mail";
-import { redirectTo } from "@/middlewares/utils";
+import { handleRedirect, redirectTo } from "@/middlewares/utils";
 import { QrCodeLimitReached } from "@/templates/notifications/qr-limit-react-template";
 
 export const linkMiddleware = async (req: NextRequest) => {
@@ -87,10 +87,5 @@ export const linkMiddleware = async (req: NextRequest) => {
 		return redirectTo(nextUrl);
 	}
 
-	return new Response(null, {
-		status: 302,
-		headers: {
-			Location: qrCode?.endpoint!,
-		},
-	});
+	return handleRedirect(qrCode.type!, qrCode.endpoint!, nextUrl);
 };
