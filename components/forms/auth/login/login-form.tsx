@@ -100,6 +100,7 @@ const LoginForm = () => {
 
 			if (response?.ok && !response?.error && provider === "credentials") {
 				router.push("/dashboard/qr-codes");
+				router.refresh();
 			} else {
 				toast.error(errorCodes["invalid-credentials"]);
 			}
