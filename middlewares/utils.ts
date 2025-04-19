@@ -11,7 +11,7 @@ export const handleFinalRedirect = (
 	path: string,
 	qrType: qrType,
 ) => {
-	if (["email", "sms"].includes(qrType)) {
+	if (["email", "message"].includes(qrType)) {
 		return new Response(
 			`<meta http-equiv="refresh" content="0; url=${path}" />`,
 			{
