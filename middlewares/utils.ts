@@ -12,7 +12,12 @@ export const handleFinalRedirect = (
 	qrType: qrType,
 ) => {
 	if (["email", "sms"].includes(qrType)) {
-		return NextResponse.redirect(path);
+		return new Response(
+			`<meta http-equiv="refresh" content="0; url=${path}" />`,
+			{
+				headers: { "Content-Type": "text/html" },
+			},
+		);
 	}
 
 	return redirectTo(nexturl, path);
