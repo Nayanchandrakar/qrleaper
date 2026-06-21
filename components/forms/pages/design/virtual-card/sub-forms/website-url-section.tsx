@@ -1,55 +1,55 @@
-"use client";
+"use client"
 
-import { useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form"
 
 import {
-	AccordionContent,
-	AccordionItem,
-	AccordionTrigger,
-} from "@/components/ui/accordion";
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger
+} from "@/components/ui/accordion"
 import {
-	FormControl,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
 
 interface WebsiteSectionProps {
-	isExecuting?: boolean;
+  isExecuting?: boolean
 }
 
 export const WebsiteSection = ({
-	isExecuting = false,
+  isExecuting = false
 }: WebsiteSectionProps) => {
-	const form = useFormContext();
+  const form = useFormContext()
 
-	return (
-		<AccordionItem className="border-b-0" value="website-section">
-			<AccordionTrigger className="rounded-lg bg-gray-100 px-2 text-gray-500 hover:no-underline">
-				Website
-			</AccordionTrigger>
-			<AccordionContent className="space-y-6 px-2 pt-4">
-				<FormField
-					control={form.control}
-					name="website"
-					disabled={isExecuting}
-					render={({ field }) => (
-						<FormItem className="w-full">
-							<FormLabel>Website</FormLabel>
-							<FormControl>
-								<Input
-									type="url"
-									placeholder="Your Website Url (optional)"
-									{...field}
-								/>
-							</FormControl>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
-			</AccordionContent>
-		</AccordionItem>
-	);
-};
+  return (
+    <AccordionItem className="border-b-0" value="website-section">
+      <AccordionTrigger className="rounded-lg bg-gray-100 px-2 text-gray-500 hover:no-underline">
+        Website
+      </AccordionTrigger>
+      <AccordionContent className="space-y-6 px-2 pt-4">
+        <FormField
+          control={form.control}
+          name="website"
+          disabled={isExecuting}
+          render={({ field }) => (
+            <FormItem className="w-full">
+              <FormLabel>Website</FormLabel>
+              <FormControl>
+                <Input
+                  type="url"
+                  placeholder="Your Website Url (optional)"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </AccordionContent>
+    </AccordionItem>
+  )
+}

@@ -1,27 +1,27 @@
-"use server";
+"use server"
 
-import { eq } from "drizzle-orm";
+import { eq } from "drizzle-orm"
 
-import { db } from "@/database/db";
-import { users } from "@/database/schema";
+import { db } from "@/database/db"
+import { users } from "@/database/schema"
 
 export const checkAccountExists = async (email: string) => {
-	try {
-		const [user] = await db
-			.select()
-			.from(users)
-			.where(eq(users.email, email))
-			.limit(1);
+  try {
+    const [user] = await db
+      .select()
+      .from(users)
+      .where(eq(users.email, email))
+      .limit(1)
 
-		if (user) {
-			return {
-				accountExists: true,
-				hasPassword: !!user.passwordHash,
-			};
-		}
+    if (user) {
+      return {
+        accountExists: true,
+        hasPassword: !!user.passwordHash
+      }
+    }
 
-		return { accountExists: false, hasPassword: false };
-	} catch {
-		return null;
-	}
-};
+    return { accountExists: false, hasPassword: false }
+  } catch {
+    return null
+  }
+}

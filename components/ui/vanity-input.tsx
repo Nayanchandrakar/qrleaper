@@ -1,23 +1,23 @@
-"use client";
+"use client"
 
-import { Input } from "@/components/ui/input";
+import { Input } from "@/components/ui/input"
 
 interface VanityInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-	label: string;
+  label: string
 }
 
 export default function VanityInput({ label, ...props }: VanityInputProps) {
-	return (
-		<div className="flex rounded-lg shadow-black/5 shadow-sm">
-			<span className="flex flex-shrink-0 items-center rounded-s-lg border border-input bg-background px-3 text-muted-foreground text-sm">
-				{label}
-			</span>
-			<Input
-				className="-ms-px rounded-s-none shadow-none"
-				placeholder="google.com"
-				type="text"
-				{...props}
-			/>
-		</div>
-	);
+  return (
+    <div className="flex rounded-lg shadow-sm shadow-black/5">
+      <span className="flex flex-shrink-0 items-center rounded-s-lg border border-input bg-background px-3 text-sm text-muted-foreground">
+        {label}
+      </span>
+      <Input
+        className="-ms-px rounded-s-none shadow-none"
+        placeholder="google.com"
+        type="text"
+        {...props}
+      />
+    </div>
+  )
 }

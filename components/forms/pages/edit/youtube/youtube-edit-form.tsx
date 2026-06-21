@@ -1,124 +1,122 @@
-"use client";
+"use client"
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useAction } from "next-safe-action/hooks";
-import { useEffect } from "react";
-import { FormProvider, useForm } from "react-hook-form";
-import { toast } from "sonner";
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useAction } from "next-safe-action/hooks"
+import { useEffect } from "react"
+import { FormProvider, useForm } from "react-hook-form"
+import { toast } from "sonner"
 
+import { updateQrCodeYoutubeAction } from "@/app/actions/pages/edit/youtube/update-youtube-qr-code-action"
+import { PreviewQrCard } from "@/components/cards/pages/design/preview-qr-card"
+import { QrStyleForm } from "@/components/forms/pages/design/qr-style/qr-style-form"
+import { QrEditControl } from "@/components/forms/pages/edit/design/qr-edit-controls"
 import {
-	FormControl,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-} from "@/components/ui/form";
-
-import { PreviewQrCard } from "@/components/cards/pages/design/preview-qr-card";
-import { QrStyleForm } from "@/components/forms/pages/design/qr-style/qr-style-form";
-import { QrEditControl } from "@/components/forms/pages/edit/design/qr-edit-controls";
-import { Input } from "@/components/ui/input";
-import { StepLabel } from "@/components/ui/step-label";
-import { useQrDataContext } from "@/hooks/qr/useQrDataContext";
-import type { editQrYoutubeType } from "@/types/type";
-
-import { updateQrCodeYoutubeAction } from "@/app/actions/pages/edit/youtube/update-youtube-qr-code-action";
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import { StepLabel } from "@/components/ui/step-label"
+import { useQrDataContext } from "@/hooks/qr/useQrDataContext"
+import type { editQrYoutubeType } from "@/types/type"
 import {
-	youtubeEditFormSchema,
-	type youtubeEditFormSchemaType,
-} from "@/zod/pages/edit/youtube/youtube-edit-form-schema";
+  youtubeEditFormSchema,
+  type youtubeEditFormSchemaType
+} from "@/zod/pages/edit/youtube/youtube-edit-form-schema"
 
 interface YoutubeEditFormProps {
-	qrCode: editQrYoutubeType;
-	endpoint: string;
+  qrCode: editQrYoutubeType
+  endpoint: string
 }
 
 export const YoutubeEditForm = ({ qrCode, endpoint }: YoutubeEditFormProps) => {
-	const { setData } = useQrDataContext();
+  const { setData } = useQrDataContext()
 
-	const { executeAsync, isExecuting } = useAction(updateQrCodeYoutubeAction, {
-		onSuccess: () => {
-			toast.success("Successfully updated a QR Code");
-		},
-		onError: ({ error }) => {
-			toast.error(error.serverError);
-		},
-	});
+  const { executeAsync, isExecuting } = useAction(updateQrCodeYoutubeAction, {
+    onSuccess: () => {
+      toast.success("Successfully updated a QR Code")
+    },
+    onError: ({ error }) => {
+      toast.error(error.serverError)
+    }
+  })
 
-	const form = useForm<youtubeEditFormSchemaType>({
-		resolver: zodResolver(youtubeEditFormSchema),
-		defaultValues: qrCode,
-	});
+  const form = useForm<youtubeEditFormSchemaType>({
+    resolver: zodResolver(youtubeEditFormSchema),
+    defaultValues: qrCode
+  })
 
-	useEffect(() => {
-		if (endpoint) {
-			setData(endpoint);
-		}
-	}, [endpoint, setData]);
+  useEffect(() => {
+    if (endpoint) {
+      setData(endpoint)
+    }
+  }, [endpoint, setData])
 
-	return (
-		<FormProvider {...form}>
-			<form
-				onSubmit={form.handleSubmit(executeAsync)}
-				className="grid grid-cols-1 gap-8 lg:grid-cols-2"
-			>
-				{/* main form  */}
-				<div>
-					<div className="space-y-4">
-						<StepLabel className="mt-3">
-							<StepLabel.Counter>1</StepLabel.Counter>
-							<StepLabel.Title>Edit the content</StepLabel.Title>
-						</StepLabel>
+  return (
+    <FormProvider {...form}>
+      <form
+        onSubmit={form.handleSubmit(executeAsync)}
+        className="grid grid-cols-1 gap-8 lg:grid-cols-2"
+      >
+        {/* main form  */}
+        <div>
+          <div className="space-y-4">
+            <StepLabel className="mt-3">
+              <StepLabel.Counter>1</StepLabel.Counter>
+              <StepLabel.Title>Edit the content</StepLabel.Title>
+            </StepLabel>
 
-						<FormField
-							control={form.control}
-							name="title"
-							disabled={isExecuting}
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>QR title</FormLabel>
-									<FormControl>
-										<Input
-											type="text"
-											placeholder="example:StarBucks"
-											{...field}
-										/>
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
+            <FormField
+              control={form.control}
+              name="title"
+              disabled={isExecuting}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>QR title</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="text"
+                      placeholder="example:StarBucks"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-						<FormField
-							control={form.control}
-							name="youtubeUrl"
-							disabled={isExecuting}
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>Youtube Video</FormLabel>
-									<FormControl>
-										<Input
-											type="url"
-											placeholder="https://www.youtube.com/adson-videos"
-											{...field}
-										/>
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
+            <FormField
+              control={form.control}
+              name="youtubeUrl"
+              disabled={isExecuting}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Youtube Video</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="url"
+                      placeholder="https://www.youtube.com/adson-videos"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-						<QrEditControl
-							isExecuting={isExecuting}
-							isEditable={
-								JSON.stringify(form.getValues()) === JSON.stringify(qrCode)
-							}
-						/>
-					</div>
-					<QrStyleForm />
-				</div>
-				<PreviewQrCard />
-			</form>
-		</FormProvider>
-	);
-};
+            <QrEditControl
+              isExecuting={isExecuting}
+              isEditable={
+                JSON.stringify(form.getValues()) === JSON.stringify(qrCode)
+              }
+            />
+          </div>
+          <QrStyleForm />
+        </div>
+        <PreviewQrCard />
+      </form>
+    </FormProvider>
+  )
+}

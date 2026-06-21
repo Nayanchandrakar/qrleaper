@@ -1,102 +1,100 @@
-"use client";
+"use client"
 
-import { Download, Image as LucideImage } from "lucide-react";
-import type { ShapeType } from "qr-code-styling";
-import { useRef } from "react";
+import { Download, Image as LucideImage } from "lucide-react"
+import type { ShapeType } from "qr-code-styling"
+import { useRef } from "react"
 
+import { QrCode } from "@/components/package/qr-code/qr-code"
 import {
-	Dialog,
-	DialogContent,
-	DialogHeader,
-	DialogTitle,
-} from "@/components/ui/dialog";
-
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle
+} from "@/components/ui/dialog"
 import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-
-import { QrCode } from "@/components/package/qr-code/qr-code";
-import { ShimmerDots } from "@/components/ui/shimmer-dots";
-import { downloadOptionData } from "@/constants/qr/download-options";
-import { useQrCodeDownload } from "@/hooks/global/downloads/useQrCodeDownload";
-import { usePreviewQrCode } from "@/hooks/pages/dashboard/qr-codes/usePreviewQr";
-import type { FileExtensionTypeExtended, qrCodeRefType } from "@/types/type";
-import { getEndpointURLClient, getFilePath } from "@/utils/client";
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu"
+import { ShimmerDots } from "@/components/ui/shimmer-dots"
+import { downloadOptionData } from "@/constants/qr/download-options"
+import { useQrCodeDownload } from "@/hooks/global/downloads/useQrCodeDownload"
+import { usePreviewQrCode } from "@/hooks/pages/dashboard/qr-codes/usePreviewQr"
+import type { FileExtensionTypeExtended, qrCodeRefType } from "@/types/type"
+import { getEndpointURLClient, getFilePath } from "@/utils/client"
 
 export const ShowQrCodePopup = () => {
-	const qrCodeRef = useRef<qrCodeRefType>(null);
+  const qrCodeRef = useRef<qrCodeRefType>(null)
 
-	const { isOpen, setIsOpen, data } = usePreviewQrCode();
-	const { download } = useQrCodeDownload(qrCodeRef);
+  const { isOpen, setIsOpen, data } = usePreviewQrCode()
+  const { download } = useQrCodeDownload(qrCodeRef)
 
-	return (
-		<Dialog open={isOpen} onOpenChange={setIsOpen}>
-			<DialogContent className="max-w-[450px] ">
-				<DialogHeader>
-					<DialogTitle className="line-clamp-1 font-medium">
-						{data?.qr_code.title}
-					</DialogTitle>
-				</DialogHeader>
+  return (
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <DialogContent className="max-w-[450px]">
+        <DialogHeader>
+          <DialogTitle className="line-clamp-1 font-medium">
+            {data?.qr_code.title}
+          </DialogTitle>
+        </DialogHeader>
 
-				<div className="mt-3">
-					<div className="mb-3 flex items-center justify-between gap-2">
-						<span className="font-medium text-gray-600 text-sm">
-							QR Code Preview
-						</span>
+        <div className="mt-3">
+          <div className="mb-3 flex items-center justify-between gap-2">
+            <span className="text-sm font-medium text-gray-600">
+              QR Code Preview
+            </span>
 
-						<DropdownMenu>
-							<DropdownMenuTrigger>
-								<span className="flex size-6 cursor-pointer items-center justify-center rounded-md transition duration-200 hover:bg-gray-100">
-									<Download className="size-4 text-gray-600" />
-								</span>
-							</DropdownMenuTrigger>
-							<DropdownMenuContent>
-								{downloadOptionData?.map(({ id, label, value }) => (
-									<DropdownMenuItem
-										key={id}
-										className="cursor-pointer"
-										onClick={() =>
-											download({
-												fileExtension: value as FileExtensionTypeExtended,
-												fileName: data?.qr_code.title!,
-											})
-										}
-									>
-										<span className="flex items-center gap-2 font-medium text-gray-700 text-sm">
-											<LucideImage className="size-5" />
-											{label}
-										</span>
-									</DropdownMenuItem>
-								))}
-							</DropdownMenuContent>
-						</DropdownMenu>
-					</div>
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <span className="flex size-6 cursor-pointer items-center justify-center rounded-md transition duration-200 hover:bg-gray-100">
+                  <Download className="size-4 text-gray-600" />
+                </span>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                {downloadOptionData?.map(({ id, label, value }) => (
+                  <DropdownMenuItem
+                    key={id}
+                    className="cursor-pointer"
+                    onClick={() =>
+                      download({
+                        fileExtension: value as FileExtensionTypeExtended,
+                        fileName: data?.qr_code.title!
+                      })
+                    }
+                  >
+                    <span className="flex items-center gap-2 text-sm font-medium text-gray-700">
+                      <LucideImage className="size-5" />
+                      {label}
+                    </span>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
 
-					<div className="relative flex items-center justify-center rounded-lg border border-gray-200">
-						<QrCode
-							qrCodeRef={qrCodeRef}
-							{...data?.qr_code_style}
-							topInput={data?.qr_code_style?.topText!}
-							bottomInput={data?.qr_code_style?.bottomText!}
-							data={getEndpointURLClient(data?.qr_code?.id!)}
-							shape={data?.qr_code_style?.shape! as ShapeType}
-							logo={
-								data?.qr_code_style?.logo!
-									? getFilePath(data?.qr_code_style?.logo!)
-									: undefined
-							}
-							colorType={data?.qr_code_style?.colorType!}
-							colors={data?.qr_code_style?.colors!}
-							rotation={data?.qr_code_style?.rotation ?? 0}
-							className="scale-[0.7]"
-						/>
-						<ShimmerDots className="pointer-events-none z-10 opacity-30 [mask-image:radial-gradient(40%_80%,transparent_50%,black)]" />
-					</div>
-				</div>
-			</DialogContent>
-		</Dialog>
-	);
-};
+          <div className="relative flex items-center justify-center rounded-lg border border-gray-200">
+            <QrCode
+              qrCodeRef={qrCodeRef}
+              {...data?.qr_code_style}
+              topInput={data?.qr_code_style?.topText}
+              bottomInput={data?.qr_code_style?.bottomText}
+              data={getEndpointURLClient(data?.qr_code?.id)}
+              shape={data?.qr_code_style?.shape as ShapeType}
+              logo={
+                data?.qr_code_style?.logo
+                  ? getFilePath(data?.qr_code_style?.logo)
+                  : undefined
+              }
+              colorType={data?.qr_code_style?.colorType}
+              colors={data?.qr_code_style?.colors}
+              rotation={data?.qr_code_style?.rotation ?? 0}
+              className="scale-[0.7]"
+            />
+            <ShimmerDots className="pointer-events-none z-10 opacity-30 [mask-image:radial-gradient(40%_80%,transparent_50%,black)]" />
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
+  )
+}

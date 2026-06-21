@@ -1,75 +1,75 @@
-"use server";
+"use server"
 
-import { and, eq, gte } from "drizzle-orm";
-import { flattenValidationErrors } from "next-safe-action";
+import { and, eq, gte } from "drizzle-orm"
+import { flattenValidationErrors } from "next-safe-action"
 
-import { getUserByEmail } from "@/app/actions/utils";
-import { db } from "@/database/db";
-import { passwordResetToken, users } from "@/database/schema";
-import { actionClient } from "@/lib/action/safe-action";
-import { hashPassword } from "@/lib/auth/password";
-import { sendEmail } from "@/lib/mail";
-import PasswordUpdated from "@/templates/auth/password-updated";
-import { resetPasswordSchema } from "@/zod/auth/reset-password-schema";
+import { getUserByEmail } from "@/app/actions/utils"
+import { db } from "@/database/db"
+import { passwordResetToken, users } from "@/database/schema"
+import { actionClient } from "@/lib/action/safe-action"
+import { hashPassword } from "@/lib/auth/password"
+import { sendEmail } from "@/lib/mail"
+import PasswordUpdated from "@/templates/auth/password-updated"
+import { resetPasswordSchema } from "@/zod/auth/reset-password-schema"
 
 export const resetPasswordAction = actionClient
-	.schema(resetPasswordSchema, {
-		handleValidationErrorsShape: async (ve) =>
-			flattenValidationErrors(ve).fieldErrors,
-	})
-	.action(async ({ parsedInput }) => {
-		const { token, password } = parsedInput;
+  .schema(resetPasswordSchema, {
+    handleValidationErrorsShape: async (ve) =>
+      flattenValidationErrors(ve).fieldErrors
+  })
+  .action(async ({ parsedInput }) => {
+    const { token, password } = parsedInput
 
-		// Find the token
-		const [tokenFound] = await db
-			.select({
-				identifier: passwordResetToken.identifier,
-			})
-			.from(passwordResetToken)
-			.where(
-				and(
-					eq(passwordResetToken.token, token),
-					gte(passwordResetToken.expires, new Date()),
-				),
-			);
+    // Find the token
+    const [tokenFound] = await db
+      .select({
+        identifier: passwordResetToken.identifier
+      })
+      .from(passwordResetToken)
+      .where(
+        and(
+          eq(passwordResetToken.token, token),
+          gte(passwordResetToken.expires, new Date())
+        )
+      )
 
-		if (!tokenFound) {
-			throw new Error(
-				"Password reset token not found or expired. Please request a new one.",
-			);
-		}
+    if (!tokenFound) {
+      throw new Error(
+        "Password reset token not found or expired. Please request a new one."
+      )
+    }
 
-		const { identifier } = tokenFound;
+    const { identifier } = tokenFound
 
-		const user = await getUserByEmail(identifier);
+    const user = await getUserByEmail(identifier)
 
-		if (!user) {
-			throw new Error("No user Found with that Email address.");
-		}
+    if (!user) {
+      throw new Error("No user Found with that Email address.")
+    }
 
-		const passwordHash = await hashPassword(password);
+    const passwordHash = await hashPassword(password)
 
-		await db.transaction(async (tx) => {
-			await tx
-				.delete(passwordResetToken)
-				.where(eq(passwordResetToken.token, token));
+    await db.transaction(async (tx) => {
+      await tx
+        .delete(passwordResetToken)
+        .where(eq(passwordResetToken.token, token))
 
-			await tx
-				.update(users)
-				.set({
-					passwordHash,
-					...(!user.emailVerified && { emailVerified: new Date() }), // Mark the email as verified
-				})
-				.where(eq(users.id, user.id));
-		});
+      await tx
+        .update(users)
+        .set({
+          passwordHash,
+          ...(!user.emailVerified && { emailVerified: new Date() }) // Mark the email as verified
+        })
+        .where(eq(users.id, user.id))
+    })
 
-		await sendEmail({
-			subject: `Your QR Leaper account password has been reset`,
-			email: identifier,
-			react: PasswordUpdated({
-				verb: "reset",
-			}),
-		});
+    await sendEmail({
+      subject: `Your QR Leaper account password has been reset`,
+      email: identifier,
+      react: PasswordUpdated({
+        verb: "reset"
+      })
+    })
 
-		return { ok: true };
-	});
+    return { ok: true }
+  })

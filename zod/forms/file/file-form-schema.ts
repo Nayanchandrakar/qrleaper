@@ -1,29 +1,29 @@
-import { z } from "zod";
+import { z } from "zod"
 
-import { max_file_upload_size } from "@/constants/qr/file";
-import { idSchema, qrStyleSchema, qrTitleSchema } from "@/zod/utils";
+import { max_file_upload_size } from "@/constants/qr/file"
+import { idSchema, qrStyleSchema, qrTitleSchema } from "@/zod/utils"
 
 export const fileUploadFormSchema = z.object({
-	fileName: z.string().min(2).optional().nullable(),
-	id: idSchema.shape.id.optional().nullable(),
-	file: z
-		.custom<File>((value) => value instanceof File, { message: "Invalid file" })
-		.refine((file) => file.size <= max_file_upload_size, {
-			message: "File size must not exceed 20MB",
-		}),
-});
+  fileName: z.string().min(2).optional().nullable(),
+  id: idSchema.shape.id.optional().nullable(),
+  file: z
+    .custom<File>((value) => value instanceof File, { message: "Invalid file" })
+    .refine((file) => file.size <= max_file_upload_size, {
+      message: "File size must not exceed 20MB"
+    })
+})
 
-export type fileUploadFormSchemaType = z.infer<typeof fileUploadFormSchema>;
+export type fileUploadFormSchemaType = z.infer<typeof fileUploadFormSchema>
 
 export const fileFormSchema = z.object({
-	title: qrTitleSchema.shape.title,
-	fileName: z
-		.string()
-		.min(1, {
-			message: "Upload a file to proceed!",
-		})
-		.max(350),
-	style: qrStyleSchema,
-});
+  title: qrTitleSchema.shape.title,
+  fileName: z
+    .string()
+    .min(1, {
+      message: "Upload a file to proceed!"
+    })
+    .max(350),
+  style: qrStyleSchema
+})
 
-export type fileFormSchemaType = z.infer<typeof fileFormSchema>;
+export type fileFormSchemaType = z.infer<typeof fileFormSchema>

@@ -1,11 +1,11 @@
-import { GoogleDocsForm } from "@/components/forms/pages/design/google-docs/google-docs-form";
+import { GoogleDocsForm } from "@/components/forms/pages/design/google-docs/google-docs-form"
 
 export const metadata = {
-	title: "Create Google docs based QR Codes",
-};
+  title: "Create Google docs based QR Codes"
+}
 
 const GoogleDocsPage = () => {
-	return <GoogleDocsForm />;
-};
+  return <GoogleDocsForm />
+}
 
-export default GoogleDocsPage;
+export default GoogleDocsPage
