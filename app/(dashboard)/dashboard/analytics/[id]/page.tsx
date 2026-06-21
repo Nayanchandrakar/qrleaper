@@ -40,8 +40,8 @@ const AnalyticsPage = async ({ params }: AnalyticsPageProps) => {
     <Container className="my-8 sm:mt-12">
       <TotalScanCount
         count={scanData?.count || 0}
-        createdAt={scanData?.createdAt}
-        updatedAt={scanData?.updatedAt}
+        createdAt={scanData?.createdAt!}
+        updatedAt={scanData?.updatedAt!}
       />
       <AnalyticsReport id={qrCode.id} />
     </Container>

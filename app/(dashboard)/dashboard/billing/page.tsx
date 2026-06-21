@@ -22,7 +22,7 @@ const BillingPage = async () => {
     redirect("/login")
   }
 
-  const plan = subscriptionPlan(subscription?.stripePriceId)
+  const plan = subscriptionPlan(subscription?.stripePriceId!)
   const isPaid = !!(
     subscription?.stripePriceId &&
     isSubscriptionExpired(subscription?.stripeCurrentPeriodEnd)

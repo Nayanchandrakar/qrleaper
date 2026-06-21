@@ -24,7 +24,7 @@ const ShowVcardPage = async ({ params }: ShowVcardPageProps) => {
 
   const vCard = await getVCardQrCodeByqrCodeId(qrCode.id)
 
-  const TemplateComponent = getTemplateComponent(vCard?.templateId)
+  const TemplateComponent = getTemplateComponent(vCard?.templateId!)
 
   return <TemplateComponent vCard={vCard!} endpoint={qrCode.endpoint!} />
 }

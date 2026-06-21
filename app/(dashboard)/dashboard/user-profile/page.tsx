@@ -21,7 +21,7 @@ const UserProfilePage = async () => {
 
   return (
     <Container className="space-y-12 py-8">
-      <ProfileNameUpdateForm defaultName={session?.user?.name} />
+      <ProfileNameUpdateForm defaultName={session?.user?.name!} />
 
       {!!(
         userWithAccounData?.provider === null &&
@@ -32,7 +32,7 @@ const UserProfilePage = async () => {
         <UpdatePasswordForm />
       ) : (
         <RequestSetPassword
-          provider={userWithAccounData?.provider}
+          provider={userWithAccounData?.provider!}
           session={session}
         />
       )}

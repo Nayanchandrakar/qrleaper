@@ -9,7 +9,8 @@ import { stripe } from "@/lib/stripe"
 
 export async function POST(req: Request) {
   const body = await req.text()
-  const signature = headers().get("Stripe-Signature") as string
+  const header = await headers()
+  const signature = header.get("Stripe-Signature") as string
 
   let event: Stripe.Event
 
@@ -45,7 +46,7 @@ export async function POST(req: Request) {
         stripePriceId: subscription.items.data[0].price.id,
         stripeSubscriptionId: subscription.id
       })
-      .where(eq(subscriptionTable.userId, session?.metadata?.userId))
+      .where(eq(subscriptionTable.userId, session?.metadata?.userId!))
   }
 
   if (event.type === "invoice.payment_succeeded") {
@@ -75,7 +76,7 @@ export async function POST(req: Request) {
       // Need to change the status of qr codes after each update
       await updateQrCodeStatusWithSubscriptionChange(
         updatedSubscriptionData.userId,
-        updatedSubscriptionData?.stripePriceId
+        updatedSubscriptionData?.stripePriceId!
       )
     }
   }

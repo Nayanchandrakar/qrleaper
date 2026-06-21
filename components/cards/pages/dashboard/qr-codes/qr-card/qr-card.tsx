@@ -25,10 +25,10 @@ export const QrCard = ({ data }: QrCardProps) => {
         <div className="flex items-center justify-between gap-2">
           <Badge variant="clicks">
             <MousePointerClick className="mr-1 size-4" />
-            {clicksFormatter(data?.qr_scan_count?.count)} clicks
+            {clicksFormatter(data?.qr_scan_count?.count!)} clicks
           </Badge>
 
-          <QrStatusBadge status={data?.qr_code?.status} />
+          <QrStatusBadge status={data?.qr_code?.status!} />
         </div>
       </CardHeader>
       <CardFooterButton qrCode={data?.qr_code} />

@@ -49,7 +49,7 @@ const groupDataByDate = (data: qrAnayticsType[]) => {
 
   data?.forEach((device) => {
     const deviceType = device?.deviceType || "Unknown"
-    const date = device?.updatedAt?.toDateString()
+    const date = device?.updatedAt?.toDateString() as string
 
     if (!groupedData.has(date!)) {
       groupedData.set(date!, { date, desktop: 0, mobile: 0, other: 0 })
@@ -57,9 +57,12 @@ const groupDataByDate = (data: qrAnayticsType[]) => {
 
     const groupedEntry = groupedData.get(date!)
 
-    groupedEntry.desktop += deviceType === "Desktop" ? device?.count : 0
-    groupedEntry.mobile += deviceType === "Mobile" ? device?.count : 0
-    groupedEntry.other += deviceType === "Unknown" ? device?.count : 0
+    if (groupedEntry) {
+      groupedEntry.desktop +=
+        deviceType === "Desktop" ? (device?.count ?? 0) : 0
+      groupedEntry.mobile += deviceType === "Mobile" ? (device?.count ?? 0) : 0
+      groupedEntry.other += deviceType === "Unknown" ? (device?.count ?? 0) : 0
+    }
   })
 
   return Array.from(groupedData.values())

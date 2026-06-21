@@ -48,7 +48,7 @@ export const updatePasswordAction = authUserActionClient
 
       sendEmail({
         subject: `Your QR Leaper account password has been updated`,
-        email: ctx?.user?.email,
+        email: ctx?.user?.email!,
         react: PasswordUpdated({})
       })
     ])

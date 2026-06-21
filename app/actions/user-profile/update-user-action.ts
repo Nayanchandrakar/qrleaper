@@ -26,6 +26,6 @@ export const updateUserAction = authUserActionClient
       .set({
         name
       })
-      .where(eq(users.id, ctx?.user?.id))
+      .where(eq(users.id, ctx?.user?.id!))
     return { ok: true }
   })

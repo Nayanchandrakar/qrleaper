@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 import type { SessionType } from "@/types/type"
 
 interface RequestSetPasswordProps {
-  provider: string
+  provider: string | null
   session: SessionType
 }
 

@@ -21,7 +21,7 @@ const PricingPage = async () => {
       <Icons.gridPattern className="fixed inset-0 z-[-1]" />
       <PricingComponent
         subscriptionPlan={subscriptionPlan!}
-        userId={session?.user?.id}
+        userId={session?.user?.id!}
       />
     </section>
   )

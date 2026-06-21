@@ -31,10 +31,10 @@ export const setPasswordAction = authUserActionClient.action(
     await Promise.all([
       db
         .delete(passwordResetToken)
-        .where(eq(passwordResetToken.identifier, user?.email)),
+        .where(eq(passwordResetToken.identifier, user?.email!)),
 
       db.insert(passwordResetToken).values({
-        identifier: user?.email,
+        identifier: user?.email!,
         token,
         expires: new Date(Date.now() + PASSWORD_RESET_TOKEN_EXPIRY * 1000)
       })
@@ -48,7 +48,7 @@ export const setPasswordAction = authUserActionClient.action(
     } else {
       await sendEmail({
         subject: `QR Leaper: Password reset instructions`,
-        email: user?.email,
+        email: user?.email!,
         react: ResetPasswordLink({
           url: `${process.env.APP_URL}/reset-password/${token}`
         })
