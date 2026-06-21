@@ -40,7 +40,7 @@ export const linkMiddleware = async (req: NextRequest) => {
   const subscription = await getSubscriptionByUserId(qrCode?.userId)
 
   // check for subscription expiry here
-  if (!isSubscriptionExpiredEdge(subscription?.stripeCurrentPeriodEnd)) {
+  if (!isSubscriptionExpiredEdge(subscription?.stripeCurrentPeriodEnd!)) {
     return redirectTo(nextUrl, "/expired")
   }
 
@@ -51,13 +51,13 @@ export const linkMiddleware = async (req: NextRequest) => {
     !subscription?.stripeSubscriptionId
   ) {
     const qrScanCount = await getQrScanCountById(qrCode?.id)
-    const count = qrScanCount?.count + 1
+    const count = qrScanCount?.count! + 1
 
     if (count === 500) {
       const user = await getUserById(qrCode?.userId)
 
       await sendEmail({
-        email: user?.email,
+        email: user?.email!,
         react: QrCodeLimitReached({
           url: `${process.env.APP_URL}/pricing`
         }),
@@ -87,5 +87,5 @@ export const linkMiddleware = async (req: NextRequest) => {
     return redirectTo(nextUrl)
   }
 
-  return handleFinalRedirect(nextUrl, qrCode?.endpoint, qrCode?.type)
+  return handleFinalRedirect(nextUrl, qrCode?.endpoint!, qrCode?.type)
 }
