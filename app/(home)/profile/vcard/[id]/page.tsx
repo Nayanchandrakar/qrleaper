@@ -1,32 +1,32 @@
-import { redirect } from "next/navigation";
+import { redirect } from "next/navigation"
 
-import { getQrCodeById, getVCardQrCodeByqrCodeId } from "@/app/actions/utils";
-import { getTemplateComponent } from "@/utils/pages/design/vcard";
+import { getQrCodeById, getVCardQrCodeByqrCodeId } from "@/app/actions/utils"
+import { getTemplateComponent } from "@/utils/pages/design/vcard"
 
 export const metadata = {
-	title: "QR Leapers User Profile Page",
-};
+  title: "QR Leapers User Profile Page"
+}
 
 interface ShowVcardPageProps {
-	params: {
-		id: string;
-	};
+  params: {
+    id: string
+  }
 }
 
 const ShowVcardPage = async ({ params }: ShowVcardPageProps) => {
-	if (!params.id) redirect("/design");
+  if (!params.id) redirect("/design")
 
-	const qrCode = await getQrCodeById(params.id);
+  const qrCode = await getQrCodeById(params.id)
 
-	if (!qrCode) redirect("/design");
+  if (!qrCode) redirect("/design")
 
-	if (qrCode.status === "inactive") redirect("/expired");
+  if (qrCode.status === "inactive") redirect("/expired")
 
-	const vCard = await getVCardQrCodeByqrCodeId(qrCode.id);
+  const vCard = await getVCardQrCodeByqrCodeId(qrCode.id)
 
-	const TemplateComponent = getTemplateComponent(vCard?.templateId!);
+  const TemplateComponent = getTemplateComponent(vCard?.templateId!)
 
-	return <TemplateComponent vCard={vCard!} endpoint={qrCode.endpoint!} />;
-};
+  return <TemplateComponent vCard={vCard!} endpoint={qrCode.endpoint!} />
+}
 
-export default ShowVcardPage;
+export default ShowVcardPage

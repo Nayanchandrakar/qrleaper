@@ -1,5 +1,5 @@
 export const setValueConfig = {
-	shouldValidate: true,
-	shouldDirty: true,
-	shouldTouch: true,
-};
+  shouldValidate: true,
+  shouldDirty: true,
+  shouldTouch: true
+}

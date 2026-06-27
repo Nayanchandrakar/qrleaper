@@ -1,34 +1,36 @@
-"use client";
+"use client"
 
-import { cn } from "@/lib/utils";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { type ReactNode, useCallback } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { type ReactNode, useCallback } from "react"
+
+import { cn } from "@/lib/utils"
+
 import {
-	Pagination,
-	PaginationContent,
-	PaginationEllipsis,
-	PaginationItem,
-	PaginationLink,
-	PaginationNext,
-	PaginationPrevious,
-} from "./pagination";
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious
+} from "./pagination"
 import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "./select";
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from "./select"
 
 export interface PaginationWithLinksProps {
-	pageSizeSelectOptions?: {
-		pageSizeSearchParam?: string;
-		pageSizeOptions: number[];
-	};
-	totalCount: number;
-	pageSize: number;
-	page: number;
-	pageSearchParam?: string;
+  pageSizeSelectOptions?: {
+    pageSizeSearchParam?: string
+    pageSizeOptions: number[]
+  }
+  totalCount: number
+  pageSize: number
+  page: number
+  pageSearchParam?: string
 }
 
 /**
@@ -44,180 +46,186 @@ export interface PaginationWithLinksProps {
  * ```
  */
 export function PaginationWithLinks({
-	pageSizeSelectOptions,
-	pageSize,
-	totalCount,
-	page,
-	pageSearchParam,
+  pageSizeSelectOptions,
+  pageSize,
+  totalCount,
+  page,
+  pageSearchParam
 }: PaginationWithLinksProps) {
-	const router = useRouter();
-	const pathname = usePathname();
-	const searchParams = useSearchParams();
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
 
-	const totalPageCount = Math.ceil(totalCount / pageSize);
+  const totalPageCount = Math.ceil(totalCount / pageSize)
 
-	const buildLink = useCallback(
-		(newPage: number) => {
-			const key = pageSearchParam || "page";
-			if (!searchParams) return `${pathname}?${key}=${newPage}`;
-			const newSearchParams = new URLSearchParams(searchParams);
-			newSearchParams.set(key, String(newPage));
-			return `${pathname}?${newSearchParams.toString()}`;
-		},
-		[searchParams, pathname, pageSearchParam],
-	);
+  const buildLink = useCallback(
+    (newPage: number) => {
+      const key = pageSearchParam || "page"
+      if (!searchParams) return `${pathname}?${key}=${newPage}`
+      const newSearchParams = new URLSearchParams(searchParams)
+      newSearchParams.set(key, String(newPage))
+      return `${pathname}?${newSearchParams.toString()}`
+    },
+    [searchParams, pathname, pageSearchParam]
+  )
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies:
-	const navToPageSize = useCallback(
-		(newPageSize: number) => {
-			const key = pageSizeSelectOptions?.pageSizeSearchParam || "pageSize";
-			const newSearchParams = new URLSearchParams(searchParams || undefined);
-			newSearchParams.set(key, String(newPageSize));
-			newSearchParams.delete(pageSearchParam || "page"); // Clear the page number when changing page size
-			router.push(`${pathname}?${newSearchParams.toString()}`);
-		},
-		[searchParams, pathname],
-	);
+  // oxlint-disable-next-line react/exhaustive-deps -- pageSearchParam and router are stable refs from props/hooks
+  const navToPageSize = useCallback(
+    (newPageSize: number) => {
+      const key = pageSizeSelectOptions?.pageSizeSearchParam || "pageSize"
+      const newSearchParams = new URLSearchParams(searchParams || undefined)
+      newSearchParams.set(key, String(newPageSize))
+      newSearchParams.delete(pageSearchParam || "page") // Clear the page number when changing page size
+      router.push(`${pathname}?${newSearchParams.toString()}`)
+    },
+    [
+      searchParams,
+      pathname,
+      pageSearchParam,
+      pageSizeSelectOptions?.pageSizeSearchParam,
+      router
+    ]
+  )
 
-	const renderPageNumbers = () => {
-		const items: ReactNode[] = [];
-		const maxVisiblePages = 5;
+  const renderPageNumbers = () => {
+    const items: ReactNode[] = []
+    const maxVisiblePages = 5
 
-		if (totalPageCount <= maxVisiblePages) {
-			for (let i = 1; i <= totalPageCount; i++) {
-				items.push(
-					<PaginationItem key={i}>
-						<PaginationLink href={buildLink(i)} isActive={page === i}>
-							{i}
-						</PaginationLink>
-					</PaginationItem>,
-				);
-			}
-		} else {
-			items.push(
-				<PaginationItem key={1}>
-					<PaginationLink href={buildLink(1)} isActive={page === 1}>
-						1
-					</PaginationLink>
-				</PaginationItem>,
-			);
+    if (totalPageCount <= maxVisiblePages) {
+      for (let i = 1; i <= totalPageCount; i++) {
+        items.push(
+          <PaginationItem key={i}>
+            <PaginationLink href={buildLink(i)} isActive={page === i}>
+              {i}
+            </PaginationLink>
+          </PaginationItem>
+        )
+      }
+    } else {
+      items.push(
+        <PaginationItem key={1}>
+          <PaginationLink href={buildLink(1)} isActive={page === 1}>
+            1
+          </PaginationLink>
+        </PaginationItem>
+      )
 
-			if (page > 3) {
-				items.push(
-					<PaginationItem key="ellipsis-start">
-						<PaginationEllipsis />
-					</PaginationItem>,
-				);
-			}
+      if (page > 3) {
+        items.push(
+          <PaginationItem key="ellipsis-start">
+            <PaginationEllipsis />
+          </PaginationItem>
+        )
+      }
 
-			const start = Math.max(2, page - 1);
-			const end = Math.min(totalPageCount - 1, page + 1);
+      const start = Math.max(2, page - 1)
+      const end = Math.min(totalPageCount - 1, page + 1)
 
-			for (let i = start; i <= end; i++) {
-				items.push(
-					<PaginationItem key={i}>
-						<PaginationLink href={buildLink(i)} isActive={page === i}>
-							{i}
-						</PaginationLink>
-					</PaginationItem>,
-				);
-			}
+      for (let i = start; i <= end; i++) {
+        items.push(
+          <PaginationItem key={i}>
+            <PaginationLink href={buildLink(i)} isActive={page === i}>
+              {i}
+            </PaginationLink>
+          </PaginationItem>
+        )
+      }
 
-			if (page < totalPageCount - 2) {
-				items.push(
-					<PaginationItem key="ellipsis-end">
-						<PaginationEllipsis />
-					</PaginationItem>,
-				);
-			}
+      if (page < totalPageCount - 2) {
+        items.push(
+          <PaginationItem key="ellipsis-end">
+            <PaginationEllipsis />
+          </PaginationItem>
+        )
+      }
 
-			items.push(
-				<PaginationItem key={totalPageCount}>
-					<PaginationLink
-						href={buildLink(totalPageCount)}
-						isActive={page === totalPageCount}
-					>
-						{totalPageCount}
-					</PaginationLink>
-				</PaginationItem>,
-			);
-		}
+      items.push(
+        <PaginationItem key={totalPageCount}>
+          <PaginationLink
+            href={buildLink(totalPageCount)}
+            isActive={page === totalPageCount}
+          >
+            {totalPageCount}
+          </PaginationLink>
+        </PaginationItem>
+      )
+    }
 
-		return items;
-	};
+    return items
+  }
 
-	return (
-		<div className="mt-12 flex w-full flex-col items-center gap-3 md:flex-row">
-			{pageSizeSelectOptions && (
-				<div className="flex flex-1 flex-col gap-4">
-					<SelectRowsPerPage
-						options={pageSizeSelectOptions.pageSizeOptions}
-						setPageSize={navToPageSize}
-						pageSize={pageSize}
-					/>
-				</div>
-			)}
-			<Pagination className={cn({ "md:justify-end": pageSizeSelectOptions })}>
-				<PaginationContent className="max-sm:gap-0">
-					<PaginationItem>
-						<PaginationPrevious
-							href={buildLink(Math.max(page - 1, 1))}
-							aria-disabled={page === 1}
-							tabIndex={page === 1 ? -1 : undefined}
-							className={
-								page === 1 ? "pointer-events-none opacity-50" : undefined
-							}
-						/>
-					</PaginationItem>
-					{renderPageNumbers()}
-					<PaginationItem>
-						<PaginationNext
-							href={buildLink(Math.min(page + 1, totalPageCount))}
-							aria-disabled={page === totalPageCount}
-							tabIndex={page === totalPageCount ? -1 : undefined}
-							className={
-								page === totalPageCount
-									? "pointer-events-none opacity-50"
-									: undefined
-							}
-						/>
-					</PaginationItem>
-				</PaginationContent>
-			</Pagination>
-		</div>
-	);
+  return (
+    <div className="mt-12 flex w-full flex-col items-center gap-3 md:flex-row">
+      {pageSizeSelectOptions && (
+        <div className="flex flex-1 flex-col gap-4">
+          <SelectRowsPerPage
+            options={pageSizeSelectOptions.pageSizeOptions}
+            setPageSize={navToPageSize}
+            pageSize={pageSize}
+          />
+        </div>
+      )}
+      <Pagination className={cn({ "md:justify-end": pageSizeSelectOptions })}>
+        <PaginationContent className="max-sm:gap-0">
+          <PaginationItem>
+            <PaginationPrevious
+              href={buildLink(Math.max(page - 1, 1))}
+              aria-disabled={page === 1}
+              tabIndex={page === 1 ? -1 : undefined}
+              className={
+                page === 1 ? "pointer-events-none opacity-50" : undefined
+              }
+            />
+          </PaginationItem>
+          {renderPageNumbers()}
+          <PaginationItem>
+            <PaginationNext
+              href={buildLink(Math.min(page + 1, totalPageCount))}
+              aria-disabled={page === totalPageCount}
+              tabIndex={page === totalPageCount ? -1 : undefined}
+              className={
+                page === totalPageCount
+                  ? "pointer-events-none opacity-50"
+                  : undefined
+              }
+            />
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
+    </div>
+  )
 }
 
 function SelectRowsPerPage({
-	options,
-	setPageSize,
-	pageSize,
+  options,
+  setPageSize,
+  pageSize
 }: {
-	options: number[];
-	setPageSize: (newSize: number) => void;
-	pageSize: number;
+  options: number[]
+  setPageSize: (newSize: number) => void
+  pageSize: number
 }) {
-	return (
-		<div className="flex items-center gap-4">
-			<span className="whitespace-nowrap text-sm">Rows per page</span>
+  return (
+    <div className="flex items-center gap-4">
+      <span className="whitespace-nowrap text-sm">Rows per page</span>
 
-			<Select
-				value={String(pageSize)}
-				onValueChange={(value) => setPageSize(Number(value))}
-			>
-				<SelectTrigger>
-					<SelectValue placeholder="Select page size">
-						{String(pageSize)}
-					</SelectValue>
-				</SelectTrigger>
-				<SelectContent>
-					{options.map((option) => (
-						<SelectItem key={option} value={String(option)}>
-							{option}
-						</SelectItem>
-					))}
-				</SelectContent>
-			</Select>
-		</div>
-	);
+      <Select
+        value={String(pageSize)}
+        onValueChange={(value) => setPageSize(Number(value))}
+      >
+        <SelectTrigger>
+          <SelectValue placeholder="Select page size">
+            {String(pageSize)}
+          </SelectValue>
+        </SelectTrigger>
+        <SelectContent>
+          {options.map((option) => (
+            <SelectItem key={option} value={String(option)}>
+              {option}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </div>
+  )
 }

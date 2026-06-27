@@ -1,11 +1,11 @@
-import { MessageForm } from "@/components/forms/pages/design/message/message-form";
+import { MessageForm } from "@/components/forms/pages/design/message/message-form"
 
 export const metadata = {
-	title: "Create Message based QR Codes",
-};
+  title: "Create Message based QR Codes"
+}
 
 const MessagePage = () => {
-	return <MessageForm />;
-};
+  return <MessageForm />
+}
 
-export default MessagePage;
+export default MessagePage

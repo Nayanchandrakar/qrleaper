@@ -1,7 +1,8 @@
-import { idSchema } from "@/zod/utils";
-import { z } from "zod";
+import { z } from "zod"
+
+import { idSchema } from "@/zod/utils"
 
 export const generateStripeSchema = z.object({
-	priceId: idSchema.shape.id,
-	optionalEndpoint: z.string().optional(),
-});
+  priceId: idSchema.shape.id,
+  optionalEndpoint: z.string().optional()
+})

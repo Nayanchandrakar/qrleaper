@@ -1,61 +1,61 @@
-import { redirect } from "next/navigation";
+import { redirect } from "next/navigation"
 
 import {
-	getMessageQrStyleAndDataByQrCodeId,
-	getQrCodeByUserIdAndIdWithType,
-} from "@/app/actions/utils";
-import { MessageEditForm } from "@/components/forms/pages/edit/message/message-edit-form";
-import { auth } from "@/lib/auth/auth";
-import { getEndpointURL } from "@/utils";
+  getMessageQrStyleAndDataByQrCodeId,
+  getQrCodeByUserIdAndIdWithType
+} from "@/app/actions/utils"
+import { MessageEditForm } from "@/components/forms/pages/edit/message/message-edit-form"
+import { auth } from "@/lib/auth/auth"
+import { getEndpointURL } from "@/utils"
 
 // Site metadata
 export const metadata = {
-	title: "Edit Message based QR Codes",
-};
+  title: "Edit Message based QR Codes"
+}
 
 interface MessageEditPageProps {
-	params: {
-		id: string;
-	};
+  params: {
+    id: string
+  }
 }
 
 const MessageEditPage = async ({ params }: MessageEditPageProps) => {
-	if (!params.id) redirect("/design");
+  if (!params.id) redirect("/design")
 
-	const session = await auth();
+  const session = await auth()
 
-	if (!session?.user?.id) redirect("/login");
+  if (!session?.user?.id) redirect("/login")
 
-	const data = await getQrCodeByUserIdAndIdWithType(
-		session.user.id,
-		params.id,
-		"message",
-	);
+  const data = await getQrCodeByUserIdAndIdWithType(
+    session.user.id,
+    params.id,
+    "message"
+  )
 
-	if (!data) redirect("/design");
+  if (!data) redirect("/design")
 
-	const qrStyleAndMessageData = await getMessageQrStyleAndDataByQrCodeId(
-		data.id,
-	);
+  const qrStyleAndMessageData = await getMessageQrStyleAndDataByQrCodeId(
+    data.id
+  )
 
-	const qrCode = {
-		id: data.id,
-		title: data.title ?? "",
-		message: qrStyleAndMessageData?.message.message ?? "",
-		phoneNumber: qrStyleAndMessageData?.message.phoneNumber ?? "",
-		style: {
-			bottomInput: qrStyleAndMessageData?.style.bottomText ?? "",
-			image: qrStyleAndMessageData?.style.logo ?? "",
-			topInput: qrStyleAndMessageData?.style.topText ?? "",
-			colors: qrStyleAndMessageData?.style.colors ?? [""],
-			colorType: qrStyleAndMessageData?.style.colorType ?? "linear",
-			rotation: qrStyleAndMessageData?.style.rotation ?? 0,
-			hasFrame: !!qrStyleAndMessageData?.style.hasFrame,
-			shape: qrStyleAndMessageData?.style.shape ?? "square",
-		},
-	};
+  const qrCode = {
+    id: data.id,
+    title: data.title ?? "",
+    message: qrStyleAndMessageData?.message.message ?? "",
+    phoneNumber: qrStyleAndMessageData?.message.phoneNumber ?? "",
+    style: {
+      bottomInput: qrStyleAndMessageData?.style.bottomText ?? "",
+      image: qrStyleAndMessageData?.style.logo ?? "",
+      topInput: qrStyleAndMessageData?.style.topText ?? "",
+      colors: qrStyleAndMessageData?.style.colors ?? [""],
+      colorType: qrStyleAndMessageData?.style.colorType ?? "linear",
+      rotation: qrStyleAndMessageData?.style.rotation ?? 0,
+      hasFrame: !!qrStyleAndMessageData?.style.hasFrame,
+      shape: qrStyleAndMessageData?.style.shape ?? "square"
+    }
+  }
 
-	return <MessageEditForm qrCode={qrCode} endpoint={getEndpointURL(data.id)} />;
-};
+  return <MessageEditForm qrCode={qrCode} endpoint={getEndpointURL(data.id)} />
+}
 
-export default MessageEditPage;
+export default MessageEditPage
