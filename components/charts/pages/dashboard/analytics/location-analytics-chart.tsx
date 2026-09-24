@@ -85,7 +85,9 @@ export const LocationAnalyticsChart = ({
               cursor={false}
               content={
                 <ChartTooltipContent
-                  labelFormatter={(value) => COUNTRIES[value] || "Unknown"}
+                  labelFormatter={(value) =>
+                    COUNTRIES[value as string] || "Unknown"
+                  }
                   indicator="dashed"
                 />
               }

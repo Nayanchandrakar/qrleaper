@@ -14,13 +14,15 @@ export const metadata = {
 }
 
 interface InstagramEditPageProps {
-  params: {
+  params: Promise<{
     id: string
-  }
+  }>
 }
 
 const InstagramEditPage = async ({ params }: InstagramEditPageProps) => {
-  if (!params.id) redirect("/design")
+  const { id } = await params
+
+  if (!id) redirect("/design")
 
   const session = await auth()
 
@@ -28,7 +30,7 @@ const InstagramEditPage = async ({ params }: InstagramEditPageProps) => {
 
   const data = await getQrCodeByUserIdAndIdWithType(
     session.user.id,
-    params.id,
+    id,
     "instagram"
   )
 

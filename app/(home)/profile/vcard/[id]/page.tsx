@@ -8,15 +8,17 @@ export const metadata = {
 }
 
 interface ShowVcardPageProps {
-  params: {
+  params: Promise<{
     id: string
-  }
+  }>
 }
 
 const ShowVcardPage = async ({ params }: ShowVcardPageProps) => {
-  if (!params.id) redirect("/design")
+  const { id } = await params
 
-  const qrCode = await getQrCodeById(params.id)
+  if (!id) redirect("/design")
+
+  const qrCode = await getQrCodeById(id)
 
   if (!qrCode) redirect("/design")
 

@@ -15,13 +15,15 @@ export const metadata = {
 }
 
 interface VcardEditPageProps {
-  params: {
+  params: Promise<{
     id: string
-  }
+  }>
 }
 
 const VcardEditPage = async ({ params }: VcardEditPageProps) => {
-  if (!params.id) redirect("/design")
+  const { id } = await params
+
+  if (!id) redirect("/design")
 
   const session = await auth()
 
@@ -29,7 +31,7 @@ const VcardEditPage = async ({ params }: VcardEditPageProps) => {
 
   const data = await getQrCodeByUserIdAndIdWithType(
     session.user.id,
-    params.id,
+    id,
     "vcard"
   )
 

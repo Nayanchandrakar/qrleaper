@@ -81,12 +81,13 @@ export const DateSelectPopover = ({ isExecuting }: DateSelectPopoverProps) => {
         <PopoverContent className="p-2">
           <div className="w-full">
             <Calendar
-              initialFocus
+              autoFocus
               mode="range"
               defaultMonth={selectDateRange?.from}
               selected={selectDateRange}
-              // @ts-expect-error third-party type mismatch
-              onSelect={setSelectDateRange}
+              onSelect={(range) =>
+                setSelectDateRange(range ?? { from: undefined })
+              }
               numberOfMonths={1}
               max={91}
               disabled={(date) => dayjs(date)?.isAfter(dayjs(), "day")}

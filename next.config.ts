@@ -1,4 +1,4 @@
-/** @type {import('next').NextConfig} */
+import type { NextConfig } from "next"
 
 const nextConfig = {
   typescript: {
@@ -34,6 +34,6 @@ const nextConfig = {
       }
     ]
   }
-}
+} satisfies NextConfig
 
 export default nextConfig

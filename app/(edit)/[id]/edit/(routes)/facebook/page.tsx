@@ -14,13 +14,15 @@ export const metadata = {
 }
 
 interface FacebookEditPageProps {
-  params: {
+  params: Promise<{
     id: string
-  }
+  }>
 }
 
 const FacebookEditPage = async ({ params }: FacebookEditPageProps) => {
-  if (!params.id) redirect("/design")
+  const { id } = await params
+
+  if (!id) redirect("/design")
 
   const session = await auth()
 
@@ -28,7 +30,7 @@ const FacebookEditPage = async ({ params }: FacebookEditPageProps) => {
 
   const data = await getQrCodeByUserIdAndIdWithType(
     session.user.id,
-    params.id,
+    id,
     "facebook"
   )
 

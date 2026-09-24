@@ -15,14 +15,20 @@ export const metadata = {
   title: "Explore Your QR Codes"
 }
 interface QrCodePageProps {
-  searchParams: {
+  searchParams: Promise<{
     page: string
     pageSize: string
-  }
+  }>
 }
 
-const QrCodePage = async ({ searchParams }: QrCodePageProps) => {
-  const session = await auth()
+const QrCodePage = async ({
+  searchParams: searchParamsPromise
+}: QrCodePageProps) => {
+  const [session, searchParams] = await Promise.all([
+    auth(),
+    searchParamsPromise
+  ])
+
   if (!session?.user?.id) redirect("/login")
 
   const page = Number.parseInt(searchParams.page || "1")

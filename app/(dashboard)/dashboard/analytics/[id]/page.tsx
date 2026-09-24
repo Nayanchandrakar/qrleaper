@@ -14,13 +14,15 @@ export const metadata = {
 }
 
 interface AnalyticsPageProps {
-  params: {
+  params: Promise<{
     id: string
-  }
+  }>
 }
 
 const AnalyticsPage = async ({ params }: AnalyticsPageProps) => {
-  if (!params.id) redirect("/dashboard/qr-codes")
+  const { id } = await params
+
+  if (!id) redirect("/dashboard/qr-codes")
 
   const session = await auth()
 
@@ -28,7 +30,7 @@ const AnalyticsPage = async ({ params }: AnalyticsPageProps) => {
 
   const qrCode = await getQrCodeByUserIdAndStatusType(
     session.user.id,
-    params.id!,
+    id,
     "active"
   )
 

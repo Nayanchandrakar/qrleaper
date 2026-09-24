@@ -14,13 +14,15 @@ export const metadata = {
 }
 
 interface YoutubeEditPageProps {
-  params: {
+  params: Promise<{
     id: string
-  }
+  }>
 }
 
 const YoutubeEditPage = async ({ params }: YoutubeEditPageProps) => {
-  if (!params.id) redirect("/design")
+  const { id } = await params
+
+  if (!id) redirect("/design")
 
   const session = await auth()
 
@@ -28,7 +30,7 @@ const YoutubeEditPage = async ({ params }: YoutubeEditPageProps) => {
 
   const data = await getQrCodeByUserIdAndIdWithType(
     session.user.id,
-    params.id,
+    id,
     "youtube"
   )
 

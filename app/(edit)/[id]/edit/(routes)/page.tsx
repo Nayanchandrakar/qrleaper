@@ -14,23 +14,21 @@ export const metadata = {
 }
 
 interface DesignEditPageProps {
-  params: {
+  params: Promise<{
     id: string
-  }
+  }>
 }
 
 const DesignEditPage = async ({ params }: DesignEditPageProps) => {
-  if (!params.id) redirect("/design")
+  const { id } = await params
+
+  if (!id) redirect("/design")
 
   const session = await auth()
 
   if (!session?.user?.id) redirect("/login")
 
-  const data = await getQrCodeByUserIdAndIdWithType(
-    session.user.id,
-    params.id,
-    "link"
-  )
+  const data = await getQrCodeByUserIdAndIdWithType(session.user.id, id, "link")
 
   if (!data) redirect("/design")
 

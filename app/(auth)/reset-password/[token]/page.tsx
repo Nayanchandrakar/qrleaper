@@ -3,9 +3,9 @@ import { ResetPasswordForm } from "@/components/forms/auth/reset-password/reset-
 import { NullComponent } from "@/components/pages/auth/null-page/null-component"
 
 interface ResetPasswordPageProps {
-  params: {
+  params: Promise<{
     token: string
-  }
+  }>
 }
 
 export const metadata = {
@@ -13,11 +13,13 @@ export const metadata = {
 }
 
 const ResetPasswordPage = async ({ params }: ResetPasswordPageProps) => {
-  if (!params?.token) return null
+  const { token } = await params
 
-  const token = await isValidToken(params.token)
+  if (!token) return null
 
-  if (!token) {
+  const validToken = await isValidToken(token)
+
+  if (!validToken) {
     return (
       <NullComponent
         title="Invalid Reset Token"
@@ -26,7 +28,7 @@ const ResetPasswordPage = async ({ params }: ResetPasswordPageProps) => {
     )
   }
 
-  return <ResetPasswordForm token={token} />
+  return <ResetPasswordForm token={validToken} />
 }
 
 export default ResetPasswordPage

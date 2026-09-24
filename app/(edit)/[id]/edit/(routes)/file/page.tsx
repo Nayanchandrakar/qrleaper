@@ -14,23 +14,21 @@ export const metadata = {
 }
 
 interface FileEditPageProps {
-  params: {
+  params: Promise<{
     id: string
-  }
+  }>
 }
 
 const FileEditPage = async ({ params }: FileEditPageProps) => {
-  if (!params.id) redirect("/design")
+  const { id } = await params
+
+  if (!id) redirect("/design")
 
   const session = await auth()
 
   if (!session?.user?.id) redirect("/login")
 
-  const data = await getQrCodeByUserIdAndIdWithType(
-    session.user.id,
-    params.id,
-    "file"
-  )
+  const data = await getQrCodeByUserIdAndIdWithType(session.user.id, id, "file")
 
   if (!data) redirect("/design")
 

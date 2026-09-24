@@ -1,9 +1,9 @@
 import type { NextURL } from "next/dist/server/web/next-url"
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 
 import type { qrType } from "@/types/db-types"
 
-export const redirectTo = (nextURL: NextURL, path?: string) => {
+export const redirectTo = (nextURL: NextRequest["nextUrl"], path?: string) => {
   return NextResponse.redirect(new URL(path ?? "/design", nextURL))
 }
 
