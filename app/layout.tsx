@@ -21,7 +21,7 @@ export default async function RootLayout({
   const session = await auth()
 
   return (
-    <html lang="en">
+    <html lang="en" data-scroll-behavior="smooth">
       <SessionProvider>
         <body className={`${font.className} antialiased`}>
           <Navbar session={session} />
