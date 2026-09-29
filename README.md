@@ -1,4 +1,4 @@
-# QR Leaper
+<img width="1920" height="1080" alt="qrleaper-demo" src="https://github.com/user-attachments/assets/42f4287e-31a3-4761-ac80-c891d58e78a1" />
 
 QR Leaper is a full-stack SaaS application for **dynamic QR codes** - QR codes whose destination can be changed after they have been printed. Users design branded codes, point them at links, files, SMS, email, social profiles, or digital business cards (vCards), and track every scan with device and location analytics.
 
